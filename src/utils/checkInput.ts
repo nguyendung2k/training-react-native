@@ -16,4 +16,6 @@ export const checkInputTest = Yup.object({
     gender: Yup.string().required('Gender is Required'),
     birth_year: Yup.string().required('Birth year is Required'),
     introductionCode: Yup.string().required('Introduction Code is Required'),
+    profession: Yup.string().required('Profession is Required'),
+    introduction: Yup.string().required('Introduction is Required'),
 })

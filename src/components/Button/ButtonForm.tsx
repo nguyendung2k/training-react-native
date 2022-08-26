@@ -7,24 +7,35 @@ interface btnProps {
     style?: any
     secondary?: boolean
     tertiary?: boolean
+    quaternary?: boolean
+    disable?: boolean
     Icon?: () => JSX.Element
     onPress?: () => void | undefined
+    disabled?: boolean
 }
 
 export default function ButtonForm({
     label,
     style,
     secondary,
+    tertiary,
+    quaternary,
+    disable,
+    disabled,
     onPress,
     Icon,
 }: btnProps) {
     return (
         <View>
             <TouchableOpacity
+                disabled={disabled}
                 style={[
                     styles.btn,
                     styles.btn_Primary,
                     secondary && styles.btn_Secondary,
+                    tertiary && styles.btn_Tertiary,
+                    quaternary && styles.btn_Quaternary,
+                    disable && styles.btn_Disable,
                     style,
                 ]}
                 onPress={onPress}
@@ -33,7 +44,9 @@ export default function ButtonForm({
                     style={[
                         styles.text,
                         styles.textLogin,
-                        secondary && styles.textBackLogin,
+                        tertiary && styles.textAddNew,
+                        quaternary && styles.textNext,
+                        disable && styles.txtDisable,
                     ]}
                 >
                     {label}
@@ -64,7 +77,23 @@ const styles = StyleSheet.create({
         borderColor: COLORS.Neutral8,
         borderWidth: 2,
     },
-
+    btn_Tertiary: {
+        borderStyle: 'dotted',
+        borderWidth: 2,
+        borderColor: COLORS.Neutral4,
+        backgroundColor: COLORS.White,
+    },
+    btn_Quaternary: {
+        borderRadius: BORDER.base,
+        borderColor: COLORS.Primary,
+        backgroundColor: COLORS.White,
+        borderWidth: 2,
+    },
+    btn_Disable: {
+        backgroundColor: COLORS.White,
+        borderColor: COLORS.Neutral4,
+        borderWidth: 2,
+    },
     text: {
         fontSize: SIZES.large,
         fontWeight: '800',
@@ -75,5 +104,20 @@ const styles = StyleSheet.create({
     },
     textBackLogin: {
         color: COLORS.Neutral8,
+    },
+    textAddNew: {
+        color: COLORS.Neutral4,
+        fontSize: SIZES.medium,
+    },
+    textNext: {
+        color: COLORS.Primary,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+    },
+    txtDisable: {
+        color: COLORS.Neutral3,
+    },
+    icon: {
+        fontSize: SIZES.medium,
     },
 })

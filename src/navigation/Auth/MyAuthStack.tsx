@@ -7,6 +7,8 @@ import Login from '../../screens/Login'
 import ForgotPassword from '../../screens/ForgotPassword'
 import ResetPassword from '../../screens/ResetPassword'
 import ResetSuccessfully from '../../screens/ResetSuccessfully'
+import ListCommunity from '../../screens/ListCommunity'
+import RegisterEnd from '../../screens/RegisterEnd'
 
 const AuthStack = createNativeStackNavigator()
 
@@ -27,6 +29,9 @@ const MyAuthStack = () => {
                 name="ForgotPassword"
                 component={ForgotPassword}
             />
+
+            <AuthStack.Screen name="ListCommunity" component={ListCommunity} />
+            <AuthStack.Screen name="RegisterEnd" component={RegisterEnd} />
 
             <AuthStack.Screen name="ResetPassword" component={ResetPassword} />
             <AuthStack.Screen

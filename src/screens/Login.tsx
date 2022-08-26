@@ -23,7 +23,7 @@ import { checkInputTest } from '../utils/checkInput'
 const userAPI = `https://fakestoreapi.com/users`
 
 function Login({ navigation }: any) {
-    const [data, setData] = useState({ secureTextEntry: true })
+    const [showPass, setShowPass] = useState<boolean>(true)
 
     const [users, setUsers] = useState<
         {
@@ -41,11 +41,11 @@ function Login({ navigation }: any) {
     //         })
     // }, [])
 
-    const updateSecureTextEntry = () => {
-        setData({
-            secureTextEntry: !data.secureTextEntry,
-        })
+    const updateShowPassAndIcon = () => {
+        setShowPass(!showPass)
     }
+
+    console.log('Login render')
 
     return (
         <KeyboardAvoidingView
@@ -107,18 +107,14 @@ function Login({ navigation }: any) {
                                         title="Password"
                                         placeholder="Your password"
                                         secureTextEntry={
-                                            data.secureTextEntry ? true : false
+                                            showPass ? true : false
                                         }
                                         value={values.password}
                                         onChangeText={handleChange('password')}
                                         Icon={() =>
-                                            data.secureTextEntry ? (
-                                                <EyeSlash />
-                                            ) : (
-                                                <Eye />
-                                            )
+                                            showPass ? <EyeSlash /> : <Eye />
                                         }
-                                        onPress={updateSecureTextEntry}
+                                        onPress={updateShowPassAndIcon}
                                     />
                                 </View>
                                 {touched.password && (

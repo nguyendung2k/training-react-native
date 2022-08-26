@@ -45,8 +45,7 @@ const InputDrop = ({
                     width: 16,
                     height: 16,
                 }}
-                dropDownDirection="AUTO"
-                bottomOffset={100}
+                dropDownDirection="TOP"
                 onChangeValue={onChangeValue}
                 // modalTitle={modalTitle}
                 // searchable={false}
@@ -58,9 +57,7 @@ const InputDrop = ({
 export default InputDrop
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+    container: {},
     title: {
         fontWeight: '500',
         fontSize: SIZES.medium,
@@ -72,12 +69,10 @@ const styles = StyleSheet.create({
     dropInput: {
         backgroundColor: COLORS.BackgroundInput,
         borderColor: COLORS.BackgroundInput,
-        width: 170,
     },
     dropDownBox: {
         backgroundColor: COLORS.BackgroundInput,
         borderColor: COLORS.BackgroundInput,
-        width: 170,
         marginVertical: 5,
     },
 })

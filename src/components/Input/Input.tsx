@@ -8,36 +8,40 @@ import {
     Text,
     TextProps,
 } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../assets/constants/theme'
 
 interface inputProps extends TextProps {
     secureTextEntry?: boolean
     value?: string
     placeholder?: string
-    style?: StyleProp<TextStyle> | undefined
+    // style?: StyleProp<TextStyle> | undefined
     Icon?: () => JSX.Element
     onChangeText?: (value: string) => void | undefined
     onPress?: () => void | undefined
     title?: string
+    secondary?: boolean
 }
 
 export default function Input({
-    style,
+    // style,
     placeholder,
     secureTextEntry,
     value,
     title,
+    secondary,
     Icon,
     onChangeText,
     onPress,
 }: inputProps) {
+    const [showPass, setShowPass] = useState<boolean>(true)
+
     return (
         <View style={styles.container}>
             <Text style={[styles.title]}>{title}</Text>
             <TextInput
                 placeholder={placeholder}
-                style={[styles.input, style]}
+                style={[styles.input, secondary && styles.inputSecondary]}
                 secureTextEntry={secureTextEntry}
                 value={value}
                 onChangeText={onChangeText}
@@ -60,6 +64,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexWrap: 'wrap',
     },
+    inputPrimary: {},
     input: {
         fontWeight: '400',
         paddingTop: 20,
@@ -82,5 +87,13 @@ const styles = StyleSheet.create({
         marginBottom: 4,
         marginTop: 16,
         textAlign: 'left',
+    },
+    inputSecondary: {
+        fontWeight: '400',
+        height: 120,
+        backgroundColor: COLORS.BackgroundInput,
+        borderRadius: 8,
+        width: '100%',
+        position: 'relative',
     },
 })

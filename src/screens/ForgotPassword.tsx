@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
-import LabelInput from '../components/Label/LabelInput'
 import Input from '../components/Input/Input'
 import { COLORS, SIZES } from '../assets/constants/theme'
 import ButtonForm from '../components/Button/ButtonForm'
@@ -29,8 +28,8 @@ const ForgotPassword = ({ navigation }: any) => {
             >
                 {({ handleSubmit, handleChange, errors, values, touched }) => (
                     <View style={styles.form}>
-                        <LabelInput label="Email" />
                         <Input
+                            title="Email"
                             placeholder="Your email"
                             onChangeText={handleChange('email')}
                             value={values.email}

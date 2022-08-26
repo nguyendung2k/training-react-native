@@ -1,5 +1,5 @@
 import { Formik } from 'formik'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
     KeyboardAvoidingView,
     Platform,
@@ -9,24 +9,47 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
-import * as Yup from 'yup'
 
 import ButtonForm from '../components/Button/ButtonForm'
 import Input from '../components/Input/Input'
 import InputDrop from '../components/Input/InputDrop'
+import CheckBox from '../components/Checkbox/CheckBox'
 
-import { COLORS, SIZES } from '../assets/constants/theme'
+import { checkInputTest } from '../utils/checkInput'
 
+import ArrowRightWhite from '../assets/icons/ArrowRightWhite.svg'
 import CaretLeft from '../assets/icons/CaretLeft.svg'
 import Eye from '../assets/icons/Eye.svg'
 import EyeSlash from '../assets/icons/EyeSlash.svg'
-import { checkInputTest } from '../utils/checkInput'
+import Check from '../assets/icons/Check.svg'
+
+import { COLORS, SIZES } from '../assets/constants/theme'
 
 const Register = ({ navigation }: any) => {
-    const [data, setData] = useState({ secureTextEntry: true })
-    const [valueGender, setValueGender] = useState<string>('Male')
+    const [showPass, setShowPass] = useState<boolean>(true)
 
-    const [itemsGender, setItemsGender] = useState([
+    const updateShowPassAndIcon = () => {
+        setShowPass(!showPass)
+    }
+
+    // const updateCheckBox = () => {
+    //     setCheckBoxBg(!checkBoxBg)
+    // }
+
+    // const valueItemsGender = useRef([
+    //     { label: 'Male', value: 'Male' },
+    //     { label: 'Female', value: 'Female' },
+    // ])
+    // const valueItemBirth = useRef([
+    //     { label: '2000', value: '2000' },
+    //     { label: '2001', value: '2001' },
+    //     { label: '2002', value: '2002' },
+    // ])
+
+    // console.log('valueItemsGender', valueItemsGender.current)
+    // console.log('valueItemBirth', valueItemBirth.current)
+    const [valueGender, setValueGender] = useState<string>('Male')
+    const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: 'Male' },
         { label: 'Female', value: 'Female' },
     ])
@@ -38,11 +61,6 @@ const Register = ({ navigation }: any) => {
         { label: '2002', value: '2002' },
     ])
 
-    const updateSecureTextEntry = () => {
-        setData({
-            secureTextEntry: !data.secureTextEntry,
-        })
-    }
     console.log('Render')
 
     return (
@@ -83,7 +101,7 @@ const Register = ({ navigation }: any) => {
                         introductionCode: '',
                     }}
                     // validationSchema={checkInputTest}
-                    onSubmit={(x) => console.log(x)}
+                    onSubmit={() => navigation.navigate('VerificationCode')}
                 >
                     {({
                         handleSubmit,
@@ -182,10 +200,10 @@ const Register = ({ navigation }: any) => {
                                         title="Password"
                                         placeholder="Your password"
                                         secureTextEntry={
-                                            data.secureTextEntry ? true : false
+                                            showPass ? true : false
                                         }
-                                        // secureTextEntry={isHide}
                                         onChangeText={handleChange('password')}
+                                        onPress={updateShowPassAndIcon}
                                     />
                                     {touched.password && (
                                         <Text
@@ -200,13 +218,9 @@ const Register = ({ navigation }: any) => {
                                     <View style={styles.icon}>
                                         <TouchableOpacity
                                             activeOpacity={0.5}
-                                            onPress={updateSecureTextEntry}
+                                            onPress={updateShowPassAndIcon}
                                         >
-                                            {data.secureTextEntry ? (
-                                                <EyeSlash />
-                                            ) : (
-                                                <Eye />
-                                            )}
+                                            {showPass ? <EyeSlash /> : <Eye />}
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -227,8 +241,8 @@ const Register = ({ navigation }: any) => {
                                     <InputDrop
                                         title="Gender"
                                         value={valueGender}
-                                        setValue={setValueGender}
                                         items={itemsGender}
+                                        setValue={setValueGender}
                                         setItems={setItemsGender}
                                         onChangeValue={handleChange('gender')}
                                     />
@@ -278,10 +292,21 @@ const Register = ({ navigation }: any) => {
                                 </Text>
                             )}
 
+                            <View style={styles.footer}>
+                                <CheckBox Icon={() => <Check />} />
+                                <Text style={styles.footerText}>
+                                    I agree to the
+                                    <Text style={styles.footerTxtPrimary}>
+                                        Terms of Use
+                                    </Text>
+                                </Text>
+                            </View>
+
                             <View style={styles.btn}>
                                 <ButtonForm
                                     label="Submit"
                                     onPress={handleSubmit}
+                                    Icon={() => <ArrowRightWhite />}
                                 />
                             </View>
                         </>
@@ -353,5 +378,17 @@ const styles = StyleSheet.create({
     btn: {
         marginBottom: 18,
         marginTop: 36,
+    },
+    footer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 33,
+    },
+    footerText: {
+        marginLeft: 12,
+    },
+
+    footerTxtPrimary: {
+        color: COLORS.Primary,
     },
 })
