@@ -1,42 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Login from '../screens/Login'
-import Home from '../screens/Home'
-import ForgotPassword from '../screens/ForgotPassword'
-import Register from '../screens/Register'
-import VerificationCode from '../screens/VerificationCode'
-import ResetPassword from '../screens/ResetPassword'
-import ResetSuccessfully from '../screens/ResetSuccessfully'
-import PersonalIntroduction from '../screens/PersonalIntroduction'
+import MyAuthStack from './Auth/MyAuthStack'
+import MyMainStack from './Main/MyMainStack'
+import { Text } from 'react-native'
 
 const Stack = createNativeStackNavigator()
 
 const MyStack = () => {
+    const token = false
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen
-                name="VerificationCode"
-                component={VerificationCode}
-            />
-            <Stack.Screen name="ResetPassword" component={ResetPassword} />
-            <Stack.Screen
-                name="ResetSuccessfully"
-                component={ResetSuccessfully}
-            />
-            <Stack.Screen
-                name="PersonalIntroduction"
-                component={PersonalIntroduction}
-            />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {token ? (
+                <Stack.Screen name="MyMainStack" component={MyMainStack} />
+            ) : (
+                <Stack.Screen name="MyAuthStack" component={MyAuthStack} />
+            )}
+            {/* Khai bao den Au va main */}
+            {/* <MyMainStack /> */}
         </Stack.Navigator>
     )
 }
 
 export default MyStack
-
-const styles = StyleSheet.create({})

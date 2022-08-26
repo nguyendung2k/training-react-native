@@ -6,36 +6,43 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Platform,
+    TouchableWithoutFeedback,
+    Keyboard,
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik } from 'formik'
-import * as Yup from 'yup'
 import Input from '../components/Input/Input'
-import LabelInput from '../components/Label/LabelInput'
 import ButtonForm from '../components/Button/ButtonForm'
 import { COLORS, SIZES } from '../assets/constants/theme'
 
 import EyeSlash from '../assets/icons/EyeSlash.svg'
 import Eye from '../assets/icons/Eye.svg'
+import ArrowRightWhite from '../assets/icons/ArrowRightWhite.svg'
+import { checkInputTest } from '../utils/checkInput'
+
+const userAPI = `https://fakestoreapi.com/users`
 
 function Login({ navigation }: any) {
-    const [data, setData] = useState({
-        check_textInputChange: false,
-        secureTextEntry: true,
-    })
+    const [data, setData] = useState({ secureTextEntry: true })
 
-    const checkLogin = Yup.object().shape({
-        email: Yup.string()
-            .email('Please enter valid email')
-            .required('Email Address is Required'),
-        password: Yup.string()
-            .min(8, ({ min }) => `Password must be at least ${min} characters`)
-            .required('Password is required'),
-    })
+    const [users, setUsers] = useState<
+        {
+            email: string
+            password: string
+        }[]
+    >([])
+
+    // useEffect(() => {
+    //     fetch(userAPI)
+    //         .then((response) => response.json())
+    //         .then((data) => setUsers(data))
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+    // }, [])
 
     const updateSecureTextEntry = () => {
         setData({
-            ...data,
             secureTextEntry: !data.secureTextEntry,
         })
     }
@@ -43,83 +50,122 @@ function Login({ navigation }: any) {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={1}
             style={styles.container}
         >
-            <Image
-                style={styles.logo}
-                source={require('../assets/images/LogoBlue.png')}
-            />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View>
+                    <Image
+                        style={styles.logo}
+                        source={require('../assets/images/LogoBlue.png')}
+                    />
 
-            <Formik
-                initialValues={{
-                    email: '',
-                    password: '',
-                }}
-                // validationSchema={checkLogin}
-                onSubmit={(x) => console.log(x)}
-            >
-                {({ handleSubmit, handleChange, errors, values }) => (
-                    <View style={styles.form}>
-                        <Text style={styles.textLogin}>Login</Text>
-                        <LabelInput label="Email" />
-                        <Input
-                            onChangeText={handleChange('email')}
-                            placeholder="Your email"
-                            value={values.email}
-                        />
-                        {errors.email && (
-                            <Text style={{ fontSize: 10, color: 'red' }}>
-                                {errors.email}
-                            </Text>
-                        )}
-                        <LabelInput label="Password" />
-                        <View>
-                            <Input
-                                placeholder="Your password"
-                                secureTextEntry={
-                                    data.secureTextEntry ? true : false
-                                }
-                                value={values.password}
-                                onChangeText={handleChange('password')}
-                                Icon={data.secureTextEntry ? EyeSlash : Eye}
-                                onPress={updateSecureTextEntry}
-                            />
-                        </View>
-                        {errors.password && (
-                            <Text style={{ fontSize: 10, color: 'red' }}>
-                                {errors.password}
-                            </Text>
-                        )}
-                        <View>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    navigation.navigate('ForgotPassword')
-                                }
-                            >
-                                <Text style={styles.textForgot}>
-                                    Forgot password?
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <ButtonForm label="Login" onPress={handleSubmit} />
-                        <View style={styles.footer}>
-                            <Text style={styles.textFooter}>
-                                Don’t have an account?
-                            </Text>
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('Register')}
-                            >
-                                <Text style={styles.textFooter_primary}>
-                                    Register
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                )}
-            </Formik>
+                    <Formik
+                        initialValues={{
+                            email: '',
+                            password: '',
+                        }}
+                        validationSchema={checkInputTest}
+                        onSubmit={(data) => {
+                            // const account = users.find(
+                            //     (acc) =>
+                            //         acc.email === data.email &&
+                            //         acc.password === data.password
+                            // )
+                            // if (account) {
+                            //     navigation.navigate('Home')
+                            // } else {
+                            //     console.log('Fail')
+                            // }
+                        }}
+                    >
+                        {({
+                            handleSubmit,
+                            handleChange,
+                            errors,
+                            values,
+                            touched,
+                        }) => (
+                            <View style={styles.form}>
+                                <Text style={styles.textLogin}>Login</Text>
 
-            {/* <Button title="Test" onPress={() => console.log('Test')} /> */}
+                                <Input
+                                    onChangeText={handleChange('email')}
+                                    placeholder="Your email"
+                                    value={values.email}
+                                    title="Email"
+                                />
+                                {touched.email && (
+                                    <Text
+                                        style={{ fontSize: 10, color: 'red' }}
+                                    >
+                                        {errors.email}
+                                    </Text>
+                                )}
+
+                                <View>
+                                    <Input
+                                        title="Password"
+                                        placeholder="Your password"
+                                        secureTextEntry={
+                                            data.secureTextEntry ? true : false
+                                        }
+                                        value={values.password}
+                                        onChangeText={handleChange('password')}
+                                        Icon={() =>
+                                            data.secureTextEntry ? (
+                                                <EyeSlash />
+                                            ) : (
+                                                <Eye />
+                                            )
+                                        }
+                                        onPress={updateSecureTextEntry}
+                                    />
+                                </View>
+                                {touched.password && (
+                                    <Text
+                                        style={{ fontSize: 10, color: 'red' }}
+                                    >
+                                        {errors.password}
+                                    </Text>
+                                )}
+                                <View>
+                                    <TouchableOpacity
+                                        style={styles.btnForgot}
+                                        onPress={() =>
+                                            navigation.navigate(
+                                                'ForgotPassword'
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.textForgot}>
+                                            Forgot password?
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <ButtonForm
+                                    label="Login"
+                                    onPress={handleSubmit}
+                                    Icon={() => <ArrowRightWhite />}
+                                />
+                                <View style={styles.footer}>
+                                    <Text style={styles.textFooter}>
+                                        Don’t have an account?
+                                    </Text>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            navigation.navigate('Register')
+                                        }
+                                    >
+                                        <Text style={styles.textFooter_primary}>
+                                            Register
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        )}
+                    </Formik>
+                </View>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
 }
@@ -133,17 +179,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logo: {
-        marginBottom: 67,
+        marginBottom: 50,
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     form: {
         marginHorizontal: 25,
     },
-    textForgot: {
-        textAlign: 'right',
+    btnForgot: {
         marginTop: 16,
         marginBottom: 33,
+    },
+    textForgot: {
         fontSize: SIZES.small,
         color: COLORS.Neutral4,
+        textAlign: 'right',
     },
     textLogin: {
         color: COLORS.Neutral10,

@@ -2,42 +2,51 @@ import {
     StyleSheet,
     View,
     TextInput,
-    TextInputProps,
     TouchableOpacity,
-    TouchableOpacityProps,
+    StyleProp,
+    TextStyle,
+    Text,
+    TextProps,
 } from 'react-native'
 import React from 'react'
-import { COLORS } from '../../assets/constants/theme'
+import { COLORS, SIZES } from '../../assets/constants/theme'
 
-interface inputProps extends TextInputProps {
+interface inputProps extends TextProps {
     secureTextEntry?: boolean
-    values?: string
+    value?: string
     placeholder?: string
-    name?: string
-    Icon?: any
-    handleChange?: (value: string) => void
+    style?: StyleProp<TextStyle> | undefined
+    Icon?: () => JSX.Element
+    onChangeText?: (value: string) => void | undefined
     onPress?: () => void | undefined
+    title?: string
 }
 
 export default function Input({
     style,
     placeholder,
-    Icon,
     secureTextEntry,
-    values,
-    handleChange,
+    value,
+    title,
+    Icon,
+    onChangeText,
     onPress,
 }: inputProps) {
     return (
         <View style={styles.container}>
+            <Text style={[styles.title]}>{title}</Text>
             <TextInput
                 placeholder={placeholder}
                 style={[styles.input, style]}
                 secureTextEntry={secureTextEntry}
-                value={values}
-                onChangeText={handleChange}
+                value={value}
+                onChangeText={onChangeText}
             />
-            <TouchableOpacity style={styles.icon} onPress={onPress}>
+            <TouchableOpacity
+                activeOpacity={0.6}
+                style={styles.icon}
+                onPress={onPress}
+            >
                 {!!Icon && <Icon />}
             </TouchableOpacity>
         </View>
@@ -47,8 +56,9 @@ export default function Input({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
+        flexWrap: 'wrap',
     },
     input: {
         fontWeight: '400',
@@ -60,11 +70,17 @@ const styles = StyleSheet.create({
         width: '100%',
         position: 'relative',
     },
-    inputText: {
-        color: COLORS.Neutral10,
-    },
     icon: {
-        right: 16,
         position: 'absolute',
+        right: 16,
+        top: '54%',
+    },
+    title: {
+        fontWeight: '500',
+        fontSize: SIZES.medium,
+        color: COLORS.Neutral4,
+        marginBottom: 4,
+        marginTop: 16,
+        textAlign: 'left',
     },
 })

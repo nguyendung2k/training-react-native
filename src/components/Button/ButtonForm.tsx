@@ -4,18 +4,19 @@ import React from 'react'
 
 interface btnProps {
     label: string
-    onPress?: () => void | undefined
     style?: any
     secondary?: boolean
     tertiary?: boolean
+    Icon?: () => JSX.Element
+    onPress?: () => void | undefined
 }
 
 export default function ButtonForm({
     label,
-    onPress,
     style,
     secondary,
-    tertiary,
+    onPress,
+    Icon,
 }: btnProps) {
     return (
         <View>
@@ -37,6 +38,7 @@ export default function ButtonForm({
                 >
                     {label}
                 </Text>
+                {!!Icon && <Icon />}
             </TouchableOpacity>
         </View>
     )
@@ -45,10 +47,12 @@ export default function ButtonForm({
 const styles = StyleSheet.create({
     btn: {
         fontWeight: '600',
-        fontSize: 16,
+        fontSize: SIZES.medium,
         paddingVertical: 17,
         borderRadius: BORDER.base,
+        flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
     },
     btn_Primary: {
         backgroundColor: COLORS.Primary,
@@ -64,6 +68,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: SIZES.large,
         fontWeight: '800',
+        marginRight: 10,
     },
     textLogin: {
         color: COLORS.White,

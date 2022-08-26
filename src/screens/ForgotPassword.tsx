@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
@@ -15,7 +15,7 @@ const ForgotPassword = ({ navigation }: any) => {
     })
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.header}>Forgot Password</Text>
             <Text style={styles.description}>
                 Enter your email and we’ll send the instruction to you
@@ -27,7 +27,7 @@ const ForgotPassword = ({ navigation }: any) => {
                 validationSchema={checkLogin}
                 onSubmit={(x) => console.log(x)}
             >
-                {({ handleSubmit, handleChange, errors, values }) => (
+                {({ handleSubmit, handleChange, errors, values, touched }) => (
                     <View style={styles.form}>
                         <LabelInput label="Email" />
                         <Input
@@ -35,7 +35,7 @@ const ForgotPassword = ({ navigation }: any) => {
                             onChangeText={handleChange('email')}
                             value={values.email}
                         />
-                        {errors.email && (
+                        {touched.email && (
                             <Text style={{ fontSize: 10, color: 'red' }}>
                                 {errors.email}
                             </Text>
@@ -51,7 +51,7 @@ const ForgotPassword = ({ navigation }: any) => {
                     </View>
                 )}
             </Formik>
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 

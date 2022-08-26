@@ -1,11 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import MyStack from './src/navigation'
+const Stack = createNativeStackNavigator()
 
 export default function App() {
     return (
         <NavigationContainer>
-            <MyStack />
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="MyStack" component={MyStack} />
+            </Stack.Navigator>
         </NavigationContainer>
     )
 }
