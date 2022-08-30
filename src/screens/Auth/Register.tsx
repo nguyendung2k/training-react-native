@@ -10,29 +10,17 @@ import {
     View,
 } from 'react-native'
 
-import ButtonForm from '../components/Button/ButtonForm'
-import Input from '../components/Input/Input'
-import InputDrop from '../components/Input/InputDrop'
-import CheckBox from '../components/Checkbox/CheckBox'
+import ButtonForm from '../../components/Button/ButtonForm'
+import Input from '../../components/Input/Input'
+import InputDrop from '../../components/Input/InputDrop'
+import CheckBox from '../../components/Checkbox/CheckBox'
 
-import { checkInputTest } from '../utils/checkInput'
-
-import ArrowRightWhite from '../assets/icons/ArrowRightWhite.svg'
-import Eye from '../assets/icons/Eye.svg'
-import EyeSlash from '../assets/icons/EyeSlash.svg'
-import Check from '../assets/icons/Check.svg'
-import CaretLeft from '../assets/icons/CaretLeft.svg'
-
-import { COLORS, SIZES } from '../assets/constants/theme'
-import Header from '../components/Header/Header'
+import { COLORS, SIZES } from '../../assets/constants/theme'
+import Header from '../../components/Header/Header'
+import MessageError from '../../components/MessageError/MessageError'
+import { ArrowRight, IConBack, IconCheck } from '../../components/Svg/Icon'
 
 const Register = ({ navigation }: any) => {
-    const [showPass, setShowPass] = useState<boolean>(true)
-
-    const updateShowPassAndIcon = () => {
-        setShowPass(!showPass)
-    }
-
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: 'Male' },
@@ -54,12 +42,15 @@ const Register = ({ navigation }: any) => {
             style={styles.container}
             keyboardVerticalOffset={10}
         >
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                style={styles.contentBody}
+                showsVerticalScrollIndicator={false}
+            >
                 <Header
                     title="Register"
                     onPress={() => navigation.navigate('Login')}
                     showTextHeader={true}
-                    Icon={() => <CaretLeft />}
+                    Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                 />
                 <View style={styles.content}>
                     <Text style={styles.content_title}>Your SNS accounts</Text>
@@ -100,11 +91,7 @@ const Register = ({ navigation }: any) => {
                                     title="Youtube"
                                 />
                                 {touched.youtube && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.youtube}
-                                    </Text>
+                                    <MessageError error={errors.youtube} />
                                 )}
                                 <Input
                                     title="Instagram"
@@ -112,11 +99,7 @@ const Register = ({ navigation }: any) => {
                                     value={values.instagram}
                                 />
                                 {touched.instagram && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.instagram}
-                                    </Text>
+                                    <MessageError error={errors.instagram} />
                                 )}
 
                                 <Input
@@ -125,11 +108,7 @@ const Register = ({ navigation }: any) => {
                                     value={values.twitter}
                                 />
                                 {touched.twitter && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.twitter}
-                                    </Text>
+                                    <MessageError error={errors.twitter} />
                                 )}
 
                                 <Input
@@ -138,11 +117,7 @@ const Register = ({ navigation }: any) => {
                                     value={values.facebook}
                                 />
                                 {touched.facebook && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.facebook}
-                                    </Text>
+                                    <MessageError error={errors.facebook} />
                                 )}
 
                                 <Input
@@ -151,11 +126,7 @@ const Register = ({ navigation }: any) => {
                                     value={values.whatsapp}
                                 />
                                 {touched.whatsapp && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.whatsapp}
-                                    </Text>
+                                    <MessageError error={errors.whatsapp} />
                                 )}
                             </View>
 
@@ -170,41 +141,19 @@ const Register = ({ navigation }: any) => {
                                     onChangeText={handleChange('email')}
                                 />
                                 {touched.email && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.email}
-                                    </Text>
+                                    <MessageError error={errors.email} />
                                 )}
 
                                 <View>
                                     <Input
                                         title="Password"
                                         placeholder="Your password"
-                                        secureTextEntry={
-                                            showPass ? true : false
-                                        }
                                         onChangeText={handleChange('password')}
-                                        onPress={updateShowPassAndIcon}
+                                        isPassword
                                     />
                                     {touched.password && (
-                                        <Text
-                                            style={{
-                                                fontSize: 10,
-                                                color: 'red',
-                                            }}
-                                        >
-                                            {errors.password}
-                                        </Text>
+                                        <MessageError error={errors.password} />
                                     )}
-                                    <View style={styles.icon}>
-                                        <TouchableOpacity
-                                            activeOpacity={0.5}
-                                            onPress={updateShowPassAndIcon}
-                                        >
-                                            {showPass ? <EyeSlash /> : <Eye />}
-                                        </TouchableOpacity>
-                                    </View>
                                 </View>
                             </View>
 
@@ -214,9 +163,7 @@ const Register = ({ navigation }: any) => {
                                 value={values.username}
                             />
                             {touched.username && (
-                                <Text style={{ fontSize: 10, color: 'red' }}>
-                                    {errors.username}
-                                </Text>
+                                <MessageError error={errors.username} />
                             )}
                             <View style={styles.inputDrop}>
                                 <View style={styles.inputItemGender}>
@@ -229,36 +176,25 @@ const Register = ({ navigation }: any) => {
                                         onChangeValue={handleChange('gender')}
                                     />
                                     {touched.gender && (
-                                        <Text
-                                            style={{
-                                                fontSize: 10,
-                                                color: 'red',
-                                            }}
-                                        >
-                                            {errors.gender}
-                                        </Text>
+                                        <MessageError error={errors.gender} />
                                     )}
                                 </View>
+                                <View style={{ marginHorizontal: 5 }} />
                                 <View style={styles.inputItemBirth}>
                                     <InputDrop
                                         title="Birth year"
                                         value={valueBirth}
-                                        setValue={setValueBirth}
                                         items={itemsBirth}
+                                        setValue={setValueBirth}
                                         setItems={setItemsBirth}
                                         onChangeValue={handleChange(
                                             'birth_year'
                                         )}
                                     />
                                     {touched.birth_year && (
-                                        <Text
-                                            style={{
-                                                fontSize: 10,
-                                                color: 'red',
-                                            }}
-                                        >
-                                            {errors.birth_year}
-                                        </Text>
+                                        <MessageError
+                                            error={errors.birth_year}
+                                        />
                                     )}
                                 </View>
                             </View>
@@ -269,14 +205,16 @@ const Register = ({ navigation }: any) => {
                                 value={values.introductionCode}
                             />
                             {touched.introductionCode && (
-                                <Text style={{ fontSize: 10, color: 'red' }}>
-                                    {errors.introductionCode}
-                                </Text>
+                                <MessageError error={errors.introductionCode} />
                             )}
 
                             <View style={styles.footer}>
-                                <CheckBox Icon={() => <Check />} />
-                                <Text style={styles.footerText}>
+                                <CheckBox
+                                    Icon={() => (
+                                        <IconCheck stroke={COLORS.White} />
+                                    )}
+                                />
+                                <Text>
                                     I agree to the
                                     <Text style={styles.footerTxtPrimary}>
                                         Terms of Use
@@ -288,7 +226,9 @@ const Register = ({ navigation }: any) => {
                                 <ButtonForm
                                     label="Submit"
                                     onPress={handleSubmit}
-                                    Icon={() => <ArrowRightWhite />}
+                                    Icon={() => (
+                                        <ArrowRight stroke={COLORS.White} />
+                                    )}
                                 />
                             </View>
                         </>
@@ -304,9 +244,12 @@ export default Register
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: 25,
+        backgroundColor: COLORS.White,
     },
 
+    contentBody: {
+        marginHorizontal: 25,
+    },
     content: {
         marginTop: 37,
     },
@@ -353,9 +296,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 33,
-    },
-    footerText: {
-        marginLeft: 12,
     },
 
     footerTxtPrimary: {

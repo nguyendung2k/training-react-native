@@ -9,11 +9,11 @@ import {
 } from 'react-native'
 import React, { useState } from 'react'
 
-import { COLORS, SIZES } from '../assets/constants/theme'
+import { COLORS, SIZES } from '../../assets/constants/theme'
 
-import CaretLeft from '../assets/icons/CaretLeft.svg'
-import ButtonForm from '../components/Button/ButtonForm'
-import VerifyCode from '../components/VerifyCode/VerifyCode'
+import ButtonForm from '../../components/Button/ButtonForm'
+import VerifyCode from '../../components/VerifyCode/VerifyCode'
+import { IconCheck } from '../../components/Svg/Icon'
 
 const VerificationCode = ({ navigation }: any) => {
     return (
@@ -21,13 +21,14 @@ const VerificationCode = ({ navigation }: any) => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
         >
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                style={styles.contentBody}
+                showsVerticalScrollIndicator={false}
+            >
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Register')}
-                    >
-                        <CaretLeft />
-                    </TouchableOpacity>
+                    ></TouchableOpacity>
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.content_title}>Verification Code</Text>
@@ -43,6 +44,7 @@ const VerificationCode = ({ navigation }: any) => {
                             onPress={() =>
                                 navigation.navigate('PersonalIntroduction')
                             }
+                            Icon={() => <IconCheck stroke={COLORS.White} />}
                         />
                         <View style={styles.footer_des}>
                             <Text style={styles.textFooter}>
@@ -68,9 +70,13 @@ export default VerificationCode
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: COLORS.White,
+    },
+    contentBody: {
         marginRight: 23,
         marginLeft: 24,
     },
+
     header: {
         marginTop: 81,
     },

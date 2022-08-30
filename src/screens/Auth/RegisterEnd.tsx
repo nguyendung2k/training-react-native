@@ -8,15 +8,14 @@ import {
     View,
 } from 'react-native'
 import React, { useState } from 'react'
-import HeaderAuth from '../components/Header/HeaderAuth'
-import ButtonNoBg from '../components/Button/ButtonNoBg'
-import InputDrop from '../components/Input/InputDrop'
-import Input from '../components/Input/Input'
-import ButtonForm from '../components/Button/ButtonForm'
+import HeaderAuth from '../../components/Header/HeaderAuth'
+import ButtonNoBg from '../../components/Button/ButtonNoBg'
+import InputDrop from '../../components/Input/InputDrop'
+import Input from '../../components/Input/Input'
+import ButtonForm from '../../components/Button/ButtonForm'
 
-import ArrowRightWhite from '../assets/icons/ArrowRightWhite.svg'
 import { Formik } from 'formik'
-import { checkInputTest } from '../utils/checkInput'
+import { checkInputTest } from '../../utils/checkInput'
 
 const RegisterEnd = ({ navigation }: any) => {
     const [valueProfession, setValueProfession] = useState<string>('Singer')
@@ -54,7 +53,7 @@ const RegisterEnd = ({ navigation }: any) => {
 
                 <View style={styles.content}>
                     <Image
-                        source={require('../assets/images/Choosepicture.png')}
+                        source={require('../../assets/images/Choosepicture.png')}
                     />
                     <ButtonNoBg
                         title="Choose picture"
@@ -177,7 +176,6 @@ const RegisterEnd = ({ navigation }: any) => {
                             <View style={styles.btn}>
                                 <ButtonForm
                                     label="Start"
-                                    Icon={() => <ArrowRightWhite />}
                                     onPress={handleSubmit}
                                 />
                             </View>

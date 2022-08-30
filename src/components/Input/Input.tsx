@@ -10,9 +10,9 @@ import {
 } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../assets/constants/theme'
+import { Eye, EyeSlash } from '../Svg/Icon'
 
 interface inputProps extends TextProps {
-    secureTextEntry?: boolean
     value?: string
     placeholder?: string
     // style?: StyleProp<TextStyle> | undefined
@@ -21,37 +21,48 @@ interface inputProps extends TextProps {
     onPress?: () => void | undefined
     title?: string
     secondary?: boolean
+    isPassword?: boolean
+    secureTextEntry?: boolean
 }
 
 export default function Input({
     // style,
     placeholder,
-    secureTextEntry,
     value,
     title,
     secondary,
     Icon,
     onChangeText,
-    onPress,
+    isPassword,
 }: inputProps) {
     const [showPass, setShowPass] = useState<boolean>(true)
 
+    const handleShowPass = () => {
+        setShowPass(!showPass)
+    }
     return (
         <View style={styles.container}>
-            <Text style={[styles.title]}>{title}</Text>
+            <Text style={styles.title}>{title}</Text>
+
             <TextInput
                 placeholder={placeholder}
                 style={[styles.input, secondary && styles.inputSecondary]}
-                secureTextEntry={secureTextEntry}
+                secureTextEntry={isPassword && showPass}
                 value={value}
                 onChangeText={onChangeText}
             />
             <TouchableOpacity
                 activeOpacity={0.6}
                 style={styles.icon}
-                onPress={onPress}
+                onPress={handleShowPass}
             >
                 {!!Icon && <Icon />}
+                {isPassword &&
+                    (showPass ? (
+                        <EyeSlash stroke={COLORS.Primary} />
+                    ) : (
+                        <Eye stroke={COLORS.Primary} />
+                    ))}
             </TouchableOpacity>
         </View>
     )

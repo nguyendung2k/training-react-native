@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const MessageError = () => {
+interface messageErrorProps {
+    error?: string
+}
+
+const MessageError = ({ error }: messageErrorProps) => {
     return (
         <View>
-            <Text>MessageError</Text>
+            <Text style={{ fontSize: 10, color: 'red' }}>{error}</Text>
         </View>
     )
 }
 
 export default MessageError
-
-const styles = StyleSheet.create({})

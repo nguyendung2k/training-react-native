@@ -7,8 +7,8 @@ import { BORDER, COLORS } from '../../assets/constants/theme'
 
 const InputDropLogo = () => {
     return (
-        <TouchableOpacity style={styles.container}>
-            <View style={styles.content}>
+        <View style={styles.container}>
+            <TouchableOpacity style={styles.content}>
                 <Image
                     source={require('../../assets/images/LogoInstagram.png')}
                 />
@@ -17,11 +17,11 @@ const InputDropLogo = () => {
                         <CareDown />
                     </TouchableOpacity>
                 </View>
-            </View>
+            </TouchableOpacity>
             <View style={styles.input}>
                 <Input value="@Yuki.Matsuura" />
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end',
-        marginBottom: 20,
     },
     content: {
         flex: 1,

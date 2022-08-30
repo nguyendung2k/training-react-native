@@ -1,9 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import HeaderAuth from '../components/Header/HeaderAuth'
-import { ListView } from '../components/ListView/ListView'
-import ButtonForm from '../components/Button/ButtonForm'
-import ArrowRightDisable from '../assets/icons/ArrowRightDisable.svg'
+import HeaderAuth from '../../components/Header/HeaderAuth'
+import { ListView } from '../../components/ListView/ListView'
+import ButtonForm from '../../components/Button/ButtonForm'
 
 const ListCommunity = ({ navigation }: any) => {
     return (
@@ -34,7 +33,6 @@ const ListCommunity = ({ navigation }: any) => {
                         label="Next"
                         // disabled={true}
                         disable
-                        Icon={() => <ArrowRightDisable />}
                         onPress={() => navigation.navigate('RegisterEnd')}
                     />
                 </View>

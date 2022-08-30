@@ -44,6 +44,7 @@ export default function ButtonForm({
                     style={[
                         styles.text,
                         styles.textLogin,
+                        secondary && styles.textBackLogin,
                         tertiary && styles.textAddNew,
                         quaternary && styles.textNext,
                         disable && styles.txtDisable,

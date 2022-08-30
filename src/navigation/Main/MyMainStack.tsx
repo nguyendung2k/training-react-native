@@ -1,9 +1,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from '../../screens/Home'
-import Communities from '../../screens/Communities'
-import Account from '../../screens/Account'
+import Home from '../../screens/Main/Home'
+import Communities from '../../screens/Main/Communities'
+import Account from '../../screens/Main/Account'
 
 const MainStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()

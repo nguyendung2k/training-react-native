@@ -9,12 +9,9 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React, { useState } from 'react'
-import Input from '../components/Input/Input'
-import { COLORS, SIZES } from '../assets/constants/theme'
-import ButtonForm from '../components/Button/ButtonForm'
-
-import EyeSlash from '../assets/icons/EyeSlash.svg'
-import Eye from '../assets/icons/Eye.svg'
+import Input from '../../components/Input/Input'
+import { COLORS, SIZES } from '../../assets/constants/theme'
+import ButtonForm from '../../components/Button/ButtonForm'
 
 const ResetPassword = ({ navigation }: any) => {
     const [showPass, setShowPass] = useState<boolean>(true)
@@ -57,9 +54,7 @@ const ResetPassword = ({ navigation }: any) => {
                                 <TouchableOpacity
                                     activeOpacity={0.5}
                                     onPress={updateShowPassAndIcon}
-                                >
-                                    {showPass ? <EyeSlash /> : <Eye />}
-                                </TouchableOpacity>
+                                ></TouchableOpacity>
                             </View>
                             {errors.old_password && (
                                 <Text style={{ fontSize: 10, color: 'red' }}>

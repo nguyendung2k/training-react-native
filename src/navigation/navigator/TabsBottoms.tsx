@@ -1,36 +1,66 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import IconHome from '../../assets/icons/IconHome.svg'
-import IconCommunities from '../../assets/icons/IconCommunities.svg'
-import IconUser from '../../assets/icons/IconUser.svg'
 
-import Home from '../../screens/Home'
-import Communities from '../../screens/Communities'
-import Account from '../../screens/Account'
-import { COLORS } from '../../assets/constants/theme'
+import Home from '../../screens/Main/Home'
+import Communities from '../../screens/Main/Communities'
+import Account from '../../screens/Main/Account'
+import { COLORS, SIZES } from '../../assets/constants/theme'
+import { IconCommunities, IconHome, IconUser } from '../../components/Svg/Icon'
 
 const Tabs = createBottomTabNavigator()
 
 const TabsBottoms = () => {
-    const [activeIcon, setActiveIcon] = useState<boolean>(false)
-
     return (
         <Tabs.Navigator
-            screenOptions={({ route }) => ({
+            screenOptions={() => ({
                 headerShown: false,
                 tabBarInactiveTintColor: COLORS.Neutral3,
                 tabBarStyle: {
                     height: 90,
                     borderTopWidth: 0,
+                    position: 'absolute',
                 },
+                tabBarShowLabel: false,
             })}
         >
             <Tabs.Screen
                 options={{
                     tabBarActiveTintColor: COLORS.Primary,
-                    tabBarLabel: 'Home',
-                    tabBarIcon: () => <IconHome />,
+                    tabBarIcon: ({ focused }) => {
+                        // console.log(p.focused)
+                        return (
+                            <View
+                                style={
+                                    focused
+                                        ? [styles.container, styles.border]
+                                        : styles.container
+                                }
+                            >
+                                <View style={styles.content}>
+                                    <View>
+                                        {focused ? (
+                                            <IconHome stroke={COLORS.Primary} />
+                                        ) : (
+                                            <IconHome
+                                                stroke={COLORS.Neutral3}
+                                            />
+                                        )}
+                                    </View>
+                                    <Text
+                                        style={[
+                                            focused
+                                                ? styles.txtFocus
+                                                : styles.txtUnFocus,
+                                            styles.txt,
+                                        ]}
+                                    >
+                                        Home
+                                    </Text>
+                                </View>
+                            </View>
+                        )
+                    },
                 }}
                 name="Home"
                 component={Home}
@@ -38,8 +68,41 @@ const TabsBottoms = () => {
             <Tabs.Screen
                 options={{
                     tabBarActiveTintColor: COLORS.Primary,
-                    tabBarLabel: 'Communities',
-                    tabBarIcon: () => <IconCommunities />,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View
+                                style={
+                                    focused
+                                        ? [styles.container, styles.border]
+                                        : styles.container
+                                }
+                            >
+                                <View style={styles.content}>
+                                    <View>
+                                        {focused ? (
+                                            <IconCommunities
+                                                stroke={COLORS.Primary}
+                                            />
+                                        ) : (
+                                            <IconCommunities
+                                                stroke={COLORS.Neutral3}
+                                            />
+                                        )}
+                                    </View>
+                                    <Text
+                                        style={[
+                                            focused
+                                                ? styles.txtFocus
+                                                : styles.txtUnFocus,
+                                            styles.txt,
+                                        ]}
+                                    >
+                                        Communities
+                                    </Text>
+                                </View>
+                            </View>
+                        )
+                    },
                 }}
                 name="Communities"
                 component={Communities}
@@ -47,8 +110,39 @@ const TabsBottoms = () => {
             <Tabs.Screen
                 options={{
                     tabBarActiveTintColor: COLORS.Primary,
-                    tabBarLabel: 'Account',
-                    tabBarIcon: () => <IconUser />,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View
+                                style={
+                                    focused
+                                        ? [styles.container, styles.border]
+                                        : styles.container
+                                }
+                            >
+                                <View style={styles.content}>
+                                    <View>
+                                        {focused ? (
+                                            <IconUser stroke={COLORS.Primary} />
+                                        ) : (
+                                            <IconUser
+                                                stroke={COLORS.Neutral3}
+                                            />
+                                        )}
+                                    </View>
+                                    <Text
+                                        style={[
+                                            focused
+                                                ? styles.txtFocus
+                                                : styles.txtUnFocus,
+                                            styles.txt,
+                                        ]}
+                                    >
+                                        Account
+                                    </Text>
+                                </View>
+                            </View>
+                        )
+                    },
                 }}
                 name="Account"
                 component={Account}
@@ -56,5 +150,39 @@ const TabsBottoms = () => {
         </Tabs.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        position: 'relative',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    border: {
+        position: 'absolute',
+        width: 122,
+        top: 0,
+        height: 2,
+        backgroundColor: COLORS.Primary,
+    },
+
+    content: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 20,
+    },
+    txt: {
+        fontSize: SIZES.small,
+        fontWeight: '600',
+    },
+
+    txtFocus: {
+        color: COLORS.Neutral10,
+    },
+    txtUnFocus: {
+        color: COLORS.Neutral3,
+    },
+})
 
 export default TabsBottoms

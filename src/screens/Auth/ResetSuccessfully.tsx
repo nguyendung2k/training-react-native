@@ -1,17 +1,14 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 
-import CheckCircle from '../assets/icons/CheckCircle.svg'
-import ButtonForm from '../components/Button/ButtonForm'
-import { COLORS, SIZES } from '../assets/constants/theme'
+import ButtonForm from '../../components/Button/ButtonForm'
+import { COLORS, SIZES } from '../../assets/constants/theme'
 
 const ResetSuccessfully = ({ navigation }: any) => {
     return (
         <View style={styles.container}>
             <View>
-                <View>
-                    <CheckCircle />
-                </View>
+                <View></View>
             </View>
             <View style={styles.header_Description}>
                 <Text style={{ color: COLORS.Neutral6 }}>

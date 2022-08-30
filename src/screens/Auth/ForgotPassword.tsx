@@ -2,9 +2,10 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
-import Input from '../components/Input/Input'
-import { COLORS, SIZES } from '../assets/constants/theme'
-import ButtonForm from '../components/Button/ButtonForm'
+import Input from '../../components/Input/Input'
+import { COLORS, SIZES } from '../../assets/constants/theme'
+import ButtonForm from '../../components/Button/ButtonForm'
+import MessageError from '../../components/MessageError/MessageError'
 
 const ForgotPassword = ({ navigation }: any) => {
     const checkLogin = Yup.object().shape({
@@ -34,11 +35,7 @@ const ForgotPassword = ({ navigation }: any) => {
                             onChangeText={handleChange('email')}
                             value={values.email}
                         />
-                        {touched.email && (
-                            <Text style={{ fontSize: 10, color: 'red' }}>
-                                {errors.email}
-                            </Text>
-                        )}
+                        {touched.email && <MessageError error={errors.email} />}
                         <View style={styles.btn}>
                             <ButtonForm label="Submit" onPress={handleSubmit} />
                         </View>

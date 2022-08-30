@@ -1,8 +1,8 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../assets/constants/theme'
-import { SLIDES } from '../../assets/constants/silde'
-import { ListView } from '../ListView/ListView'
+
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface slideProps {
     title: string
@@ -11,15 +11,22 @@ interface slideProps {
 
 export const SlideView = ({ title }: slideProps) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <View style={styles.container_Content}>
                 <Text style={styles.title}>{title}</Text>
-                <Image
-                    source={require('../../assets/images/Slide1.png')}
-                    style={styles.image}
-                />
+                <LinearGradient
+                    colors={[
+                        'rgba(255, 255, 255, 0)',
+                        'rgba(255, 255, 255, 1)',
+                    ]}
+                >
+                    <Image
+                        source={require('../../assets/images/Slide1.png')}
+                        style={styles.image}
+                    />
+                </LinearGradient>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -48,5 +55,11 @@ const styles = StyleSheet.create({
         position: 'relative',
         zIndex: 1,
         marginRight: 12,
+    },
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5,
     },
 })

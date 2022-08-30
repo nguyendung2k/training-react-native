@@ -10,42 +10,36 @@ import {
     Keyboard,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import * as Yup from 'yup'
 import { Formik } from 'formik'
-import Input from '../components/Input/Input'
-import ButtonForm from '../components/Button/ButtonForm'
-import { COLORS, SIZES } from '../assets/constants/theme'
+import { api } from '../../api/userApi'
+import Input from '../../components/Input/Input'
+import ButtonForm from '../../components/Button/ButtonForm'
+import { COLORS, SIZES } from '../../assets/constants/theme'
 
-import EyeSlash from '../assets/icons/EyeSlash.svg'
-import Eye from '../assets/icons/Eye.svg'
-import ArrowRightWhite from '../assets/icons/ArrowRightWhite.svg'
-import { checkInputTest } from '../utils/checkInput'
-
-const userAPI = `https://fakestoreapi.com/users`
+import { ArrowRight, Eye, EyeSlash } from '../../components/Svg/Icon'
+import MessageError from '../../components/MessageError/MessageError'
 
 function Login({ navigation }: any) {
     const [showPass, setShowPass] = useState<boolean>(true)
-
-    const [users, setUsers] = useState<
-        {
-            email: string
-            password: string
-        }[]
-    >([])
+    const [user, setUser] = useState({})
 
     // useEffect(() => {
-    //     fetch(userAPI)
-    //         .then((response) => response.json())
-    //         .then((data) => setUsers(data))
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
+    //     const getData = async () => {
+    //         const data = await api.getDataUser
+    //         setUser(data)
+    //     }
+    //     getData()
     // }, [])
 
-    const updateShowPassAndIcon = () => {
-        setShowPass(!showPass)
-    }
-
-    console.log('Login render')
+    const checkInput = Yup.object({
+        email: Yup.string()
+            .email('Please enter valid email')
+            .required('Email Address is Required'),
+        password: Yup.string()
+            .min(6, ({ min }) => `Password must be at least ${min} characters`)
+            .required('Password is required'),
+    })
 
     return (
         <KeyboardAvoidingView
@@ -56,7 +50,7 @@ function Login({ navigation }: any) {
                 <View>
                     <Image
                         style={styles.logo}
-                        source={require('../assets/images/LogoBlue.png')}
+                        source={require('../../assets/images/LogoBlue.png')}
                     />
 
                     <Formik
@@ -64,8 +58,8 @@ function Login({ navigation }: any) {
                             email: '',
                             password: '',
                         }}
-                        // validationSchema={checkInputTest}
-                        onSubmit={(data) => navigation.navigate('Home')}
+                        validationSchema={checkInput}
+                        onSubmit={(values) => console.log(values)}
                     >
                         {({
                             handleSubmit,
@@ -83,35 +77,22 @@ function Login({ navigation }: any) {
                                     value={values.email}
                                     title="Email"
                                 />
+
                                 {touched.email && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.email}
-                                    </Text>
+                                    <MessageError error={errors.email} />
                                 )}
 
                                 <View>
                                     <Input
                                         title="Password"
                                         placeholder="Your password"
-                                        secureTextEntry={
-                                            showPass ? true : false
-                                        }
                                         value={values.password}
                                         onChangeText={handleChange('password')}
-                                        Icon={() =>
-                                            showPass ? <EyeSlash /> : <Eye />
-                                        }
-                                        onPress={updateShowPassAndIcon}
+                                        isPassword
                                     />
                                 </View>
                                 {touched.password && (
-                                    <Text
-                                        style={{ fontSize: 10, color: 'red' }}
-                                    >
-                                        {errors.password}
-                                    </Text>
+                                    <MessageError error={errors.password} />
                                 )}
                                 <View>
                                     <TouchableOpacity
@@ -129,26 +110,26 @@ function Login({ navigation }: any) {
                                 </View>
                                 <ButtonForm
                                     label="Login"
-                                    onPress={handleSubmit}
-                                    Icon={() => <ArrowRightWhite />}
+                                    onPress={() => handleSubmit()}
+                                    Icon={() => (
+                                        <ArrowRight stroke={COLORS.White} />
+                                    )}
                                 />
-                                <View style={styles.footer}>
-                                    <Text style={styles.textFooter}>
-                                        Don’t have an account?
-                                    </Text>
-                                    <TouchableOpacity
-                                        onPress={() =>
-                                            navigation.navigate('Register')
-                                        }
-                                    >
-                                        <Text style={styles.textFooter_primary}>
-                                            Register
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
                             </View>
                         )}
                     </Formik>
+                    <View style={styles.footer}>
+                        <Text style={styles.textFooter}>
+                            Don’t have an account?
+                        </Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('Register')}
+                        >
+                            <Text style={styles.textFooter_primary}>
+                                Register
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
@@ -162,6 +143,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: COLORS.White,
     },
     logo: {
         marginBottom: 50,

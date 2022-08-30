@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import CheckBox from '../Checkbox/CheckBox'
 
@@ -23,7 +23,7 @@ export const ListView = ({
     source,
 }: listViewProp) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <View style={styles.checkbox}>
                 {showBox && <CheckBox Icon={() => <Check />} />}
             </View>
@@ -37,7 +37,7 @@ export const ListView = ({
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

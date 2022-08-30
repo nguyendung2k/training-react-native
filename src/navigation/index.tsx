@@ -16,8 +16,8 @@ const MyStack = () => {
                 {/* {token ? ( */}
                 <Stack.Screen name="TabsBottom" component={TabsBottoms} />
                 <Stack.Screen name="MyMainStack" component={MyMainStack} />
-                {/* ) : ( */}
                 {/* <Stack.Screen name="MyAuthStack" component={MyAuthStack} /> */}
+                {/* ) : ( */}
                 {/* )} */}
                 {/* Khai bao den Au va main */}
                 {/* <MyMainStack /> */}

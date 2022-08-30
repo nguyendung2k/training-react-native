@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        marginRight: 28,
     },
     checkBox_Secondary: {
         width: 32,
@@ -49,5 +50,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         backgroundColor: COLORS.Primary,
+        marginRight: 28,
     },
 })
