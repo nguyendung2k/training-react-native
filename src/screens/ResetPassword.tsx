@@ -9,7 +9,6 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React, { useState } from 'react'
-import LabelInput from '../components/Label/LabelInput'
 import Input from '../components/Input/Input'
 import { COLORS, SIZES } from '../assets/constants/theme'
 import ButtonForm from '../components/Button/ButtonForm'
@@ -18,10 +17,11 @@ import EyeSlash from '../assets/icons/EyeSlash.svg'
 import Eye from '../assets/icons/Eye.svg'
 
 const ResetPassword = ({ navigation }: any) => {
-    const [data, setData] = useState({
-        check_textInputChange: false,
-        secureTextEntry: true,
-    })
+    const [showPass, setShowPass] = useState<boolean>(true)
+
+    const updateShowPassAndIcon = () => {
+        setShowPass(!showPass)
+    }
 
     const checkPassword = Yup.object().shape({
         new_password: Yup.string()
@@ -31,13 +31,6 @@ const ResetPassword = ({ navigation }: any) => {
             .min(8, ({ min }) => `Password must be at least ${min} characters`)
             .required('Password is required'),
     })
-
-    const updateSecureTextEntry = () => {
-        setData({
-            ...data,
-            secureTextEntry: !data.secureTextEntry,
-        })
-    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -52,26 +45,20 @@ const ResetPassword = ({ navigation }: any) => {
             >
                 {({ handleSubmit, handleChange, errors, values }) => (
                     <View style={styles.form}>
-                        <LabelInput label="New Password" />
                         <View>
                             <Input
+                                title="New Password"
                                 placeholder="Your password"
                                 onChangeText={handleChange('old_password')}
                                 value={values.old_password}
-                                secureTextEntry={
-                                    data.secureTextEntry ? true : false
-                                }
+                                secureTextEntry={showPass ? true : false}
                             />
                             <View style={styles.icon}>
                                 <TouchableOpacity
                                     activeOpacity={0.5}
-                                    onPress={updateSecureTextEntry}
+                                    onPress={updateShowPassAndIcon}
                                 >
-                                    {data.secureTextEntry ? (
-                                        <EyeSlash />
-                                    ) : (
-                                        <Eye />
-                                    )}
+                                    {showPass ? <EyeSlash /> : <Eye />}
                                 </TouchableOpacity>
                             </View>
                             {errors.old_password && (
@@ -81,14 +68,12 @@ const ResetPassword = ({ navigation }: any) => {
                             )}
                         </View>
                         <View>
-                            <LabelInput label="Confirm New password" />
                             <Input
+                                title="Confirm New password"
                                 placeholder="Enter your password again"
                                 onChangeText={handleChange('new_password')}
                                 value={values.new_password}
-                                secureTextEntry={
-                                    data.secureTextEntry ? true : false
-                                }
+                                secureTextEntry={showPass ? true : false}
                             />
                             {errors.new_password && (
                                 <Text style={{ fontSize: 10, color: 'red' }}>

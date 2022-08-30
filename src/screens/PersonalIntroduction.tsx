@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 
 import Plus from '../assets/icons/Plus.svg'
-import HeaderAuth from '../components/HeaderAuth/HeaderAuth'
+import HeaderAuth from '../components/Header/HeaderAuth'
 import InputDropLogo from '../components/Input/InputDropLogo'
 import ButtonForm from '../components/Button/ButtonForm'
 import ArrowRight from '../assets/icons/ArrowRight.svg'

@@ -18,12 +18,13 @@ import CheckBox from '../components/Checkbox/CheckBox'
 import { checkInputTest } from '../utils/checkInput'
 
 import ArrowRightWhite from '../assets/icons/ArrowRightWhite.svg'
-import CaretLeft from '../assets/icons/CaretLeft.svg'
 import Eye from '../assets/icons/Eye.svg'
 import EyeSlash from '../assets/icons/EyeSlash.svg'
 import Check from '../assets/icons/Check.svg'
+import CaretLeft from '../assets/icons/CaretLeft.svg'
 
 import { COLORS, SIZES } from '../assets/constants/theme'
+import Header from '../components/Header/Header'
 
 const Register = ({ navigation }: any) => {
     const [showPass, setShowPass] = useState<boolean>(true)
@@ -32,22 +33,6 @@ const Register = ({ navigation }: any) => {
         setShowPass(!showPass)
     }
 
-    // const updateCheckBox = () => {
-    //     setCheckBoxBg(!checkBoxBg)
-    // }
-
-    // const valueItemsGender = useRef([
-    //     { label: 'Male', value: 'Male' },
-    //     { label: 'Female', value: 'Female' },
-    // ])
-    // const valueItemBirth = useRef([
-    //     { label: '2000', value: '2000' },
-    //     { label: '2001', value: '2001' },
-    //     { label: '2002', value: '2002' },
-    // ])
-
-    // console.log('valueItemsGender', valueItemsGender.current)
-    // console.log('valueItemBirth', valueItemBirth.current)
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: 'Male' },
@@ -70,15 +55,12 @@ const Register = ({ navigation }: any) => {
             keyboardVerticalOffset={10}
         >
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Login')}
-                    >
-                        <CaretLeft />
-                    </TouchableOpacity>
-                    <Text style={styles.txtRegister}>Register</Text>
-                    <Text></Text>
-                </View>
+                <Header
+                    title="Register"
+                    onPress={() => navigation.navigate('Login')}
+                    showTextHeader={true}
+                    Icon={() => <CaretLeft />}
+                />
                 <View style={styles.content}>
                     <Text style={styles.content_title}>Your SNS accounts</Text>
                     <Text style={styles.content_description}>
@@ -324,19 +306,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 25,
     },
-    header: {
-        flexDirection: 'row',
-        marginTop: 80,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        color: 'red',
-    },
-    txtRegister: {
-        textAlign: 'center',
-        fontWeight: '600',
-        fontSize: SIZES.large,
-        color: COLORS.Neutral10,
-    },
+
     content: {
         marginTop: 37,
     },

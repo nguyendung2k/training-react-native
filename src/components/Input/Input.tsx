@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexWrap: 'wrap',
     },
-    inputPrimary: {},
     input: {
         fontWeight: '400',
         paddingTop: 20,

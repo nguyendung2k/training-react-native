@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import HeaderAuth from '../components/HeaderAuth/HeaderAuth'
-import ListView from '../components/ListView/ListView'
+import HeaderAuth from '../components/Header/HeaderAuth'
+import { ListView } from '../components/ListView/ListView'
 import ButtonForm from '../components/Button/ButtonForm'
 import ArrowRightDisable from '../assets/icons/ArrowRightDisable.svg'
 
@@ -20,13 +20,12 @@ const ListCommunity = ({ navigation }: any) => {
                     contentContainerStyle={styles.listView}
                     showsVerticalScrollIndicator={false}
                 >
-                    <ListView title="Movies" number="20335" members="members" />
-                    <ListView title="Movies" number="20335" members="members" />
-                    <ListView title="Movies" number="20335" members="members" />
-                    <ListView title="Movies" number="20335" members="members" />
-                    <ListView title="Movies" number="20335" members="members" />
-                    <ListView title="Movies" number="20335" members="members" />
-                    <ListView title="Movies" number="20335" members="members" />
+                    <ListView
+                        showBox={true}
+                        title="Movies"
+                        number="20335"
+                        members="members"
+                    />
                 </ScrollView>
             </View>
             <View style={styles.btn}>
@@ -56,7 +55,6 @@ const styles = StyleSheet.create({
     },
     btn: {
         zIndex: 1,
-        // backgroundColor: COLORS.White,
         paddingTop: 32,
         paddingBottom: 72,
         width: '100%',

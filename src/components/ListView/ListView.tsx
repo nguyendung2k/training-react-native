@@ -4,18 +4,28 @@ import CheckBox from '../Checkbox/CheckBox'
 
 import Check from '../../assets/icons/Check.svg'
 import { COLORS, SIZES } from '../../assets/constants/theme'
+import { GROUPS } from '../../assets/constants/groups'
 
 interface listViewProp {
     title?: string
     number?: string
     members?: string
+    showBox?: boolean
+    source?: any
+    item?: { id: string; title: string; image: string }[]
 }
 
-const ListView = ({ title, number, members }: listViewProp) => {
+export const ListView = ({
+    title,
+    number,
+    members,
+    showBox,
+    source,
+}: listViewProp) => {
     return (
         <View style={styles.container}>
             <View style={styles.checkbox}>
-                <CheckBox Icon={() => <Check />} />
+                {showBox && <CheckBox Icon={() => <Check />} />}
             </View>
             <View style={styles.content}>
                 <Image source={require('../../assets/images/Avatar2.png')} />
@@ -23,7 +33,7 @@ const ListView = ({ title, number, members }: listViewProp) => {
                     <Text style={styles.title}>{title}</Text>
                     <View style={styles.block}>
                         <Text style={styles.number}>{number}</Text>
-                        <Text style={styles.members}>{members}</Text>
+                        <Text style={styles.members}>members</Text>
                     </View>
                 </View>
             </View>
@@ -31,7 +41,9 @@ const ListView = ({ title, number, members }: listViewProp) => {
     )
 }
 
-export default ListView
+export const renderListView = ({ item }: any) => (
+    <ListView key={item.id} title={item.title} number={item.member} />
+)
 
 const styles = StyleSheet.create({
     container: {
@@ -45,7 +57,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 15,
         marginTop: 15,
-        marginLeft: 28,
         justifyContent: 'center',
         alignItems: 'center',
     },

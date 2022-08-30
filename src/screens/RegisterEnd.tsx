@@ -8,8 +8,8 @@ import {
     View,
 } from 'react-native'
 import React, { useState } from 'react'
-import HeaderAuth from '../components/HeaderAuth/HeaderAuth'
-import ButtonChooseImage from '../components/Button/ButtonChooseImage'
+import HeaderAuth from '../components/Header/HeaderAuth'
+import ButtonNoBg from '../components/Button/ButtonNoBg'
 import InputDrop from '../components/Input/InputDrop'
 import Input from '../components/Input/Input'
 import ButtonForm from '../components/Button/ButtonForm'
@@ -56,7 +56,10 @@ const RegisterEnd = ({ navigation }: any) => {
                     <Image
                         source={require('../assets/images/Choosepicture.png')}
                     />
-                    <ButtonChooseImage onPress={() => console.log('OnPress')} />
+                    <ButtonNoBg
+                        title="Choose picture"
+                        onPress={() => console.log('OnPress')}
+                    />
                 </View>
 
                 <HeaderAuth txtContent="Profile info" number="4" />

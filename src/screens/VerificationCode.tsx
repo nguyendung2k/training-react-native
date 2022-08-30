@@ -8,12 +8,6 @@ import {
     View,
 } from 'react-native'
 import React, { useState } from 'react'
-import {
-    CodeField,
-    Cursor,
-    useBlurOnFulfill,
-    useClearByFocusCell,
-} from 'react-native-confirmation-code-field'
 
 import { COLORS, SIZES } from '../assets/constants/theme'
 

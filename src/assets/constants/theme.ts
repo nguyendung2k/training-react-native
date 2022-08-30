@@ -1,5 +1,6 @@
 export const COLORS = {
     Neutral0: '#fff',
+    Neutral1: '#F6F7F9',
     Neutral3: '#C6CBCC',
     Neutral4: '#A8ACAE',
     Neutral8: '#2B3641',
@@ -32,4 +33,5 @@ export const SIZES = {
 export const BORDER = {
     minimum: 4,
     base: 8,
+    maximum: 16,
 }

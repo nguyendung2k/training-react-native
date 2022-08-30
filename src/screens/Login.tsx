@@ -64,19 +64,8 @@ function Login({ navigation }: any) {
                             email: '',
                             password: '',
                         }}
-                        validationSchema={checkInputTest}
-                        onSubmit={(data) => {
-                            // const account = users.find(
-                            //     (acc) =>
-                            //         acc.email === data.email &&
-                            //         acc.password === data.password
-                            // )
-                            // if (account) {
-                            //     navigation.navigate('Home')
-                            // } else {
-                            //     console.log('Fail')
-                            // }
-                        }}
+                        // validationSchema={checkInputTest}
+                        onSubmit={(data) => navigation.navigate('Home')}
                     >
                         {({
                             handleSubmit,
