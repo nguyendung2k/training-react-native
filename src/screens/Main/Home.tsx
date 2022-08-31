@@ -5,19 +5,23 @@ import {
     ScrollView,
     Image,
     FlatList,
+    TouchableOpacity,
 } from 'react-native'
 import React from 'react'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
-import { renderSlide } from '../../components/SlideView/SlideView'
-import { SLIDES } from '../../assets/constants/silde'
 import HeaderSlide from '../../components/Header/HeaderSlide'
-import { renderListView } from '../../components/ListView/ListView'
-import { GROUPS } from '../../assets/constants/groups'
+
 import ButtonNoBg from '../../components/Button/ButtonNoBg'
 import ButtonHome from '../../components/Button/ButtonHome'
+import ListView from '../../components/ListView/ListView'
+import SlideView from '../../components/SlideView/SlideView'
+import { SLIDES } from '../../assets/constants/slide'
+import { GROUPS } from '../../assets/constants/groups'
+import { IconCoin, IconFacebook, IconTwitter } from '../../components/Svg/Icon'
 
-export default function Home() {
+export default function Home({ navigation }: any) {
+    // console.log(navigation)
     return (
         <ScrollView
             style={styles.container}
@@ -56,7 +60,7 @@ export default function Home() {
                     <HeaderSlide title="Joined communities" />
                     <FlatList
                         data={SLIDES}
-                        renderItem={renderSlide}
+                        renderItem={({ item }) => <SlideView item={item} />}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     />
@@ -64,16 +68,36 @@ export default function Home() {
 
                 <View>
                     <HeaderSlide title="Others" />
-                    <FlatList data={GROUPS} renderItem={renderListView} />
+                    <FlatList
+                        data={GROUPS}
+                        renderItem={({ item }) => (
+                            <ListView
+                                onPress={() =>
+                                    navigation.navigate('DetailCommunities')
+                                }
+                                item={item}
+                            />
+                        )}
+                    />
                 </View>
+
                 <View style={styles.btn}>
                     <ButtonNoBg title="See all" />
                 </View>
 
                 <View style={styles.btnGroup}>
-                    <ButtonHome title="Purchase TomoCoins" />
-                    <ButtonHome title="Introduce via Twitter" />
-                    <ButtonHome title="Introduce via Facebook" />
+                    <ButtonHome
+                        Icon={() => <IconCoin stroke={'#FEA827'} />}
+                        title="Purchase TomoCoins"
+                    />
+                    <ButtonHome
+                        Icon={() => <IconTwitter stroke={'#406FF1'} />}
+                        title="Introduce via Twitter"
+                    />
+                    <ButtonHome
+                        Icon={() => <IconFacebook stroke={'#642AE3'} />}
+                        title="Introduce via Facebook"
+                    />
                 </View>
             </View>
         </ScrollView>
@@ -146,6 +170,6 @@ const styles = StyleSheet.create({
         marginBottom: 42,
     },
     btnGroup: {
-        marginBottom: 84,
+        marginBottom: 40,
     },
 })

@@ -1,47 +1,51 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+    Image,
+    ImageBackground,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
 import { LinearGradient } from 'expo-linear-gradient'
 
 interface slideProps {
-    title: string
+    title?: string
     source?: any
+    item: { id: string; title: string; image: string }
+    onPress?: () => void | undefined
 }
 
-export const SlideView = ({ title }: slideProps) => {
+const SlideView = ({ item, onPress }: slideProps) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.container_Content}>
-                <Text style={styles.title}>{title}</Text>
-                <LinearGradient
-                    colors={[
-                        'rgba(255, 255, 255, 0)',
-                        'rgba(255, 255, 255, 1)',
-                    ]}
+                <Text style={styles.title}>{item.title}</Text>
+
+                <ImageBackground
+                    source={require('../../assets/images/Slide1.png')}
+                    style={styles.image}
                 >
-                    <Image
-                        source={require('../../assets/images/Slide1.png')}
-                        style={styles.image}
+                    <LinearGradient
+                        colors={['#140D2900', '#140D28E8']}
+                        style={styles.linearGradient}
                     />
-                </LinearGradient>
+                </ImageBackground>
             </View>
         </TouchableOpacity>
     )
 }
 
-export const renderSlide = ({ item }: any) => (
-    <SlideView title={item.title} key={item.id} />
-)
+export default SlideView
 
 const styles = StyleSheet.create({
     container: {
         marginTop: 36,
     },
 
-    container_Content: {
-        marginBottom: 40,
-    },
+    container_Content: {},
     title: {
         position: 'absolute',
         bottom: 20,
@@ -55,11 +59,15 @@ const styles = StyleSheet.create({
         position: 'relative',
         zIndex: 1,
         marginRight: 12,
+        width: 210,
+        height: 129,
     },
     linearGradient: {
-        flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 5,
+        width: '100%',
+        height: '100%',
+        // opacity: 0.1,
+        borderRadius: BORDER.maximum,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })

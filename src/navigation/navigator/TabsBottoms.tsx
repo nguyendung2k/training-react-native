@@ -7,6 +7,11 @@ import Communities from '../../screens/Main/Communities'
 import Account from '../../screens/Main/Account'
 import { COLORS, SIZES } from '../../assets/constants/theme'
 import { IconCommunities, IconHome, IconUser } from '../../components/Svg/Icon'
+import DetailCommunities from '../../screens/Main/DetailCommunities'
+import MyMainStack from '../Main/HomeStack'
+import AccountStackScreen from '../Main/AccountStack'
+import CommunitiesStackScreen from '../Main/CommunitiesStack'
+import HomeStackScreen from '../Main/HomeStack'
 
 const Tabs = createBottomTabNavigator()
 
@@ -19,7 +24,6 @@ const TabsBottoms = () => {
                 tabBarStyle: {
                     height: 90,
                     borderTopWidth: 0,
-                    position: 'absolute',
                 },
                 tabBarShowLabel: false,
             })}
@@ -62,8 +66,8 @@ const TabsBottoms = () => {
                         )
                     },
                 }}
-                name="Home"
-                component={Home}
+                name="HomeStackScreen"
+                component={HomeStackScreen}
             />
             <Tabs.Screen
                 options={{
@@ -104,8 +108,8 @@ const TabsBottoms = () => {
                         )
                     },
                 }}
-                name="Communities"
-                component={Communities}
+                name="CommunitiesStackScreen"
+                component={CommunitiesStackScreen}
             />
             <Tabs.Screen
                 options={{
@@ -144,8 +148,8 @@ const TabsBottoms = () => {
                         )
                     },
                 }}
-                name="Account"
-                component={Account}
+                name="AccountStackScreen"
+                component={AccountStackScreen}
             />
         </Tabs.Navigator>
     )

@@ -4,35 +4,29 @@ import CheckBox from '../Checkbox/CheckBox'
 
 import Check from '../../assets/icons/Check.svg'
 import { COLORS, SIZES } from '../../assets/constants/theme'
-import { GROUPS } from '../../assets/constants/groups'
 
-interface listViewProp {
+interface listViewProps {
     title?: string
     number?: string
     members?: string
     showBox?: boolean
     source?: any
-    item?: { id: string; title: string; image: string }[]
+    item: { id: string; title: string; image: string; member: string }
+    onPress?: () => void | undefined
 }
 
-export const ListView = ({
-    title,
-    number,
-    members,
-    showBox,
-    source,
-}: listViewProp) => {
+const ListView = ({ showBox, onPress, item }: listViewProps) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.checkbox}>
                 {showBox && <CheckBox Icon={() => <Check />} />}
             </View>
             <View style={styles.content}>
                 <Image source={require('../../assets/images/Avatar2.png')} />
                 <View style={styles.description}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>{item.title}</Text>
                     <View style={styles.block}>
-                        <Text style={styles.number}>{number}</Text>
+                        <Text style={styles.number}>{item.member}</Text>
                         <Text style={styles.members}>members</Text>
                     </View>
                 </View>
@@ -41,9 +35,7 @@ export const ListView = ({
     )
 }
 
-export const renderListView = ({ item }: any) => (
-    <ListView key={item.id} title={item.title} number={item.member} />
-)
+export default ListView
 
 const styles = StyleSheet.create({
     container: {

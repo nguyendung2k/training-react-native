@@ -1,19 +1,12 @@
-import {
-    FlatList,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../../components/Header/Header'
 import InputSearch from '../../components/Input/InputSearch'
 import { GROUPS } from '../../assets/constants/groups'
-import { renderListView } from '../../components/ListView/ListView'
+import ListView from '../../components/ListView/ListView'
 import { COLORS } from '../../assets/constants/theme'
 
-const Communities = () => {
+const Communities = ({ navigation }: any) => {
     const [textInput, setTextInput] = useState<string>('')
     const [groupData, setGroupData] = useState(GROUPS)
 
@@ -39,7 +32,17 @@ const Communities = () => {
                 </View>
 
                 <View style={styles.content}>
-                    <FlatList data={groupData} renderItem={renderListView} />
+                    <FlatList
+                        data={groupData}
+                        renderItem={({ item }) => (
+                            <ListView
+                                onPress={() =>
+                                    navigation.navigate('DetailCommunities')
+                                }
+                                item={item}
+                            />
+                        )}
+                    />
                 </View>
             </View>
         </View>

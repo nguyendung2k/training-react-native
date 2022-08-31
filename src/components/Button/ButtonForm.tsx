@@ -8,6 +8,7 @@ interface btnProps {
     secondary?: boolean
     tertiary?: boolean
     quaternary?: boolean
+    quinary?: boolean
     disable?: boolean
     Icon?: () => JSX.Element
     onPress?: () => void | undefined
@@ -20,6 +21,7 @@ export default function ButtonForm({
     secondary,
     tertiary,
     quaternary,
+    quinary,
     disable,
     disabled,
     onPress,
@@ -36,6 +38,7 @@ export default function ButtonForm({
                     tertiary && styles.btn_Tertiary,
                     quaternary && styles.btn_Quaternary,
                     disable && styles.btn_Disable,
+                    quinary && styles.btn_Quinary,
                     style,
                 ]}
                 onPress={onPress}
@@ -47,6 +50,7 @@ export default function ButtonForm({
                         secondary && styles.textBackLogin,
                         tertiary && styles.textAddNew,
                         quaternary && styles.textNext,
+                        quinary && styles.txt_Quinary,
                         disable && styles.txtDisable,
                     ]}
                 >
@@ -90,6 +94,12 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.White,
         borderWidth: 2,
     },
+    btn_Quinary: {
+        borderRadius: BORDER.base,
+        borderColor: COLORS.Semantic4,
+        backgroundColor: COLORS.White,
+        borderWidth: 2,
+    },
     btn_Disable: {
         backgroundColor: COLORS.White,
         borderColor: COLORS.Neutral4,
@@ -118,7 +128,10 @@ const styles = StyleSheet.create({
     txtDisable: {
         color: COLORS.Neutral3,
     },
-    icon: {
+    txt_Quinary: {
         fontSize: SIZES.medium,
+        color: COLORS.Semantic4,
+        fontWeight: '600',
+        marginRight: 10,
     },
 })
