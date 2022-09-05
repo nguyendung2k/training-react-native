@@ -15,10 +15,6 @@ const CommunitiesStackScreen = () => {
                 name="Communities"
                 component={Communities}
             />
-            <CommunitiesStack.Screen
-                name="DetailCommunities"
-                component={DetailCommunities}
-            />
         </CommunitiesStack.Navigator>
     )
 }

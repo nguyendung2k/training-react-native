@@ -11,6 +11,7 @@ export const COLORS = {
     Semantic4: '#FF4C41',
     White: '#fff',
     Primary: '#3FAEC7',
+    DarkerPrimary: '#2B8093',
     BackgroundInput: '#F6F5E8',
     BackgroundIcon: 'rgba(70, 59, 100, 0.08)',
 }

@@ -21,7 +21,7 @@ import {
 import ButtonForm from '../../components/Button/ButtonForm'
 import BaseModal from '../../components/Modal/BaseModal'
 
-const Account = () => {
+const Account = ({ navigation }: any) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -29,7 +29,7 @@ const Account = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <View>
-                    <Header title="Account" showTextHeader />
+                    <Header title="Account" showTextHeader primary />
                 </View>
                 <View>
                     <CardInfo />
@@ -40,6 +40,7 @@ const Account = () => {
                         Icon={() => (
                             <IconUserCircle stroke={COLORS.Neutral10} />
                         )}
+                        onPress={() => navigation.navigate('YourProfileScreen')}
                     />
                     <ButtonAccountMenu
                         label="Block List"
@@ -83,6 +84,6 @@ const styles = StyleSheet.create({
         marginBottom: 142,
     },
     btnCancel: {
-        marginBottom: 150,
+        marginBottom: 55,
     },
 })

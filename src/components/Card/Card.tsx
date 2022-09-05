@@ -4,14 +4,28 @@ import React from 'react'
 import CardId from './CardId'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
-const CardInfo = () => {
+interface cardInfoProps {
+    secondary?: boolean
+}
+
+const CardInfo = ({ secondary }: cardInfoProps) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
+        <View
+            style={[styles.container, secondary && styles.containerSecondary]}
+        >
+            <View
+                style={[styles.content, secondary && styles.contentSecondary]}
+            >
                 <View style={styles.image}>
-                    <Image
-                        source={require('../../assets/images/Avatar1.png')}
-                    />
+                    {secondary ? (
+                        <Image
+                            source={require('../../assets/images/Avatar6.png')}
+                        />
+                    ) : (
+                        <Image
+                            source={require('../../assets/images/Avatar1.png')}
+                        />
+                    )}
                 </View>
                 <View>
                     <Text style={styles.title}>Matsuura Yuki</Text>
@@ -30,6 +44,9 @@ const styles = StyleSheet.create({
         borderRadius: BORDER.base,
         marginVertical: 24,
     },
+    containerSecondary: {
+        backgroundColor: COLORS.Neutral0,
+    },
     content: {
         flexDirection: 'row',
         paddingTop: 18,
@@ -37,9 +54,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 18,
     },
+    contentSecondary: {
+        flexDirection: 'column',
+    },
     image: {
         marginRight: 20,
     },
+
     title: {
         fontSize: SIZES.medium,
         fontWeight: '600',

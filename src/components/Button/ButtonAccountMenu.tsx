@@ -8,10 +8,14 @@ interface buttonAccountMenuProps {
     label?: string
 }
 
-const ButtonAccountMenu = ({ Icon, label }: buttonAccountMenuProps) => {
+const ButtonAccountMenu = ({
+    Icon,
+    label,
+    onPress,
+}: buttonAccountMenuProps) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={onPress}>
                 <View style={styles.icon}>{!!Icon && <Icon />}</View>
                 <Text style={styles.txt}>{label}</Text>
             </TouchableOpacity>

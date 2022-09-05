@@ -8,21 +8,24 @@ import {
 import React, { useState } from 'react'
 import Header from '../Header/Header'
 import { BORDER, COLORS } from '../../assets/constants/theme'
+import { IconSearchDetail } from '../Svg/Icon'
 
 interface inputSearchProps {
     placeholder?: string
     value?: string
     Icon?: () => JSX.Element
     onPress?: () => void
-    onChangeText?: (value: string) => void | undefined
+    onChangeText?: (value: any) => void | undefined
+    secondary?: boolean
 }
 
 const InputSearch = ({
     Icon,
     onChangeText,
+    onPress,
     placeholder,
     value,
-    onPress,
+    secondary,
 }: inputSearchProps) => {
     return (
         <View style={styles.container}>
@@ -36,6 +39,11 @@ const InputSearch = ({
                     onChangeText={onChangeText}
                     value={value}
                 />
+                {secondary && (
+                    <TouchableOpacity onPress={onPress} style={styles.icon}>
+                        <IconSearchDetail stroke={COLORS.Neutral10} />
+                    </TouchableOpacity>
+                )}
             </View>
         </View>
     )
@@ -57,8 +65,10 @@ const styles = StyleSheet.create({
     },
     txt: {
         marginLeft: 20,
-
-        width: '100%',
+        width: '70%',
         height: 58,
+    },
+    icon: {
+        height: 30,
     },
 })

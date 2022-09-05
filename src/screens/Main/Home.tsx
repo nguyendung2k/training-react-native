@@ -19,6 +19,7 @@ import SlideView from '../../components/SlideView/SlideView'
 import { SLIDES } from '../../assets/constants/slide'
 import { GROUPS } from '../../assets/constants/groups'
 import { IconCoin, IconFacebook, IconTwitter } from '../../components/Svg/Icon'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Home({ navigation }: any) {
     // console.log(navigation)

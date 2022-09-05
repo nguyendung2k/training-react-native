@@ -4,13 +4,21 @@ import { COLORS, SIZES } from '../../assets/constants/theme'
 
 interface headerSlideProps {
     title: string
+    secondary?: boolean
 }
 
-export default function HeaderSlide({ title }: headerSlideProps) {
+export default function HeaderSlide({ title, secondary }: headerSlideProps) {
     return (
         <View>
             <View>
-                <Text style={styles.container_Title}>{title}</Text>
+                <Text
+                    style={[
+                        styles.container_Title,
+                        secondary && styles.titleSecondary,
+                    ]}
+                >
+                    {title}
+                </Text>
             </View>
         </View>
     )
@@ -22,5 +30,9 @@ const styles = StyleSheet.create({
         color: COLORS.Neutral10,
         fontWeight: '600',
         marginTop: 36,
+    },
+    titleSecondary: {
+        color: COLORS.Neutral0,
+        fontWeight: '600',
     },
 })

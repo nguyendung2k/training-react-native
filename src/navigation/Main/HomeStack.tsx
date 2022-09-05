@@ -12,10 +12,6 @@ const HomeStackScreen = () => {
     return (
         <HomeStack.Navigator screenOptions={{ headerShown: false }}>
             <HomeStack.Screen name="Home" component={Home} />
-            <HomeStack.Screen
-                name="DetailCommunities"
-                component={DetailCommunities}
-            />
         </HomeStack.Navigator>
     )
 }

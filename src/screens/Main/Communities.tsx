@@ -5,6 +5,8 @@ import InputSearch from '../../components/Input/InputSearch'
 import { GROUPS } from '../../assets/constants/groups'
 import ListView from '../../components/ListView/ListView'
 import { COLORS } from '../../assets/constants/theme'
+import { IconSearch } from '../../components/Svg/Icon'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Communities = ({ navigation }: any) => {
     const [textInput, setTextInput] = useState<string>('')
@@ -14,20 +16,21 @@ const Communities = ({ navigation }: any) => {
         const filteredData = GROUPS.filter((item) => {
             return item.title.includes(textInput)
         })
+        // setTextInput
         setGroupData(filteredData)
-        // console.log(textInput)
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.containerBody}>
-                <Header title="Communities" showTextHeader={true} />
+                <Header title="Communities" showTextHeader={true} primary />
                 <View>
                     <InputSearch
                         placeholder="Find a community"
                         value={textInput}
                         onChangeText={setTextInput}
                         onPress={handleSearch}
+                        Icon={() => <IconSearch />}
                     />
                 </View>
 
@@ -45,7 +48,7 @@ const Communities = ({ navigation }: any) => {
                     />
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
