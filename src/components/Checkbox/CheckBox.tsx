@@ -2,30 +2,28 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../assets/constants/theme'
 
-interface checkBox {
+interface checkBoxProps {
     onPress?: () => void | boolean
-    secondary?: boolean
-    style?: any
     Icon?: () => JSX.Element | null
+    secondary?: boolean
     value?: string
+    check?: boolean
 }
 
-const CheckBox = ({ onPress, secondary, style, Icon, value }: checkBox) => {
-    const [checkBox, setCheckBox] = useState<boolean>(false)
-    const updateCheckBox = () => {
-        setCheckBox(!checkBox)
-    }
+const CheckBox = ({
+    onPress,
+    secondary,
+    Icon,
+    value,
+    check,
+}: checkBoxProps) => {
     return (
         <View style={[secondary && styles.container]}>
             <TouchableOpacity
-                onPress={updateCheckBox}
-                style={[
-                    styles.checkBox,
-                    checkBox && styles.checkBox_Secondary,
-                    style,
-                ]}
+                onPress={onPress}
+                style={[styles.checkBox, check && styles.checkBox_Secondary]}
             >
-                {!!Icon && checkBox && <Icon />}
+                {!!Icon && check && <Icon />}
             </TouchableOpacity>
             {secondary && <Text style={styles.txt}>{value}</Text>}
         </View>

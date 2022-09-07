@@ -15,7 +15,7 @@ interface inputSearchProps {
     value?: string
     Icon?: () => JSX.Element
     onPress?: () => void
-    onChangeText?: (value: any) => void | undefined
+    onChangeText?: (value: string) => void | undefined
     secondary?: boolean
 }
 

@@ -3,72 +3,32 @@ import React, { memo } from 'react'
 import { IconUsers } from '../Svg/Icon'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
-const MEMBERS = [
-    {
-        title: 'Jenny Wilson',
-        image: '../../assets/images/Avatar1.png',
-        quantity: '2050',
-        description: 'Typical creator. Bacon guru. Gamer.',
-    },
-    {
-        title: 'Annette Black',
-        image: '../../assets/images/Avatar1.png',
-        quantity: '123',
-        description:
-            'I want to empower entrepreneurs and have a tangible impact in my community.',
-    },
-    {
-        title: 'Savannah Nguyen',
-        image: '../../assets/images/Avatar1.png',
-        quantity: '456',
-        description: 'Typical creator. Bacon guru. Gamer.',
-    },
-    {
-        title: 'Savannah Nguyen',
-        image: '../../assets/images/Avatar1.png',
-        quantity: '456',
-        description: 'Typical creator. Bacon guru. Gamer.',
-    },
-    {
-        title: 'Savannah Nguyen',
-        image: '../../assets/images/Avatar1.png',
-        quantity: '456',
-        description: 'Typical creator. Bacon guru. Gamer.',
-    },
-    {
-        title: 'Savannah Nguyen',
-        image: '../../assets/images/Avatar1.png',
-        quantity: '456',
-        description: 'Typical creator. Bacon guru. Gamer.',
-    },
-]
+interface listMemberProps {
+    data: []
+}
 
-const ListMember = () => {
-    console.log('re-render')
+const ListMember = ({ data }: any) => {
+    // console.log('re-render')
     return (
         <View>
-            {MEMBERS.map((item, index) => (
-                <TouchableOpacity key={index} style={styles.container}>
-                    <View style={styles.content}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/images/Avatar1.png')}
-                        />
-                        <View style={styles.info}>
-                            <Text style={styles.title}>{item.title}</Text>
-                            <View style={styles.body}>
-                                <Text style={styles.quantity}>
-                                    {item.quantity}
-                                </Text>
-                                <IconUsers stroke={COLORS.Neutral8} />
-                            </View>
-                            <Text style={styles.description}>
-                                {item.description}
-                            </Text>
+            <TouchableOpacity style={styles.container}>
+                <View style={styles.content}>
+                    <Image
+                        style={styles.image}
+                        source={require('../../assets/images/Avatar1.png')}
+                    />
+                    <View style={styles.info}>
+                        <Text style={styles.title}>{data.name}</Text>
+                        <View style={styles.body}>
+                            <Text style={styles.quantity}>{data.follow}</Text>
+                            <IconUsers stroke={COLORS.Neutral8} />
                         </View>
+                        <Text style={styles.description}>
+                            {data.description}
+                        </Text>
                     </View>
-                </TouchableOpacity>
-            ))}
+                </View>
+            </TouchableOpacity>
         </View>
     )
 }

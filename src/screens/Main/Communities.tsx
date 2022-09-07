@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import InputSearch from '../../components/Input/InputSearch'
 import { GROUPS } from '../../assets/constants/groups'
@@ -9,15 +9,21 @@ import { IconSearch } from '../../components/Svg/Icon'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Communities = ({ navigation }: any) => {
-    const [textInput, setTextInput] = useState<string>('')
+    const [textInput, setTextInput] = useState('')
     const [groupData, setGroupData] = useState(GROUPS)
+    const [showResultFilter, setShowResultFilter] = useState(true)
 
-    const handleSearch = () => {
+    useEffect(() => {
+        console.log('textInput: ', textInput)
         const filteredData = GROUPS.filter((item) => {
             return item.title.includes(textInput)
         })
-        // setTextInput
         setGroupData(filteredData)
+        setShowResultFilter(true)
+    }, [textInput])
+
+    const handleSearchByTitle = (value: string) => {
+        setTextInput(value)
     }
 
     return (
@@ -28,15 +34,15 @@ const Communities = ({ navigation }: any) => {
                     <InputSearch
                         placeholder="Find a community"
                         value={textInput}
-                        onChangeText={setTextInput}
-                        onPress={handleSearch}
+                        onChangeText={handleSearchByTitle}
                         Icon={() => <IconSearch />}
                     />
                 </View>
 
                 <View style={styles.content}>
                     <FlatList
-                        data={groupData}
+                        showsVerticalScrollIndicator={false}
+                        data={showResultFilter ? groupData : GROUPS}
                         renderItem={({ item }) => (
                             <ListView
                                 onPress={() =>
@@ -61,5 +67,7 @@ const styles = StyleSheet.create({
     containerBody: {
         paddingHorizontal: 20,
     },
-    content: {},
+    content: {
+        marginBottom: 410,
+    },
 })

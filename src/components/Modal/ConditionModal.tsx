@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BORDER, COLORS } from '../../assets/constants/theme'
 import HeaderSlide from '../Header/HeaderSlide'
 import InputSelectAge from '../Input/InputSelectAge'
@@ -7,38 +7,136 @@ import CheckBox from '../Checkbox/CheckBox'
 import { IconCheck } from '../Svg/Icon'
 import ButtonHaft from '../Button/ButtonHaft'
 
-const ConditionModal = () => {
+import { MEMBERS } from '../../assets/constants/members'
+import { GENDER } from '../../assets/constants/filter'
+
+interface conditionModalProps {
+    onPress: (minAge: string, maxAge: string, gender: string) => void
+}
+
+const ConditionModal = ({ onPress }: conditionModalProps) => {
+    const [valueAgeMin, setValueAgeMin] = useState<string>('')
+    const [valueAgeMax, setValueAgeMax] = useState<string>('')
+    const [valueGender, setValueGender] = useState<string>('')
+    const [checkBox, setCheckBox] = useState<string>('')
+
+    // useEffect(() => {}, [valueAgeMin, valueAgeMax, valueGender])
+
+    const handleChangeValueAgeMin = (value: string) => {
+        setValueAgeMin(value)
+    }
+
+    const handleChangeValueAgeMax = (value: string) => {
+        setValueAgeMax(value)
+    }
+
+    const handleChangeValueGender = (gender: string) => {
+        // setValueGender((prev): any => {
+        //     const checkValue = valueGender.includes(gender)
+
+        //     if (checkValue) {
+        //         return valueGender.filter((item) => item != gender)
+        //     } else {
+        //         return [...prev, gender]
+        //     }
+        // })
+
+        setValueGender(gender)
+        // console.log('abc')
+    }
+
+    const handleUpdateCheckbox = (id: string) => {
+        // setCheckBox((prev): any => {
+        //     const check = checkBox.includes(id)
+
+        //     console.log('check', check)
+
+        //     if (check) {
+        //         return checkBox.filter((item) => item != id)
+        //     } else {
+        //         return [...prev, id]
+        //     }
+        // })
+
+        setCheckBox(id)
+    }
+
+    const handleClearCondition = () => {
+        // console.log('clear')
+        setCheckBox('')
+        setValueAgeMax('')
+        setValueAgeMin('')
+        setValueGender('')
+    }
+
+    // const handleApplyCondition = () => {
+    //     const resultCondition = {
+    //         valueAgeMax: valueAgeMax,
+    //         valueAgeMin: valueAgeMin,
+    //         valueGender: valueGender,
+    //     }
+    //     const resultCheckCondition = MEMBERS.filter((item) => {
+    //         return (
+    //             item.gender === resultCondition.valueGender &&
+    //             item.age >= resultCondition.valueAgeMin &&
+    //             item.age <= resultCondition.valueAgeMax
+    //         )
+    //     })
+
+    //     // console.log(resultCheckCondition)
+
+    //     return resultCheckCondition
+    // }
+
+    // console.log(valueGender)
+
     return (
         <View style={styles.container}>
             <View style={styles.body}>
                 <HeaderSlide title="Age" secondary />
                 <View style={styles.inputSelect}>
-                    <InputSelectAge value="20" />
+                    <InputSelectAge
+                        value={valueAgeMin}
+                        onChangeText={handleChangeValueAgeMin}
+                    />
                     <View style={styles.line}></View>
-                    <InputSelectAge value="30" />
+                    <InputSelectAge
+                        value={valueAgeMax}
+                        onChangeText={handleChangeValueAgeMax}
+                    />
                 </View>
                 <HeaderSlide title="Gender" secondary />
                 <View>
-                    <CheckBox
-                        Icon={() => <IconCheck stroke={COLORS.White} />}
-                        secondary
-                        value="Female"
-                    />
-                    <CheckBox
-                        Icon={() => <IconCheck stroke={COLORS.White} />}
-                        secondary
-                        value="Male"
-                    />
-                    <CheckBox
-                        Icon={() => <IconCheck stroke={COLORS.White} />}
-                        secondary
-                        value="Others"
-                    />
+                    {GENDER.map((item) => {
+                        return (
+                            <CheckBox
+                                key={item.id}
+                                Icon={() => <IconCheck stroke={COLORS.White} />}
+                                secondary
+                                value={item.gender}
+                                onPress={() => {
+                                    handleChangeValueGender(item.gender)
+                                    handleUpdateCheckbox(item.id)
+                                }}
+                                check={checkBox === item.id}
+                            />
+                        )
+                    })}
                 </View>
                 <View style={styles.btn}>
-                    <ButtonHaft primary label="Apply" />
+                    <ButtonHaft
+                        primary
+                        label="Apply"
+                        onPress={() =>
+                            onPress(valueAgeMin, valueAgeMax, valueGender)
+                        }
+                    />
                     <View></View>
-                    <ButtonHaft secondary label="Clear" />
+                    <ButtonHaft
+                        secondary
+                        label="Clear"
+                        onPress={handleClearCondition}
+                    />
                 </View>
             </View>
         </View>

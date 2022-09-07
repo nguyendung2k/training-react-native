@@ -10,27 +10,50 @@ import {
     Keyboard,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { api } from '../../api/userApi'
+
 import Input from '../../components/Input/Input'
 import ButtonForm from '../../components/Button/ButtonForm'
 import { COLORS, SIZES } from '../../assets/constants/theme'
 
-import { ArrowRight, Eye, EyeSlash } from '../../components/Svg/Icon'
+import { ArrowRight } from '../../components/Svg/Icon'
 import MessageError from '../../components/MessageError/MessageError'
+import { loginSuccess } from '../../redux/slices/auth'
+import { USER, USER_INFO } from '../../assets/constants/user'
+
+// const axios = require('axios')
+
+const urlUser = 'http://localhost:3000/user'
 
 function Login({ navigation }: any) {
-    const [showPass, setShowPass] = useState<boolean>(true)
-    const [user, setUser] = useState({})
+    const dispatch = useDispatch()
 
     // useEffect(() => {
-    //     const getData = async () => {
-    //         const data = await api.getDataUser
-    //         setUser(data)
-    //     }
-    //     getData()
+    //     axios({
+    //         method: 'get',
+    //         url: 'http://localhost:3000/user',
+    //     }).then(function (response) {
+    //         console.log(response)
+    //     })
     // }, [])
+
+    const handleLogin = (values: any) => {
+        if (values.email === USER.email && values.password === USER.password) {
+            // console.log(USER_INFO.data[0])
+            dispatch(loginSuccess(USER_INFO.data[0]))
+        }
+        // axios({
+        //     method: 'get',
+        //     url: 'http://localhost:3000/user_Info/1',
+        // }).then(function (response) {
+        //     const data = response.data
+        //     // console.log(data)
+        // }
+    }
 
     const checkInput = Yup.object({
         email: Yup.string()
@@ -59,7 +82,7 @@ function Login({ navigation }: any) {
                             password: '',
                         }}
                         validationSchema={checkInput}
-                        onSubmit={(values) => console.log(values)}
+                        onSubmit={(values) => handleLogin(values)}
                     >
                         {({
                             handleSubmit,

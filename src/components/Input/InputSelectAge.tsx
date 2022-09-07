@@ -4,12 +4,18 @@ import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
 interface inputProps {
     value?: string
+    onChangeText?: (value: string) => void | undefined
 }
 
-const InputSelectAge = ({ value }: inputProps) => {
+const InputSelectAge = ({ value, onChangeText }: inputProps) => {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.txtInput} value={value} />
+            <TextInput
+                style={styles.txtInput}
+                value={value}
+                onChangeText={onChangeText}
+                keyboardType="numeric"
+            />
         </View>
     )
 }

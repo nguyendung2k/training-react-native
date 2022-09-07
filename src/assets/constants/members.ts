@@ -1,0 +1,51 @@
+export const MEMBERS = [
+    {
+        name: 'Jenny Wilson',
+        image: '../../assets/images/Avatar1.png',
+        follow: '2050',
+        description: 'Typical creator. Bacon guru. Gamer.',
+        age: '20',
+        gender: 'Female',
+    },
+    {
+        name: 'Annette Black',
+        image: '../../assets/images/Avatar1.png',
+        follow: '1230',
+        description:
+            'I want to empower entrepreneurs and have a tangible impact in my community.',
+        age: '20',
+        gender: 'Female',
+    },
+    {
+        name: 'Savannah Nguyen',
+        image: '../../assets/images/Avatar1.png',
+        follow: '456',
+        description: 'Typical creator. Bacon guru. Gamer.',
+        age: '30',
+        gender: 'Others',
+    },
+    {
+        name: 'Savannah Phong',
+        image: '../../assets/images/Avatar1.png',
+        follow: '456',
+        description: 'Typical creator. Bacon guru. Gamer.',
+        age: '24',
+        gender: 'Male',
+    },
+    {
+        name: 'Savannah Vu',
+        image: '../../assets/images/Avatar1.png',
+        follow: '456',
+        description: 'Typical creator. Bacon guru. Gamer.',
+        age: '40',
+        gender: 'Male',
+    },
+    {
+        name: 'Savannah Le',
+        image: '../../assets/images/Avatar1.png',
+        follow: '456',
+        description: 'Typical creator. Bacon guru. Gamer.',
+        age: '36',
+        gender: 'Others',
+    },
+]

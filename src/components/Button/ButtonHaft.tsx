@@ -18,6 +18,7 @@ const ButtonHaft = ({ label, primary, secondary, onPress }: btnProps) => {
                     primary && styles.btnPrimary,
                     secondary && styles.btnSecondary,
                 ]}
+                onPress={onPress}
             >
                 <Text
                     style={[styles.label, secondary && styles.labelSecondary]}

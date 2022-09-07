@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import HeaderAuth from '../../components/Header/HeaderAuth'
-import { ListView } from '../../components/ListView/ListView'
 import ButtonForm from '../../components/Button/ButtonForm'
+import ListView from '../../components/ListView/ListView'
 
 const ListCommunity = ({ navigation }: any) => {
     return (
