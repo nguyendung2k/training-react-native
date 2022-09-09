@@ -6,6 +6,9 @@ interface iState {
         email: string
         password: string
     }
+    modal: {
+        showModal: boolean
+    }
 }
 
 const initialState: iState = {
@@ -13,6 +16,9 @@ const initialState: iState = {
         token: null,
         email: '',
         password: '',
+    },
+    modal: {
+        showModal: false,
     },
 }
 
@@ -23,7 +29,7 @@ export const authSlice = createSlice({
         loginSuccess(state, action) {
             state.user = action.payload
         },
-        logoutSuccess(state, action) {
+        logoutSuccess(state) {
             state.user = initialState.user
         },
     },

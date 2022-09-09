@@ -1,16 +1,11 @@
 import { combineReducers } from 'redux'
-import { AnyAction, Reducer } from '@reduxjs/toolkit'
 
-import auth from '../slices/auth'
+import authSlice from './authSlice'
+import homeSlice from './homeSlice'
 
-const authReducer = combineReducers({
-    auth: auth,
+const rootReducer = combineReducers({
+    auth: authSlice,
+    home: homeSlice,
 })
-
-export type RootState = ReturnType<typeof authReducer>
-
-const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-    return authReducer(state, action)
-}
 
 export default rootReducer

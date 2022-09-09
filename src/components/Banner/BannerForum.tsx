@@ -24,16 +24,16 @@ const BannerForum = ({ title, des, txt, Icon, status }: bannerFormProps) => {
                     </View>
                 </View>
                 {status ? (
+                    <TouchableOpacity style={styles.btn}>
+                        <Text style={styles.btnText}>Go to forum</Text>
+                        <IconCaretRight stroke={COLORS.DarkerPrimary} />
+                    </TouchableOpacity>
+                ) : (
                     <TouchableOpacity activeOpacity={0.5} style={styles.footer}>
                         {!!Icon && <Icon />}
                         <Text style={styles.txt}>
                             Join community to enter this forum
                         </Text>
-                    </TouchableOpacity>
-                ) : (
-                    <TouchableOpacity style={styles.btn}>
-                        <Text style={styles.btnText}>Go to forum</Text>
-                        <IconCaretRight stroke={COLORS.DarkerPrimary} />
                     </TouchableOpacity>
                 )}
             </View>

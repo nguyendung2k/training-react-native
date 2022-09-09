@@ -21,18 +21,18 @@ const Banner = ({ status, onPress }: bannerProps) => {
                     <View style={styles.content}>
                         <Text style={styles.title}>Gaming</Text>
                         <Text style={styles.des}>256 members</Text>
-                        {!status ? (
-                            <ButtonBanner
-                                label="Participate"
-                                onPress={onPress}
-                            />
-                        ) : (
+                        {status ? (
                             <ButtonBanner
                                 secondary
                                 label="Leaving"
                                 Icon={() => (
                                     <IconSignOut stroke={COLORS.Neutral0} />
                                 )}
+                                onPress={onPress}
+                            />
+                        ) : (
+                            <ButtonBanner
+                                label="Participate"
                                 onPress={onPress}
                             />
                         )}

@@ -6,10 +6,17 @@ interface btnProps {
     label?: string
     primary?: boolean
     secondary?: boolean
+    tertiary?: boolean
     onPress?: () => void | undefined
 }
 
-const ButtonHaft = ({ label, primary, secondary, onPress }: btnProps) => {
+const ButtonHaft = ({
+    label,
+    primary,
+    secondary,
+    tertiary,
+    onPress,
+}: btnProps) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -17,11 +24,16 @@ const ButtonHaft = ({ label, primary, secondary, onPress }: btnProps) => {
                     styles.btn,
                     primary && styles.btnPrimary,
                     secondary && styles.btnSecondary,
+                    tertiary && styles.btnTertiary,
                 ]}
                 onPress={onPress}
             >
                 <Text
-                    style={[styles.label, secondary && styles.labelSecondary]}
+                    style={[
+                        styles.label,
+                        secondary && styles.labelSecondary,
+                        tertiary && styles.labelTertiary,
+                    ]}
                 >
                     {label}
                 </Text>
@@ -38,7 +50,7 @@ const styles = StyleSheet.create({
         width: '45%',
     },
     btn: {
-        paddingHorizontal: 48,
+        // paddingHorizontal: 48,
         paddingVertical: 16,
         borderRadius: BORDER.base,
     },
@@ -50,6 +62,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: COLORS.Neutral4,
     },
+    btnTertiary: {
+        borderWidth: 1,
+        borderColor: COLORS.Neutral6,
+        backgroundColor: COLORS.Neutral0,
+    },
     label: {
         color: COLORS.Neutral0,
         fontWeight: '600',
@@ -58,5 +75,8 @@ const styles = StyleSheet.create({
     },
     labelSecondary: {
         color: COLORS.Neutral4,
+    },
+    labelTertiary: {
+        color: COLORS.Neutral6,
     },
 })

@@ -8,7 +8,6 @@ interface listMemberProps {
 }
 
 const ListMember = ({ data }: any) => {
-    // console.log('re-render')
     return (
         <View>
             <TouchableOpacity style={styles.container}>

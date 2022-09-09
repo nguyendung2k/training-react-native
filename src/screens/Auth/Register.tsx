@@ -34,8 +34,6 @@ const Register = ({ navigation }: any) => {
         { label: '2002', value: '2002' },
     ])
 
-    console.log('Render')
-
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

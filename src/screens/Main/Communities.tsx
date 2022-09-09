@@ -14,7 +14,6 @@ const Communities = ({ navigation }: any) => {
     const [showResultFilter, setShowResultFilter] = useState(true)
 
     useEffect(() => {
-        console.log('textInput: ', textInput)
         const filteredData = GROUPS.filter((item) => {
             return item.title.includes(textInput)
         })

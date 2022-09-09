@@ -6,7 +6,7 @@ import {
     Text,
     View,
 } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/Header/Header'
 import CardInfo from '../../components/Card/Card'
 import { COLORS } from '../../assets/constants/theme'
@@ -20,8 +20,20 @@ import {
 } from '../../components/Svg/Icon'
 import ButtonForm from '../../components/Button/ButtonForm'
 import BaseModal from '../../components/Modal/BaseModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { showModal } from '../../redux/slices/homeSlice'
+
+const showModalConfirm = (state: any) => state.home.modal.showModal
 
 const Account = ({ navigation }: any) => {
+    const modal = useSelector(showModalConfirm)
+
+    const dispatch = useDispatch()
+
+    const handleShowModal = () => {
+        dispatch(showModal({ showModal: true }))
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -55,6 +67,7 @@ const Account = ({ navigation }: any) => {
                     <ButtonAccountMenu
                         label="Log out"
                         Icon={() => <IconSignOut stroke={COLORS.Neutral10} />}
+                        onPress={handleShowModal}
                     />
                 </View>
 
@@ -63,9 +76,17 @@ const Account = ({ navigation }: any) => {
                         label="Cancel account"
                         quinary
                         Icon={() => <IconWarning stroke={COLORS.Semantic4} />}
-                        onPress={() => console.log('click')}
                     />
                 </View>
+
+                {modal ? (
+                    <View style={styles.showModal}>
+                        <BaseModal
+                            title="Do you want to Log out?"
+                            label="Log out"
+                        />
+                    </View>
+                ) : null}
             </ScrollView>
         </SafeAreaView>
     )
@@ -79,11 +100,17 @@ const styles = StyleSheet.create({
     },
     content: {
         marginHorizontal: 24,
+        position: 'relative',
     },
     btn: {
-        marginBottom: 142,
+        marginBottom: 90,
     },
     btnCancel: {
         marginBottom: 55,
+    },
+    showModal: {
+        position: 'absolute',
+        top: '37%',
+        left: '10%',
     },
 })

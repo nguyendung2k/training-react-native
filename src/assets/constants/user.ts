@@ -12,7 +12,6 @@ export const USER_INFO = {
             first_name: 'Nguyen',
             last_name: 'Van',
             token: 'lkqly33284132hj2kjgrewkrh',
-            status: true,
         },
     ],
 }

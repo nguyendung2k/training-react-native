@@ -7,7 +7,6 @@ import CheckBox from '../Checkbox/CheckBox'
 import { IconCheck } from '../Svg/Icon'
 import ButtonHaft from '../Button/ButtonHaft'
 
-import { MEMBERS } from '../../assets/constants/members'
 import { GENDER } from '../../assets/constants/filter'
 
 interface conditionModalProps {
@@ -20,8 +19,6 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
     const [valueGender, setValueGender] = useState<string>('')
     const [checkBox, setCheckBox] = useState<string>('')
 
-    // useEffect(() => {}, [valueAgeMin, valueAgeMax, valueGender])
-
     const handleChangeValueAgeMin = (value: string) => {
         setValueAgeMin(value)
     }
@@ -31,64 +28,19 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
     }
 
     const handleChangeValueGender = (gender: string) => {
-        // setValueGender((prev): any => {
-        //     const checkValue = valueGender.includes(gender)
-
-        //     if (checkValue) {
-        //         return valueGender.filter((item) => item != gender)
-        //     } else {
-        //         return [...prev, gender]
-        //     }
-        // })
-
         setValueGender(gender)
-        // console.log('abc')
     }
 
     const handleUpdateCheckbox = (id: string) => {
-        // setCheckBox((prev): any => {
-        //     const check = checkBox.includes(id)
-
-        //     console.log('check', check)
-
-        //     if (check) {
-        //         return checkBox.filter((item) => item != id)
-        //     } else {
-        //         return [...prev, id]
-        //     }
-        // })
-
         setCheckBox(id)
     }
 
     const handleClearCondition = () => {
-        // console.log('clear')
         setCheckBox('')
         setValueAgeMax('')
         setValueAgeMin('')
         setValueGender('')
     }
-
-    // const handleApplyCondition = () => {
-    //     const resultCondition = {
-    //         valueAgeMax: valueAgeMax,
-    //         valueAgeMin: valueAgeMin,
-    //         valueGender: valueGender,
-    //     }
-    //     const resultCheckCondition = MEMBERS.filter((item) => {
-    //         return (
-    //             item.gender === resultCondition.valueGender &&
-    //             item.age >= resultCondition.valueAgeMin &&
-    //             item.age <= resultCondition.valueAgeMax
-    //         )
-    //     })
-
-    //     // console.log(resultCheckCondition)
-
-    //     return resultCheckCondition
-    // }
-
-    // console.log(valueGender)
 
     return (
         <View style={styles.container}>

@@ -23,12 +23,10 @@ const styles = StyleSheet.create({
     txt: {
         color: COLORS.Primary,
         fontSize: SIZES.medium,
-        marginRight: 14,
         fontWeight: '600',
     },
     btn: {
         flexDirection: 'row',
-        marginTop: 21,
         alignItems: 'center',
         justifyContent: 'center',
     },

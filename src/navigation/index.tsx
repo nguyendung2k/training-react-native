@@ -13,18 +13,10 @@ const tokenUser = (state: any) => state.auth.user?.token
 
 const MyStack = () => {
     const token = useSelector(tokenUser)
-
-    console.log('token----', token)
-
-    // const token = false
     return (
         <NavigationContainer independent={true}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                {/* {token ? ( */}
-
-                {!token ? (
-                    <Stack.Screen name="MyAuthStack" component={MyAuthStack} />
-                ) : (
+                {token ? (
                     <>
                         <Stack.Screen
                             name="TabsBottom"
@@ -35,6 +27,8 @@ const MyStack = () => {
                             component={DetailCommunities}
                         />
                     </>
+                ) : (
+                    <Stack.Screen name="MyAuthStack" component={MyAuthStack} />
                 )}
             </Stack.Navigator>
         </NavigationContainer>

@@ -1,14 +1,96 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { useDispatch } from 'react-redux'
+import { logoutSuccess } from '../../redux/slices/authSlice'
+import TitleModal from './TitleModal'
+import ButtonHaft from '../Button/ButtonHaft'
+import { hideModal } from '../../redux/slices/homeSlice'
 
-const BaseModal = () => {
+interface baseModalProps {
+    onPress?: () => void
+    primary?: boolean
+    title?: string
+    label?: string
+}
+
+const BaseModal = ({ primary, title, label }: baseModalProps) => {
+    const dispatch = useDispatch()
+
+    const handelConfirmLogout = () => {
+        dispatch(hideModal())
+        dispatch(logoutSuccess())
+    }
+
+    const handelCancelLogout = () => {
+        dispatch(hideModal())
+    }
+
     return (
-        <View>
-            <Text>BaseModal</Text>
+        <View style={styles.container}>
+            <View style={styles.text}>
+                <TitleModal title={title} />
+            </View>
+            <View style={styles.content}>
+                <View style={styles.btn}>
+                    <ButtonHaft
+                        label={label}
+                        primary
+                        onPress={handelConfirmLogout}
+                    />
+                    <View style={{ width: '10%' }}></View>
+                    <ButtonHaft
+                        tertiary
+                        label="Cancel"
+                        onPress={handelCancelLogout}
+                    />
+                </View>
+            </View>
         </View>
     )
 }
 
 export default BaseModal
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.Neutral0,
+        borderRadius: BORDER.base,
+        width: 300,
+        height: 251,
+    },
+    content: {
+        marginTop: 38,
+    },
+    text: {
+        marginTop: 67,
+    },
+    btn: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 24,
+    },
+    btnLogout: {
+        alignItems: 'center',
+        backgroundColor: COLORS.Primary,
+        width: '45%',
+        borderRadius: BORDER.base,
+    },
+    btnLogoutTxt: {
+        // paddingHorizontal: 0,
+        paddingVertical: 16,
+        color: COLORS.Neutral0,
+        fontWeight: '600',
+    },
+    btnCancel: {
+        alignItems: 'center',
+        backgroundColor: COLORS.Neutral0,
+        width: '45%',
+    },
+    btnCancelTxt: {
+        paddingVertical: 16,
+
+        fontWeight: '600',
+    },
+})

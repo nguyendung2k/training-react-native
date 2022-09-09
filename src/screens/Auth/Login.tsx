@@ -10,7 +10,7 @@ import {
     Keyboard,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
 
 import * as Yup from 'yup'
@@ -22,12 +22,11 @@ import { COLORS, SIZES } from '../../assets/constants/theme'
 
 import { ArrowRight } from '../../components/Svg/Icon'
 import MessageError from '../../components/MessageError/MessageError'
-import { loginSuccess } from '../../redux/slices/auth'
+import { loginSuccess } from '../../redux/slices/authSlice'
 import { USER, USER_INFO } from '../../assets/constants/user'
+import ButtonNoBg from '../../components/Button/ButtonNoBg'
 
-// const axios = require('axios')
-
-const urlUser = 'http://localhost:3000/user'
+// const urlUser = 'http://localhost:3000/user'
 
 function Login({ navigation }: any) {
     const dispatch = useDispatch()
@@ -43,7 +42,6 @@ function Login({ navigation }: any) {
 
     const handleLogin = (values: any) => {
         if (values.email === USER.email && values.password === USER.password) {
-            // console.log(USER_INFO.data[0])
             dispatch(loginSuccess(USER_INFO.data[0]))
         }
         // axios({
@@ -51,7 +49,6 @@ function Login({ navigation }: any) {
         //     url: 'http://localhost:3000/user_Info/1',
         // }).then(function (response) {
         //     const data = response.data
-        //     // console.log(data)
         // }
     }
 
@@ -78,8 +75,8 @@ function Login({ navigation }: any) {
 
                     <Formik
                         initialValues={{
-                            email: '',
-                            password: '',
+                            email: 'user1@gmail.com',
+                            password: 'user123',
                         }}
                         validationSchema={checkInput}
                         onSubmit={(values) => handleLogin(values)}
@@ -145,13 +142,7 @@ function Login({ navigation }: any) {
                         <Text style={styles.textFooter}>
                             Don’t have an account?
                         </Text>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Register')}
-                        >
-                            <Text style={styles.textFooter_primary}>
-                                Register
-                            </Text>
-                        </TouchableOpacity>
+                        <ButtonNoBg title="Register" />
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -194,8 +185,7 @@ const styles = StyleSheet.create({
     footer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        justifyContent: 'center',
         marginTop: 24,
     },
     textFooter: {

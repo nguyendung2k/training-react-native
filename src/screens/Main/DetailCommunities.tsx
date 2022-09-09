@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    Platform,
+    KeyboardAvoidingView,
+} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import { IConBack, IconInfo, IconSearch } from '../../components/Svg/Icon'
@@ -11,52 +18,44 @@ import InputSearch from '../../components/Input/InputSearch'
 import ConditionModal from '../../components/Modal/ConditionModal'
 import ListMember from '../../components/ListView/ListMember'
 
-import { MEMBERS } from '../../assets/constants/members'
-import { GROUPS } from '../../assets/constants/groups'
+import { useDispatch, useSelector } from 'react-redux'
 
-interface detailProps {
-    status?: boolean
-    checkBox?: boolean
-}
+import { MEMBERS } from '../../assets/constants/members'
+import { showModal } from '../../redux/slices/homeSlice'
+
+const showConditionModal = (state: any) => state.home.modal.showModal
 
 const DetailCommunities = ({ navigation }: any) => {
-    let dataSearch
+    const modal = useSelector(showConditionModal)
+    const dispatch = useDispatch()
 
-    const [openModal, setOpenModal] = useState<boolean>(false)
     const [status, setStatus] = useState<boolean>(false)
-    const [valueInput, setValueInput] = useState<string>('')
-    const [showResultByCondition, setShowResultByCondition] = useState(false)
-    const [searchUserByCondition, setSearchUserByCondition] = useState(MEMBERS)
+    const [data, setData] = useState<any[]>(MEMBERS)
 
-    useEffect(() => {}, [])
+    const [filter, setFilter] = useState({
+        searchValue: '',
+        age: {
+            from: '0',
+            to: '0',
+        },
+        gender: 'Male',
+    })
 
-    const handleApplyCondition = (
-        valueAgeMin: string,
-        valueAgeMax: string,
-        valueGender: string
-    ) => {
-        const resultCondition = {
-            valueAgeMax: valueAgeMax,
-            valueAgeMin: valueAgeMin,
-            valueGender: valueGender,
-        }
-        const resultCheckCondition = MEMBERS.filter((item) => {
-            return (
-                item.gender === resultCondition.valueGender &&
-                item.age >= resultCondition.valueAgeMin &&
-                item.age <= resultCondition.valueAgeMax
-            )
+    useEffect(() => {
+        setData(() => {
+            if (!filter.searchValue) {
+                return MEMBERS
+            }
+            return MEMBERS.filter((data) => {
+                return data.name.includes(filter.searchValue)
+            })
         })
+    }, [filter])
 
-        console.log(resultCheckCondition)
-        console.log(showResultByCondition)
-        setShowResultByCondition(true)
-        // setOpenModal(false)
-        setSearchUserByCondition(resultCheckCondition)
-    }
+    // console.log('re-render')
 
-    const handleOpenModal = () => {
-        setOpenModal(!openModal)
+    const handleShowOrHideModalCondition = () => {
+        dispatch(showModal({ showModal: !modal }))
     }
 
     const handleChangeStatus = () => {
@@ -64,65 +63,74 @@ const DetailCommunities = ({ navigation }: any) => {
     }
 
     const handleChangeValueInputSearch = (value: string) => {
-        setValueInput(value)
+        setFilter({ ...filter, searchValue: value })
     }
 
-    {
-        valueInput === ''
-            ? (dataSearch = MEMBERS)
-            : (dataSearch = MEMBERS.filter((data) => {
-                  return data.name.includes(valueInput)
-              }))
+    // console.log('valueInput', filter.searchValue)
+
+    const handleFilter = (
+        valueAgeMax: string,
+        valueAgeMin: string,
+        valueGender: string
+    ) => {
+        const result =
+            filter.age.from === valueAgeMin ||
+            filter.age.to === valueAgeMax ||
+            filter.gender === valueGender
+
+        console.log(result)
     }
+
+    // console.log(filter.searchValue)
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={styles.body}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
-                <Header
-                    onPress={() => navigation.navigate('Home')}
-                    Icon={() => <IConBack stroke={COLORS.Neutral10} />}
-                />
-                <Banner status={status} onPress={handleChangeStatus} />
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    style={styles.body}
+                >
+                    <Header
+                        onPress={() => navigation.navigate('Home')}
+                        Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                    />
+                    <Banner status={status} onPress={handleChangeStatus} />
 
-                <BannerForum
-                    title="Real-time Forum"
-                    des="Join now to give real-time PR about yourself"
-                    Icon={() => <IconInfo stroke={COLORS.Primary} />}
-                    status={status}
-                    onPress={() => {
-                        handleChangeStatus()
-                    }}
-                />
+                    <BannerForum
+                        title="Real-time Forum"
+                        des="Join now to give real-time PR about yourself"
+                        Icon={() => <IconInfo stroke={COLORS.Primary} />}
+                        status={status}
+                        onPress={() => {
+                            handleChangeStatus()
+                        }}
+                    />
 
-                <HeaderSlide title="Members" />
-                <InputSearch
-                    Icon={() => <IconSearch />}
-                    placeholder="Search by Name"
-                    secondary
-                    value={valueInput}
-                    onPress={() => {
-                        handleOpenModal()
-                    }}
-                    onChangeText={handleChangeValueInputSearch}
-                />
+                    <HeaderSlide title="Members" />
+                    <InputSearch
+                        Icon={() => <IconSearch />}
+                        placeholder="Search by Name"
+                        secondary
+                        value={filter.searchValue}
+                        onPress={handleShowOrHideModalCondition}
+                        onChangeText={handleChangeValueInputSearch}
+                    />
 
-                <View style={styles.content}>
-                    <View style={styles.modal}>
-                        {openModal && (
-                            <ConditionModal onPress={handleApplyCondition} />
-                        )}
+                    <View style={styles.content}>
+                        <View style={styles.modal}>
+                            {modal && <ConditionModal onPress={handleFilter} />}
+                        </View>
+
+                        <View style={styles.listMember}>
+                            {data.map((item: any, index: any) => (
+                                <ListMember data={item} key={index} />
+                            ))}
+                        </View>
                     </View>
-
-                    <View style={styles.listMember}>
-                        {dataSearch.map((item, index) => (
-                            <ListMember data={item} key={index} />
-                        ))}
-                    </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }
@@ -144,5 +152,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 100,
     },
-    listMember: {},
+    listMember: {
+        marginBottom: 60,
+        height: 650,
+    },
 })
