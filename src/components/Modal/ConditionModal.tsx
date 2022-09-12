@@ -1,34 +1,58 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { BORDER, COLORS } from '../../assets/constants/theme'
+
+import { useDispatch, useSelector } from 'react-redux'
 import HeaderSlide from '../Header/HeaderSlide'
 import InputSelectAge from '../Input/InputSelectAge'
 import CheckBox from '../Checkbox/CheckBox'
-import { IconCheck } from '../Svg/Icon'
 import ButtonHaft from '../Button/ButtonHaft'
 
+import { IconCheck } from '../Svg/Icon'
+import { BORDER, COLORS } from '../../assets/constants/theme'
 import { GENDER } from '../../assets/constants/filter'
+import {
+    searchAgeMaxChange,
+    searchAgeMinChange,
+    searchGenderChange,
+} from '../../redux/slices/filterSlice'
+import { handleClearFitterConditionModal } from '../../redux/slices/homeSlice'
 
 interface conditionModalProps {
     onPress: (minAge: string, maxAge: string, gender: string) => void
 }
 
+const valueAgeMinSelector = (state: any) => state.home.filter.valueAgeMin
+const valueAgeMaxSelector = (state: any) => state.home.filter.valueAgeMax
+const valueGenderSelector = (state: any) => state.home.filter.valueGender
+
 const ConditionModal = ({ onPress }: conditionModalProps) => {
+    const dispatch = useDispatch()
     const [valueAgeMin, setValueAgeMin] = useState<string>('')
     const [valueAgeMax, setValueAgeMax] = useState<string>('')
     const [valueGender, setValueGender] = useState<string>('')
+
+    const ageMin = useSelector(valueAgeMinSelector)
+    const ageMax = useSelector(valueAgeMaxSelector)
+    const gender = useSelector(valueGenderSelector)
+
+    console.log('valueAgeMin', ageMin)
+    console.log('valueAgeMax', ageMax)
+
     const [checkBox, setCheckBox] = useState<string>('')
 
     const handleChangeValueAgeMin = (value: string) => {
         setValueAgeMin(value)
+        dispatch(searchAgeMinChange(value))
     }
 
     const handleChangeValueAgeMax = (value: string) => {
         setValueAgeMax(value)
+        dispatch(searchAgeMaxChange(value))
     }
 
     const handleChangeValueGender = (gender: string) => {
         setValueGender(gender)
+        dispatch(searchGenderChange(gender))
     }
 
     const handleUpdateCheckbox = (id: string) => {
@@ -36,10 +60,9 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
     }
 
     const handleClearCondition = () => {
-        setCheckBox('')
-        setValueAgeMax('')
-        setValueAgeMin('')
-        setValueGender('')
+        console.log('123')
+
+        // dispatch(handleClearFitterConditionModal())
     }
 
     return (
@@ -48,12 +71,12 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                 <HeaderSlide title="Age" secondary />
                 <View style={styles.inputSelect}>
                     <InputSelectAge
-                        value={valueAgeMin}
+                        value={ageMin}
                         onChangeText={handleChangeValueAgeMin}
                     />
                     <View style={styles.line}></View>
                     <InputSelectAge
-                        value={valueAgeMax}
+                        value={ageMax}
                         onChangeText={handleChangeValueAgeMax}
                     />
                 </View>
@@ -79,9 +102,7 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                     <ButtonHaft
                         primary
                         label="Apply"
-                        onPress={() =>
-                            onPress(valueAgeMin, valueAgeMax, valueGender)
-                        }
+                        onPress={() => onPress(ageMin, ageMax, valueGender)}
                     />
                     <View></View>
                     <ButtonHaft

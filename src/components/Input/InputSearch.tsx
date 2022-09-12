@@ -69,6 +69,10 @@ const styles = StyleSheet.create({
         height: 58,
     },
     icon: {
-        height: 30,
+        height: 40,
+        // backgroundColor: 'red',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 40,
     },
 })

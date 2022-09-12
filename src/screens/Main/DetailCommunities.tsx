@@ -20,37 +20,34 @@ import ListMember from '../../components/ListView/ListMember'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { MEMBERS } from '../../assets/constants/members'
-import { showModal } from '../../redux/slices/homeSlice'
+import {
+    // handleFilterByCondition,
+    hideModal,
+    setFilter,
+    showModal,
+} from '../../redux/slices/homeSlice'
+import { membersRemainingSelector } from '../../redux/selectors'
+import { searchFilterChange } from '../../redux/slices/filterSlice'
 
 const showConditionModal = (state: any) => state.home.modal.showModal
+const dataMembers = (state: any) => state.home.members
+
+const valueAgeMinSelector = (state: any) => state.home.filter.valueAgeMin
+const valueAgeMaxSelector = (state: any) => state.home.filter.valueAgeMax
+const valueGenderSelector = (state: any) => state.home.filter.valueGender
 
 const DetailCommunities = ({ navigation }: any) => {
-    const modal = useSelector(showConditionModal)
     const dispatch = useDispatch()
 
+    const memberList = useSelector(membersRemainingSelector)
+    const modal = useSelector(showConditionModal)
+
+    const ageMin = useSelector(valueAgeMinSelector)
+    const ageMax = useSelector(valueAgeMaxSelector)
+    const gender = useSelector(valueGenderSelector)
+
+    const [textValue, setTextValue] = useState('')
     const [status, setStatus] = useState<boolean>(false)
-    const [data, setData] = useState<any[]>(MEMBERS)
-
-    const [filter, setFilter] = useState({
-        searchValue: '',
-        age: {
-            from: '0',
-            to: '0',
-        },
-        gender: 'Male',
-    })
-
-    useEffect(() => {
-        setData(() => {
-            if (!filter.searchValue) {
-                return MEMBERS
-            }
-            return MEMBERS.filter((data) => {
-                return data.name.includes(filter.searchValue)
-            })
-        })
-    }, [filter])
 
     // console.log('re-render')
 
@@ -63,22 +60,26 @@ const DetailCommunities = ({ navigation }: any) => {
     }
 
     const handleChangeValueInputSearch = (value: string) => {
-        setFilter({ ...filter, searchValue: value })
+        setTextValue(value)
+        dispatch(searchFilterChange(value))
     }
 
     // console.log('valueInput', filter.searchValue)
 
     const handleFilter = (
-        valueAgeMax: string,
-        valueAgeMin: string,
+        ageMin: string,
+        ageMax: string,
         valueGender: string
     ) => {
-        const result =
-            filter.age.from === valueAgeMin ||
-            filter.age.to === valueAgeMax ||
-            filter.gender === valueGender
-
-        console.log(result)
+        // dispatch(handleFilterByCondition({}))
+        dispatch(
+            setFilter({
+                valueAgeMin: ageMin,
+                valueAgeMax: ageMax,
+                valueGender: valueGender,
+            })
+        )
+        // dispatch(hideModal())
     }
 
     // console.log(filter.searchValue)
@@ -113,7 +114,7 @@ const DetailCommunities = ({ navigation }: any) => {
                         Icon={() => <IconSearch />}
                         placeholder="Search by Name"
                         secondary
-                        value={filter.searchValue}
+                        value={textValue}
                         onPress={handleShowOrHideModalCondition}
                         onChangeText={handleChangeValueInputSearch}
                     />
@@ -124,7 +125,7 @@ const DetailCommunities = ({ navigation }: any) => {
                         </View>
 
                         <View style={styles.listMember}>
-                            {data.map((item: any, index: any) => (
+                            {memberList.map((item: any, index: any) => (
                                 <ListMember data={item} key={index} />
                             ))}
                         </View>
