@@ -23,6 +23,7 @@ interface inputProps extends TextProps {
     secondary?: boolean
     isPassword?: boolean
     secureTextEntry?: boolean
+    error?: () => JSX.Element
 }
 
 export default function Input({
@@ -34,6 +35,7 @@ export default function Input({
     Icon,
     onChangeText,
     isPassword,
+    error,
 }: inputProps) {
     const [showPass, setShowPass] = useState<boolean>(true)
 
@@ -50,7 +52,9 @@ export default function Input({
                 secureTextEntry={isPassword && showPass}
                 value={value}
                 onChangeText={onChangeText}
+                error={error}
             />
+
             <TouchableOpacity
                 activeOpacity={0.6}
                 style={styles.icon}

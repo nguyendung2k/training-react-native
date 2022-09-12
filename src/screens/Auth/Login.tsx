@@ -22,14 +22,17 @@ import { COLORS, SIZES } from '../../assets/constants/theme'
 
 import { ArrowRight } from '../../components/Svg/Icon'
 import MessageError from '../../components/MessageError/MessageError'
-import { loginSuccess } from '../../redux/slices/authSlice'
-import { USER, USER_INFO } from '../../assets/constants/user'
+import { loginAuth } from '../../redux/slices/authSlice'
 import ButtonNoBg from '../../components/Button/ButtonNoBg'
 
 // const urlUser = 'http://localhost:3000/user'
 
 function Login({ navigation }: any) {
     const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     dispatch(fetchUsers())
+    // }, [])
 
     // useEffect(() => {
     //     axios({
@@ -41,15 +44,11 @@ function Login({ navigation }: any) {
     // }, [])
 
     const handleLogin = (values: any) => {
-        if (values.email === USER.email && values.password === USER.password) {
-            dispatch(loginSuccess(USER_INFO.data[0]))
-        }
-        // axios({
-        //     method: 'get',
-        //     url: 'http://localhost:3000/user_Info/1',
-        // }).then(function (response) {
-        //     const data = response.data
+        // if (values.email === USER.email && values.password === USER.password) {
+        //     dispatch(loginSuccess(USER_INFO.data[0]))
         // }
+
+        dispatch(loginAuth(values))
     }
 
     const checkInput = Yup.object({
@@ -75,8 +74,8 @@ function Login({ navigation }: any) {
 
                     <Formik
                         initialValues={{
-                            email: 'user1@gmail.com',
-                            password: 'user123',
+                            email: 'Silas.Becker96@yahoo.com',
+                            password: 'WjIshZTYXpL_BeR',
                         }}
                         validationSchema={checkInput}
                         onSubmit={(values) => handleLogin(values)}
@@ -96,11 +95,14 @@ function Login({ navigation }: any) {
                                     placeholder="Your email"
                                     value={values.email}
                                     title="Email"
+                                    error={
+                                        touched.email && (
+                                            <MessageError
+                                                error={errors.email}
+                                            />
+                                        )
+                                    }
                                 />
-
-                                {touched.email && (
-                                    <MessageError error={errors.email} />
-                                )}
 
                                 <View>
                                     <Input
@@ -109,11 +111,16 @@ function Login({ navigation }: any) {
                                         value={values.password}
                                         onChangeText={handleChange('password')}
                                         isPassword
+                                        error={() => {
+                                            touched.password && (
+                                                <MessageError
+                                                    error={errors.password}
+                                                />
+                                            )
+                                        }}
                                     />
                                 </View>
-                                {touched.password && (
-                                    <MessageError error={errors.password} />
-                                )}
+
                                 <View>
                                     <TouchableOpacity
                                         style={styles.btnForgot}

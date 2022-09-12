@@ -1,24 +1,39 @@
 import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import HeaderSlide from '../../components/Header/HeaderSlide'
 
 import SlideView from '../../components/SlideView/SlideView'
 import { SLIDES } from '../../assets/constants/slide'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { api } from '../../services/user'
 
 const HeaderFlatList = () => {
+    const [dataUser, setDataUser] = useState({})
+    useEffect(() => {
+        const getData = async () => {
+            const data = await api.getDetailUser()
+            setDataUser(data)
+        }
+        getData()
+    }, [])
+    console.log('dataUser----', dataUser)
+
     return (
         <View>
             <View style={styles.header}>
                 <View style={styles.header_Image}>
                     <Image
-                        source={require('../../assets/images/Avatar1.png')}
+                        source={{
+                            uri: dataUser.image,
+                        }}
                     />
                 </View>
                 <View>
                     <Text style={styles.header_Title}>Hello</Text>
-                    <Text style={styles.header_Name}>Matsuura Yuki</Text>
+                    <Text style={styles.header_Name}>
+                        {dataUser.first_name}
+                    </Text>
                 </View>
             </View>
 

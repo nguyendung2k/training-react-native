@@ -21,35 +21,25 @@ import ListMember from '../../components/ListView/ListMember'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
-    // handleFilterByCondition,
     hideModal,
-    setFilter,
+    setMember,
+    // handleFilterByCondition,
     showModal,
 } from '../../redux/slices/homeSlice'
 import { membersRemainingSelector } from '../../redux/selectors'
 import { searchFilterChange } from '../../redux/slices/filterSlice'
 
 const showConditionModal = (state: any) => state.home.modal.showModal
-const dataMembers = (state: any) => state.home.members
-
-const valueAgeMinSelector = (state: any) => state.home.filter.valueAgeMin
-const valueAgeMaxSelector = (state: any) => state.home.filter.valueAgeMax
-const valueGenderSelector = (state: any) => state.home.filter.valueGender
 
 const DetailCommunities = ({ navigation }: any) => {
     const dispatch = useDispatch()
 
     const memberList = useSelector(membersRemainingSelector)
-    const modal = useSelector(showConditionModal)
 
-    const ageMin = useSelector(valueAgeMinSelector)
-    const ageMax = useSelector(valueAgeMaxSelector)
-    const gender = useSelector(valueGenderSelector)
+    const modal = useSelector(showConditionModal)
 
     const [textValue, setTextValue] = useState('')
     const [status, setStatus] = useState<boolean>(false)
-
-    // console.log('re-render')
 
     const handleShowOrHideModalCondition = () => {
         dispatch(showModal({ showModal: !modal }))
@@ -61,28 +51,24 @@ const DetailCommunities = ({ navigation }: any) => {
 
     const handleChangeValueInputSearch = (value: string) => {
         setTextValue(value)
-        dispatch(searchFilterChange(value))
+        dispatch(searchFilterChange({ searchValue: value }))
     }
 
-    // console.log('valueInput', filter.searchValue)
-
-    const handleFilter = (
-        ageMin: string,
-        ageMax: string,
-        valueGender: string
-    ) => {
-        // dispatch(handleFilterByCondition({}))
+    const handleFilter = (ageMin: string, ageMax: string, gender: string) => {
+        if (!ageMin && !ageMax && !gender) return
         dispatch(
-            setFilter({
-                valueAgeMin: ageMin,
-                valueAgeMax: ageMax,
-                valueGender: valueGender,
-            })
+            setMember(
+                memberList.filter((item: any) => {
+                    return (
+                        ((item.age >= ageMin && item.age <= ageMax) ||
+                            (item.age <= ageMin && item.age >= ageMax)) &&
+                        item.gender === gender
+                    )
+                })
+            )
         )
-        // dispatch(hideModal())
+        dispatch(hideModal())
     }
-
-    // console.log(filter.searchValue)
 
     return (
         <SafeAreaView style={styles.container}>

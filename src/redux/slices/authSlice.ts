@@ -1,5 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+import axios from 'axios'
+
+import { api } from '../../services/user'
 interface iState {
     user: {
         token: any
@@ -9,6 +12,7 @@ interface iState {
     modal: {
         showModal: boolean
     }
+    loading: boolean
 }
 
 const initialState: iState = {
@@ -20,6 +24,7 @@ const initialState: iState = {
     modal: {
         showModal: false,
     },
+    loading: false,
 }
 
 export const authSlice = createSlice({
@@ -33,6 +38,28 @@ export const authSlice = createSlice({
             state.user = initialState.user
         },
     },
+    extraReducers(builder) {
+        builder
+            .addCase(loginAuth.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(loginAuth.fulfilled, (state, action) => {
+                state.loading = false
+                state.user = action.payload
+            })
+    },
+})
+
+export const loginAuth = createAsyncThunk('auth/logIn', async (values: any) => {
+    const dataUser = await api.getDataUser()
+    const dataDetail = await api.getDetailUser()
+    const filterUser = dataUser.filter(
+        (item: any) =>
+            item.email === values.email && item.password === values.password
+    )
+    if (filterUser) {
+        return { token: dataDetail.token }
+    }
 })
 
 export const { loginSuccess, logoutSuccess } = authSlice.actions

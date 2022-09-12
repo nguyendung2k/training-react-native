@@ -6,8 +6,6 @@ interface iState {
         show: boolean
     }
     members: any[]
-    genders: any[]
-    filter: any
 }
 
 const initialState: iState = {
@@ -20,7 +18,7 @@ const initialState: iState = {
             image: '../../assets/images/Avatar1.png',
             follow: '2050',
             description: 'Typical creator. Bacon guru. Gamer.',
-            age: '20',
+            age: '10',
             gender: 'Female',
         },
         {
@@ -65,28 +63,13 @@ const initialState: iState = {
             gender: 'Others',
         },
     ],
-    genders: [
-        {
-            id: '1',
-            gender: 'Female',
-        },
-        {
-            id: '2',
-            gender: 'Male',
-        },
-        {
-            id: '3',
-            gender: 'Others',
-        },
-    ],
-    filter: {},
 }
 
 // dispatch(setMember(state.members.filter((item) => {
 //     return (
 //         item.age >= action.payload.valueAgeMax &&
 //         item.age >= action.payload.valueAgeMin &&
-//         item.gender >= action.payload.valueGender
+//         item.gender === action.payload.valueGender
 //     )
 // })))
 
@@ -112,21 +95,8 @@ export const homeSlice = createSlice({
         setMember(state, action) {
             state.members = action.payload
         },
-        setFilter(state, action) {
-            state.filter = action.payload
-        },
-        // handleFilterByCondition(state, action) {
-        //     // console.log('valueAction', action.payload)
-        //     state.members = state.members.filter((item) => {
-        //         return (
-        //             item.age >= action.payload.valueAgeMax &&
-        //             item.age >= action.payload.valueAgeMin &&
-        //             item.gender >= action.payload.valueGender
-        //         )
-        //     })
-        // },
-        handleClearFitterConditionModal(state, action) {
-            state.filter = action.payload
+        resetListMember(state) {
+            state.members = initialState.members
         },
     },
 })
@@ -134,9 +104,9 @@ export const homeSlice = createSlice({
 export const {
     showModal,
     hideModal,
+    setMember,
     // handleFilterByCondition,
-    handleClearFitterConditionModal,
-    setFilter,
+    resetListMember,
 } = homeSlice.actions
 
 export default homeSlice.reducer

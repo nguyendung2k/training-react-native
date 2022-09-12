@@ -7,17 +7,18 @@ interface filterSlice {
         to: string
     }
     gender: string
-    checkBox: boolean
+    checkBox: string
 }
 
 const initialState: filterSlice = {
     searchValue: '',
     age: {
-        from: '0',
-        to: '0',
+        from: '',
+        to: '',
     },
-    gender: 'Male',
-    checkBox: true,
+    gender: '',
+    checkBox: '',
+    // checkBox: true,
 }
 
 export const filterSlice = createSlice({
@@ -25,7 +26,6 @@ export const filterSlice = createSlice({
     initialState,
     reducers: {
         searchFilterChange(state, action) {
-            // console.log('state', state)
             state.searchValue = action.payload
         },
         searchAgeMinChange(state, action) {
@@ -34,11 +34,18 @@ export const filterSlice = createSlice({
         searchAgeMaxChange(state, action) {
             state.age.to = action.payload
         },
-        searchGenderChange(state, action) {
+        updateGenderChange(state, action) {
             state.gender = action.payload
         },
-        updateCheckboxIdChange(state) {
-            state.checkBox === !state.checkBox
+        updateCheckboxIdChange(state, action) {
+            state.checkBox = action.payload
+        },
+
+        handleClearFitterConditionModal(state) {
+            state.age.from = initialState.age.from
+            state.age.to = initialState.age.to
+            state.gender = initialState.gender
+            state.checkBox = initialState.checkBox
         },
     },
 })
@@ -47,8 +54,9 @@ export const {
     searchFilterChange,
     searchAgeMinChange,
     searchAgeMaxChange,
-    searchGenderChange,
+    updateGenderChange,
     updateCheckboxIdChange,
+    handleClearFitterConditionModal,
 } = filterSlice.actions
 
 export default filterSlice.reducer

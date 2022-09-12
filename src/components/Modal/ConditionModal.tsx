@@ -11,58 +11,53 @@ import { IconCheck } from '../Svg/Icon'
 import { BORDER, COLORS } from '../../assets/constants/theme'
 import { GENDER } from '../../assets/constants/filter'
 import {
+    handleClearFitterConditionModal,
     searchAgeMaxChange,
     searchAgeMinChange,
-    searchGenderChange,
+    updateCheckboxIdChange,
+    updateGenderChange,
 } from '../../redux/slices/filterSlice'
-import { handleClearFitterConditionModal } from '../../redux/slices/homeSlice'
+import { resetListMember, setMember } from '../../redux/slices/homeSlice'
+import { membersRemainingSelector } from '../../redux/selectors'
 
 interface conditionModalProps {
     onPress: (minAge: string, maxAge: string, gender: string) => void
 }
 
-const valueAgeMinSelector = (state: any) => state.home.filter.valueAgeMin
-const valueAgeMaxSelector = (state: any) => state.home.filter.valueAgeMax
-const valueGenderSelector = (state: any) => state.home.filter.valueGender
+const valueAgeMinSelector = (state: any) => state.filters.age.from
+const valueAgeMaxSelector = (state: any) => state.filters.age.to
+const valueGenderSelector = (state: any) => state.filters.gender
+const checkBoxSelector = (state: any) => state.filters.checkBox
 
 const ConditionModal = ({ onPress }: conditionModalProps) => {
     const dispatch = useDispatch()
-    const [valueAgeMin, setValueAgeMin] = useState<string>('')
-    const [valueAgeMax, setValueAgeMax] = useState<string>('')
-    const [valueGender, setValueGender] = useState<string>('')
 
+    const memberList = useSelector(membersRemainingSelector)
     const ageMin = useSelector(valueAgeMinSelector)
     const ageMax = useSelector(valueAgeMaxSelector)
+
     const gender = useSelector(valueGenderSelector)
-
-    console.log('valueAgeMin', ageMin)
-    console.log('valueAgeMax', ageMax)
-
-    const [checkBox, setCheckBox] = useState<string>('')
+    const check = useSelector(checkBoxSelector)
 
     const handleChangeValueAgeMin = (value: string) => {
-        setValueAgeMin(value)
         dispatch(searchAgeMinChange(value))
     }
 
     const handleChangeValueAgeMax = (value: string) => {
-        setValueAgeMax(value)
         dispatch(searchAgeMaxChange(value))
     }
 
     const handleChangeValueGender = (gender: string) => {
-        setValueGender(gender)
-        dispatch(searchGenderChange(gender))
+        dispatch(updateGenderChange(gender))
     }
 
     const handleUpdateCheckbox = (id: string) => {
-        setCheckBox(id)
+        dispatch(updateCheckboxIdChange(id))
     }
 
     const handleClearCondition = () => {
-        console.log('123')
-
-        // dispatch(handleClearFitterConditionModal())
+        dispatch(handleClearFitterConditionModal())
+        dispatch(resetListMember())
     }
 
     return (
@@ -93,7 +88,7 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                                     handleChangeValueGender(item.gender)
                                     handleUpdateCheckbox(item.id)
                                 }}
-                                check={checkBox === item.id}
+                                check={check == item.id}
                             />
                         )
                     })}
@@ -102,7 +97,7 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                     <ButtonHaft
                         primary
                         label="Apply"
-                        onPress={() => onPress(ageMin, ageMax, valueGender)}
+                        onPress={() => onPress(ageMin, ageMax, gender)}
                     />
                     <View></View>
                     <ButtonHaft
