@@ -7,6 +7,7 @@ interface buttonHomeProps {
     Icon?: () => JSX.Element
     secondary?: boolean
     tertiary?: boolean
+    Image?: () => React.ReactNode
 }
 
 const ButtonHome = ({ title, Icon, secondary, tertiary }: buttonHomeProps) => {
@@ -19,12 +20,6 @@ const ButtonHome = ({ title, Icon, secondary, tertiary }: buttonHomeProps) => {
             ]}
         >
             <TouchableOpacity style={styles.btn}>
-                {(secondary || tertiary) && (
-                    <Image
-                        source={require('../../assets/images/logos_twitter.png')}
-                        style={{ width: 24, height: 24 }}
-                    />
-                )}
                 {!!Icon && <Icon />}
                 <Text style={styles.txt}>{title}</Text>
             </TouchableOpacity>
@@ -48,12 +43,14 @@ const styles = StyleSheet.create({
     },
     containerTertiary: {
         width: 140,
+        backgroundColor: COLORS.BackgroundInput,
     },
     btn: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
+
     txt: {
         marginLeft: 20,
         fontSize: SIZES.small,

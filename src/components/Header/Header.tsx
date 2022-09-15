@@ -11,18 +11,22 @@ interface headerProps {
     primary?: boolean
     secondary?: boolean
     title?: string
+    showIcon?: boolean
     onPress?: () => void
     Icon?: () => JSX.Element
+    onDirection?: () => void
 }
 
 const Header = ({
     showTextHeader,
     showRightIcon,
     title,
+    showIcon,
     primary,
     secondary,
     Icon,
     onPress,
+    onDirection,
 }: headerProps) => {
     return (
         <View style={styles.header}>
@@ -37,8 +41,8 @@ const Header = ({
                 </Text>
             )}
             {showRightIcon && !!Icon && (
-                <TouchableOpacity>
-                    <IconPencil stroke={COLORS.Neutral0} />
+                <TouchableOpacity onPress={onDirection}>
+                    {showIcon && <IconPencil stroke={COLORS.Neutral0} />}
                 </TouchableOpacity>
             )}
             {primary && <Text></Text>}
@@ -52,7 +56,6 @@ export default Header
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-
         justifyContent: 'space-between',
         alignItems: 'center',
         // color: 'red',

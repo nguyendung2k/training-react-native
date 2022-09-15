@@ -37,6 +37,7 @@ const valueAgeMaxSelector = (state: any) => state.filters.age.to
 const valueStatusGender = (state: any) => state.filters.statusGender
 
 const DetailCommunities = ({ navigation }: any) => {
+    console.log({ navigation })
     const dispatch = useDispatch()
 
     const [textValue, setTextValue] = useState('')

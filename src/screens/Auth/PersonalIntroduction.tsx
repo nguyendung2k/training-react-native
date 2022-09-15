@@ -21,11 +21,7 @@ const PersonalIntroduction = ({ navigation }: any) => {
                     txtEnd="(Up to 5 accounts)"
                 />
 
-                <View>
-                    <InputDropLogo />
-                    <InputDropLogo />
-                    <InputDropLogo />
-                </View>
+                <View></View>
 
                 <View style={styles.btn}>
                     <ButtonForm label="Add New Address" tertiary />

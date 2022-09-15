@@ -7,6 +7,7 @@ interface btnProps {
     primary?: boolean
     secondary?: boolean
     tertiary?: boolean
+    quaternary?: boolean
     onPress?: () => void | undefined
 }
 
@@ -15,6 +16,7 @@ const ButtonHaft = ({
     primary,
     secondary,
     tertiary,
+    quaternary,
     onPress,
 }: btnProps) => {
     return (
@@ -25,6 +27,7 @@ const ButtonHaft = ({
                     primary && styles.btnPrimary,
                     secondary && styles.btnSecondary,
                     tertiary && styles.btnTertiary,
+                    quaternary && styles.btnRejectFollow,
                 ]}
                 onPress={onPress}
             >
@@ -33,6 +36,7 @@ const ButtonHaft = ({
                         styles.label,
                         secondary && styles.labelSecondary,
                         tertiary && styles.labelTertiary,
+                        quaternary && styles.labelQuaternary,
                     ]}
                 >
                     {label}
@@ -67,6 +71,12 @@ const styles = StyleSheet.create({
         borderColor: COLORS.Neutral6,
         backgroundColor: COLORS.Neutral0,
     },
+    btnRejectFollow: {
+        backgroundColor: COLORS.Neutral1,
+        borderWidth: 1,
+        borderColor: COLORS.Neutral4,
+    },
+
     label: {
         color: COLORS.Neutral0,
         fontWeight: '600',
@@ -78,5 +88,8 @@ const styles = StyleSheet.create({
     },
     labelTertiary: {
         color: COLORS.Neutral6,
+    },
+    labelQuaternary: {
+        color: COLORS.Neutral4,
     },
 })

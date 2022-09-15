@@ -7,6 +7,7 @@ export const COLORS = {
     Neutral6: '#5A636D',
     Neutral10: '#191B1D',
     Semantic1: '#FEA827',
+    Semantic_Dark_1: '#56C2FF',
     Semantic2: '#406FF1',
     Semantic4: '#FF4C41',
     Semantic5: '#7CAE12',
@@ -18,6 +19,7 @@ export const COLORS = {
 }
 
 export const SIZES = {
+    minismall: 12,
     small: 14,
     medium: 16,
     font: 18,

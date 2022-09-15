@@ -57,12 +57,16 @@ const Account = ({ navigation }: any) => {
                     <ButtonAccountMenu
                         label="Block List"
                         Icon={() => <IconProhibit stroke={COLORS.Neutral10} />}
+                        onPress={() => navigation.navigate('BlockListScreen')}
                     />
                     <ButtonAccountMenu
                         label="Change password"
                         Icon={() => (
                             <IconLockKeyOpen stroke={COLORS.Neutral10} />
                         )}
+                        onPress={() =>
+                            navigation.navigate('ChangePasswordScreen')
+                        }
                     />
                     <ButtonAccountMenu
                         label="Log out"

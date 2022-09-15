@@ -21,9 +21,12 @@ interface inputProps extends TextProps {
     onPress?: () => void | undefined
     title?: string
     secondary?: boolean
+    primary?: boolean
+    tertiary?: boolean
     isPassword?: boolean
     secureTextEntry?: boolean
     error?: React.ReactNode
+    introduction?: React.ReactNode
 }
 
 export default function Input({
@@ -31,6 +34,9 @@ export default function Input({
     value,
     title,
     secondary,
+    primary,
+    tertiary,
+    introduction,
     Icon,
     onChangeText,
     isPassword,
@@ -47,10 +53,16 @@ export default function Input({
 
             <TextInput
                 placeholder={placeholder}
-                style={[styles.input, secondary && styles.inputSecondary]}
+                style={[
+                    styles.input,
+                    primary && styles.inputPrimary,
+                    secondary && styles.inputSecondary,
+                    tertiary && styles.tertiaryInput,
+                ]}
                 secureTextEntry={isPassword && showPass}
                 value={value}
                 onChangeText={onChangeText}
+                multiline={true}
             />
             {error}
             <TouchableOpacity
@@ -78,14 +90,24 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     input: {
-        fontWeight: '400',
-        paddingTop: 20,
-        paddingBottom: 16,
-        paddingLeft: 16,
+        // fontWeight: '400',
+        // paddingTop: 20,
+        // paddingBottom: 16,
         backgroundColor: COLORS.BackgroundInput,
         borderRadius: 8,
         width: '100%',
-        position: 'relative',
+        // position: 'relative',
+    },
+    inputPrimary: {
+        paddingLeft: 16,
+        paddingBottom: 16,
+        paddingTop: 20,
+        // height: 58,
+    },
+    tertiaryInput: {
+        backgroundColor: COLORS.White,
+        paddingBottom: 16,
+        paddingTop: 20,
     },
     icon: {
         position: 'absolute',
@@ -101,11 +123,11 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     inputSecondary: {
-        fontWeight: '400',
-        height: 120,
-        backgroundColor: COLORS.BackgroundInput,
-        borderRadius: 8,
-        width: '100%',
-        position: 'relative',
+        // height: 120,
+        paddingTop: 16,
+        paddingHorizontal: 26,
+        paddingBottom: 50,
+        lineHeight: 20,
+        // width: '100%',
     },
 })
