@@ -25,8 +25,9 @@ const SlideView = ({ item, onPress }: slideProps) => {
                 <Text style={styles.title}>{item.title}</Text>
 
                 <ImageBackground
-                    source={require('../../assets/images/Slide1.png')}
+                    source={{ uri: item.image }}
                     style={styles.image}
+                    imageStyle={{ borderRadius: BORDER.maximum }}
                 >
                     <LinearGradient
                         colors={['#140D2900', '#140D28E8']}
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     linearGradient: {
         width: '100%',
         height: '100%',
-        // opacity: 0.1,
         borderRadius: BORDER.maximum,
         justifyContent: 'center',
         alignItems: 'center',

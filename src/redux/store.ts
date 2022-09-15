@@ -1,5 +1,5 @@
 import thunk from 'redux-thunk'
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, Dispatch } from '@reduxjs/toolkit'
 
 import { persistStore, persistReducer } from 'redux-persist'
 
@@ -21,7 +21,9 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: [logger, thunk],
 })
-
+export const dispatchStore = store.dispatch as
+    | typeof store.dispatch
+    | Dispatch<any>
 export const persistor = persistStore(store)
 
 // export default store

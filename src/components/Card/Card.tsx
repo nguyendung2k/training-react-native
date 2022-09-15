@@ -3,32 +3,55 @@ import React from 'react'
 
 import CardId from './CardId'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { useSelector } from 'react-redux'
 
 interface cardInfoProps {
     secondary?: boolean
+    primary?: boolean
 }
+const dataUserSelector = (state: any) => state.auth.user
 
-const CardInfo = ({ secondary }: cardInfoProps) => {
+const CardInfo = ({ secondary, primary }: cardInfoProps) => {
+    const dataUser = useSelector(dataUserSelector)
+
     return (
-        <View
-            style={[styles.container, secondary && styles.containerSecondary]}
-        >
+        <View style={[styles.container, primary && styles.containerPrimary]}>
             <View
                 style={[styles.content, secondary && styles.contentSecondary]}
             >
                 <View style={styles.image}>
                     {secondary ? (
                         <Image
-                            source={require('../../assets/images/Avatar6.png')}
+                            source={{ uri: dataUser.image }}
+                            style={{
+                                width: 120,
+                                height: 120,
+                                borderRadius: 100,
+                            }}
                         />
                     ) : (
                         <Image
-                            source={require('../../assets/images/Avatar1.png')}
+                            source={{ uri: dataUser.image }}
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginRight: 20,
+                            }}
                         />
                     )}
                 </View>
-                <View>
-                    <Text style={styles.title}>Matsuura Yuki</Text>
+                <View style={secondary && styles.contentDetail}>
+                    <Text
+                        style={[
+                            styles.title,
+                            secondary && styles.titleSecondary,
+                        ]}
+                    >
+                        {dataUser.first_name}
+                        <Text> </Text>
+                        {dataUser.last_name}
+                    </Text>
                     <CardId />
                 </View>
             </View>
@@ -40,12 +63,12 @@ export default CardInfo
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.BackgroundInput,
         borderRadius: BORDER.base,
         marginVertical: 24,
     },
-    containerSecondary: {
-        backgroundColor: COLORS.Neutral0,
+    containerPrimary: {
+        backgroundColor: COLORS.BackgroundInput,
+        // backgroundColor: COLORS.Neutral0,
     },
     content: {
         flexDirection: 'row',
@@ -58,12 +81,21 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     image: {
-        marginRight: 20,
+        // marginRight: 20,
     },
 
     title: {
         fontSize: SIZES.medium,
         fontWeight: '600',
         marginBottom: 7,
+    },
+    titleSecondary: {
+        fontSize: SIZES.large,
+        color: COLORS.Primary,
+        marginTop: 14,
+        marginBottom: 4,
+    },
+    contentDetail: {
+        alignItems: 'center',
     },
 })

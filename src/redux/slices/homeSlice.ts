@@ -1,112 +1,146 @@
-import { Dispatch } from 'react'
-import { createSlice } from '@reduxjs/toolkit'
+import { apiGroup } from './../../services/groups'
+import { apiMember } from './../../services/members'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface iState {
     modal: {
-        show: boolean
+        showModal: boolean
     }
+    groups: any[]
     members: any[]
+    user: {
+        id: string
+        email: string
+        password: string
+        first_name: string
+    }
+    memberFilter: any[]
 }
 
 const initialState: iState = {
     modal: {
-        show: false,
+        showModal: false,
     },
-    members: [
-        {
-            name: 'Jenny Wilson',
-            image: '../../assets/images/Avatar1.png',
-            follow: '2050',
-            description: 'Typical creator. Bacon guru. Gamer.',
-            age: '10',
-            gender: 'Female',
-        },
-        {
-            name: 'Annette Black',
-            image: '../../assets/images/Avatar1.png',
-            follow: '1230',
-            description:
-                'I want to empower entrepreneurs and have a tangible impact in my community.',
-            age: '20',
-            gender: 'Female',
-        },
-        {
-            name: 'Savannah Nguyen',
-            image: '../../assets/images/Avatar1.png',
-            follow: '456',
-            description: 'Typical creator. Bacon guru. Gamer.',
-            age: '30',
-            gender: 'Others',
-        },
-        {
-            name: 'Savannah Phong',
-            image: '../../assets/images/Avatar1.png',
-            follow: '456',
-            description: 'Typical creator. Bacon guru. Gamer.',
-            age: '24',
-            gender: 'Male',
-        },
-        {
-            name: 'Savannah Vu',
-            image: '../../assets/images/Avatar1.png',
-            follow: '456',
-            description: 'Typical creator. Bacon guru. Gamer.',
-            age: '40',
-            gender: 'Male',
-        },
-        {
-            name: 'Savannah Le',
-            image: '../../assets/images/Avatar1.png',
-            follow: '456',
-            description: 'Typical creator. Bacon guru. Gamer.',
-            age: '36',
-            gender: 'Others',
-        },
-    ],
+    groups: [],
+    members: [],
+    memberFilter: [],
+    user: {
+        id: '',
+        email: '',
+        password: '',
+        first_name: '',
+    },
 }
-
-// dispatch(setMember(state.members.filter((item) => {
-//     return (
-//         item.age >= action.payload.valueAgeMax &&
-//         item.age >= action.payload.valueAgeMin &&
-//         item.gender === action.payload.valueGender
-//     )
-// })))
-
-// useEffect(() => {
-//     const data = filter.lkasjfdslkaj
-//     Dispatch(setMembers(data))
-// }, [filter])
-
-// const handle = (values) => {
-//     dispatch(setFilter(values))
-// }
 
 export const homeSlice = createSlice({
     name: 'home',
     initialState,
     reducers: {
         showModal(state, action) {
+            console.log('actionPayload', action.payload)
             state.modal = action.payload
         },
         hideModal(state) {
             state.modal = initialState.modal
         },
-        setMember(state, action) {
+    },
+    extraReducers(builder) {
+        builder.addCase(getGroup.fulfilled, (state, action) => {
+            state.groups = action.payload
+        })
+        builder.addCase(getAllGroup.fulfilled, (state, action) => {
+            state.groups = action.payload
+        })
+        builder.addCase(searchMemberByTitle.fulfilled, (state, action) => {
             state.members = action.payload
-        },
-        resetListMember(state) {
-            state.members = initialState.members
-        },
+        })
+        builder.addCase(searchGroupByTitle.fulfilled, (state, action) => {
+            state.groups = action.payload
+        })
+        builder.addCase(getGroupById.fulfilled, (state, action) => {
+            state.groups = action.payload
+        })
+        builder.addCase(getDataMember.fulfilled, (state, action) => {
+            state.members = action.payload
+        })
+        builder.addCase(filterMemberByCondition.fulfilled, (state, action) => {
+            state.members = action.payload
+        })
     },
 })
 
-export const {
-    showModal,
-    hideModal,
-    setMember,
-    // handleFilterByCondition,
-    resetListMember,
-} = homeSlice.actions
+export const getGroup: any = createAsyncThunk('home/group', async () => {
+    const dataGroup = await apiGroup.getGroupData()
+    return dataGroup
+})
+
+export const getAllGroup: any = createAsyncThunk('home/allgroup', async () => {
+    const dataGroup = await apiGroup.getAllGroupData()
+    return dataGroup
+})
+
+export const getGroupById: any = createAsyncThunk(
+    'home/groupById',
+    async (id) => {
+        const dataGroupById = await apiGroup.getGroupDataById(id)
+        return dataGroupById
+    }
+)
+
+export const searchGroupByTitle: any = createAsyncThunk(
+    'home/filterGroupByTitle',
+    async (value: string) => {
+        const dataGroupByTitle = await apiGroup.getGroupDataByFilter(value)
+        if (value) {
+            return dataGroupByTitle.filter((item: any) => {
+                return item.title.includes(value)
+            })
+        }
+    }
+)
+
+export const getDataMember: any = createAsyncThunk(
+    'home/getDataMember',
+    async () => {
+        const member = await apiMember.getMemberData()
+        return member
+    }
+)
+
+export const filterMemberByCondition: any = createAsyncThunk(
+    'home/filterMemberByCondition',
+    async (value: any) => {
+        const member = await apiMember.getMemberData()
+        console.log('value', value)
+
+        const memberFilter = member.filter((item: any) => {
+            return (
+                item.age >= value.ageMin &&
+                item.age <= value.ageMax &&
+                item.gender === value.statusGender
+            )
+        })
+
+        console.log('memberFilter---', memberFilter)
+
+        return memberFilter
+    }
+)
+
+export const searchMemberByTitle: any = createAsyncThunk(
+    'home/filterByTitle',
+    async (value: string) => {
+        const dataMembers = await apiMember.getMemberData()
+        const dataMembersByTitle = await apiMember.getMemberFilterByTitle(value)
+        if (value) {
+            return dataMembersByTitle.filter((item: any) => {
+                return item.title.includes(value)
+            })
+        }
+        return dataMembers
+    }
+)
+
+export const { showModal, hideModal } = homeSlice.actions
 
 export default homeSlice.reducer

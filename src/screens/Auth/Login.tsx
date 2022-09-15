@@ -10,7 +10,7 @@ import {
     Keyboard,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 
 import * as Yup from 'yup'
@@ -25,29 +25,14 @@ import MessageError from '../../components/MessageError/MessageError'
 import { loginAuth } from '../../redux/slices/authSlice'
 import ButtonNoBg from '../../components/Button/ButtonNoBg'
 
-// const urlUser = 'http://localhost:3000/user'
+const loadingSelector = (state: any) => state.auth.loading
 
-function Login({ navigation }: any) {
+const Login = ({ navigation }: any) => {
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchUsers())
-    // }, [])
-
-    // useEffect(() => {
-    //     axios({
-    //         method: 'get',
-    //         url: 'http://localhost:3000/user',
-    //     }).then(function (response) {
-    //         console.log(response)
-    //     })
-    // }, [])
+    const loading = useSelector(loadingSelector)
 
     const handleLogin = (values: any) => {
-        // if (values.email === USER.email && values.password === USER.password) {
-        //     dispatch(loginSuccess(USER_INFO.data[0]))
-        // }
-
         dispatch(loginAuth(values))
     }
 
@@ -96,11 +81,11 @@ function Login({ navigation }: any) {
                                     value={values.email}
                                     title="Email"
                                     error={
-                                        touched.email && (
+                                        touched.email && errors.email ? (
                                             <MessageError
                                                 error={errors.email}
                                             />
-                                        )
+                                        ) : null
                                     }
                                 />
 
@@ -111,13 +96,14 @@ function Login({ navigation }: any) {
                                         value={values.password}
                                         onChangeText={handleChange('password')}
                                         isPassword
-                                        error={() => {
-                                            touched.password && (
+                                        error={
+                                            touched.password &&
+                                            errors.password ? (
                                                 <MessageError
                                                     error={errors.password}
                                                 />
-                                            )
-                                        }}
+                                            ) : null
+                                        }
                                     />
                                 </View>
 
@@ -206,5 +192,10 @@ const styles = StyleSheet.create({
         color: COLORS.Primary,
         alignItems: 'center',
         marginRight: 5,
+    },
+    loading: {
+        backgroundColor: 'red',
+        width: 300,
+        height: 300,
     },
 })

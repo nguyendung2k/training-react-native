@@ -9,6 +9,7 @@ export const COLORS = {
     Semantic1: '#FEA827',
     Semantic2: '#406FF1',
     Semantic4: '#FF4C41',
+    Semantic5: '#7CAE12',
     White: '#fff',
     Primary: '#3FAEC7',
     DarkerPrimary: '#2B8093',

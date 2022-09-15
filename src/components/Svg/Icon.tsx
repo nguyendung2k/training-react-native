@@ -433,6 +433,43 @@ function IconPencil({ stroke, ...props }: any) {
         </Svg>
     )
 }
+function IconUsersDual({ stroke, ...props }: any) {
+    return (
+        <Svg width={21} height={20} viewBox="0 0 21 20" fill="none" {...props}>
+            <Path
+                d="M7.375 12.5a4.062 4.062 0 100-8.125 4.062 4.062 0 000 8.125z"
+                stroke={stroke}
+                strokeMiterlimit={10}
+            />
+            <Path
+                d="M12.642 4.526a4.063 4.063 0 111.102 7.974M1.75 15.422a6.876 6.876 0 0111.25 0M13.744 12.5a6.867 6.867 0 015.625 2.921"
+                stroke={stroke}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    )
+}
+
+function IconCrow({ stroke, ...props }: any) {
+    return (
+        <Svg
+            width={21}
+            height={20}
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M4.026 15.314a.627.627 0 00.78.458 21.398 21.398 0 0111.386-.001.626.626 0 00.779-.458l1.99-8.462a.626.626 0 00-.861-.715l-3.952 1.757a.625.625 0 01-.8-.268l-2.301-4.142a.625.625 0 00-1.093 0L7.653 7.625a.625.625 0 01-.8.268L2.9 6.136a.625.625 0 00-.862.714l1.988 8.464zM8 12.631a23.902 23.902 0 015 0"
+                stroke={stroke}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    )
+}
 
 export {
     Eye,
@@ -459,4 +496,6 @@ export {
     IconUsers,
     IconCaretRight,
     IconPencil,
+    IconUsersDual,
+    IconCrow,
 }

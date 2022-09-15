@@ -16,48 +16,56 @@ import {
     searchAgeMinChange,
     updateCheckboxIdChange,
     updateGenderChange,
+    updateStatusGender,
 } from '../../redux/slices/filterSlice'
-import { resetListMember, setMember } from '../../redux/slices/homeSlice'
-import { membersRemainingSelector } from '../../redux/selectors'
+import { boolean } from 'yup'
+import { getDataMember } from '../../redux/slices/homeSlice'
 
 interface conditionModalProps {
-    onPress: (minAge: string, maxAge: string, gender: string) => void
+    onPress: (minAge: string, maxAge: string, status: boolean) => void
 }
 
 const valueAgeMinSelector = (state: any) => state.filters.age.from
 const valueAgeMaxSelector = (state: any) => state.filters.age.to
 const valueGenderSelector = (state: any) => state.filters.gender
+const valueStatusGender = (state: any) => state.filters.statusGender
 const checkBoxSelector = (state: any) => state.filters.checkBox
 
 const ConditionModal = ({ onPress }: conditionModalProps) => {
     const dispatch = useDispatch()
 
-    const memberList = useSelector(membersRemainingSelector)
     const ageMin = useSelector(valueAgeMinSelector)
     const ageMax = useSelector(valueAgeMaxSelector)
+    const statusGender = useSelector(valueStatusGender)
 
-    const gender = useSelector(valueGenderSelector)
     const check = useSelector(checkBoxSelector)
 
     const handleChangeValueAgeMin = (value: string) => {
         dispatch(searchAgeMinChange(value))
+        dispatch(getDataMember())
     }
 
     const handleChangeValueAgeMax = (value: string) => {
         dispatch(searchAgeMaxChange(value))
+        dispatch(getDataMember())
     }
 
     const handleChangeValueGender = (gender: string) => {
         dispatch(updateGenderChange(gender))
     }
 
+    const handleChangeStatusGender = (status: boolean) => {
+        dispatch(updateStatusGender(status))
+    }
+
     const handleUpdateCheckbox = (id: string) => {
         dispatch(updateCheckboxIdChange(id))
+        dispatch(getDataMember())
     }
 
     const handleClearCondition = () => {
         dispatch(handleClearFitterConditionModal())
-        dispatch(resetListMember())
+        dispatch(getDataMember())
     }
 
     return (
@@ -86,6 +94,7 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                                 value={item.gender}
                                 onPress={() => {
                                     handleChangeValueGender(item.gender)
+                                    handleChangeStatusGender(item.status)
                                     handleUpdateCheckbox(item.id)
                                 }}
                                 check={check == item.id}
@@ -97,7 +106,7 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                     <ButtonHaft
                         primary
                         label="Apply"
-                        onPress={() => onPress(ageMin, ageMax, gender)}
+                        onPress={() => onPress(ageMin, ageMax, statusGender)}
                     />
                     <View></View>
                     <ButtonHaft

@@ -3,12 +3,18 @@ import React from 'react'
 import ButtonNoBg from '../Button/ButtonNoBg'
 import ButtonHome from '../Button/ButtonHome'
 import { IconCoin, IconFacebook, IconTwitter } from '../Svg/Icon'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllGroup, getGroup } from '../../redux/slices/homeSlice'
 
 const FooterFlatList = () => {
+    const dispatch = useDispatch()
+    const handleSeeAllGroup = () => {
+        dispatch(getAllGroup())
+    }
     return (
         <View>
             <View style={styles.btn}>
-                <ButtonNoBg title="See all" />
+                <ButtonNoBg title="See all" onPress={handleSeeAllGroup} />
             </View>
 
             <View style={styles.btnGroup}>

@@ -7,17 +7,35 @@ import SlideView from '../../components/SlideView/SlideView'
 import { SLIDES } from '../../assets/constants/slide'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { api } from '../../services/user'
+import { apiSlice } from '../../services/slides'
+
+interface headerFlatListProps {
+    // data: {
+    //     id: string
+    //     email: string
+    //     first_name: string
+    //     last_name: string
+    //     token: string
+    //     image: string
+    // }
+}
 
 const HeaderFlatList = () => {
-    const [dataUser, setDataUser] = useState({})
+    const [dataUser, setDataUser] = useState<any>({})
+    const [dataSlices, setDataSlices] = useState<any>()
     useEffect(() => {
         const getData = async () => {
             const data = await api.getDetailUser()
             setDataUser(data)
         }
+        const getDataSlice = async () => {
+            const data = await apiSlice.getSliceData()
+            setDataSlices(data)
+        }
+
+        getDataSlice()
         getData()
     }, [])
-    console.log('dataUser----', dataUser)
 
     return (
         <View>
@@ -27,19 +45,26 @@ const HeaderFlatList = () => {
                         source={{
                             uri: dataUser.image,
                         }}
+                        style={styles.image}
                     />
                 </View>
                 <View>
                     <Text style={styles.header_Title}>Hello</Text>
                     <Text style={styles.header_Name}>
                         {dataUser.first_name}
+                        <Text> </Text>
+                        {dataUser.last_name}
                     </Text>
                 </View>
             </View>
 
             <View style={styles.content}>
                 <View style={styles.content_Container}>
-                    <View style={styles.content_Image}></View>
+                    <View style={styles.content_Image}>
+                        <Image
+                            source={require('../../assets/images/Loa.png')}
+                        />
+                    </View>
                     <View style={styles.content_Description}>
                         <Text style={styles.content_Title}>News for you</Text>
                         <Text style={styles.Description}>
@@ -54,7 +79,7 @@ const HeaderFlatList = () => {
             <View>
                 <HeaderSlide title="Joined communities" />
                 <FlatList
-                    data={SLIDES}
+                    data={dataSlices}
                     renderItem={({ item }) => <SlideView item={item} />}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
@@ -83,6 +108,11 @@ const styles = StyleSheet.create({
     },
     header_Image: {
         marginRight: 20,
+    },
+    image: {
+        width: 48,
+        height: 48,
+        borderRadius: 50,
     },
     header_Title: {
         fontSize: SIZES.font,

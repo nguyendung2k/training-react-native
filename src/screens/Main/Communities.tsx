@@ -7,22 +7,43 @@ import ListView from '../../components/ListView/ListView'
 import { COLORS } from '../../assets/constants/theme'
 import { IconSearch } from '../../components/Svg/Icon'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch, useSelector } from 'react-redux'
+import { getGroup, searchGroupByTitle } from '../../redux/slices/homeSlice'
+
+const listGroupSelector = (state: any) => state.home.groups
 
 const Communities = ({ navigation }: any) => {
-    const [textInput, setTextInput] = useState('')
-    const [groupData, setGroupData] = useState(GROUPS)
-    const [showResultFilter, setShowResultFilter] = useState(true)
+    const dispatch = useDispatch()
+    const listGroup = useSelector(listGroupSelector)
 
     useEffect(() => {
-        const filteredData = GROUPS.filter((item) => {
-            return item.title.includes(textInput)
-        })
-        setGroupData(filteredData)
-        setShowResultFilter(true)
-    }, [textInput])
+        dispatch(getGroup())
+    }, [])
+
+    console.log('listGroup', listGroup)
+
+    // console.log('listGroup', listGroup)
+
+    const [textInput, setTextInput] = useState('')
+    // const [groupData, setGroupData] = useState(GROUPS)
+    // const [showResultFilter, setShowResultFilter] = useState(true)
+
+    // useEffect(() => {
+    //     const filteredData = GROUPS.filter((item) => {
+    //         return item.title.includes(textInput)
+    //     })
+    //     setGroupData(filteredData)
+    //     setShowResultFilter(true)
+    // }, [textInput])
 
     const handleSearchByTitle = (value: string) => {
         setTextInput(value)
+        dispatch(searchGroupByTitle(value))
+    }
+
+    const handleOnChangeGroup = (id: any) => {
+        dispatch(getGroup(id))
+        navigation.navigate('DetailCommunities')
     }
 
     return (
@@ -41,12 +62,10 @@ const Communities = ({ navigation }: any) => {
                 <View style={styles.content}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={showResultFilter ? groupData : GROUPS}
+                        data={listGroup}
                         renderItem={({ item }) => (
                             <ListView
-                                onPress={() =>
-                                    navigation.navigate('DetailCommunities')
-                                }
+                                onPress={() => handleOnChangeGroup(item.id)}
                                 item={item}
                             />
                         )}

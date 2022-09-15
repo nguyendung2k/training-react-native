@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ButtonBanner from '../Button/ButtonBanner'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { IconSignOut } from '../Svg/Icon'
+import { useSelector } from 'react-redux'
+import { apiGroup } from '../../services/groups'
+import { useRoute } from '@react-navigation/native'
 
 interface bannerProps {
     onPress?: () => void | undefined | boolean
@@ -10,17 +13,37 @@ interface bannerProps {
 }
 
 const Banner = ({ status, onPress }: bannerProps) => {
+    const idFromParam = useRoute().params
+
+    const [groupDetail, setGroupDetail] = useState<any>()
+
+    useEffect(() => {
+        const getDataGroupDetail = async () => {
+            const data = await apiGroup.getGroupDataById(idFromParam)
+            setGroupDetail(data)
+        }
+        getDataGroupDetail()
+    }, [])
+
     return (
         <View style={styles.container}>
             <View>
                 <ImageBackground
-                    source={require('../../assets/images/Background2.png')}
+                    source={{ uri: groupDetail?.image }}
                     resizeMode="cover"
                     style={styles.image}
+                    imageStyle={{ borderRadius: BORDER.maximum }}
                 >
                     <View style={styles.content}>
-                        <Text style={styles.title}>Gaming</Text>
-                        <Text style={styles.des}>256 members</Text>
+                        <Text style={styles.title}>
+                            {groupDetail?.title ? groupDetail?.title : ''}{' '}
+                        </Text>
+                        <Text style={styles.des}>
+                            {groupDetail?.total_members
+                                ? groupDetail?.total_members
+                                : ''}{' '}
+                            members
+                        </Text>
                         {status ? (
                             <ButtonBanner
                                 secondary

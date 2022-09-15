@@ -11,6 +11,7 @@ interface inputProps extends TextProps {
     setItems: Dispatch<(s: any) => any>
     onChangeValue?: ((value: any) => void | undefined) | undefined
     modalTitle?: string
+    error?: React.ReactNode
     //(e: string | ChangeEvent<any>) => void
 }
 

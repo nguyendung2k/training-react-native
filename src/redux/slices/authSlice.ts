@@ -31,9 +31,6 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        loginSuccess(state, action) {
-            state.user = action.payload
-        },
         logoutSuccess(state) {
             state.user = initialState.user
         },
@@ -50,18 +47,29 @@ export const authSlice = createSlice({
     },
 })
 
-export const loginAuth = createAsyncThunk('auth/logIn', async (values: any) => {
-    const dataUser = await api.getDataUser()
-    const dataDetail = await api.getDetailUser()
-    const filterUser = dataUser.filter(
-        (item: any) =>
-            item.email === values.email && item.password === values.password
-    )
-    if (filterUser) {
-        return { token: dataDetail.token }
+export const loginAuth: any = createAsyncThunk(
+    'auth/logIn',
+    async (values: any) => {
+        const dataUser = await api.getDataUser()
+        console.log('dataUser---', dataUser)
+        const dataDetail = await api.getDetailUser()
+        console.log('detailUserDetail---', dataDetail)
+        const filterUser = dataUser.filter(
+            (item: any) =>
+                item.email === values.email && item.password === values.password
+        )
+        if (filterUser) {
+            return {
+                token: dataDetail.token,
+                first_name: dataDetail.first_name,
+                last_name: dataDetail.last_name,
+                image: dataDetail.image,
+                introduce_code: dataDetail.introduce_code,
+            }
+        }
     }
-})
+)
 
-export const { loginSuccess, logoutSuccess } = authSlice.actions
+export const { logoutSuccess } = authSlice.actions
 
 export default authSlice.reducer

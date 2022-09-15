@@ -87,45 +87,66 @@ const Register = ({ navigation }: any) => {
                                     onChangeText={handleChange('youtube')}
                                     value={values.youtube}
                                     title="Youtube"
+                                    error={
+                                        touched.youtube && (
+                                            <MessageError
+                                                error={errors.youtube}
+                                            />
+                                        )
+                                    }
                                 />
-                                {touched.youtube && (
-                                    <MessageError error={errors.youtube} />
-                                )}
+
                                 <Input
                                     title="Instagram"
                                     onChangeText={handleChange('instagram')}
                                     value={values.instagram}
+                                    error={
+                                        touched.instagram && (
+                                            <MessageError
+                                                error={errors.instagram}
+                                            />
+                                        )
+                                    }
                                 />
-                                {touched.instagram && (
-                                    <MessageError error={errors.instagram} />
-                                )}
 
                                 <Input
                                     title="Twitter"
                                     onChangeText={handleChange('twitter')}
                                     value={values.twitter}
+                                    error={
+                                        touched.twitter && (
+                                            <MessageError
+                                                error={errors.twitter}
+                                            />
+                                        )
+                                    }
                                 />
-                                {touched.twitter && (
-                                    <MessageError error={errors.twitter} />
-                                )}
 
                                 <Input
                                     title="Facebook"
                                     onChangeText={handleChange('facebook')}
                                     value={values.facebook}
+                                    error={
+                                        touched.facebook && (
+                                            <MessageError
+                                                error={errors.facebook}
+                                            />
+                                        )
+                                    }
                                 />
-                                {touched.facebook && (
-                                    <MessageError error={errors.facebook} />
-                                )}
 
                                 <Input
                                     title="Whatsapp"
                                     onChangeText={handleChange('whatsapp')}
                                     value={values.whatsapp}
+                                    error={
+                                        touched.whatsapp && (
+                                            <MessageError
+                                                error={errors.whatsapp}
+                                            />
+                                        )
+                                    }
                                 />
-                                {touched.whatsapp && (
-                                    <MessageError error={errors.whatsapp} />
-                                )}
                             </View>
 
                             <Text style={styles.txtFollow}>
@@ -137,10 +158,14 @@ const Register = ({ navigation }: any) => {
                                     title="Email"
                                     placeholder="Your email"
                                     onChangeText={handleChange('email')}
+                                    error={
+                                        touched.email && (
+                                            <MessageError
+                                                error={errors.email}
+                                            />
+                                        )
+                                    }
                                 />
-                                {touched.email && (
-                                    <MessageError error={errors.email} />
-                                )}
 
                                 <View>
                                     <Input
@@ -148,10 +173,14 @@ const Register = ({ navigation }: any) => {
                                         placeholder="Your password"
                                         onChangeText={handleChange('password')}
                                         isPassword
+                                        error={
+                                            touched.password && (
+                                                <MessageError
+                                                    error={errors.password}
+                                                />
+                                            )
+                                        }
                                     />
-                                    {touched.password && (
-                                        <MessageError error={errors.password} />
-                                    )}
                                 </View>
                             </View>
 
@@ -159,10 +188,13 @@ const Register = ({ navigation }: any) => {
                                 title="User name"
                                 onChangeText={handleChange('username')}
                                 value={values.username}
+                                error={
+                                    touched.username && (
+                                        <MessageError error={errors.username} />
+                                    )
+                                }
                             />
-                            {touched.username && (
-                                <MessageError error={errors.username} />
-                            )}
+
                             <View style={styles.inputDrop}>
                                 <View style={styles.inputItemGender}>
                                     <InputDrop
@@ -172,10 +204,14 @@ const Register = ({ navigation }: any) => {
                                         setValue={setValueGender}
                                         setItems={setItemsGender}
                                         onChangeValue={handleChange('gender')}
+                                        error={
+                                            touched.gender && (
+                                                <MessageError
+                                                    error={errors.gender}
+                                                />
+                                            )
+                                        }
                                     />
-                                    {touched.gender && (
-                                        <MessageError error={errors.gender} />
-                                    )}
                                 </View>
                                 <View style={{ marginHorizontal: 5 }} />
                                 <View style={styles.inputItemBirth}>
@@ -188,12 +224,14 @@ const Register = ({ navigation }: any) => {
                                         onChangeValue={handleChange(
                                             'birth_year'
                                         )}
+                                        error={
+                                            touched.birth_year && (
+                                                <MessageError
+                                                    error={errors.birth_year}
+                                                />
+                                            )
+                                        }
                                     />
-                                    {touched.birth_year && (
-                                        <MessageError
-                                            error={errors.birth_year}
-                                        />
-                                    )}
                                 </View>
                             </View>
 
@@ -201,10 +239,14 @@ const Register = ({ navigation }: any) => {
                                 title="Introduction Code"
                                 onChangeText={handleChange('introductionCode')}
                                 value={values.introductionCode}
+                                error={
+                                    touched.introductionCode && (
+                                        <MessageError
+                                            error={errors.introductionCode}
+                                        />
+                                    )
+                                }
                             />
-                            {touched.introductionCode && (
-                                <MessageError error={errors.introductionCode} />
-                            )}
 
                             <View style={styles.footer}>
                                 <CheckBox

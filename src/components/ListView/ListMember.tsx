@@ -3,23 +3,18 @@ import React, { memo } from 'react'
 import { IconUsers } from '../Svg/Icon'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
-interface listMemberProps {
-    data: []
-}
-
 const ListMember = ({ data }: any) => {
     return (
         <View>
             <TouchableOpacity style={styles.container}>
                 <View style={styles.content}>
-                    <Image
-                        style={styles.image}
-                        source={require('../../assets/images/Avatar1.png')}
-                    />
+                    <Image style={styles.image} source={{ uri: data.image }} />
                     <View style={styles.info}>
-                        <Text style={styles.title}>{data.name}</Text>
+                        <Text style={styles.title}>{data.title}</Text>
                         <View style={styles.body}>
-                            <Text style={styles.quantity}>{data.follow}</Text>
+                            <Text style={styles.quantity}>
+                                {data.total_follow}
+                            </Text>
                             <IconUsers stroke={COLORS.Neutral8} />
                         </View>
                         <Text style={styles.description}>
@@ -50,6 +45,8 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderRadius: 50,
         borderColor: COLORS.Semantic4,
+        width: 52,
+        height: 52,
     },
     info: {
         marginLeft: 20,

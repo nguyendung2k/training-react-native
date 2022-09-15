@@ -11,11 +11,11 @@ import {
 import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../assets/constants/theme'
 import { Eye, EyeSlash } from '../Svg/Icon'
+import MessageError from '../MessageError/MessageError'
 
 interface inputProps extends TextProps {
     value?: string
     placeholder?: string
-    // style?: StyleProp<TextStyle> | undefined
     Icon?: () => JSX.Element
     onChangeText?: (value: string) => void | undefined
     onPress?: () => void | undefined
@@ -23,11 +23,10 @@ interface inputProps extends TextProps {
     secondary?: boolean
     isPassword?: boolean
     secureTextEntry?: boolean
-    error?: () => JSX.Element
+    error?: React.ReactNode
 }
 
 export default function Input({
-    // style,
     placeholder,
     value,
     title,
@@ -52,9 +51,8 @@ export default function Input({
                 secureTextEntry={isPassword && showPass}
                 value={value}
                 onChangeText={onChangeText}
-                error={error}
             />
-
+            {error}
             <TouchableOpacity
                 activeOpacity={0.6}
                 style={styles.icon}

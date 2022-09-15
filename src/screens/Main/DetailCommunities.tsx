@@ -19,30 +19,47 @@ import ConditionModal from '../../components/Modal/ConditionModal'
 import ListMember from '../../components/ListView/ListMember'
 
 import { useDispatch, useSelector } from 'react-redux'
-
 import {
+    filterMemberByCondition,
+    getDataMember,
     hideModal,
-    setMember,
-    // handleFilterByCondition,
+    searchMemberByTitle,
     showModal,
 } from '../../redux/slices/homeSlice'
-import { membersRemainingSelector } from '../../redux/selectors'
-import { searchFilterChange } from '../../redux/slices/filterSlice'
+import { apiMember } from '../../services/members'
 
-const showConditionModal = (state: any) => state.home.modal.showModal
+const dataMemberSelector = (state: any) => state.home.members
+const showConditionModal = (state: any) => state.home.modal
+// const dataFilterSelector = (state: any) => state.home.memberFilter
+
+const valueAgeMinSelector = (state: any) => state.filters.age.from
+const valueAgeMaxSelector = (state: any) => state.filters.age.to
+const valueStatusGender = (state: any) => state.filters.statusGender
 
 const DetailCommunities = ({ navigation }: any) => {
     const dispatch = useDispatch()
 
-    const memberList = useSelector(membersRemainingSelector)
-
-    const modal = useSelector(showConditionModal)
-
     const [textValue, setTextValue] = useState('')
     const [status, setStatus] = useState<boolean>(false)
 
+    const ageMin = useSelector(valueAgeMinSelector)
+    const ageMax = useSelector(valueAgeMaxSelector)
+    const statusGender = useSelector(valueStatusGender)
+    // const dataFilter = useSelector(dataFilterSelector)
+
+    useEffect(() => {
+        dispatch(getDataMember())
+    }, [])
+
+    const member = useSelector(dataMemberSelector)
+
+    // console.log('memberGoc', member)
+    // console.log('memberFilter', member)
+
+    const modal = useSelector(showConditionModal)
+
     const handleShowOrHideModalCondition = () => {
-        dispatch(showModal({ showModal: !modal }))
+        dispatch(showModal({ showModal: !modal.showModal }))
     }
 
     const handleChangeStatus = () => {
@@ -51,23 +68,16 @@ const DetailCommunities = ({ navigation }: any) => {
 
     const handleChangeValueInputSearch = (value: string) => {
         setTextValue(value)
-        dispatch(searchFilterChange({ searchValue: value }))
+        dispatch(searchMemberByTitle(value))
     }
 
-    const handleFilter = (ageMin: string, ageMax: string, gender: string) => {
-        if (!ageMin && !ageMax && !gender) return
-        dispatch(
-            setMember(
-                memberList.filter((item: any) => {
-                    return (
-                        ((item.age >= ageMin && item.age <= ageMax) ||
-                            (item.age <= ageMin && item.age >= ageMax)) &&
-                        item.gender === gender
-                    )
-                })
-            )
-        )
-        dispatch(hideModal())
+    const handleFilter = (
+        ageMin: string,
+        ageMax: string,
+        statusGender: boolean
+    ) => {
+        if (!ageMin && !ageMax && !statusGender) return
+        dispatch(filterMemberByCondition({ ageMin, ageMax, statusGender }))
     }
 
     return (
@@ -107,11 +117,13 @@ const DetailCommunities = ({ navigation }: any) => {
 
                     <View style={styles.content}>
                         <View style={styles.modal}>
-                            {modal && <ConditionModal onPress={handleFilter} />}
+                            {modal.showModal && (
+                                <ConditionModal onPress={handleFilter} />
+                            )}
                         </View>
 
                         <View style={styles.listMember}>
-                            {memberList.map((item: any, index: any) => (
+                            {member.map((item: any, index: any) => (
                                 <ListMember data={item} key={index} />
                             ))}
                         </View>
@@ -141,6 +153,6 @@ const styles = StyleSheet.create({
     },
     listMember: {
         marginBottom: 60,
-        height: 650,
+        minHeight: 650,
     },
 })

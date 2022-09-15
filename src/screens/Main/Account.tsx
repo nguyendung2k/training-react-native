@@ -26,9 +26,9 @@ import { showModal } from '../../redux/slices/homeSlice'
 const showModalConfirm = (state: any) => state.home.modal.showModal
 
 const Account = ({ navigation }: any) => {
-    const modal = useSelector(showModalConfirm)
-
     const dispatch = useDispatch()
+
+    const modal = useSelector(showModalConfirm)
 
     const handleShowModal = () => {
         dispatch(showModal({ showModal: true }))
@@ -44,7 +44,7 @@ const Account = ({ navigation }: any) => {
                     <Header title="Account" showTextHeader primary />
                 </View>
                 <View>
-                    <CardInfo />
+                    <CardInfo primary />
                 </View>
                 <View style={styles.btn}>
                     <ButtonAccountMenu
