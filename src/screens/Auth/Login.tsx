@@ -87,6 +87,7 @@ const Login = ({ navigation }: any) => {
                                             />
                                         ) : null
                                     }
+                                    primary
                                 />
 
                                 <View>
@@ -104,6 +105,7 @@ const Login = ({ navigation }: any) => {
                                                 />
                                             ) : null
                                         }
+                                        primary
                                     />
                                 </View>
 
@@ -135,7 +137,10 @@ const Login = ({ navigation }: any) => {
                         <Text style={styles.textFooter}>
                             Don’t have an account?
                         </Text>
-                        <ButtonNoBg title="Register" />
+                        <ButtonNoBg
+                            title="Register"
+                            onPress={() => navigation.navigate('Register')}
+                        />
                     </View>
                 </View>
             </TouchableWithoutFeedback>

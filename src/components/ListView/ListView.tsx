@@ -22,11 +22,11 @@ const ListView = ({ showBox, onPress, item }: listViewProps) => {
                 {showBox && <CheckBox Icon={() => <Check />} />}
             </View>
             <View style={styles.content}>
-                <Image source={{ uri: item.image }} style={styles.image} />
+                <Image source={{ uri: item?.image }} style={styles.image} />
                 <View style={styles.description}>
-                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.title}>{item?.title}</Text>
                     <View style={styles.block}>
-                        <Text style={styles.number}>{item.total_members}</Text>
+                        <Text style={styles.number}>{item?.total_members}</Text>
                         <Text style={styles.members}>members</Text>
                     </View>
                 </View>

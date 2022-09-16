@@ -8,6 +8,7 @@ import {
     Text,
     TouchableOpacity,
     View,
+    SafeAreaView,
 } from 'react-native'
 
 import ButtonForm from '../../components/Button/ButtonForm'
@@ -35,247 +36,270 @@ const Register = ({ navigation }: any) => {
     ])
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-            keyboardVerticalOffset={10}
-        >
-            <ScrollView
-                style={styles.contentBody}
-                showsVerticalScrollIndicator={false}
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={10}
             >
-                <Header
-                    title="Register"
-                    onPress={() => navigation.navigate('Login')}
-                    showTextHeader={true}
-                    Icon={() => <IConBack stroke={COLORS.Neutral10} />}
-                />
-                <View style={styles.content}>
-                    <Text style={styles.content_title}>Your SNS accounts</Text>
-                    <Text style={styles.content_description}>
-                        Add the accounts you want to increase followers
-                    </Text>
-                </View>
-
-                <Formik
-                    initialValues={{
-                        youtube: '',
-                        instagram: '',
-                        twitter: '',
-                        facebook: '',
-                        whatsapp: '',
-                        email: '',
-                        password: '',
-                        username: '',
-                        gender: 'Male',
-                        birth_year: '2000',
-                        introductionCode: '',
-                    }}
-                    // validationSchema={checkInputTest}
-                    onSubmit={() => navigation.navigate('VerificationCode')}
+                <ScrollView
+                    style={styles.contentBody}
+                    showsVerticalScrollIndicator={false}
                 >
-                    {({
-                        handleSubmit,
-                        handleChange,
-                        errors,
-                        values,
-                        touched,
-                    }) => (
-                        <>
-                            <View>
-                                <Input
-                                    onChangeText={handleChange('youtube')}
-                                    value={values.youtube}
-                                    title="Youtube"
-                                    error={
-                                        touched.youtube && (
-                                            <MessageError
-                                                error={errors.youtube}
-                                            />
-                                        )
-                                    }
-                                />
+                    <Header
+                        Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                        showTextHeader
+                        showRightIcon
+                        title="Register"
+                        onPress={() => navigation.navigate('Login')}
+                    />
+                    <View style={styles.content}>
+                        <Text style={styles.content_title}>
+                            Your SNS accounts
+                        </Text>
+                        <Text style={styles.content_description}>
+                            Add the accounts you want to increase followers
+                        </Text>
+                    </View>
 
-                                <Input
-                                    title="Instagram"
-                                    onChangeText={handleChange('instagram')}
-                                    value={values.instagram}
-                                    error={
-                                        touched.instagram && (
-                                            <MessageError
-                                                error={errors.instagram}
-                                            />
-                                        )
-                                    }
-                                />
+                    <Formik
+                        initialValues={{
+                            youtube: '',
+                            instagram: '',
+                            twitter: '',
+                            facebook: '',
+                            whatsapp: '',
+                            email: '',
+                            password: '',
+                            username: '',
+                            gender: 'Male',
+                            birth_year: '2000',
+                            introductionCode: '',
+                        }}
+                        // validationSchema={checkInputTest}
+                        onSubmit={() => navigation.navigate('VerificationCode')}
+                    >
+                        {({
+                            handleSubmit,
+                            handleChange,
+                            errors,
+                            values,
+                            touched,
+                        }) => (
+                            <>
+                                <View>
+                                    <Input
+                                        onChangeText={handleChange('youtube')}
+                                        value={values.youtube}
+                                        title="Youtube"
+                                        error={
+                                            touched.youtube && (
+                                                <MessageError
+                                                    error={errors.youtube}
+                                                />
+                                            )
+                                        }
+                                        primary
+                                    />
 
-                                <Input
-                                    title="Twitter"
-                                    onChangeText={handleChange('twitter')}
-                                    value={values.twitter}
-                                    error={
-                                        touched.twitter && (
-                                            <MessageError
-                                                error={errors.twitter}
-                                            />
-                                        )
-                                    }
-                                />
+                                    <Input
+                                        title="Instagram"
+                                        onChangeText={handleChange('instagram')}
+                                        value={values.instagram}
+                                        error={
+                                            touched.instagram && (
+                                                <MessageError
+                                                    error={errors.instagram}
+                                                />
+                                            )
+                                        }
+                                        primary
+                                    />
 
-                                <Input
-                                    title="Facebook"
-                                    onChangeText={handleChange('facebook')}
-                                    value={values.facebook}
-                                    error={
-                                        touched.facebook && (
-                                            <MessageError
-                                                error={errors.facebook}
-                                            />
-                                        )
-                                    }
-                                />
+                                    <Input
+                                        title="Twitter"
+                                        onChangeText={handleChange('twitter')}
+                                        value={values.twitter}
+                                        error={
+                                            touched.twitter && (
+                                                <MessageError
+                                                    error={errors.twitter}
+                                                />
+                                            )
+                                        }
+                                        primary
+                                    />
 
-                                <Input
-                                    title="Whatsapp"
-                                    onChangeText={handleChange('whatsapp')}
-                                    value={values.whatsapp}
-                                    error={
-                                        touched.whatsapp && (
-                                            <MessageError
-                                                error={errors.whatsapp}
-                                            />
-                                        )
-                                    }
-                                />
-                            </View>
+                                    <Input
+                                        title="Facebook"
+                                        onChangeText={handleChange('facebook')}
+                                        value={values.facebook}
+                                        error={
+                                            touched.facebook && (
+                                                <MessageError
+                                                    error={errors.facebook}
+                                                />
+                                            )
+                                        }
+                                        primary
+                                    />
 
-                            <Text style={styles.txtFollow}>
-                                Follower account
-                            </Text>
+                                    <Input
+                                        title="Whatsapp"
+                                        onChangeText={handleChange('whatsapp')}
+                                        value={values.whatsapp}
+                                        error={
+                                            touched.whatsapp && (
+                                                <MessageError
+                                                    error={errors.whatsapp}
+                                                />
+                                            )
+                                        }
+                                        primary
+                                    />
+                                </View>
 
-                            <View>
-                                <Input
-                                    title="Email"
-                                    placeholder="Your email"
-                                    onChangeText={handleChange('email')}
-                                    error={
-                                        touched.email && (
-                                            <MessageError
-                                                error={errors.email}
-                                            />
-                                        )
-                                    }
-                                />
+                                <Text style={styles.txtFollow}>
+                                    Follower account
+                                </Text>
 
                                 <View>
                                     <Input
-                                        title="Password"
-                                        placeholder="Your password"
-                                        onChangeText={handleChange('password')}
-                                        isPassword
+                                        title="Email"
+                                        placeholder="Your email"
+                                        onChangeText={handleChange('email')}
                                         error={
-                                            touched.password && (
+                                            touched.email && (
                                                 <MessageError
-                                                    error={errors.password}
+                                                    error={errors.email}
                                                 />
                                             )
                                         }
+                                        primary
                                     />
-                                </View>
-                            </View>
 
-                            <Input
-                                title="User name"
-                                onChangeText={handleChange('username')}
-                                value={values.username}
-                                error={
-                                    touched.username && (
-                                        <MessageError error={errors.username} />
-                                    )
-                                }
-                            />
-
-                            <View style={styles.inputDrop}>
-                                <View style={styles.inputItemGender}>
-                                    <InputDrop
-                                        title="Gender"
-                                        value={valueGender}
-                                        items={itemsGender}
-                                        setValue={setValueGender}
-                                        setItems={setItemsGender}
-                                        onChangeValue={handleChange('gender')}
-                                        error={
-                                            touched.gender && (
-                                                <MessageError
-                                                    error={errors.gender}
-                                                />
-                                            )
-                                        }
-                                    />
-                                </View>
-                                <View style={{ marginHorizontal: 5 }} />
-                                <View style={styles.inputItemBirth}>
-                                    <InputDrop
-                                        title="Birth year"
-                                        value={valueBirth}
-                                        items={itemsBirth}
-                                        setValue={setValueBirth}
-                                        setItems={setItemsBirth}
-                                        onChangeValue={handleChange(
-                                            'birth_year'
-                                        )}
-                                        error={
-                                            touched.birth_year && (
-                                                <MessageError
-                                                    error={errors.birth_year}
-                                                />
-                                            )
-                                        }
-                                    />
-                                </View>
-                            </View>
-
-                            <Input
-                                title="Introduction Code"
-                                onChangeText={handleChange('introductionCode')}
-                                value={values.introductionCode}
-                                error={
-                                    touched.introductionCode && (
-                                        <MessageError
-                                            error={errors.introductionCode}
+                                    <View>
+                                        <Input
+                                            title="Password"
+                                            placeholder="Your password"
+                                            onChangeText={handleChange(
+                                                'password'
+                                            )}
+                                            isPassword
+                                            error={
+                                                touched.password && (
+                                                    <MessageError
+                                                        error={errors.password}
+                                                    />
+                                                )
+                                            }
+                                            primary
                                         />
-                                    )
-                                }
-                            />
+                                    </View>
+                                </View>
 
-                            <View style={styles.footer}>
-                                <CheckBox
-                                    Icon={() => (
-                                        <IconCheck stroke={COLORS.White} />
-                                    )}
+                                <Input
+                                    title="User name"
+                                    onChangeText={handleChange('username')}
+                                    value={values.username}
+                                    error={
+                                        touched.username && (
+                                            <MessageError
+                                                error={errors.username}
+                                            />
+                                        )
+                                    }
+                                    primary
                                 />
-                                <Text>
-                                    I agree to the
-                                    <Text style={styles.footerTxtPrimary}>
-                                        Terms of Use
+
+                                <View style={styles.inputDrop}>
+                                    <View style={styles.inputItemGender}>
+                                        <InputDrop
+                                            title="Gender"
+                                            value={valueGender}
+                                            items={itemsGender}
+                                            setValue={setValueGender}
+                                            setItems={setItemsGender}
+                                            onChangeValue={handleChange(
+                                                'gender'
+                                            )}
+                                            error={
+                                                touched.gender && (
+                                                    <MessageError
+                                                        error={errors.gender}
+                                                    />
+                                                )
+                                            }
+                                        />
+                                    </View>
+                                    <View style={{ marginHorizontal: 5 }} />
+                                    <View style={styles.inputItemBirth}>
+                                        <InputDrop
+                                            title="Birth year"
+                                            value={valueBirth}
+                                            items={itemsBirth}
+                                            setValue={setValueBirth}
+                                            setItems={setItemsBirth}
+                                            onChangeValue={handleChange(
+                                                'birth_year'
+                                            )}
+                                            error={
+                                                touched.birth_year && (
+                                                    <MessageError
+                                                        error={
+                                                            errors.birth_year
+                                                        }
+                                                    />
+                                                )
+                                            }
+                                        />
+                                    </View>
+                                </View>
+
+                                <Input
+                                    title="Introduction Code"
+                                    onChangeText={handleChange(
+                                        'introductionCode'
+                                    )}
+                                    value={values.introductionCode}
+                                    error={
+                                        touched.introductionCode && (
+                                            <MessageError
+                                                error={errors.introductionCode}
+                                            />
+                                        )
+                                    }
+                                    introduction
+                                />
+
+                                <View style={styles.footer}>
+                                    <CheckBox
+                                        Icon={() => (
+                                            <IconCheck stroke={COLORS.White} />
+                                        )}
+                                    />
+                                    <Text>
+                                        I agree to the
+                                        <Text style={styles.footerTxtPrimary}>
+                                            Terms of Use
+                                        </Text>
                                     </Text>
-                                </Text>
-                            </View>
+                                </View>
 
-                            <View style={styles.btn}>
-                                <ButtonForm
-                                    label="Submit"
-                                    onPress={handleSubmit}
-                                    Icon={() => (
-                                        <ArrowRight stroke={COLORS.White} />
-                                    )}
-                                />
-                            </View>
-                        </>
-                    )}
-                </Formik>
-            </ScrollView>
-        </KeyboardAvoidingView>
+                                <View style={styles.btn}>
+                                    <ButtonForm
+                                        label="Submit"
+                                        onPress={handleSubmit}
+                                        Icon={() => (
+                                            <ArrowRight stroke={COLORS.White} />
+                                        )}
+                                    />
+                                </View>
+                            </>
+                        )}
+                    </Formik>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 

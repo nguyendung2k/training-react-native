@@ -541,6 +541,143 @@ function IconMinusCircle({ fill, ...props }: any) {
     )
 }
 
+function IconPencilAdd({ stroke, ...props }: any) {
+    return (
+        <Svg
+            width={28}
+            height={28}
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M10.347 23.103H5.724a.828.828 0 01-.828-.827v-4.623a.827.827 0 01.243-.585L17.553 4.654a.828.828 0 011.17 0l4.623 4.623a.828.828 0 010 1.17L10.932 22.861a.828.828 0 01-.585.242zM14.828 7.38l5.793 5.792M10.637 23.05l-5.688-5.687"
+                stroke={stroke}
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <Path
+                d="M16.497 23.118h3.31m3.31 0h-3.31m0 0v-3.325m0 3.325v3.296"
+                stroke={stroke}
+                strokeWidth={2}
+                strokeLinecap="round"
+            />
+        </Svg>
+    )
+}
+
+function IconDotTime({ fill, ...props }: any) {
+    return (
+        <Svg
+            width={4}
+            height={4}
+            viewBox="0 0 4 4"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Circle cx={2} cy={2} r={2} fill={fill} />
+        </Svg>
+    )
+}
+
+function IconHeart({ fill, stroke, strokeWidth, ...props }: any) {
+    return (
+        <Svg
+            width={24}
+            height={20}
+            viewBox="0 0 24 20"
+            fill={fill}
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M3.038 2.371a5.25 5.25 0 000 7.425L12 18.758l8.962-8.962a5.25 5.25 0 00-7.424-7.425L12 3.91 10.462 2.37a5.25 5.25 0 00-7.424 0v0z"
+                stroke={stroke}
+                strokeWidth={strokeWidth}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    )
+}
+
+function IconComment({ stroke, ...props }: any) {
+    return (
+        <Svg
+            width={24}
+            height={22}
+            viewBox="0 0 24 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M12 20.333l-4.667-4.666h-3.5A2.333 2.333 0 011.5 13.332V4a2.333 2.333 0 012.333-2.333h16.334A2.333 2.333 0 0122.5 4v9.333a2.333 2.333 0 01-2.333 2.333h-3.5L12 20.334z"
+                stroke={stroke}
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    )
+}
+
+function IconPickImage({ ...props }: any) {
+    return (
+        <Svg
+            width={36}
+            height={36}
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M30.031 7.063H5.97c-.604 0-1.094.49-1.094 1.093v19.688c0 .604.49 1.093 1.094 1.093H30.03c.604 0 1.094-.49 1.094-1.093V8.156c0-.604-.49-1.094-1.094-1.094z"
+                stroke="#3FAEC7"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <Path
+                d="M4.875 23.469l6.883-6.883a1.093 1.093 0 011.547 0l6.11 6.11a1.091 1.091 0 001.546 0l2.828-2.829a1.094 1.094 0 011.547 0l5.789 5.79"
+                stroke="#3FAEC7"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <Path
+                d="M21.828 15.813a1.64 1.64 0 100-3.282 1.64 1.64 0 000 3.281z"
+                fill="#3FAEC7"
+            />
+        </Svg>
+    )
+}
+
+function IconX({ stroke, ...props }: any) {
+    return (
+        <Svg
+            width={22}
+            height={22}
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M17.188 4.813L4.813 17.188M17.188 17.188L4.813 4.813"
+                stroke={stroke}
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    )
+}
+
 export {
     Eye,
     EyeSlash,
@@ -572,4 +709,10 @@ export {
     IconBell,
     IconCheckCircle,
     IconMinusCircle,
+    IconPencilAdd,
+    IconDotTime,
+    IconHeart,
+    IconComment,
+    IconPickImage,
+    IconX,
 }

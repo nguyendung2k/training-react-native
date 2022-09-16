@@ -134,6 +134,7 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                                 title="Introduction"
                                 value="Hello world, I’m Yuki from Japan and I’m creating the beautiful videos. I wish Facebook would notify me when someone"
                                 secondary
+                                introduction
                             />
                         </View>
                         <View>

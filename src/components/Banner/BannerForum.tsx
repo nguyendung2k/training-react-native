@@ -9,10 +9,18 @@ interface bannerFormProps {
     txt?: string
     Icon?: () => JSX.Element
     status?: boolean
-    onPress?: () => boolean | void | undefined
+    onPress?: () => void
+    onDirection?: () => void
 }
 
-const BannerForum = ({ title, des, txt, Icon, status }: bannerFormProps) => {
+const BannerForum = ({
+    title,
+    des,
+    txt,
+    Icon,
+    status,
+    onDirection,
+}: bannerFormProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
@@ -24,17 +32,17 @@ const BannerForum = ({ title, des, txt, Icon, status }: bannerFormProps) => {
                     </View>
                 </View>
                 {status ? (
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={onDirection}>
                         <Text style={styles.btnText}>Go to forum</Text>
                         <IconCaretRight stroke={COLORS.DarkerPrimary} />
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity activeOpacity={0.5} style={styles.footer}>
+                    <View style={styles.footer}>
                         {!!Icon && <Icon />}
                         <Text style={styles.txt}>
                             Join community to enter this forum
                         </Text>
-                    </TouchableOpacity>
+                    </View>
                 )}
             </View>
         </View>

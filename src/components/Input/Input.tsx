@@ -23,10 +23,12 @@ interface inputProps extends TextProps {
     secondary?: boolean
     primary?: boolean
     tertiary?: boolean
+    quinary?: boolean
+    senary?: boolean
     isPassword?: boolean
     secureTextEntry?: boolean
     error?: React.ReactNode
-    introduction?: React.ReactNode
+    introduction?: boolean
 }
 
 export default function Input({
@@ -36,6 +38,8 @@ export default function Input({
     secondary,
     primary,
     tertiary,
+    quinary,
+    senary,
     introduction,
     Icon,
     onChangeText,
@@ -58,11 +62,14 @@ export default function Input({
                     primary && styles.inputPrimary,
                     secondary && styles.inputSecondary,
                     tertiary && styles.tertiaryInput,
+                    quinary && styles.quinaryInput,
+                    senary && styles.inputAddNewPost,
+                    introduction && styles.introduction,
                 ]}
                 secureTextEntry={isPassword && showPass}
                 value={value}
                 onChangeText={onChangeText}
-                multiline={true}
+                multiline={introduction && true}
             />
             {error}
             <TouchableOpacity
@@ -102,12 +109,22 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         paddingBottom: 16,
         paddingTop: 20,
-        // height: 58,
+    },
+    inputSecondary: {
+        // height: 120,
+        paddingTop: 16,
+        paddingBottom: 55,
+        // width: '100%',
     },
     tertiaryInput: {
         backgroundColor: COLORS.White,
         paddingBottom: 16,
         paddingTop: 20,
+    },
+    quinaryInput: {
+        backgroundColor: COLORS.White,
+        paddingBottom: 35,
+        width: 302,
     },
     icon: {
         position: 'absolute',
@@ -122,12 +139,15 @@ const styles = StyleSheet.create({
         marginTop: 16,
         textAlign: 'left',
     },
-    inputSecondary: {
-        // height: 120,
-        paddingTop: 16,
+
+    introduction: {
         paddingHorizontal: 26,
         paddingBottom: 50,
         lineHeight: 20,
-        // width: '100%',
+    },
+    inputAddNewPost: {
+        paddingBottom: 150,
+        width: 302,
+        backgroundColor: COLORS.White,
     },
 })

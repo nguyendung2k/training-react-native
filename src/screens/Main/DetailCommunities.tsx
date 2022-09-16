@@ -43,19 +43,11 @@ const DetailCommunities = ({ navigation }: any) => {
     const [textValue, setTextValue] = useState('')
     const [status, setStatus] = useState<boolean>(false)
 
-    const ageMin = useSelector(valueAgeMinSelector)
-    const ageMax = useSelector(valueAgeMaxSelector)
-    const statusGender = useSelector(valueStatusGender)
-    // const dataFilter = useSelector(dataFilterSelector)
-
     useEffect(() => {
         dispatch(getDataMember())
     }, [])
 
     const member = useSelector(dataMemberSelector)
-
-    // console.log('memberGoc', member)
-    // console.log('memberFilter', member)
 
     const modal = useSelector(showConditionModal)
 
@@ -104,6 +96,7 @@ const DetailCommunities = ({ navigation }: any) => {
                         onPress={() => {
                             handleChangeStatus()
                         }}
+                        onDirection={() => navigation.navigate('ForumScreen')}
                     />
 
                     <HeaderSlide title="Members" />

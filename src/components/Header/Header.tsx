@@ -2,14 +2,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 import CaretLeft from '../../assets/icons/CaretLeft.svg'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import { IconPencil } from '../Svg/Icon'
+import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { IconPencil, IconPencilAdd } from '../Svg/Icon'
 
 interface headerProps {
     showTextHeader?: boolean
     showRightIcon?: boolean
+    showIconAdd?: boolean
     primary?: boolean
     secondary?: boolean
+    post?: boolean
     title?: string
     showIcon?: boolean
     onPress?: () => void
@@ -20,10 +22,12 @@ interface headerProps {
 const Header = ({
     showTextHeader,
     showRightIcon,
+    showIconAdd,
     title,
     showIcon,
     primary,
     secondary,
+    post,
     Icon,
     onPress,
     onDirection,
@@ -45,8 +49,29 @@ const Header = ({
                     {showIcon && <IconPencil stroke={COLORS.Neutral0} />}
                 </TouchableOpacity>
             )}
+            {showIconAdd && !!Icon && (
+                <TouchableOpacity
+                    onPress={onDirection}
+                    style={styles.iconPencilAdd}
+                >
+                    {showIcon && <IconPencilAdd stroke={COLORS.Neutral0} />}
+                    {post && (
+                        <Text
+                            style={{
+                                color: COLORS.Neutral0,
+                                fontWeight: '600',
+                                fontSize: SIZES.medium,
+                                paddingVertical: 4,
+                                paddingHorizontal: 1,
+                            }}
+                        >
+                            Post
+                        </Text>
+                    )}
+                </TouchableOpacity>
+            )}
+
             {primary && <Text></Text>}
-            {}
         </View>
     )
 }
@@ -70,5 +95,10 @@ const styles = StyleSheet.create({
     },
     txtSecondary: {
         color: COLORS.Neutral0,
+    },
+    iconPencilAdd: {
+        padding: 12,
+        backgroundColor: COLORS.Primary,
+        borderRadius: BORDER.base,
     },
 })

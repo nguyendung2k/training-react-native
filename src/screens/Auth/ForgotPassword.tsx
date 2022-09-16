@@ -34,8 +34,14 @@ const ForgotPassword = ({ navigation }: any) => {
                             placeholder="Your email"
                             onChangeText={handleChange('email')}
                             value={values.email}
+                            error={
+                                touched.email && (
+                                    <MessageError error={errors.email} />
+                                )
+                            }
+                            primary
                         />
-                        {touched.email && <MessageError error={errors.email} />}
+
                         <View style={styles.btn}>
                             <ButtonForm label="Submit" onPress={handleSubmit} />
                         </View>

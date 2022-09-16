@@ -36,11 +36,11 @@ const Banner = ({ status, onPress }: bannerProps) => {
                 >
                     <View style={styles.content}>
                         <Text style={styles.title}>
-                            {groupDetail?.title ? groupDetail?.title : ''}{' '}
+                            {groupDetail?.title ? groupDetail.title : ''}{' '}
                         </Text>
                         <Text style={styles.des}>
                             {groupDetail?.total_members
-                                ? groupDetail?.total_members
+                                ? groupDetail.total_members
                                 : ''}{' '}
                             members
                         </Text>

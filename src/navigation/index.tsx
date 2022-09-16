@@ -12,6 +12,10 @@ import WaitingForApprovalScreen from '../screens/Main/WaitingForApprovalScreen'
 import FriendRequestScreen from '../screens/Main/FriendRequestScreen'
 import BlockListScreen from '../screens/Main/BlockListScreen'
 import ChangePasswordScreen from '../screens/Main/ChangePasswordScreen'
+import CardBlockList from '../components/Card/CardBlockList'
+import ForumScreen from '../screens/Main/ForumScreen'
+import CommentForumScreen from '../screens/Main/CommentForumScreen'
+import NewPostScreen from '../screens/Main/NewPostScreen'
 
 const Stack = createNativeStackNavigator()
 const tokenUser = (state: any) => state.auth.user?.token
@@ -50,6 +54,22 @@ const MyStack = () => {
                         <Stack.Screen
                             name="ChangePasswordScreen"
                             component={ChangePasswordScreen}
+                        />
+                        <Stack.Screen
+                            name="CardBlockList"
+                            component={CardBlockList}
+                        />
+                        <Stack.Screen
+                            name="ForumScreen"
+                            component={ForumScreen}
+                        />
+                        <Stack.Screen
+                            name="CommentForumScreen"
+                            component={CommentForumScreen}
+                        />
+                        <Stack.Screen
+                            name="NewPostScreen"
+                            component={NewPostScreen}
                         />
                     </>
                 ) : (

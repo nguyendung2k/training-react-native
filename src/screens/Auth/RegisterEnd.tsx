@@ -28,7 +28,7 @@ const RegisterEnd = ({ navigation }: any) => {
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: '1' },
-        { label: 'Female', value: '1' },
+        { label: 'Female', value: '2' },
     ])
 
     const [valueBirth, setValueBirth] = useState<string>('2000')

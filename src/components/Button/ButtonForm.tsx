@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.White,
         color: COLORS.Neutral8,
         borderColor: COLORS.Neutral8,
-        borderWidth: 2,
+        borderWidth: 1,
     },
     btn_Tertiary: {
         borderStyle: 'dotted',

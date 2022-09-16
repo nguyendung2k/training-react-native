@@ -121,7 +121,7 @@ export const filterMemberByCondition: any = createAsyncThunk(
             )
         })
 
-        console.log('memberFilter---', memberFilter)
+        // console.log('memberFilter---', memberFilter)
 
         return memberFilter
     }

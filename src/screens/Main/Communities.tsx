@@ -25,16 +25,6 @@ const Communities = ({ navigation }: any) => {
     // console.log('listGroup', listGroup)
 
     const [textInput, setTextInput] = useState('')
-    // const [groupData, setGroupData] = useState(GROUPS)
-    // const [showResultFilter, setShowResultFilter] = useState(true)
-
-    // useEffect(() => {
-    //     const filteredData = GROUPS.filter((item) => {
-    //         return item.title.includes(textInput)
-    //     })
-    //     setGroupData(filteredData)
-    //     setShowResultFilter(true)
-    // }, [textInput])
 
     const handleSearchByTitle = (value: string) => {
         setTextInput(value)
