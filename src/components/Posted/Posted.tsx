@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { IconComment, IconDotTime, IconHeart } from '../Svg/Icon'
+import { useSelector } from 'react-redux'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -21,11 +22,16 @@ interface postedProps {
     contentFooter?: string
     quantityLike?: string
     quantityComment?: string
+    image_link: string
+    onLikePost?: () => void
+    id: string
 }
 
+const dataLikePostSelector = (state: any) => state.home.like
+
 const Posted = ({
-    Icon,
     onPress,
+    onLikePost,
     primary,
     name,
     date,
@@ -41,13 +47,19 @@ const Posted = ({
     secondary,
     timeDetail,
     dateDetail,
+    image_link,
+    id,
 }: postedProps) => {
+    const checkLikePost: any[] = useSelector(dataLikePostSelector)
+    const isLike = checkLikePost.includes(id)
+    // console.log('checkLikePost-----', checkLikePost)
+    // const [isLike, setIsLike] = useState<boolean>(false)
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
                 <View>
                     <Image
-                        source={require('../../assets/images/Avatar1.png')}
+                        source={{ uri: image_link }}
                         style={styles.postedImage}
                     />
                 </View>
@@ -131,22 +143,29 @@ const Posted = ({
                         </View>
                         <TouchableOpacity activeOpacity={0.8}>
                             <Image
-                                source={require('../../assets/images/Image1.png')}
+                                source={{ uri: image_link }}
                                 style={styles.postImage}
                             />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.postedFooter}>
                         <View style={styles.postedFeedback}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={onLikePost}>
                                 <IconHeart
-                                    stroke={COLORS.Neutral8}
-                                    fill={COLORS.White}
+                                    stroke={
+                                        isLike
+                                            ? COLORS.Semantic4
+                                            : COLORS.Neutral8
+                                    }
+                                    fill={
+                                        isLike ? COLORS.Semantic4 : COLORS.White
+                                    }
                                     strokeWidth={1.5}
                                 />
                             </TouchableOpacity>
                             <Text style={styles.postedQuantityFeedback}>
-                                {quantityLike} {secondary && <Text>likes</Text>}
+                                {quantityLike}
+                                {secondary && <Text>likes</Text>}
                             </Text>
                         </View>
                         <View style={styles.postedFeedback}>

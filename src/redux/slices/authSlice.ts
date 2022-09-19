@@ -51,9 +51,9 @@ export const loginAuth: any = createAsyncThunk(
     'auth/logIn',
     async (values: any) => {
         const dataUser = await api.getDataUser()
-        console.log('dataUser---', dataUser)
+        // console.log('dataUser---', dataUser)
         const dataDetail = await api.getDetailUser()
-        console.log('detailUserDetail---', dataDetail)
+        // console.log('detailUserDetail---', dataDetail)
         const filterUser = dataUser.filter(
             (item: any) =>
                 item.email === values.email && item.password === values.password

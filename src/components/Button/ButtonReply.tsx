@@ -2,9 +2,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
-const ButtonReply = () => {
+interface buttonProps {
+    onPress?: () => void
+}
+
+const ButtonReply = ({ onPress }: buttonProps) => {
     return (
-        <TouchableOpacity style={styles.btnContainer}>
+        <TouchableOpacity onPress={onPress} style={styles.btnContainer}>
             <Text style={styles.btnTxt}>Reply</Text>
         </TouchableOpacity>
     )

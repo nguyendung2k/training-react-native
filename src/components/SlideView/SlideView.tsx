@@ -11,6 +11,8 @@ import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
 import { LinearGradient } from 'expo-linear-gradient'
 
+import { NavigationProp } from '@react-navigation/native'
+
 interface slideProps {
     title?: string
     source?: any

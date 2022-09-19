@@ -10,22 +10,40 @@ import React from 'react'
 import Input from './Input'
 import ButtonReply from '../Button/ButtonReply'
 import { COLORS } from '../../assets/constants/theme'
+import { useSelector } from 'react-redux'
 
-const InputReplyPost = () => {
+interface inputReplyProps {
+    avatar?: string
+    value?: string
+    onPress: (value: any) => void
+    onChangeText?: (value: string) => void
+}
+
+const InputReplyPost = ({
+    avatar,
+    value,
+    onPress,
+    onChangeText,
+}: inputReplyProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.image}>
                     <Image
-                        source={require('../../assets/images/Avatar1.png')}
+                        source={{ uri: avatar }}
                         style={styles.imageAvatar}
                     />
                 </View>
                 <View style={styles.inputTxt}>
-                    <Input placeholder="Your reply" tertiary />
+                    <Input
+                        placeholder="Your reply"
+                        tertiary
+                        value={value}
+                        onChangeText={onChangeText}
+                    />
                 </View>
                 <View style={styles.btn}>
-                    <ButtonReply />
+                    <ButtonReply onPress={onPress} />
                 </View>
             </View>
         </View>

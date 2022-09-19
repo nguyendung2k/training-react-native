@@ -22,22 +22,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     filterMemberByCondition,
     getDataMember,
-    hideModal,
     searchMemberByTitle,
     showModal,
 } from '../../redux/slices/homeSlice'
-import { apiMember } from '../../services/members'
+import { useRoute } from '@react-navigation/native'
 
 const dataMemberSelector = (state: any) => state.home.members
 const showConditionModal = (state: any) => state.home.modal
-// const dataFilterSelector = (state: any) => state.home.memberFilter
-
-const valueAgeMinSelector = (state: any) => state.filters.age.from
-const valueAgeMaxSelector = (state: any) => state.filters.age.to
-const valueStatusGender = (state: any) => state.filters.statusGender
 
 const DetailCommunities = ({ navigation }: any) => {
-    console.log({ navigation })
+    // const idFromParam = useRoute().params
+
+    // console.log('idParam', idFromParam)
+
     const dispatch = useDispatch()
 
     const [textValue, setTextValue] = useState('')

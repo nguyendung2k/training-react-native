@@ -1,6 +1,8 @@
 import { apiGroup } from './../../services/groups'
 import { apiMember } from './../../services/members'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { apiPosts } from './../../services/posts'
+import { apiComment } from './../../services/comment'
 
 interface iState {
     modal: {
@@ -8,13 +10,22 @@ interface iState {
     }
     groups: any[]
     members: any[]
+    comments: any[]
     user: {
         id: string
         email: string
         password: string
         first_name: string
     }
-    memberFilter: any[]
+    posts: {
+        id: string
+        title: string
+        image: string
+        quantity_like: string
+        quantity_comment: string
+    }[]
+    like: any[]
+    quantity_like?: number
 }
 
 const initialState: iState = {
@@ -23,13 +34,16 @@ const initialState: iState = {
     },
     groups: [],
     members: [],
-    memberFilter: [],
+    comments: [],
     user: {
         id: '',
         email: '',
         password: '',
         first_name: '',
     },
+    posts: [],
+    like: [],
+    quantity_like: 0,
 }
 
 export const homeSlice = createSlice({
@@ -37,11 +51,26 @@ export const homeSlice = createSlice({
     initialState,
     reducers: {
         showModal(state, action) {
-            console.log('actionPayload', action.payload)
             state.modal = action.payload
         },
         hideModal(state) {
             state.modal = initialState.modal
+        },
+        likePostById(state, action) {
+            let temp = state.like
+
+            const index = state.like.indexOf(action.payload)
+
+            if (index > -1) {
+                state.like = [...temp.slice(0, index), ...temp.slice(index + 1)]
+                state.quantity_like = initialState.quantity_like
+            } else {
+                state.like = [...temp, action.payload]
+                state.quantity_like = +1
+            }
+        },
+        addComment(state, action) {
+            state.comments.unshift(action.payload)
         },
     },
     extraReducers(builder) {
@@ -51,11 +80,11 @@ export const homeSlice = createSlice({
         builder.addCase(getAllGroup.fulfilled, (state, action) => {
             state.groups = action.payload
         })
-        builder.addCase(searchMemberByTitle.fulfilled, (state, action) => {
-            state.members = action.payload
-        })
         builder.addCase(searchGroupByTitle.fulfilled, (state, action) => {
             state.groups = action.payload
+        })
+        builder.addCase(searchMemberByTitle.fulfilled, (state, action) => {
+            state.members = action.payload
         })
         builder.addCase(getGroupById.fulfilled, (state, action) => {
             state.groups = action.payload
@@ -65,6 +94,12 @@ export const homeSlice = createSlice({
         })
         builder.addCase(filterMemberByCondition.fulfilled, (state, action) => {
             state.members = action.payload
+        })
+        builder.addCase(getPosts.fulfilled, (state, action) => {
+            state.posts = action.payload
+        })
+        builder.addCase(getComment.fulfilled, (state, action) => {
+            state.comments = action.payload
         })
     },
 })
@@ -111,8 +146,6 @@ export const filterMemberByCondition: any = createAsyncThunk(
     'home/filterMemberByCondition',
     async (value: any) => {
         const member = await apiMember.getMemberData()
-        console.log('value', value)
-
         const memberFilter = member.filter((item: any) => {
             return (
                 item.age >= value.ageMin &&
@@ -120,9 +153,6 @@ export const filterMemberByCondition: any = createAsyncThunk(
                 item.gender === value.statusGender
             )
         })
-
-        // console.log('memberFilter---', memberFilter)
-
         return memberFilter
     }
 )
@@ -141,6 +171,17 @@ export const searchMemberByTitle: any = createAsyncThunk(
     }
 )
 
-export const { showModal, hideModal } = homeSlice.actions
+export const getPosts: any = createAsyncThunk('home/posts', async () => {
+    const dataPosts = await apiPosts.getPostsData()
+    return dataPosts
+})
+
+export const getComment: any = createAsyncThunk('home/comments', async () => {
+    const dataComment = await apiComment.getDataComment()
+    return dataComment
+})
+
+export const { showModal, hideModal, likePostById, addComment } =
+    homeSlice.actions
 
 export default homeSlice.reducer

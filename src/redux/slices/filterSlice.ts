@@ -20,7 +20,6 @@ const initialState: filterSlice = {
     gender: '',
     statusGender: true,
     checkBox: '',
-    // checkBox: true,
 }
 
 export const filterSlice = createSlice({

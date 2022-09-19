@@ -20,7 +20,7 @@ const Communities = ({ navigation }: any) => {
         dispatch(getGroup())
     }, [])
 
-    console.log('listGroup', listGroup)
+    // console.log('listGroup', listGroup)
 
     // console.log('listGroup', listGroup)
 

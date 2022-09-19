@@ -4,38 +4,39 @@ import React, { useState, useEffect } from 'react'
 import HeaderSlide from '../../components/Header/HeaderSlide'
 
 import SlideView from '../../components/SlideView/SlideView'
-import { SLIDES } from '../../assets/constants/slide'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { api } from '../../services/user'
 import { apiSlice } from '../../services/slides'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { apiGroup } from './../../services/groups'
 
-interface headerFlatListProps {
-    // data: {
-    //     id: string
-    //     email: string
-    //     first_name: string
-    //     last_name: string
-    //     token: string
-    //     image: string
-    // }
-}
+// interface headerFlatListProp {
+//     navigation?: NavigationProp<any, any>
+// }
 
 const HeaderFlatList = () => {
     const [dataUser, setDataUser] = useState<any>({})
     const [dataSlices, setDataSlices] = useState<any>()
+
+    const navigation: any = useNavigation()
+
     useEffect(() => {
         const getData = async () => {
             const data = await api.getDetailUser()
             setDataUser(data)
         }
         const getDataSlice = async () => {
-            const data = await apiSlice.getSliceData()
+            const data = await apiGroup.getAllGroupData()
             setDataSlices(data)
         }
 
         getDataSlice()
         getData()
     }, [])
+
+    const handleDirection = (id: string) => {
+        navigation.navigate('DetailCommunities', id)
+    }
 
     return (
         <View>
@@ -80,7 +81,12 @@ const HeaderFlatList = () => {
                 <HeaderSlide title="Joined communities" />
                 <FlatList
                     data={dataSlices}
-                    renderItem={({ item }) => <SlideView item={item} />}
+                    renderItem={({ item }) => (
+                        <SlideView
+                            onPress={() => handleDirection(item.id)}
+                            item={item}
+                        />
+                    )}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 />

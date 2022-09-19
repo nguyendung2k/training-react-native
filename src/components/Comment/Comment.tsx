@@ -3,32 +3,33 @@ import React from 'react'
 import { COLORS, SIZES } from '../../assets/constants/theme'
 import { IconDotTime } from '../Svg/Icon'
 
-const Comment = () => {
+interface commentProps {
+    name?: string
+    time?: string
+    description?: string
+    avatar?: string
+}
+
+const Comment = ({ name, time, description, avatar }: commentProps) => {
     return (
         <View style={styles.comment}>
             <View style={styles.commentContainer}>
                 <View style={styles.image}>
                     <Image
-                        source={require('../../assets/images/Avatar1.png')}
+                        source={{ uri: avatar }}
                         style={styles.imageAvatar}
                     />
                 </View>
                 <View>
                     <View style={styles.commentHeader}>
-                        <Text style={styles.commentName}>Theresa Webb</Text>
+                        <Text style={styles.commentName}>{name}</Text>
                         <View>
                             <IconDotTime fill={COLORS.Neutral4} />
                         </View>
-                        <Text style={styles.commentDate}>17h</Text>
+                        <Text style={styles.commentDate}>{time}</Text>
                     </View>
                     <View style={styles.commentDescription}>
-                        <Text style={styles.commentTxt}>
-                            If cutting Pokémon was always planned then what were
-                            these. Lies to string us along. We can never cut
-                            Pokemon. Buy Pokémon bank and you’ll have transfers
-                            for generations to come we don’t want a gen 2 to gen
-                            3 situation again. Fans care about their Pokémon
-                        </Text>
+                        <Text style={styles.commentTxt}>{description}</Text>
                     </View>
                 </View>
             </View>
