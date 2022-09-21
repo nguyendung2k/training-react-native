@@ -17,6 +17,7 @@ interface headerProps {
     onPress?: () => void
     Icon?: () => JSX.Element
     onDirection?: () => void
+    onPost?: () => void
 }
 
 const Header = ({
@@ -31,6 +32,7 @@ const Header = ({
     Icon,
     onPress,
     onDirection,
+    onPost,
 }: headerProps) => {
     return (
         <View style={styles.header}>
@@ -56,17 +58,19 @@ const Header = ({
                 >
                     {showIcon && <IconPencilAdd stroke={COLORS.Neutral0} />}
                     {post && (
-                        <Text
-                            style={{
-                                color: COLORS.Neutral0,
-                                fontWeight: '600',
-                                fontSize: SIZES.medium,
-                                paddingVertical: 4,
-                                paddingHorizontal: 1,
-                            }}
-                        >
-                            Post
-                        </Text>
+                        <TouchableOpacity onPress={onPost}>
+                            <Text
+                                style={{
+                                    color: COLORS.Neutral0,
+                                    fontWeight: '600',
+                                    fontSize: SIZES.medium,
+                                    paddingVertical: 4,
+                                    paddingHorizontal: 1,
+                                }}
+                            >
+                                Post
+                            </Text>
+                        </TouchableOpacity>
                     )}
                 </TouchableOpacity>
             )}

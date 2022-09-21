@@ -133,9 +133,15 @@ function IconUser({ stroke, ...props }: any) {
     )
 }
 
-function IconCoin({ stroke, ...props }: any) {
+function IconCoin({ width, height, stroke, ...props }: any) {
     return (
-        <Svg width={32} height={32} viewBox="0 0 32 32" fill="none" {...props}>
+        <Svg
+            width={width}
+            height={height}
+            viewBox="0 0 32 32"
+            fill="none"
+            {...props}
+        >
             <Path
                 d="M16 19c7.18 0 13-2.686 13-6s-5.82-6-13-6S3 9.686 3 13s5.82 6 13 6zM16 19v6"
                 stroke={stroke}
@@ -678,6 +684,26 @@ function IconX({ stroke, ...props }: any) {
     )
 }
 
+function IconCrown({ stroke, ...props }: any) {
+    return (
+        <Svg
+            width={21}
+            height={20}
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <Path
+                d="M4.026 15.314a.627.627 0 00.78.458 21.398 21.398 0 0111.386-.001.626.626 0 00.779-.458l1.99-8.462a.626.626 0 00-.861-.715l-3.952 1.757a.625.625 0 01-.8-.268l-2.301-4.142a.625.625 0 00-1.093 0L7.653 7.625a.625.625 0 01-.8.268L2.9 6.136a.625.625 0 00-.862.714l1.988 8.464zM8 12.631a23.902 23.902 0 015 0"
+                stroke={stroke}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    )
+}
+
 export {
     Eye,
     EyeSlash,
@@ -715,4 +741,5 @@ export {
     IconComment,
     IconPickImage,
     IconX,
+    IconCrown,
 }

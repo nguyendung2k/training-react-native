@@ -13,6 +13,8 @@ import Header from '../../components/Header/Header'
 import {
     IConBack,
     IconCaretRight,
+    IconCoin,
+    IconCrown,
     IconDotNotification,
     IconUsersDual,
 } from '../../components/Svg/Icon'
@@ -65,11 +67,19 @@ const YourProfileScreen = ({ navigation }: any) => {
                     />
                     <ButtonInfoFollow
                         number="1234"
-                        Icon={() => <IconUsersDual stroke={COLORS.Neutral10} />}
+                        Icon={() => <IconCrown stroke={COLORS.Neutral10} />}
+                        secondary
                     />
                     <ButtonInfoFollow
                         number="1234"
-                        Icon={() => <IconUsersDual stroke={COLORS.Neutral10} />}
+                        Icon={() => (
+                            <IconCoin
+                                width={20}
+                                height={20}
+                                stroke={COLORS.Neutral10}
+                            />
+                        )}
+                        tertiary
                     />
                 </View>
 

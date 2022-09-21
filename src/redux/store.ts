@@ -19,7 +19,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: [logger, thunk],
+    middleware: [
+        // logger,
+        thunk,
+    ],
 })
 export const dispatchStore = store.dispatch as
     | typeof store.dispatch

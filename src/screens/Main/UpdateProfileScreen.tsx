@@ -20,8 +20,18 @@ import Input from '../../components/Input/Input'
 import InputDrop from '../../components/Input/InputDrop'
 import InputDropLogo from '../../components/Input/InputDropLogo'
 import ButtonForm from '../../components/Button/ButtonForm'
+import { useSelector } from 'react-redux'
+import * as ImagePicker from 'expo-image-picker'
+
+const dataUserSelector = (state: any) => state.auth.user
 
 const UpdateProfileScreen = ({ navigation }: any) => {
+    const dataUser = useSelector(dataUserSelector)
+
+    const [email, setEmail] = useState<string>(dataUser.email)
+
+    // console.log('dataDetail', dataUser)
+
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         {
@@ -66,6 +76,24 @@ const UpdateProfileScreen = ({ navigation }: any) => {
             value: 'Twitter',
         },
     ])
+
+    const [image, setImage] = useState<string>('')
+
+    const handlePickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        })
+
+        console.log('result', result)
+        if (!result.cancelled) {
+            setImage(result.uri)
+        }
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
@@ -91,13 +119,17 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                         </View>
                         <View style={styles.updateAvatar}>
                             <HeaderSlide title="Profile picture" />
-                            <UpdateAvatar />
+                            <UpdateAvatar
+                                onPress={handlePickImage}
+                                avatar={image ? image : dataUser.image}
+                            />
                         </View>
                         <View>
                             <HeaderSlide title="Profile info" />
                             <Input
                                 title="Email"
-                                value="Yuki.Matsuura@gmail.com"
+                                value={email}
+                                onChangeText={(value) => setEmail(value)}
                                 tertiary
                             />
                             <Input

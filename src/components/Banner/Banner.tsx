@@ -14,9 +14,6 @@ interface bannerProps {
 
 const Banner = ({ status, onPress }: bannerProps) => {
     const idFromParam = useRoute().params
-
-    console.log('id chuyen sang', idFromParam)
-
     const [groupDetail, setGroupDetail] = useState<any>()
 
     useEffect(() => {

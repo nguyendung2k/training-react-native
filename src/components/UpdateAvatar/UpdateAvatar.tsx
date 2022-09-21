@@ -1,15 +1,18 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ButtonNoBg from '../Button/ButtonNoBg'
+import { BORDER } from '../../assets/constants/theme'
 
-const UpdateAvatar = () => {
+interface updateAvatarProps {
+    avatar?: string
+    onPress?: () => void
+}
+
+const UpdateAvatar = ({ avatar, onPress }: updateAvatarProps) => {
     return (
         <View style={styles.container}>
-            <Image
-                source={require('../../assets/images/AvatarLarge.png')}
-                style={{ marginBottom: 21 }}
-            />
-            <ButtonNoBg title="Choose picture" />
+            <Image source={{ uri: avatar }} style={styles.image} />
+            <ButtonNoBg onPress={onPress} title="Choose picture" />
         </View>
     )
 }
@@ -21,5 +24,11 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         alignItems: 'center',
         marginTop: 52,
+    },
+    image: {
+        marginBottom: 21,
+        width: 120,
+        height: 120,
+        borderRadius: 100,
     },
 })

@@ -9,7 +9,7 @@ import Comment from '../../components/Comment/Comment'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRoute } from '@react-navigation/native'
 import { apiPosts } from '../../services/posts'
-import { apiComment } from './../../services/comment'
+
 import {
     addComment,
     getComment,
@@ -18,6 +18,7 @@ import {
 
 const dataCommentSelector = (state: any) => state.home.comments
 const quantityLikePostSelector = (state: any) => state.home.quantity_like
+const quantityCommentPostSelector = (state: any) => state.home.quantity_comment
 
 const dataUserSelector = (state: any) => state.auth.user
 
@@ -26,6 +27,9 @@ const CommentForumScreen = ({ navigation }: any) => {
     const dataComment = useSelector(dataCommentSelector)
     const dataUser = useSelector(dataUserSelector)
     const quantityLike = useSelector(quantityLikePostSelector)
+    // const quantityComment = useSelector(quantityCommentPostSelector)
+
+    const [quantityComments, setQuantityComments] = useState<number>(5)
 
     const idFromParam = useRoute().params
 
@@ -56,6 +60,7 @@ const CommentForumScreen = ({ navigation }: any) => {
             })
         )
         setValueText('')
+        setQuantityComments((prev) => prev + 1)
     }
 
     return (
@@ -79,7 +84,7 @@ const CommentForumScreen = ({ navigation }: any) => {
                             contentContainerEnd=", we want to know..."
                             contentFooter="Red heart Your favorite Pokémon video game Video game Which Pokémon video game you're currently playing"
                             quantityLike={quantityLike}
-                            quantityComment={postById.quantity_comment}
+                            quantityComment={quantityComments}
                             secondary
                             onLikePost={() => handleOnLikePost(postById.id)}
                             image_link={postById.image}
@@ -97,10 +102,10 @@ const CommentForumScreen = ({ navigation }: any) => {
                     </View>
                 </View>
                 <View style={styles.commentContent}>
-                    {dataComment.map((item: any) => {
+                    {dataComment.map((item: any, index: any) => {
                         return (
                             <Comment
-                                key={item.id}
+                                key={index}
                                 name={item.name}
                                 description={item.description}
                                 time="17h"

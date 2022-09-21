@@ -11,7 +11,13 @@ interface buttonInfoFollow {
     number: string
 }
 
-const ButtonInfoFollow = ({ Icon, number, quinary }: buttonInfoFollow) => {
+const ButtonInfoFollow = ({
+    Icon,
+    number,
+    quinary,
+    secondary,
+    tertiary,
+}: buttonInfoFollow) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.content}>
@@ -22,7 +28,15 @@ const ButtonInfoFollow = ({ Icon, number, quinary }: buttonInfoFollow) => {
                     />
                 )}
                 {!!Icon && <Icon />}
-                <Text style={styles.number}>{number}</Text>
+                <Text
+                    style={[
+                        styles.number,
+                        secondary && styles.secondaryNumber,
+                        tertiary && styles.tertiaryNumber,
+                    ]}
+                >
+                    {number}
+                </Text>
             </TouchableOpacity>
         </View>
     )
@@ -48,5 +62,11 @@ const styles = StyleSheet.create({
         fontSize: SIZES.medium,
         color: COLORS.Semantic5,
         fontWeight: '600',
+    },
+    secondaryNumber: {
+        color: COLORS.Semantic2,
+    },
+    tertiaryNumber: {
+        color: COLORS.Semantic1,
     },
 })

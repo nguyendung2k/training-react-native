@@ -3,9 +3,13 @@ import React from 'react'
 import { IconPickImage } from '../Svg/Icon'
 import { BORDER, COLORS } from '../../assets/constants/theme'
 
-const ButtonPickImage = () => {
+interface buttonProps {
+    onPress?: () => void
+}
+
+const ButtonPickImage = ({ onPress }: buttonProps) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={styles.container}>
             <View style={styles.content}>
                 <IconPickImage />
             </View>

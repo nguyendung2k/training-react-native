@@ -5,33 +5,75 @@ import { SIZES } from '../../assets/constants/theme'
 import ButtonPickImage from '../Button/ButtonPickImage'
 import ImagePost from '../ImagePost/ImagePost'
 
-const NewPost = () => {
+interface newPostProps {
+    avatar?: string
+    first_name?: string
+    last_name?: string
+    OnChangeTextTitle?: (value: string) => void
+    OnChangeTextDescription?: (value: string) => void
+    valueTitle?: string
+    valueDescription?: string
+    onPress?: () => void
+    onPickImage?: () => void
+    onCloseImage?: (index: number) => void
+    imagePost: any[]
+}
+
+const NewPost = ({
+    avatar,
+    first_name,
+    last_name,
+    OnChangeTextTitle,
+    OnChangeTextDescription,
+    valueTitle,
+    valueDescription,
+    onPickImage,
+    onCloseImage,
+    imagePost,
+}: newPostProps) => {
     return (
         <View style={styles.container}>
-            <View style={styles.content}>
+            <ScrollView
+                style={styles.content}
+                contentContainerStyle={{ flexDirection: 'row' }}
+            >
                 <View>
                     <Image
-                        source={require('../../assets/images/Avatar1.png')}
+                        source={{ uri: avatar }}
                         style={styles.imageAvatar}
                     />
                 </View>
                 <View>
-                    <Text style={styles.name}>Matsuura Yuki</Text>
+                    <Text style={styles.name}>
+                        {first_name}
+                        <Text> </Text>
+                        {last_name}
+                    </Text>
                     <View style={styles.inputTitle}>
-                        <Input placeholder="Title" quinary />
+                        <Input
+                            placeholder="Title"
+                            quinary
+                            value={valueTitle}
+                            onChangeText={OnChangeTextTitle}
+                        />
                     </View>
                     <View>
                         <Input
                             senary
                             placeholder="What do you want to share?"
+                            value={valueDescription}
+                            onChangeText={OnChangeTextDescription}
                         />
                     </View>
                     <View>
-                        <ImagePost />
-                        <ButtonPickImage />
+                        <ImagePost
+                            onClose={onCloseImage}
+                            imagePost={imagePost}
+                        />
+                        <ButtonPickImage onPress={onPickImage} />
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -40,7 +82,7 @@ export default NewPost
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        // marginTop: 20,
     },
     imageAvatar: {
         width: 48,
@@ -49,7 +91,8 @@ const styles = StyleSheet.create({
         marginRight: 16,
     },
     content: {
-        flexDirection: 'row',
+        // backgroundColor: 'red',
+        paddingTop: 20,
     },
     name: {
         fontWeight: '600',

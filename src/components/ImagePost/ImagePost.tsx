@@ -1,36 +1,47 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+} from 'react-native'
 import React from 'react'
 import { IconX } from '../Svg/Icon'
 import { BORDER, COLORS } from '../../assets/constants/theme'
 
-const ImagePost = () => {
+interface imageProps {
+    onClose?: (index: number) => void
+    imagePost: any[]
+}
+
+const ImagePost = ({ onClose, imagePost = [] }: imageProps) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <TouchableOpacity style={styles.btnCancel}>
-                    <IconX stroke={COLORS.White} />
-                </TouchableOpacity>
-                <View style={{ flexDirection: 'row' }}>
-                    <Image
-                        source={require('../../assets/images/ImagePost.png')}
-                        style={styles.image}
-                    />
-                    <View style={{ width: 10 }}></View>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <TouchableOpacity style={styles.btnCancel}>
-                    <IconX stroke={COLORS.White} />
-                </TouchableOpacity>
-                <View style={{ flexDirection: 'row' }}>
-                    <Image
-                        source={require('../../assets/images/ImagePost.png')}
-                        style={styles.image}
-                    />
-                    <View style={{ width: 10 }}></View>
-                </View>
-            </View>
-        </View>
+        <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={styles.container}
+        >
+            {imagePost.map((item, index) => {
+                return (
+                    <View style={styles.content} key={index}>
+                        <TouchableOpacity
+                            onPress={() => onClose && onClose(index)}
+                            style={styles.btnCancel}
+                        >
+                            <IconX stroke={COLORS.White} />
+                        </TouchableOpacity>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Image
+                                key={item}
+                                source={{ uri: item.uri }}
+                                style={styles.image}
+                            />
+                        </View>
+                    </View>
+                )
+            })}
+        </ScrollView>
     )
 }
 
@@ -43,6 +54,7 @@ const styles = StyleSheet.create({
     },
     content: {
         marginBottom: 20,
+        marginRight: 10,
     },
     btnCancel: {
         width: 40,

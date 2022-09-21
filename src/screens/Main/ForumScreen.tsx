@@ -9,13 +9,15 @@ import { getPosts, likePostById } from '../../redux/slices/homeSlice'
 
 const dataPostsSelector = (state: any) => state.home.posts
 
-const likePostSelector = (state: any) => state.home.like
 const quantityLikePostSelector = (state: any) => state.home.quantity_like
 
 const ForumScreen = ({ navigation }: any) => {
     const dispatch = useDispatch()
     const dataPosts = useSelector(dataPostsSelector)
     const quantityLike = useSelector(quantityLikePostSelector)
+    const [quantityComments, setQuantityComments] = useState<number>(5)
+
+    console.log('dataPost', dataPosts)
 
     useEffect(() => {
         dispatch(getPosts())
@@ -48,6 +50,7 @@ const ForumScreen = ({ navigation }: any) => {
             >
                 <View style={styles.contentPost}>
                     {dataPosts.map((item: any) => {
+                        console.log('item: ', item)
                         return (
                             <Posted
                                 key={item.id}
@@ -62,7 +65,7 @@ const ForumScreen = ({ navigation }: any) => {
                                 contentContainerEnd=", we want to know..."
                                 contentFooter="Red heart Your favorite Pokémon video game Video game Which Pokémon video game you're currently playing"
                                 quantityLike={quantityLike}
-                                quantityComment={item?.quantity_comment}
+                                quantityComment={quantityComments}
                                 image_link={item?.image}
                                 primary
                                 onLikePost={() => handleOnLikePost(item.id)}

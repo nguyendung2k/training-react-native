@@ -11,6 +11,7 @@ interface iState {
     groups: any[]
     members: any[]
     comments: any[]
+    imagePost: any[]
     user: {
         id: string
         email: string
@@ -20,12 +21,14 @@ interface iState {
     posts: {
         id: string
         title: string
-        image: string
+        description: string
+        imagePost: []
         quantity_like: string
         quantity_comment: string
     }[]
     like: any[]
     quantity_like?: number
+    quantity_comment?: number
 }
 
 const initialState: iState = {
@@ -44,6 +47,7 @@ const initialState: iState = {
     posts: [],
     like: [],
     quantity_like: 0,
+    imagePost: [],
 }
 
 export const homeSlice = createSlice({
@@ -58,9 +62,7 @@ export const homeSlice = createSlice({
         },
         likePostById(state, action) {
             let temp = state.like
-
             const index = state.like.indexOf(action.payload)
-
             if (index > -1) {
                 state.like = [...temp.slice(0, index), ...temp.slice(index + 1)]
                 state.quantity_like = initialState.quantity_like
@@ -70,7 +72,12 @@ export const homeSlice = createSlice({
             }
         },
         addComment(state, action) {
-            state.comments.unshift(action.payload)
+            const dataPayload = action.payload
+            if (dataPayload.description === '') return
+            state.comments.unshift(dataPayload)
+        },
+        addPost(state, action) {
+            state.posts.unshift(action.payload)
         },
     },
     extraReducers(builder) {
@@ -181,7 +188,7 @@ export const getComment: any = createAsyncThunk('home/comments', async () => {
     return dataComment
 })
 
-export const { showModal, hideModal, likePostById, addComment } =
+export const { showModal, hideModal, likePostById, addComment, addPost } =
     homeSlice.actions
 
 export default homeSlice.reducer

@@ -21,7 +21,7 @@ interface postedProps {
     contentContainerEnd?: string
     contentFooter?: string
     quantityLike?: string
-    quantityComment?: string
+    quantityComment?: number
     image_link: string
     onLikePost?: () => void
     id: string
