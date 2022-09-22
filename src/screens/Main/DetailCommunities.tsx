@@ -20,25 +20,24 @@ import ListMember from '../../components/ListView/ListMember'
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
+    changeStatusJoinGroup,
     filterMemberByCondition,
     getDataMember,
     searchMemberByTitle,
     showModal,
 } from '../../redux/slices/homeSlice'
-import { useRoute } from '@react-navigation/native'
 
 const dataMemberSelector = (state: any) => state.home.members
 const showConditionModal = (state: any) => state.home.modal
+const statusJoinGroup = (state: any) => state.home.joinGroupStatus
 
 const DetailCommunities = ({ navigation }: any) => {
-    // const idFromParam = useRoute().params
-
-    // console.log('idParam', idFromParam)
-
     const dispatch = useDispatch()
+    const statusJoin = useSelector(statusJoinGroup)
+
+    console.log(statusJoin)
 
     const [textValue, setTextValue] = useState('')
-    const [status, setStatus] = useState<boolean>(false)
 
     useEffect(() => {
         dispatch(getDataMember())
@@ -53,7 +52,7 @@ const DetailCommunities = ({ navigation }: any) => {
     }
 
     const handleChangeStatus = () => {
-        setStatus(!status)
+        dispatch(changeStatusJoinGroup(!statusJoin))
     }
 
     const handleChangeValueInputSearch = (value: string) => {
@@ -83,13 +82,13 @@ const DetailCommunities = ({ navigation }: any) => {
                         onPress={() => navigation.navigate('Home')}
                         Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                     />
-                    <Banner status={status} onPress={handleChangeStatus} />
+                    <Banner status={statusJoin} onPress={handleChangeStatus} />
 
                     <BannerForum
                         title="Real-time Forum"
                         des="Join now to give real-time PR about yourself"
                         Icon={() => <IconInfo stroke={COLORS.Primary} />}
-                        status={status}
+                        status={statusJoin}
                         onPress={() => {
                             handleChangeStatus()
                         }}

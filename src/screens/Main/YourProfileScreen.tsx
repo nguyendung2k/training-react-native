@@ -27,8 +27,15 @@ import ButtonActiveLogs from '../../components/Button/ButtonActiveLogs'
 import ButtonNoBg from '../../components/Button/ButtonNoBg'
 import BannerNotification from '../../components/Banner/BannerNotification'
 import ButtonNotification from '../../components/Button/ButtonNotification'
+import { useSelector } from 'react-redux'
+
+const dataUserSelector = (state: any) => state.auth.user
+const userUpdateSelector = (state: any) => state.home.user
 
 const YourProfileScreen = ({ navigation }: any) => {
+    const dataUser = useSelector(dataUserSelector)
+    const userUpdate = useSelector(userUpdateSelector)
+
     return (
         <ScrollView
             style={styles.container}
@@ -120,15 +127,14 @@ const YourProfileScreen = ({ navigation }: any) => {
 
                 <HeaderSlide title="Introduction" />
                 <Text style={styles.textIntroduction}>
-                    Hello world, I’m Yuki from Japan and I’m creating the
-                    beautiful videos. I wish Facebook would notify me when
-                    someone deletes me. That way I could ‘Like’ it. My brain is
-                    divided into two parts.
+                    {userUpdate.introduction
+                        ? userUpdate.introduction
+                        : dataUser.introduction}
                 </Text>
                 {/* ------- */}
 
                 <HeaderSlide title="Your joined communities" />
-                <View style={styles.communnitiesJoined}>
+                <View style={styles.communitiesJoined}>
                     <TouchableOpacity>
                         <Image
                             source={require('../../assets/images/CommunitiesJoined1.png')}
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
         color: COLORS.Neutral6,
         marginTop: 10,
     },
-    communnitiesJoined: {
+    communitiesJoined: {
         marginTop: 20,
         flexDirection: 'row',
         flexWrap: 'wrap',

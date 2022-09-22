@@ -18,23 +18,21 @@ import {
 
 const dataCommentSelector = (state: any) => state.home.comments
 const quantityLikePostSelector = (state: any) => state.home.quantity_like
-const quantityCommentPostSelector = (state: any) => state.home.quantity_comment
+const userUpdateSelector = (state: any) => state.home.user
 
 const dataUserSelector = (state: any) => state.auth.user
 
 const CommentForumScreen = ({ navigation }: any) => {
     const dispatch = useDispatch()
-    const dataComment = useSelector(dataCommentSelector)
-    const dataUser = useSelector(dataUserSelector)
-    const quantityLike = useSelector(quantityLikePostSelector)
-    // const quantityComment = useSelector(quantityCommentPostSelector)
-
-    const [quantityComments, setQuantityComments] = useState<number>(5)
-
     const idFromParam = useRoute().params
 
-    const [postById, setPostById] = useState<any>({})
+    const dataComment = useSelector(dataCommentSelector)
+    const dataUser = useSelector(dataUserSelector)
+    const userUpdate = useSelector(userUpdateSelector)
+    const quantityLike = useSelector(quantityLikePostSelector)
 
+    const [quantityComments, setQuantityComments] = useState<number>(5)
+    const [postById, setPostById] = useState<any>({})
     const [valueText, setValueText] = useState<string>('')
 
     useEffect(() => {
@@ -79,10 +77,6 @@ const CommentForumScreen = ({ navigation }: any) => {
                             name="Esther Howard"
                             title={postById.title}
                             contentHeader={postById.body}
-                            contentContainer="In honor of "
-                            contentTag="#NationalVideoGamesDay"
-                            contentContainerEnd=", we want to know..."
-                            contentFooter="Red heart Your favorite Pokémon video game Video game Which Pokémon video game you're currently playing"
                             quantityLike={quantityLike}
                             quantityComment={quantityComments}
                             secondary
@@ -109,7 +103,11 @@ const CommentForumScreen = ({ navigation }: any) => {
                                 name={item.name}
                                 description={item.description}
                                 time="17h"
-                                avatar={item.avatar}
+                                avatar={
+                                    userUpdate.image
+                                        ? userUpdate.image
+                                        : item.avatar
+                                }
                             />
                         )
                     })}

@@ -18,19 +18,35 @@ import HeaderSlide from '../../components/Header/HeaderSlide'
 import UpdateAvatar from '../../components/UpdateAvatar/UpdateAvatar'
 import Input from '../../components/Input/Input'
 import InputDrop from '../../components/Input/InputDrop'
-import InputDropLogo from '../../components/Input/InputDropLogo'
 import ButtonForm from '../../components/Button/ButtonForm'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
+import ChoseAddressSocial from '../../components/ChoseAddressSocial/ChoseAddressSocial'
+import { updateUser } from '../../redux/slices/homeSlice'
 
 const dataUserSelector = (state: any) => state.auth.user
+const userUpdateSelector = (state: any) => state.home.user
+
+const inputChooseSocial = [
+    {
+        id: 1,
+        input: <ChoseAddressSocial nameAddress="Facebook" />,
+    },
+]
 
 const UpdateProfileScreen = ({ navigation }: any) => {
+    const dispatch = useDispatch()
     const dataUser = useSelector(dataUserSelector)
+    const userUpdate = useSelector(userUpdateSelector)
 
     const [email, setEmail] = useState<string>(dataUser.email)
+    const [first_name, setFirst_name] = useState<string>(dataUser.first_name)
 
-    // console.log('dataDetail', dataUser)
+    const [introduction, setIntroduction] = useState<string>(
+        userUpdate.introduction
+            ? userUpdate.introduction
+            : dataUser.introduction
+    )
 
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
@@ -48,52 +64,45 @@ const UpdateProfileScreen = ({ navigation }: any) => {
         { label: '2002', value: '2002' },
     ])
 
-    const [valueLogo, setValueLogo] = useState<any>('Facebook')
-    const [itemsLogo, setItemsLogo] = useState<any[]>([
-        {
-            label: (
-                <Image
-                    source={require('../../assets/images/LogoFacebook.png')}
-                />
-            ),
-            value: 'Facebook',
-        },
-        {
-            label: (
-                <Image
-                    source={require('../../assets/images/LogoInstagram.png')}
-                    style={{ width: 24, height: 24 }}
-                />
-            ),
-            value: 'Instagram',
-        },
-        {
-            label: (
-                <Image
-                    source={require('../../assets/images/logos_twitter.png')}
-                />
-            ),
-            value: 'Twitter',
-        },
-    ])
+    const [arrayChooseSocial, setArrayChooseSocial] =
+        useState(inputChooseSocial)
 
     const [image, setImage] = useState<string>('')
 
     const handlePickImage = async () => {
-        // No permissions request is necessary for launching the image library
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
         })
-
-        console.log('result', result)
         if (!result.cancelled) {
             setImage(result.uri)
         }
     }
 
+    const handleAddNewAddress = () => {
+        setArrayChooseSocial(
+            arrayChooseSocial.concat([
+                {
+                    id: Math.random(),
+                    input: <ChoseAddressSocial />,
+                },
+            ])
+        )
+    }
+
+    const handleUpdateProfile = () => {
+        dispatch(
+            updateUser({
+                email: email,
+                name: first_name,
+                introduction: introduction,
+                image: image,
+            })
+        )
+        navigation.navigate('YourProfileScreen')
+    }
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
@@ -121,7 +130,13 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                             <HeaderSlide title="Profile picture" />
                             <UpdateAvatar
                                 onPress={handlePickImage}
-                                avatar={image ? image : dataUser.image}
+                                avatar={
+                                    image
+                                        ? image
+                                        : userUpdate.image
+                                        ? userUpdate.image
+                                        : dataUser.image
+                                }
                             />
                         </View>
                         <View>
@@ -129,13 +144,18 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                             <Input
                                 title="Email"
                                 value={email}
-                                onChangeText={(value) => setEmail(value)}
+                                onChangeText={(value: string) =>
+                                    setEmail(value)
+                                }
                                 tertiary
                             />
                             <Input
                                 title="Username"
-                                value="Matsuura Yuki"
+                                value={first_name}
                                 primary
+                                onChangeText={(value: string) =>
+                                    setFirst_name(value)
+                                }
                             />
                             <View style={styles.inputDrop}>
                                 <View style={styles.inputItemGender}>
@@ -145,7 +165,6 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                                         items={itemsGender}
                                         setValue={setValueGender}
                                         setItems={setItemsGender}
-                                        // onChangeValue={handleChange('gender')}
                                     />
                                 </View>
                                 <View style={{ marginHorizontal: 5 }} />
@@ -156,115 +175,41 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                                         items={itemsBirth}
                                         setValue={setValueBirth}
                                         setItems={setItemsBirth}
-                                        // onChangeValue={handleChange(
-                                        //     'birth_year'
-                                        // )}
                                     />
                                 </View>
                             </View>
                             <Input
                                 title="Introduction"
-                                value="Hello world, I’m Yuki from Japan and I’m creating the beautiful videos. I wish Facebook would notify me when someone"
+                                value={introduction}
                                 secondary
+                                onChangeText={(value: string) =>
+                                    setIntroduction(value)
+                                }
                                 introduction
                             />
                         </View>
                         <View>
                             <HeaderSlide title="SNS accounts" />
                             <View>
-                                <View style={styles.inputPickSocial}>
-                                    <View style={styles.inputItem}>
-                                        <View style={styles.inputLogo}>
-                                            <InputDropLogo
-                                                value={valueLogo}
-                                                setValue={setValueLogo}
-                                                items={itemsLogo}
-                                                setItems={setItemsLogo}
-                                            />
-                                        </View>
-                                        <View
-                                            style={{ marginHorizontal: 10 }}
-                                        />
-                                        <View style={styles.inputValue}>
-                                            <Input
-                                                primary
-                                                value="Matsuura Yuki official"
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={styles.inputPickSocial}>
-                                    <View style={styles.inputItem}>
-                                        <View style={styles.inputLogo}>
-                                            <InputDropLogo
-                                                value={valueLogo}
-                                                setValue={setValueLogo}
-                                                items={itemsLogo}
-                                                setItems={setItemsLogo}
-                                            />
-                                        </View>
-                                        <View
-                                            style={{ marginHorizontal: 10 }}
-                                        />
-                                        <View style={styles.inputValue}>
-                                            <Input
-                                                primary
-                                                value="Matsuura Yuki official"
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={styles.inputPickSocial}>
-                                    <View style={styles.inputItem}>
-                                        <View style={styles.inputLogo}>
-                                            <InputDropLogo
-                                                value={valueLogo}
-                                                setValue={setValueLogo}
-                                                items={itemsLogo}
-                                                setItems={setItemsLogo}
-                                            />
-                                        </View>
-                                        <View
-                                            style={{ marginHorizontal: 10 }}
-                                        />
-                                        <View style={styles.inputValue}>
-                                            <Input
-                                                primary
-                                                value="Matsuura Yuki official"
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={styles.inputPickSocial}>
-                                    <View style={styles.inputItem}>
-                                        <View style={styles.inputLogo}>
-                                            <InputDropLogo
-                                                value={valueLogo}
-                                                setValue={setValueLogo}
-                                                items={itemsLogo}
-                                                setItems={setItemsLogo}
-                                            />
-                                        </View>
-                                        <View
-                                            style={{ marginHorizontal: 10 }}
-                                        />
-                                        <View style={styles.inputValue}>
-                                            <Input
-                                                primary
-                                                value="Matsuura Yuki official"
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
+                                {arrayChooseSocial.map((item) => {
+                                    return (
+                                        <View key={item.id}>{item.input}</View>
+                                    )
+                                })}
                             </View>
-                        </View>
-                        <View style={styles.btnAddNewAddress}>
-                            <ButtonForm label="Add New Address" tertiary />
+                            <View style={styles.btnAddNewAddress}>
+                                <ButtonForm
+                                    onPress={handleAddNewAddress}
+                                    label="Add New Address"
+                                    tertiary
+                                />
+                            </View>
                         </View>
                         <View style={styles.btnUpdate}>
                             <ButtonForm
                                 label="Update"
                                 Icon={() => <IconCheck stroke={COLORS.White} />}
+                                onPress={handleUpdateProfile}
                             />
                         </View>
                     </ScrollView>

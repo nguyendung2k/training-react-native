@@ -20,10 +20,6 @@ const Communities = ({ navigation }: any) => {
         dispatch(getGroup())
     }, [])
 
-    // console.log('listGroup', listGroup)
-
-    // console.log('listGroup', listGroup)
-
     const [textInput, setTextInput] = useState('')
 
     const handleSearchByTitle = (value: string) => {

@@ -9,10 +9,12 @@ import * as ImagePicker from 'expo-image-picker'
 import { addPost } from '../../redux/slices/homeSlice'
 
 const dataUserSelector = (state: any) => state.auth.user
+const userUpdateSelector = (state: any) => state.home.user
 
 const NewPostScreen = ({ navigation }: any) => {
     const dispatch = useDispatch()
     const dataUser = useSelector(dataUserSelector)
+    const userUpdate = useSelector(userUpdateSelector)
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [images, setImages] = useState<any[]>([])
@@ -34,19 +36,20 @@ const NewPostScreen = ({ navigation }: any) => {
 
     const handleRemoveImage = (index: number) => {
         setImages([...images.slice(0, index), ...images.slice(index + 1)])
-        // console.log('array1', images.slice(0, index))
-        // console.log('array2', images.slice(index + 1))
     }
 
     const handlePost = () => {
-        dispatch(
-            addPost({
-                title: title,
-                body: description,
-                image: dataUser.image,
-            })
-        )
-        navigation.navigate('ForumScreen')
+        if (title && description && dataUser.image) {
+            dispatch(
+                addPost({
+                    title: title,
+                    body: description,
+                    image: dataUser.image,
+                })
+            )
+
+            navigation.navigate('ForumScreen')
+        }
     }
 
     return (
@@ -66,7 +69,9 @@ const NewPostScreen = ({ navigation }: any) => {
                 <NewPost
                     first_name={dataUser.first_name}
                     last_name={dataUser.last_name}
-                    avatar={dataUser.image}
+                    avatar={
+                        userUpdate.image ? userUpdate.image : dataUser.image
+                    }
                     valueTitle={title}
                     valueDescription={description}
                     OnChangeTextTitle={(value: string) => setTitle(value)}

@@ -9,12 +9,17 @@ import { api } from '../../services/user'
 import { apiSlice } from '../../services/slides'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { apiGroup } from './../../services/groups'
+import { useSelector } from 'react-redux'
 
 // interface headerFlatListProp {
 //     navigation?: NavigationProp<any, any>
 // }
 
+const userUpdateSelector = (state: any) => state.home.user
+
 const HeaderFlatList = () => {
+    const userUpdate = useSelector(userUpdateSelector)
+
     const [dataUser, setDataUser] = useState<any>({})
     const [dataSlices, setDataSlices] = useState<any>()
 
@@ -44,7 +49,9 @@ const HeaderFlatList = () => {
                 <View style={styles.header_Image}>
                     <Image
                         source={{
-                            uri: dataUser.image,
+                            uri: userUpdate.image
+                                ? userUpdate.image
+                                : dataUser.image,
                         }}
                         style={styles.image}
                     />
@@ -52,7 +59,9 @@ const HeaderFlatList = () => {
                 <View>
                     <Text style={styles.header_Title}>Hello</Text>
                     <Text style={styles.header_Name}>
-                        {dataUser.first_name}
+                        {userUpdate.name
+                            ? userUpdate.name
+                            : dataUser.first_name}
                         <Text> </Text>
                         {dataUser.last_name}
                     </Text>

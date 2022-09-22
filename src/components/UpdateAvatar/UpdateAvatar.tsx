@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ButtonNoBg from '../Button/ButtonNoBg'
-import { BORDER } from '../../assets/constants/theme'
+import { useSelector } from 'react-redux'
 
 interface updateAvatarProps {
     avatar?: string

@@ -8,56 +8,30 @@ interface postedProps {
     Icon?: () => JSX.Element
     primary?: boolean
     secondary?: boolean
-    onPress?: () => void
-    name?: string
-    date?: string
-    hour?: string
-    title?: string
-    timeDetail?: string
-    dateDetail?: string
-    contentHeader?: string
-    contentTag?: string
-    contentContainer?: string
-    contentContainerEnd?: string
-    contentFooter?: string
-    quantityLike?: string
-    quantityComment?: number
-    image_link: string
+    onPress: () => void
     onLikePost?: () => void
-    id: string
+    item: { id: string; body: string; image: string; title: string }
 }
 
 const dataLikePostSelector = (state: any) => state.home.like
 
-const Posted = ({
+const ListPost = ({
     onPress,
     onLikePost,
     primary,
-    name,
-    date,
-    hour,
-    title,
-    contentHeader,
-    contentContainer,
-    contentContainerEnd,
-    contentFooter,
-    contentTag,
-    quantityComment,
-    quantityLike,
     secondary,
-    timeDetail,
-    dateDetail,
-    image_link,
-    id,
+    item,
 }: postedProps) => {
     const checkLikePost: any[] = useSelector(dataLikePostSelector)
-    const isLike = checkLikePost.includes(id)
+    const isLike = checkLikePost.includes(item.id)
+    // console.log('checkLikePost-----', checkLikePost)
+    // const [isLike, setIsLike] = useState<boolean>(false)
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
                 <View>
                     <Image
-                        source={{ uri: image_link }}
+                        source={{ uri: item.image }}
                         style={styles.postedImage}
                     />
                 </View>
@@ -69,7 +43,7 @@ const Posted = ({
                     <View style={styles.postedHeader}>
                         <View style={{ flexDirection: 'column' }}>
                             <TouchableOpacity activeOpacity={0.5}>
-                                <Text style={styles.postedName}>{name}</Text>
+                                <Text style={styles.postedName}>Test</Text>
                             </TouchableOpacity>
                             {secondary && (
                                 <>
@@ -86,9 +60,7 @@ const Posted = ({
                                                 fontWeight: '500',
                                                 marginRight: 8,
                                             }}
-                                        >
-                                            {timeDetail}
-                                        </Text>
+                                        ></Text>
                                         {<IconDotTime fill={COLORS.Neutral4} />}
                                         <Text
                                             style={{
@@ -96,9 +68,7 @@ const Posted = ({
                                                 fontWeight: '500',
                                                 marginLeft: 8,
                                             }}
-                                        >
-                                            {dateDetail}{' '}
-                                        </Text>
+                                        ></Text>
                                     </View>
                                 </>
                             )}
@@ -113,35 +83,33 @@ const Posted = ({
                             {primary && (
                                 <>
                                     {<IconDotTime fill={COLORS.Neutral4} />}
-                                    <Text style={styles.postedTime}>
-                                        {hour}
-                                    </Text>
+                                    <Text style={styles.postedTime}>17h</Text>
                                 </>
                             )}
                         </View>
                     </View>
                     <View style={styles.postedBody}>
                         <View style={styles.postedTitle}>
-                            <Text style={styles.postedTitle_Text}>{title}</Text>
+                            <Text style={styles.postedTitle_Text}>
+                                {item.title}
+                            </Text>
                         </View>
                         <View style={styles.postedDescription}>
                             <Text style={styles.postedDes_Content}>
-                                {contentHeader}
+                                {item.body}
                             </Text>
                             <Text style={styles.postedDes_Content}>
-                                {contentContainer}{' '}
                                 <Text style={styles.postedDes_Tag}>
-                                    {contentTag}
+                                    #AAAAAAAAAAAAA
                                 </Text>
-                                {contentContainerEnd}
                             </Text>
                             <Text style={styles.postedDes_Content}>
-                                {contentFooter}
+                                {item.body}
                             </Text>
                         </View>
                         <TouchableOpacity activeOpacity={0.8}>
                             <Image
-                                source={{ uri: image_link }}
+                                source={{ uri: item.image }}
                                 style={styles.postImage}
                             />
                         </TouchableOpacity>
@@ -162,7 +130,6 @@ const Posted = ({
                                 />
                             </TouchableOpacity>
                             <Text style={styles.postedQuantityFeedback}>
-                                {quantityLike}
                                 {secondary && <Text>likes</Text>}
                             </Text>
                         </View>
@@ -175,7 +142,6 @@ const Posted = ({
                                 />
                             </TouchableOpacity>
                             <Text style={styles.postedQuantityFeedback}>
-                                {quantityComment}
                                 {secondary && <Text> replies</Text>}
                             </Text>
                         </View>
@@ -186,7 +152,7 @@ const Posted = ({
     )
 }
 
-export default Posted
+export default ListPost
 
 const styles = StyleSheet.create({
     posted: {

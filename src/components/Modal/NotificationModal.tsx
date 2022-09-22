@@ -11,18 +11,20 @@ interface notificationModalProps {
 
 const NotificationModal = ({ name, ICon, onPress }: notificationModalProps) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            onPress={onPress}
+            activeOpacity={0.6}
+            style={styles.container}
+        >
             <View style={styles.content}>
-                <TouchableOpacity onPress={onPress}>
-                    {!!ICon && <ICon />}
-                </TouchableOpacity>
+                <TouchableOpacity>{!!ICon && <ICon />}</TouchableOpacity>
                 <Text style={styles.infoNotice}>
                     You and
                     <Text style={styles.blockText}> {name} </Text>
                     have become friends
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

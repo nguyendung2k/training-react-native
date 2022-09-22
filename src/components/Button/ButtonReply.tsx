@@ -3,7 +3,7 @@ import React from 'react'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
 interface buttonProps {
-    onPress?: () => void
+    onPress?: (value: any) => void
 }
 
 const ButtonReply = ({ onPress }: buttonProps) => {

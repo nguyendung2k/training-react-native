@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-
 import CardId from './CardId'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { useSelector } from 'react-redux'
@@ -10,9 +9,11 @@ interface cardInfoProps {
     primary?: boolean
 }
 const dataUserSelector = (state: any) => state.auth.user
+const userUpdateSelector = (state: any) => state.home.user
 
 const CardInfo = ({ secondary, primary }: cardInfoProps) => {
     const dataUser = useSelector(dataUserSelector)
+    const userUpdate = useSelector(userUpdateSelector)
 
     return (
         <View style={[styles.container, primary && styles.containerPrimary]}>
@@ -22,7 +23,11 @@ const CardInfo = ({ secondary, primary }: cardInfoProps) => {
                 <View style={styles.image}>
                     {secondary ? (
                         <Image
-                            source={{ uri: dataUser.image }}
+                            source={{
+                                uri: userUpdate.image
+                                    ? userUpdate.image
+                                    : dataUser.image,
+                            }}
                             style={{
                                 width: 120,
                                 height: 120,
@@ -31,7 +36,11 @@ const CardInfo = ({ secondary, primary }: cardInfoProps) => {
                         />
                     ) : (
                         <Image
-                            source={{ uri: dataUser.image }}
+                            source={{
+                                uri: userUpdate.image
+                                    ? userUpdate.image
+                                    : dataUser.image,
+                            }}
                             style={{
                                 width: 50,
                                 height: 50,
@@ -48,7 +57,9 @@ const CardInfo = ({ secondary, primary }: cardInfoProps) => {
                             secondary && styles.titleSecondary,
                         ]}
                     >
-                        {dataUser.first_name}
+                        {userUpdate.name
+                            ? userUpdate.name
+                            : dataUser.first_name}
                         <Text> </Text>
                         {dataUser.last_name}
                     </Text>

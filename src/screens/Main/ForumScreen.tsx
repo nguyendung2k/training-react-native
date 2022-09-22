@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+    ScrollView,
+    FlatList,
+} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import { IConBack } from '../../components/Svg/Icon'
@@ -6,24 +13,24 @@ import { COLORS } from '../../assets/constants/theme'
 import Posted from '../../components/Posted/Posted'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts, likePostById } from '../../redux/slices/homeSlice'
+import ListPost from '../../components/ListView/ListPost'
 
 const dataPostsSelector = (state: any) => state.home.posts
-
+const userUpdateSelector = (state: any) => state.home.user
 const quantityLikePostSelector = (state: any) => state.home.quantity_like
 
 const ForumScreen = ({ navigation }: any) => {
     const dispatch = useDispatch()
     const dataPosts = useSelector(dataPostsSelector)
+    const userUpdate = useSelector(userUpdateSelector)
     const quantityLike = useSelector(quantityLikePostSelector)
     const [quantityComments, setQuantityComments] = useState<number>(5)
-
-    console.log('dataPost', dataPosts)
 
     useEffect(() => {
         dispatch(getPosts())
     }, [])
 
-    const handlePress = (id: any) => {
+    const handlePress = (id: string) => {
         navigation.navigate('CommentForumScreen', id)
     }
 
@@ -44,36 +51,22 @@ const ForumScreen = ({ navigation }: any) => {
                     onDirection={() => navigation.navigate('NewPostScreen')}
                 />
             </View>
-            <ScrollView
-                style={styles.content}
-                showsVerticalScrollIndicator={false}
-            >
+            <View style={styles.content}>
                 <View style={styles.contentPost}>
-                    {dataPosts.map((item: any) => {
-                        console.log('item: ', item)
-                        return (
-                            <Posted
-                                key={item.id}
-                                id={item.id}
-                                onPress={() => handlePress(item.id)}
-                                name="Esther Howard"
-                                hour="17h"
-                                title={item?.title}
-                                contentHeader={item?.body}
-                                contentContainer="In honor of "
-                                contentTag="#NationalVideoGamesDay"
-                                contentContainerEnd=", we want to know..."
-                                contentFooter="Red heart Your favorite Pokémon video game Video game Which Pokémon video game you're currently playing"
-                                quantityLike={quantityLike}
-                                quantityComment={quantityComments}
-                                image_link={item?.image}
+                    <FlatList
+                        data={dataPosts}
+                        renderItem={({ item }) => (
+                            <ListPost
                                 primary
+                                onPress={() => handlePress(item.id)}
                                 onLikePost={() => handleOnLikePost(item.id)}
+                                item={item}
                             />
-                        )
-                    })}
+                        )}
+                        showsVerticalScrollIndicator={false}
+                    />
                 </View>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }
@@ -89,8 +82,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 24,
         marginBottom: 28,
     },
-    content: {},
+    content: {
+        // marginBottom: 100,
+        flex: 1,
+    },
     contentPost: {
         marginHorizontal: 24,
+        // marginBottom: 100,
     },
 })

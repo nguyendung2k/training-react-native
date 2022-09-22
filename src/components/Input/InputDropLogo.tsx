@@ -45,10 +45,7 @@ const InputDropLogo = ({
                 setValue={setValue}
                 setItems={setItems}
                 listMode="SCROLLVIEW"
-                // dropDownDirection="TOP"
-                // style={styles.input}
                 style={styles.content}
-                // labelStyle={styles.label}
                 dropDownContainerStyle={styles.dropDownBox}
                 arrowIconStyle={{
                     width: 16,
@@ -56,8 +53,6 @@ const InputDropLogo = ({
                 }}
                 dropDownDirection="TOP"
                 onChangeValue={onChangeValue}
-                // modalTitle={modalTitle}
-                // searchable={false}
             />
         </View>
     )

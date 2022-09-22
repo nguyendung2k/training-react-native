@@ -5,6 +5,25 @@ import Header from '../../components/Header/Header'
 import { IConBack } from '../../components/Svg/Icon'
 import CardBlockList from '../../components/Card/CardBlockList'
 
+const dataBlockUser = [
+    {
+        id: 1,
+        name: 'Annette Black',
+    },
+    {
+        id: 2,
+        name: 'Jenny Wilson',
+    },
+    {
+        id: 3,
+        name: 'Annette Black',
+    },
+    {
+        id: 4,
+        name: 'Annette Black',
+    },
+]
+
 const BlockListScreen = ({ navigation }: any) => {
     return (
         <SafeAreaView style={styles.container}>

@@ -19,7 +19,9 @@ const FooterFlatList = () => {
 
             <View style={styles.btnGroup}>
                 <ButtonHome
-                    Icon={() => <IconCoin stroke={'#FEA827'} />}
+                    Icon={() => (
+                        <IconCoin width={32} height={32} stroke={'#FEA827'} />
+                    )}
                     title="Purchase TomoCoins"
                 />
                 <ButtonHome

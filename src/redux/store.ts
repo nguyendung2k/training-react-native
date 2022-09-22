@@ -12,7 +12,8 @@ import rootReducer from './slices'
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    blacklist: ['home', 'filters'],
+    blacklist: ['filters'],
+    whitelist: ['home', 'auth'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -24,9 +25,5 @@ export const store = configureStore({
         thunk,
     ],
 })
-export const dispatchStore = store.dispatch as
-    | typeof store.dispatch
-    | Dispatch<any>
-export const persistor = persistStore(store)
 
-// export default store
+export const persistor = persistStore(store)

@@ -15,9 +15,11 @@ import { useSelector } from 'react-redux'
 interface inputReplyProps {
     avatar?: string
     value?: string
-    onPress: (value: any) => void
+    onPress: (value: string) => void
     onChangeText?: (value: string) => void
 }
+
+const userUpdateSelector = (state: any) => state.home.user
 
 const InputReplyPost = ({
     avatar,
@@ -25,12 +27,16 @@ const InputReplyPost = ({
     onPress,
     onChangeText,
 }: inputReplyProps) => {
+    const userUpdate = useSelector(userUpdateSelector)
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.image}>
                     <Image
-                        source={{ uri: avatar }}
+                        source={{
+                            uri: userUpdate.image ? userUpdate.image : avatar,
+                        }}
                         style={styles.imageAvatar}
                     />
                 </View>

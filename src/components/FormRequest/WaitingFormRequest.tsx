@@ -10,6 +10,8 @@ interface waitingFormProps {
     quantityFollow: string
     primary?: boolean
     secondary?: boolean
+    onAccept: () => void
+    onReject: () => void
 }
 
 const WaitingFormRequest = ({
@@ -18,6 +20,8 @@ const WaitingFormRequest = ({
     quantityFollow,
     primary,
     secondary,
+    onAccept,
+    onReject,
 }: waitingFormProps) => {
     return (
         <View style={styles.container}>
@@ -77,8 +81,16 @@ const WaitingFormRequest = ({
 
                     {primary && (
                         <View style={styles.btn}>
-                            <ButtonHaft primary label="Accept" />
-                            <ButtonHaft quaternary label="Reject" />
+                            <ButtonHaft
+                                onPress={onAccept}
+                                primary
+                                label="Accept"
+                            />
+                            <ButtonHaft
+                                onPress={onReject}
+                                quaternary
+                                label="Reject"
+                            />
                         </View>
                     )}
                 </View>
