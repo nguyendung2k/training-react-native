@@ -45,9 +45,9 @@ const NewPostScreen = ({ navigation }: any) => {
                     title: title,
                     body: description,
                     image: dataUser.image,
+                    name: dataUser.first_name,
                 })
             )
-
             navigation.navigate('ForumScreen')
         }
     }

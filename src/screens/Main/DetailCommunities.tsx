@@ -35,8 +35,6 @@ const DetailCommunities = ({ navigation }: any) => {
     const dispatch = useDispatch()
     const statusJoin = useSelector(statusJoinGroup)
 
-    console.log(statusJoin)
-
     const [textValue, setTextValue] = useState('')
 
     useEffect(() => {

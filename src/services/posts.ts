@@ -1,8 +1,7 @@
 import axios from 'axios'
 
-const getPostsData = async () => {
-    const urlApi =
-        'https://631ff913e3bdd81d8eefe904.mockapi.io/posts/?page=1&limit=5'
+const getPostsData = async (page: string) => {
+    const urlApi = `https://631ff913e3bdd81d8eefe904.mockapi.io/posts/?page=${page}&limit=5`
     const response = await axios.get(urlApi)
     const result = response.status === 200 ? response.data : []
     return result

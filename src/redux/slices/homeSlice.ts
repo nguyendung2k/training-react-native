@@ -82,7 +82,6 @@ export const homeSlice = createSlice({
             state.user = action.payload
         },
         changeStatusJoinGroup(state, action) {
-            console.log('action payload', action.payload)
             state.joinGroupStatus = action.payload
         },
     },
@@ -107,9 +106,6 @@ export const homeSlice = createSlice({
         })
         builder.addCase(filterMemberByCondition.fulfilled, (state, action) => {
             state.members = action.payload
-        })
-        builder.addCase(getPosts.fulfilled, (state, action) => {
-            state.posts = action.payload
         })
         builder.addCase(getComment.fulfilled, (state, action) => {
             state.comments = action.payload
@@ -184,10 +180,10 @@ export const searchMemberByTitle: any = createAsyncThunk(
     }
 )
 
-export const getPosts: any = createAsyncThunk('home/posts', async () => {
-    const dataPosts = await apiPosts.getPostsData()
-    return dataPosts
-})
+// export const getPosts: any = createAsyncThunk('home/posts', async () => {
+//     const dataPosts = await apiPosts.getPostsData()
+//     return dataPosts
+// })
 
 export const getComment: any = createAsyncThunk('home/comments', async () => {
     const dataComment = await apiComment.getDataComment()

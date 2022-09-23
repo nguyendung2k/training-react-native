@@ -3,14 +3,21 @@ import React, { useState } from 'react'
 import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { IconComment, IconDotTime, IconHeart } from '../Svg/Icon'
 import { useSelector } from 'react-redux'
-
+import moment from 'moment'
 interface postedProps {
     Icon?: () => JSX.Element
     primary?: boolean
     secondary?: boolean
     onPress: () => void
     onLikePost?: () => void
-    item: { id: string; body: string; image: string; title: string }
+    item: {
+        id: string
+        body: string
+        image: string
+        title: string
+        name: string
+        time: number
+    }
 }
 
 const dataLikePostSelector = (state: any) => state.home.like
@@ -43,7 +50,9 @@ const ListPost = ({
                     <View style={styles.postedHeader}>
                         <View style={{ flexDirection: 'column' }}>
                             <TouchableOpacity activeOpacity={0.5}>
-                                <Text style={styles.postedName}>Test</Text>
+                                <Text style={styles.postedName}>
+                                    {item.name}
+                                </Text>
                             </TouchableOpacity>
                             {secondary && (
                                 <>

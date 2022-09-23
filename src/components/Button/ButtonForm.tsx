@@ -11,7 +11,7 @@ interface btnProps {
     quinary?: boolean
     disable?: boolean
     Icon?: () => JSX.Element
-    onPress?: () => void | undefined
+    onPress?: () => Promise<void>
     disabled?: boolean
 }
 
