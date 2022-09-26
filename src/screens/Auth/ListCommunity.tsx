@@ -1,8 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import HeaderAuth from '../../components/Header/HeaderAuth'
-import ButtonForm from '../../components/Button/ButtonForm'
-import ListView from '../../components/ListView/ListView'
+import { ButtonForm, HeaderAuth, ListCommunityView } from '@components'
 
 const ListCommunity = ({ navigation }: any) => {
     return (
@@ -19,7 +17,7 @@ const ListCommunity = ({ navigation }: any) => {
                     contentContainerStyle={styles.listView}
                     showsVerticalScrollIndicator={false}
                 >
-                    <ListView
+                    <ListCommunityView
                         showBox={true}
                         title="Movies"
                         number="20335"

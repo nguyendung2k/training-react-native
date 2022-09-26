@@ -1,30 +1,29 @@
-import {
-    Alert,
-    Platform,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native'
+import { Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import Header from '../../components/Header/Header'
-import CardInfo from '../../components/Card/Card'
-import { COLORS } from '../../assets/constants/theme'
-import ButtonAccountMenu from '../../components/Button/ButtonAccountMenu'
+
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
+
+import { useDispatch } from 'react-redux'
+import { showModal } from '../../redux/slices/homeSlice'
 import {
+    BaseModal,
+    ButtonAccountMenu,
+    ButtonForm,
+    CardInfo,
+    Header,
     IconLockKeyOpen,
     IconProhibit,
     IconSignOut,
     IconUserCircle,
     IconWarning,
-} from '../../components/Svg/Icon'
-import ButtonForm from '../../components/Button/ButtonForm'
-import BaseModal from '../../components/Modal/BaseModal'
-import { useDispatch, useSelector } from 'react-redux'
-import { showModal } from '../../redux/slices/homeSlice'
+} from '@components'
+
+import { COLORS } from '@assets/constants'
+import { RootState, useAppSelector } from '@redux/store'
+import { useNavigation } from '@react-navigation/native'
+import { accountScreenProp } from '@navigation/Main'
+import { stackScreenProp } from '@navigation/type'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -34,17 +33,19 @@ Notifications.setNotificationHandler({
     }),
 })
 
-const showModalConfirm = (state: any) => state.home.modal.showModal
-
-const Account = ({ navigation }: any) => {
+const Account = () => {
     const dispatch = useDispatch()
+    const navigation = useNavigation<stackScreenProp>()
 
     const [expoPushToken, setExpoPushToken] = useState<any>('')
-    const [notification, setNotification] = useState<any>(false)
+
     const notificationListener = useRef<any>()
+
     const responseListener = useRef<any>()
 
-    const modal = useSelector(showModalConfirm)
+    const modal = useAppSelector(
+        (state: RootState) => state.home.modal.showModal
+    )
 
     const handleShowModal = () => {
         dispatch(showModal({ showModal: true }))
@@ -53,33 +54,27 @@ const Account = ({ navigation }: any) => {
     useEffect(() => {
         registerForPushNotificationsAsync()
             .then((token: any) => {
-                console.log('expoPushToken: ', token)
                 setExpoPushToken(token)
             })
             .catch((e) => {
                 console.log('error: ', e)
             })
 
-        notificationListener.current =
-            Notifications.addNotificationReceivedListener((notification) => {
-                setNotification(notification)
-            })
+        // responseListener.current =
+        //     Notifications.addNotificationResponseReceivedListener(
+        //         (response) => {
+        //             console.log('response', response)
+        //         }
+        //     )
 
-        responseListener.current =
-            Notifications.addNotificationResponseReceivedListener(
-                (response) => {
-                    console.log('response', response)
-                }
-            )
-
-        return () => {
-            Notifications.removeNotificationSubscription(
-                notificationListener.current
-            )
-            Notifications.removeNotificationSubscription(
-                responseListener.current
-            )
-        }
+        // return () => {
+        //     Notifications.removeNotificationSubscription(
+        //         notificationListener.current
+        //     )
+        //     Notifications.removeNotificationSubscription(
+        //         responseListener.current
+        //     )
+        // }
     }, [])
 
     async function schedulePushNotification() {
@@ -88,9 +83,13 @@ const Account = ({ navigation }: any) => {
                 title: "You've got mail! 📬",
                 body: 'Here is the notification body',
             },
-            trigger: { seconds: 2 },
+            trigger: {
+                seconds: 1,
+            },
         })
     }
+
+    // console.log('expoPushToken---: ', expoPushToken)
 
     async function registerForPushNotificationsAsync() {
         let token
@@ -98,20 +97,23 @@ const Account = ({ navigation }: any) => {
         if (Device.isDevice) {
             const { status: existingStatus } =
                 await Notifications.getPermissionsAsync()
+
             let finalStatus = existingStatus
+
             if (existingStatus !== 'granted') {
                 const { status } = await Notifications.requestPermissionsAsync()
                 finalStatus = status
             }
+
             if (finalStatus !== 'granted') {
                 Alert.alert('Failed to get push token for push notification!')
                 return
             }
             token = (await Notifications.getExpoPushTokenAsync()).data
-            console.log('token: ', token)
         } else {
             Alert.alert('Must use physical device for Push Notifications')
         }
+
         return token
     }
 
@@ -155,7 +157,6 @@ const Account = ({ navigation }: any) => {
                         onPress={handleShowModal}
                     />
                 </View>
-
                 <View style={styles.btnCancel}>
                     <ButtonForm
                         label="Cancel account"

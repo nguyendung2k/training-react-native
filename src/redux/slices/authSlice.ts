@@ -8,6 +8,9 @@ interface iState {
         token: any
         email: string
         password: string
+        first_name: string
+        last_name?: string
+        introduction: string
     }
     modal: {
         showModal: boolean
@@ -20,6 +23,8 @@ const initialState: iState = {
         token: null,
         email: '',
         password: '',
+        introduction: '',
+        first_name: '',
     },
     modal: {
         showModal: false,

@@ -9,30 +9,35 @@ import {
 } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Header from '../../components/Header/Header'
+
+import { useSelector } from 'react-redux'
 import {
+    BannerNotification,
+    ButtonActiveLogs,
+    ButtonInfoFollow,
+    ButtonNoBg,
+    ButtonNotification,
+    ButtonSocialNetwork,
+    Header,
+    HeaderSlide,
     IConBack,
     IconCaretRight,
     IconCoin,
     IconCrown,
     IconDotNotification,
     IconUsersDual,
-} from '../../components/Svg/Icon'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import CardInfo from '../../components/Card/Card'
-import ButtonInfoFollow from '../../components/Button/ButtonInfoFollow'
-import HeaderSlide from '../../components/Header/HeaderSlide'
-import ButtonSocialNetwork from '../../components/Button/ButtonSocialNetwork'
-import ButtonActiveLogs from '../../components/Button/ButtonActiveLogs'
-import ButtonNoBg from '../../components/Button/ButtonNoBg'
-import BannerNotification from '../../components/Banner/BannerNotification'
-import ButtonNotification from '../../components/Button/ButtonNotification'
-import { useSelector } from 'react-redux'
+} from '@components'
+import { COLORS, SIZES } from '@assets/constants'
+import { RootState } from '@redux/store'
+import { useNavigation } from '@react-navigation/native'
+import { accountScreenProp } from '@navigation/Main'
+import { stackScreenProp } from '@navigation/type'
 
-const dataUserSelector = (state: any) => state.auth.user
-const userUpdateSelector = (state: any) => state.home.user
+const dataUserSelector = (state: RootState) => state.auth.user
+const userUpdateSelector = (state: RootState) => state.home.user
 
-const YourProfileScreen = ({ navigation }: any) => {
+const YourProfileScreen = () => {
+    const navigation = useNavigation<stackScreenProp>()
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
 
@@ -62,7 +67,7 @@ const YourProfileScreen = ({ navigation }: any) => {
                     </View>
                 </ImageBackground>
                 <View style={styles.card_header}>
-                    <CardInfo secondary />
+                    {/* <CardInfo secondary /> */}
                 </View>
             </View>
             {/* -----Content----- */}
@@ -171,9 +176,11 @@ const YourProfileScreen = ({ navigation }: any) => {
                         content=" uploaded a new video “5 tips for studying” on Youtube"
                         time="9 Jul 2021, 12:00AM "
                         active
-                        Icon={() => (
-                            <IconDotNotification fill={COLORS.Semantic2} />
-                        )}
+                        Icon={() => {
+                            return (
+                                <IconDotNotification fill={COLORS.Semantic2} />
+                            )
+                        }}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.notification}>

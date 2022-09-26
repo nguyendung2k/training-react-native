@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-
-import ButtonForm from '../../components/Button/ButtonForm'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import { COLORS, SIZES } from '@assets/constants'
+import { ButtonForm } from '@components'
 
 const ResetSuccessfully = ({ navigation }: any) => {
     return (

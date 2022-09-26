@@ -1,81 +1,85 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import MyAuthStack from './Auth/MyAuthStack'
-
 import { useSelector } from 'react-redux'
-
 import { NavigationContainer } from '@react-navigation/native'
 import TabsBottoms from './navigator/TabsBottoms'
-import DetailCommunities from '../screens/Main/DetailCommunities'
-import UpdateProfileScreen from '../screens/Main/UpdateProfileScreen'
-import WaitingForApprovalScreen from '../screens/Main/WaitingForApprovalScreen'
-import FriendRequestScreen from '../screens/Main/FriendRequestScreen'
-import BlockListScreen from '../screens/Main/BlockListScreen'
-import ChangePasswordScreen from '../screens/Main/ChangePasswordScreen'
-import CardBlockList from '../components/Card/CardBlockList'
-import ForumScreen from '../screens/Main/ForumScreen'
-import CommentForumScreen from '../screens/Main/CommentForumScreen'
-import NewPostScreen from '../screens/Main/NewPostScreen'
+import MyAuthStack from './Auth/MyAuthStack'
+import YourProfileScreen from '@screens/Main/YourProfileScreen'
+import BlockListScreen from '@screens/Main/BlockListScreen'
+import ChangePasswordScreen from '@screens/Main/ChangePasswordScreen'
+import UpdateProfileScreen from '@screens/Main/UpdateProfileScreen'
+import WaitingForApprovalScreen from '@screens/Main/WaitingForApprovalScreen'
+import FriendRequestScreen from '@screens/Main/FriendRequestScreen'
+import DetailCommunities from '@screens/Main/DetailCommunities'
+import ForumScreen from '@screens/Main/ForumScreen'
+import CommentForumScreen from '@screens/Main/CommentForumScreen'
+import NewPostScreen from '@screens/Main/NewPostScreen'
+import Home from '@screens/Main/Home'
 
-const Stack = createNativeStackNavigator()
+const RootStack = createNativeStackNavigator()
 const tokenUser = (state: any) => state.auth.user?.token
 
 const MyStack = () => {
     const token = useSelector(tokenUser)
     return (
         <NavigationContainer independent={true}>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <RootStack.Navigator screenOptions={{ headerShown: false }}>
                 {token ? (
                     <>
-                        <Stack.Screen
+                        <RootStack.Screen
                             name="TabsBottom"
                             component={TabsBottoms}
                         />
-                        <Stack.Screen
-                            name="DetailCommunities"
-                            component={DetailCommunities}
+                        <RootStack.Screen name="Home" component={Home} />
+
+                        <RootStack.Screen
+                            name="YourProfileScreen"
+                            component={YourProfileScreen}
                         />
-                        <Stack.Screen
-                            name="UpdateProfileScreen"
-                            component={UpdateProfileScreen}
-                        />
-                        <Stack.Screen
-                            name="WaitingForApprovalScreen"
-                            component={WaitingForApprovalScreen}
-                        />
-                        <Stack.Screen
-                            name="FriendRequestScreen"
-                            component={FriendRequestScreen}
-                        />
-                        <Stack.Screen
+                        <RootStack.Screen
                             name="BlockListScreen"
                             component={BlockListScreen}
                         />
-                        <Stack.Screen
+                        <RootStack.Screen
                             name="ChangePasswordScreen"
                             component={ChangePasswordScreen}
                         />
-                        <Stack.Screen
-                            name="CardBlockList"
-                            component={CardBlockList}
+                        <RootStack.Screen
+                            name="UpdateProfileScreen"
+                            component={UpdateProfileScreen}
                         />
-                        <Stack.Screen
+                        <RootStack.Screen
+                            name="WaitingForApprovalScreen"
+                            component={WaitingForApprovalScreen}
+                        />
+                        <RootStack.Screen
+                            name="FriendRequestScreen"
+                            component={FriendRequestScreen}
+                        />
+                        <RootStack.Screen
+                            name="DetailCommunities"
+                            component={DetailCommunities}
+                        />
+                        <RootStack.Screen
                             name="ForumScreen"
                             component={ForumScreen}
                         />
-                        <Stack.Screen
+                        <RootStack.Screen
                             name="CommentForumScreen"
                             component={CommentForumScreen}
                         />
-                        <Stack.Screen
+                        <RootStack.Screen
                             name="NewPostScreen"
                             component={NewPostScreen}
                         />
                     </>
                 ) : (
-                    <Stack.Screen name="MyAuthStack" component={MyAuthStack} />
+                    <RootStack.Screen
+                        name="MyAuthStack"
+                        component={MyAuthStack}
+                    />
                 )}
-            </Stack.Navigator>
+            </RootStack.Navigator>
         </NavigationContainer>
     )
 }

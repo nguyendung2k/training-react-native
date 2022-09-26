@@ -1,15 +1,17 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
 import {
+    Header,
     IConBack,
     IconCheckCircle,
     IconMinusCircle,
-} from '../../components/Svg/Icon'
-import { COLORS } from '../../assets/constants/theme'
-
-import NotificationModal from '../../components/Modal/NotificationModal'
-import WaitingFormRequest from '../../components/FormRequest/WaitingFormRequest'
+    NotificationModal,
+    WaitingFormRequest,
+} from '@components'
+import { COLORS } from '@assets/constants'
+import { useNavigation } from '@react-navigation/native'
+import { accountScreenProp } from '@navigation/Main'
+import { stackScreenProp } from '@navigation/type'
 
 const requests = [
     {
@@ -45,7 +47,8 @@ const notice = [
     },
 ]
 
-const WaitingForApprovalScreen = ({ navigation }: any) => {
+const WaitingForApprovalScreen = () => {
+    const navigation = useNavigation<stackScreenProp>()
     const [showNoticeAccept, setShowNoticeAccept] = useState<boolean>(false)
     const [showNoticeReject, setShowNoticeReject] = useState(false)
     const [dataRequests, setDataRequests] = useState<any[]>(requests)

@@ -27,7 +27,7 @@ const ListMember = ({ data }: any) => {
     )
 }
 
-export default memo(ListMember)
+export default ListMember
 
 const styles = StyleSheet.create({
     container: {

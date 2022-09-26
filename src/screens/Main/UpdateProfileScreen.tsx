@@ -1,31 +1,37 @@
 import {
     StyleSheet,
-    Text,
     SafeAreaView,
     View,
     ScrollView,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
-    Keyboard,
     Platform,
-    Image,
 } from 'react-native'
 import React, { useState } from 'react'
-import Header from '../../components/Header/Header'
-import { IConBack, IconCheck } from '../../components/Svg/Icon'
-import { COLORS } from '../../assets/constants/theme'
-import HeaderSlide from '../../components/Header/HeaderSlide'
-import UpdateAvatar from '../../components/UpdateAvatar/UpdateAvatar'
-import Input from '../../components/Input/Input'
-import InputDrop from '../../components/Input/InputDrop'
-import ButtonForm from '../../components/Button/ButtonForm'
+
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
-import ChoseAddressSocial from '../../components/ChoseAddressSocial/ChoseAddressSocial'
-import { updateUser } from '../../redux/slices/homeSlice'
 
-const dataUserSelector = (state: any) => state.auth.user
-const userUpdateSelector = (state: any) => state.home.user
+import { updateUser } from '../../redux/slices/homeSlice'
+import {
+    ButtonForm,
+    ChoseAddressSocial,
+    Header,
+    HeaderSlide,
+    IConBack,
+    IconCheck,
+    Input,
+    InputDrop,
+    UpdateAvatar,
+} from '@components'
+import { COLORS } from '@assets/constants'
+import { RootState } from '@redux/store'
+import { useNavigation } from '@react-navigation/native'
+import { accountScreenProp } from '@navigation/Main'
+import { stackScreenProp } from '@navigation/type'
+
+const dataUserSelector = (state: RootState) => state.auth.user
+const userUpdateSelector = (state: RootState) => state.home.user
 
 const inputChooseSocial = [
     {
@@ -34,8 +40,9 @@ const inputChooseSocial = [
     },
 ]
 
-const UpdateProfileScreen = ({ navigation }: any) => {
+const UpdateProfileScreen = () => {
     const dispatch = useDispatch()
+    const navigation = useNavigation<stackScreenProp>()
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
 

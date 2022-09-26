@@ -1,31 +1,30 @@
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import ListView from '../../components/ListView/ListView'
-import { COLORS } from '../../assets/constants/theme'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import HeaderFlatList from '../../components/Header/HeaderFlatList'
-import FooterFlatList from '../../components/Footer/FooterFlatList'
 import { useSelector, useDispatch } from 'react-redux'
-import * as Notifications from 'expo-notifications'
-import * as Device from 'expo-device'
-import Loading from '../../components/Loading/Loading'
-import { apiGroup } from '../../services/groups'
+
 import { getGroup, getGroupById } from '../../redux/slices/homeSlice'
-import ButtonNoBg from '../../components/Button/ButtonNoBg'
 
-const loadingSelector = (state: any) => state.auth.loading
-const listGroupSelector = (state: any) => state.home.groups
+import { useNavigation } from '@react-navigation/native'
+import ListCommunityView from '../../components/ListView/ListCommunityView'
+import { FooterFlatList, HeaderFlatList } from '@components'
+import { COLORS } from '@assets/constants'
+import { RootState } from '@redux/store'
+import { stackScreenProp } from '@navigation/type'
 
-export default function Home({ navigation }: any) {
+const loadingSelector = (state: RootState) => state.auth.loading
+const listGroupSelector = (state: RootState) => state.home.groups
+
+export default function Home() {
     const dispatch = useDispatch()
     // const loading = useSelector(loadingSelector)
+    const navigation = useNavigation<stackScreenProp>()
     const listGroup = useSelector(listGroupSelector)
 
     useEffect(() => {
         dispatch(getGroup())
     }, [])
 
-    const handleOnChangeGroup = (id: string) => {
+    const handleOnChangeGroup = (id: { id: string }) => {
         navigation.navigate('DetailCommunities', id)
     }
 
@@ -36,11 +35,12 @@ export default function Home({ navigation }: any) {
                     <FlatList
                         data={listGroup}
                         renderItem={({ item }) => (
-                            <ListView
+                            <ListCommunityView
                                 onPress={() => handleOnChangeGroup(item.id)}
                                 item={item}
                             />
                         )}
+                        keyExtractor={(item) => item.id}
                         showsVerticalScrollIndicator={false}
                         ListHeaderComponent={HeaderFlatList}
                         ListFooterComponent={FooterFlatList}

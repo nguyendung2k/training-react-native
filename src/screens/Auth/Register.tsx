@@ -1,3 +1,15 @@
+import { COLORS, SIZES } from '@assets/constants'
+import {
+    ArrowRight,
+    ButtonForm,
+    CheckBox,
+    Header,
+    IConBack,
+    IconCheck,
+    Input,
+    InputDrop,
+    MessageError,
+} from '@components'
 import { Formik } from 'formik'
 import React, { useRef, useState } from 'react'
 import {
@@ -10,16 +22,6 @@ import {
     View,
     SafeAreaView,
 } from 'react-native'
-
-import ButtonForm from '../../components/Button/ButtonForm'
-import Input from '../../components/Input/Input'
-import InputDrop from '../../components/Input/InputDrop'
-import CheckBox from '../../components/Checkbox/CheckBox'
-
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import Header from '../../components/Header/Header'
-import MessageError from '../../components/MessageError/MessageError'
-import { ArrowRight, IConBack, IconCheck } from '../../components/Svg/Icon'
 
 const Register = ({ navigation }: any) => {
     const [valueGender, setValueGender] = useState<string>('Male')

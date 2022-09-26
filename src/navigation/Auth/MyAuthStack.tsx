@@ -1,14 +1,14 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import VerificationCode from '../../screens/Auth/VerificationCode'
-import Register from '../../screens/Auth/Register'
-import PersonalIntroduction from '../../screens/Auth/PersonalIntroduction'
-import Login from '../../screens/Auth/Login'
-import ForgotPassword from '../../screens/Auth/ForgotPassword'
-import ResetPassword from '../../screens/Auth/ResetPassword'
-import ResetSuccessfully from '../../screens/Auth/ResetSuccessfully'
-import ListCommunity from '../../screens/Auth/ListCommunity'
-import RegisterEnd from '../../screens/Auth/RegisterEnd'
+import Login from '@screens/Auth/Login'
+import Register from '@screens/Auth/Register'
+import VerificationCode from '@screens/Auth/VerificationCode'
+import PersonalIntroduction from '@screens/Auth/PersonalIntroduction'
+import ForgotPassword from '@screens/Auth/ForgotPassword'
+import ListCommunity from '@screens/Auth/ListCommunity'
+import RegisterEnd from '@screens/Auth/RegisterEnd'
+import ResetPassword from '@screens/Auth/ResetPassword'
+import ResetSuccessfully from '@screens/Auth/ResetSuccessfully'
 
 const AuthStack = createNativeStackNavigator()
 

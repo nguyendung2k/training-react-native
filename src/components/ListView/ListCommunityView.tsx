@@ -11,11 +11,11 @@ interface listViewProps {
     members?: string
     showBox?: boolean
     source?: any
-    item: { id: string; title: string; image: string; total_members: string }
+    item?: { id: string; title: string; image: string; total_members: string }
     onPress?: () => void | undefined
 }
 
-const ListView = ({ showBox, onPress, item }: listViewProps) => {
+const ListCommunityView = ({ showBox, onPress, item }: listViewProps) => {
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.checkbox}>
@@ -35,7 +35,7 @@ const ListView = ({ showBox, onPress, item }: listViewProps) => {
     )
 }
 
-export default ListView
+export default ListCommunityView
 
 const styles = StyleSheet.create({
     container: {

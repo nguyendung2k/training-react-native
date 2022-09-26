@@ -1,12 +1,16 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from '../../screens/Main/Home'
-import Communities from '../../screens/Main/Communities'
-import Account from '../../screens/Main/Account'
-import DetailCommunities from '../../screens/Main/DetailCommunities'
+import { StackNavigationProp } from '@react-navigation/stack'
+import Communities from '@screens/Main/Communities'
+import DetailCommunities from '@screens/Main/DetailCommunities'
 
-const CommunitiesStack = createNativeStackNavigator()
+export type CommunityStackParamList = {
+    Communities: undefined
+    DetailCommunities: { id: string }
+}
+export type communityScreenProp = StackNavigationProp<CommunityStackParamList>
+
+const CommunitiesStack = createNativeStackNavigator<CommunityStackParamList>()
 
 const CommunitiesStackScreen = () => {
     return (

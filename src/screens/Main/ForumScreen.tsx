@@ -7,24 +7,25 @@ import {
     FlatList,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
-import { IConBack } from '../../components/Svg/Icon'
-import { COLORS } from '../../assets/constants/theme'
-import Posted from '../../components/Posted/Posted'
 import { useDispatch, useSelector } from 'react-redux'
-// import { getPosts, likePostById } from '../../redux/slices/homeSlice'
-import ListPost from '../../components/ListView/ListPost'
 import axios from 'axios'
 import { apiPosts } from './../../services/posts'
-import Loading from './../../components/Loading/Loading'
+
 import { likePostById } from '../../redux/slices/homeSlice'
+import { Header, IConBack, ListPost, Loading } from '@components'
+import { COLORS } from '@assets/constants'
+import { useNavigation } from '@react-navigation/native'
+import { homeScreenProp } from '@navigation/Main'
+import { RootState } from '@redux/store'
+import { stackScreenProp } from '@navigation/type'
 
-const listPostUpdateSelector = (state: any) => state.home.posts
-const userUpdateSelector = (state: any) => state.home.user
-const quantityLikePostSelector = (state: any) => state.home.quantity_like
+const listPostUpdateSelector = (state: RootState) => state.home.posts
+const userUpdateSelector = (state: RootState) => state.home.user
+const quantityLikePostSelector = (state: RootState) => state.home.quantity_like
 
-const ForumScreen = ({ navigation }: any) => {
+const ForumScreen = () => {
     const dispatch = useDispatch()
+    const navigation = useNavigation<stackScreenProp>()
     // const dataPosts = useSelector(dataPostsSelector)
     const userUpdate = useSelector(userUpdateSelector)
     const postUpdate = useSelector(listPostUpdateSelector)
@@ -47,7 +48,7 @@ const ForumScreen = ({ navigation }: any) => {
         getData()
     }, [pagePost])
 
-    const handlePress = (id: string) => {
+    const handlePressPost = (id: { id: string }) => {
         navigation.navigate('CommentForumScreen', id)
     }
 
@@ -57,7 +58,7 @@ const ForumScreen = ({ navigation }: any) => {
         setLoading(true)
     }
 
-    const handleOnLikePost = (id: any) => {
+    const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
     }
 
@@ -81,7 +82,7 @@ const ForumScreen = ({ navigation }: any) => {
                         renderItem={({ item }) => (
                             <ListPost
                                 primary
-                                onPress={() => handlePress(item.id)}
+                                onPress={() => handlePressPost(item.id)}
                                 onLikePost={() => handleOnLikePost(item.id)}
                                 item={item}
                             />

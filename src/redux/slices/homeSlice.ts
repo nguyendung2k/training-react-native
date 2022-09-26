@@ -3,6 +3,8 @@ import { apiMember } from './../../services/members'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPosts } from './../../services/posts'
 import { apiComment } from './../../services/comment'
+import dataComment from '../../services/commentData.json'
+import Comment from './../../components/Comment/Comment'
 
 interface iState {
     modal: {
@@ -16,12 +18,15 @@ interface iState {
         id: string
         email: string
         name: string
+        image: string
+        introduction: string
     }
     posts: {
         id: string
         title: string
         description: string
         imagePost: []
+        body: string
         quantity_like: string
         quantity_comment: string
     }[]
@@ -41,6 +46,8 @@ const initialState: iState = {
         id: '',
         email: '',
         name: '',
+        image: '',
+        introduction: '',
     },
     posts: [],
     like: [],
@@ -70,10 +77,35 @@ export const homeSlice = createSlice({
                 state.quantity_like = +1
             }
         },
+        getCommentById(state, action) {
+            // console.log('Comment---: ', action.payload)
+            const idFromParam = action.payload
+
+            const findComment = dataComment.filter((item) => {
+                return item.post_id === idFromParam
+            })
+
+            state.comments = findComment
+        },
         addComment(state, action) {
             const dataPayload = action.payload
-            if (dataPayload.description === '') return
-            state.comments.unshift(dataPayload)
+
+            console.log('dataPayload', dataPayload)
+
+            const findComment = dataComment.filter((item) => {
+                if (item.post_id === dataPayload.post_id) {
+                    return true
+                }
+            })
+
+            console.log(findComment[0])
+
+            // let comment = []
+            // if (dataPayload.idPost === state.comments.post_id) {
+            //     comment = [...state.comments.concat(dataPayload)]
+            // } else {
+            //     comment = state.comments
+            // }
         },
         addPost(state, action) {
             state.posts.unshift(action.payload)
@@ -107,9 +139,13 @@ export const homeSlice = createSlice({
         builder.addCase(filterMemberByCondition.fulfilled, (state, action) => {
             state.members = action.payload
         })
-        builder.addCase(getComment.fulfilled, (state, action) => {
-            state.comments = action.payload
+        builder.addCase(getPostById.fulfilled, (state, action) => {
+            state.posts = action.payload
         })
+        // builder.addCase(getCommentPostById.fulfilled, (state, action) => {
+        //     console.log('dataPayload', action.payload)
+        //     state.comments = action.payload
+        // })
     },
 })
 
@@ -180,15 +216,14 @@ export const searchMemberByTitle: any = createAsyncThunk(
     }
 )
 
-// export const getPosts: any = createAsyncThunk('home/posts', async () => {
-//     const dataPosts = await apiPosts.getPostsData()
-//     return dataPosts
-// })
+export const getPostById: any = createAsyncThunk(
+    'home/getCommentById',
+    async (id: string) => {
+        const dataPostById = await apiPosts.getPostsById(id)
 
-export const getComment: any = createAsyncThunk('home/comments', async () => {
-    const dataComment = await apiComment.getDataComment()
-    return dataComment
-})
+        return dataPostById
+    }
+)
 
 export const {
     showModal,
@@ -198,6 +233,8 @@ export const {
     addPost,
     updateUser,
     changeStatusJoinGroup,
+    getCommentById,
+    // getComment,
 } = homeSlice.actions
 
 export default homeSlice.reducer

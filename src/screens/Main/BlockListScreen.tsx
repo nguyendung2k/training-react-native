@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
-import { COLORS } from '../../assets/constants/theme'
-import Header from '../../components/Header/Header'
-import { IConBack } from '../../components/Svg/Icon'
-import CardBlockList from '../../components/Card/CardBlockList'
+import { CardBlockList, Header, IConBack } from '@components'
+import { COLORS } from '@assets/constants'
+import { useNavigation } from '@react-navigation/native'
+import { accountScreenProp } from '@navigation/Main'
 
 const dataBlockUser = [
     {
@@ -24,7 +24,8 @@ const dataBlockUser = [
     },
 ]
 
-const BlockListScreen = ({ navigation }: any) => {
+const BlockListScreen = () => {
+    const navigation = useNavigation<accountScreenProp>()
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>

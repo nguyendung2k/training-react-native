@@ -16,11 +16,8 @@ interface postedProps {
     timeDetail?: string
     dateDetail?: string
     contentHeader?: string
-    contentTag?: string
-    contentContainer?: string
-    contentContainerEnd?: string
-    contentFooter?: string
-    quantityLike?: string
+
+    quantityLike?: string | number
     quantityComment?: number
     image_link: string
     onLikePost?: () => void
@@ -34,14 +31,9 @@ const Posted = ({
     onLikePost,
     primary,
     name,
-    date,
     hour,
     title,
     contentHeader,
-    contentContainer,
-    contentContainerEnd,
-    contentFooter,
-    contentTag,
     quantityComment,
     quantityLike,
     secondary,
@@ -128,16 +120,6 @@ const Posted = ({
                             <Text style={styles.postedDes_Content}>
                                 {contentHeader}
                             </Text>
-                            <Text style={styles.postedDes_Content}>
-                                {contentContainer}{' '}
-                                <Text style={styles.postedDes_Tag}>
-                                    {contentTag}
-                                </Text>
-                                {contentContainerEnd}
-                            </Text>
-                            <Text style={styles.postedDes_Content}>
-                                {contentFooter}
-                            </Text>
                         </View>
                         <TouchableOpacity activeOpacity={0.8}>
                             <Image
@@ -163,7 +145,7 @@ const Posted = ({
                             </TouchableOpacity>
                             <Text style={styles.postedQuantityFeedback}>
                                 {quantityLike}
-                                {secondary && <Text>likes</Text>}
+                                {secondary && <Text> likes</Text>}
                             </Text>
                         </View>
                         <View style={styles.postedFeedback}>

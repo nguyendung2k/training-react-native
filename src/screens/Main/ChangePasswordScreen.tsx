@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
-import { COLORS } from '../../assets/constants/theme'
-import Header from '../../components/Header/Header'
-import { IConBack } from '../../components/Svg/Icon'
-import Input from '../../components/Input/Input'
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
+import { Header, IConBack, Input } from '@components'
+import { COLORS } from '@assets/constants'
+import { accountScreenProp } from '@navigation/Main'
+import { useNavigation } from '@react-navigation/native'
 
-const ChangePasswordScreen = ({ navigation }: any) => {
+const ChangePasswordScreen = () => {
+    const navigation = useNavigation<accountScreenProp>()
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>

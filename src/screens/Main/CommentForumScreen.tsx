@@ -1,93 +1,95 @@
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
-import { IConBack } from '../../components/Svg/Icon'
-import { COLORS } from '../../assets/constants/theme'
-import Posted from '../../components/Posted/Posted'
-import InputReplyPost from '../../components/Input/InputReplyPost'
-import Comment from '../../components/Comment/Comment'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { apiPosts } from '../../services/posts'
+import axios from 'axios'
 
 import {
     addComment,
-    getComment,
+    getCommentById,
+    getPostById,
     likePostById,
 } from '../../redux/slices/homeSlice'
+import { Comment, Header, IConBack, InputReplyPost, Posted } from '@components'
+import { COLORS } from '@assets/constants'
+import { RootState } from '@redux/store'
+import { homeScreenProp } from '@navigation/Main'
+import { stackScreenProp } from '@navigation/type'
 
-const dataCommentSelector = (state: any) => state.home.comments
-const quantityLikePostSelector = (state: any) => state.home.quantity_like
-const userUpdateSelector = (state: any) => state.home.user
+const dataCommentSelector = (state: RootState) => state.home.comments
+const quantityLikePostSelector = (state: RootState) => state.home.quantity_like
+const userUpdateSelector = (state: RootState) => state.home.user
+const dataUserSelector = (state: RootState) => state.auth.user
 
-const dataUserSelector = (state: any) => state.auth.user
+const dataPostByIdSelector = (state: RootState) => state.home.posts
 
-const CommentForumScreen = ({ navigation }: any) => {
+const CommentForumScreen = () => {
+    const navigation = useNavigation<stackScreenProp>()
     const dispatch = useDispatch()
     const idFromParam = useRoute().params
 
     const dataComment = useSelector(dataCommentSelector)
+
+    // console.log('dataComment: ', dataComment[0]?.data)
+    const dataPost = useSelector(dataPostByIdSelector)
+
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
     const quantityLike = useSelector(quantityLikePostSelector)
 
-    const [quantityComments, setQuantityComments] = useState<number>(5)
-    const [postById, setPostById] = useState<any>({})
     const [valueText, setValueText] = useState<string>('')
 
     useEffect(() => {
-        const getDataPostById = async () => {
-            const dataPostById = await apiPosts.getPostsById(idFromParam)
-            setPostById(dataPostById)
-        }
-        dispatch(getComment())
-
-        getDataPostById()
+        dispatch(getPostById(idFromParam))
+        dispatch(getCommentById(idFromParam))
     }, [])
 
     const handleOnLikePost = (id: any) => {
         dispatch(likePostById(id))
     }
 
-    const handleComment = () => {
+    const handleComment = (id: string) => {
         dispatch(
             addComment({
+                post_id: id,
                 name: `${dataUser.first_name} ${dataUser.last_name}`,
                 avatar: dataUser.image,
                 description: valueText,
             })
         )
+
         setValueText('')
-        setQuantityComments((prev) => prev + 1)
     }
 
     return (
         <SafeAreaView style={styles.commentForum}>
-            <View style={styles.header}>
-                <Header
-                    onPress={() => navigation.navigate('ForumScreen')}
-                    Icon={() => <IConBack stroke={COLORS.Neutral10} />}
-                />
-            </View>
             <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.header}>
+                    <Header
+                        onPress={() => navigation.navigate('ForumScreen')}
+                        Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                    />
+                </View>
                 <View style={styles.commentContainer}>
                     <View style={styles.posted}>
                         <Posted
-                            id={postById.id}
+                            id={dataPost.id}
                             name="Esther Howard"
-                            title={postById.title}
-                            contentHeader={postById.body}
+                            title={dataPost.title}
+                            contentHeader={dataPost.body}
                             quantityLike={quantityLike}
-                            quantityComment={quantityComments}
+                            quantityComment={dataComment[0]?.data.length}
                             secondary
-                            onLikePost={() => handleOnLikePost(postById.id)}
-                            image_link={postById.image}
+                            onLikePost={() => handleOnLikePost(dataPost.id)}
+                            image_link={dataPost.image}
                             timeDetail="8:50PM"
                             dateDetail="23 Sep 2021 "
                         />
                         <View>
                             <InputReplyPost
-                                onPress={handleComment}
+                                onPress={() => handleComment(dataPost.id)}
                                 avatar={dataUser.image}
                                 value={valueText}
                                 onChangeText={setValueText}
@@ -96,12 +98,12 @@ const CommentForumScreen = ({ navigation }: any) => {
                     </View>
                 </View>
                 <View style={styles.commentContent}>
-                    {dataComment.map((item: any, index: any) => {
+                    {dataComment[0]?.data.map((item: any) => {
                         return (
                             <Comment
-                                key={index}
+                                key={item.id}
                                 name={item.name}
-                                description={item.description}
+                                description={item.body}
                                 time="17h"
                                 avatar={
                                     userUpdate.image

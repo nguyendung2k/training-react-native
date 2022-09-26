@@ -107,14 +107,6 @@ const ListPost = ({
                             <Text style={styles.postedDes_Content}>
                                 {item.body}
                             </Text>
-                            <Text style={styles.postedDes_Content}>
-                                <Text style={styles.postedDes_Tag}>
-                                    #AAAAAAAAAAAAA
-                                </Text>
-                            </Text>
-                            <Text style={styles.postedDes_Content}>
-                                {item.body}
-                            </Text>
                         </View>
                         <TouchableOpacity activeOpacity={0.8}>
                             <Image

@@ -1,22 +1,12 @@
 import {
     StyleSheet,
-    Text,
     View,
     ScrollView,
     Platform,
     KeyboardAvoidingView,
+    SafeAreaView,
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/Header/Header'
-import { IConBack, IconInfo, IconSearch } from '../../components/Svg/Icon'
-import { COLORS } from '../../assets/constants/theme'
-import Banner from '../../components/Banner/Banner'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import BannerForum from '../../components/Banner/BannerForum'
-import HeaderSlide from '../../components/Header/HeaderSlide'
-import InputSearch from '../../components/Input/InputSearch'
-import ConditionModal from '../../components/Modal/ConditionModal'
-import ListMember from '../../components/ListView/ListMember'
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -26,13 +16,30 @@ import {
     searchMemberByTitle,
     showModal,
 } from '../../redux/slices/homeSlice'
+import {
+    Banner,
+    BannerForum,
+    ConditionModal,
+    Header,
+    HeaderSlide,
+    IConBack,
+    IconInfo,
+    IconSearch,
+    InputSearch,
+    ListMember,
+} from '@components'
+import { COLORS } from '@assets/constants'
+import { useNavigation } from '@react-navigation/native'
+import { AppDispatch, RootState } from '@redux/store'
+import { stackScreenProp } from '@navigation/type'
 
-const dataMemberSelector = (state: any) => state.home.members
-const showConditionModal = (state: any) => state.home.modal
-const statusJoinGroup = (state: any) => state.home.joinGroupStatus
+const dataMemberSelector = (state: RootState) => state.home.members
+const showConditionModal = (state: RootState) => state.home.modal
+const statusJoinGroup = (state: RootState) => state.home.joinGroupStatus
 
-const DetailCommunities = ({ navigation }: any) => {
-    const dispatch = useDispatch()
+const DetailCommunities = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const navigation = useNavigation<stackScreenProp>()
     const statusJoin = useSelector(statusJoinGroup)
 
     const [textValue, setTextValue] = useState('')

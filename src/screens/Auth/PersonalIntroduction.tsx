@@ -1,11 +1,8 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
+import { ButtonForm, HeaderAuth } from '@components'
+import { COLORS } from '@assets/constants'
 
-import HeaderAuth from '../../components/Header/HeaderAuth'
-import InputDropLogo from '../../components/Input/InputDropLogo'
-import ButtonForm from '../../components/Button/ButtonForm'
-
-import { COLORS } from '../../assets/constants/theme'
 const PersonalIntroduction = ({ navigation }: any) => {
     return (
         <ScrollView

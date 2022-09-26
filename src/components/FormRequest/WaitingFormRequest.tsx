@@ -5,13 +5,13 @@ import { IconUsersDual } from '../Svg/Icon'
 import ButtonHaft from '../Button/ButtonHaft'
 
 interface waitingFormProps {
-    name: string
-    dateRequest: string
-    quantityFollow: string
+    name?: string
+    dateRequest?: string
+    quantityFollow?: string
     primary?: boolean
     secondary?: boolean
-    onAccept: () => void
-    onReject: () => void
+    onAccept?: () => void
+    onReject?: () => void
 }
 
 const WaitingFormRequest = ({

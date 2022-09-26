@@ -1,20 +1,20 @@
 import { FlatList, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
-import InputSearch from '../../components/Input/InputSearch'
-import { GROUPS } from '../../assets/constants/groups'
-import ListView from '../../components/ListView/ListView'
-import { COLORS } from '../../assets/constants/theme'
-import { IconSearch } from '../../components/Svg/Icon'
+
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux'
 import { getGroup, searchGroupByTitle } from '../../redux/slices/homeSlice'
+import { Header, IconSearch, InputSearch, ListCommunityView } from '@components'
+import { COLORS } from '@assets/constants'
+import { useNavigation } from '@react-navigation/native'
+import { communityScreenProp } from '@navigation/Main'
+import { RootState } from '@redux/store'
+import { stackScreenProp } from '@navigation/type'
 
-const listGroupSelector = (state: any) => state.home.groups
-
-const Communities = ({ navigation }: any) => {
+const Communities = () => {
     const dispatch = useDispatch()
-    const listGroup = useSelector(listGroupSelector)
+    const navigation = useNavigation<stackScreenProp>()
+    const listGroup = useSelector((state: RootState) => state.home.groups)
 
     useEffect(() => {
         dispatch(getGroup())
@@ -27,9 +27,9 @@ const Communities = ({ navigation }: any) => {
         dispatch(searchGroupByTitle(value))
     }
 
-    const handleOnChangeGroup = (id: any) => {
+    const handleOnChangeGroup = (id: { id: string }) => {
         dispatch(getGroup(id))
-        navigation.navigate('DetailCommunities')
+        navigation.navigate('DetailCommunities', id)
     }
 
     return (
@@ -50,7 +50,7 @@ const Communities = ({ navigation }: any) => {
                         showsVerticalScrollIndicator={false}
                         data={listGroup}
                         renderItem={({ item }) => (
-                            <ListView
+                            <ListCommunityView
                                 onPress={() => handleOnChangeGroup(item.id)}
                                 item={item}
                             />

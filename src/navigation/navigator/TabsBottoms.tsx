@@ -1,17 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Home from '../../screens/Main/Home'
-import Communities from '../../screens/Main/Communities'
-import Account from '../../screens/Main/Account'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import { IconCommunities, IconHome, IconUser } from '../../components/Svg/Icon'
-import DetailCommunities from '../../screens/Main/DetailCommunities'
-import MyMainStack from '../Main/HomeStack'
 import AccountStackScreen from '../Main/AccountStack'
 import CommunitiesStackScreen from '../Main/CommunitiesStack'
 import HomeStackScreen from '../Main/HomeStack'
+import { COLORS, SIZES } from '@assets/constants'
+import { IconCommunities, IconHome, IconUser } from '@components'
 
 const Tabs = createBottomTabNavigator()
 

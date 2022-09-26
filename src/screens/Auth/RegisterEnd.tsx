@@ -8,14 +8,15 @@ import {
     View,
 } from 'react-native'
 import React, { useState } from 'react'
-import HeaderAuth from '../../components/Header/HeaderAuth'
-import ButtonNoBg from '../../components/Button/ButtonNoBg'
-import InputDrop from '../../components/Input/InputDrop'
-import Input from '../../components/Input/Input'
-import ButtonForm from '../../components/Button/ButtonForm'
 
 import { Formik } from 'formik'
-import { checkInputTest } from '../../utils/checkInput'
+import {
+    ButtonForm,
+    ButtonNoBg,
+    HeaderAuth,
+    Input,
+    InputDrop,
+} from '@components'
 
 const RegisterEnd = ({ navigation }: any) => {
     const [valueProfession, setValueProfession] = useState<string>('Singer')

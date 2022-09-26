@@ -1,12 +1,20 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from '../../screens/Main/Home'
-import Communities from '../../screens/Main/Communities'
-import Account from '../../screens/Main/Account'
-import DetailCommunities from '../../screens/Main/DetailCommunities'
+import Home from '@screens/Main/Home'
+import DetailCommunities from '@screens/Main/DetailCommunities'
+import WaitingForApprovalScreen from '@screens/Main/WaitingForApprovalScreen'
+import FriendRequestScreen from '@screens/Main/FriendRequestScreen'
+import ForumScreen from '@screens/Main/ForumScreen'
+import CommentForumScreen from '@screens/Main/CommentForumScreen'
+import NewPostScreen from '@screens/Main/NewPostScreen'
+import { StackNavigationProp } from '@react-navigation/stack'
 
-const HomeStack = createNativeStackNavigator()
+export type HomeStackParamList = {
+    Home: undefined
+}
+export type homeScreenProp = StackNavigationProp<HomeStackParamList>
+
+const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
 const HomeStackScreen = () => {
     return (

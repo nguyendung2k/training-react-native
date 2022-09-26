@@ -1,18 +1,20 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, View, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
-import { COLORS } from '../../assets/constants/theme'
-import Header from '../../components/Header/Header'
-import { IConBack } from '../../components/Svg/Icon'
-import NewPost from '../../components/NewPost/NewPost'
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
 import { addPost } from '../../redux/slices/homeSlice'
+import { Header, IConBack, NewPost } from '@components'
+import { COLORS } from '@assets/constants'
+import { RootState } from '@redux/store'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
-const dataUserSelector = (state: any) => state.auth.user
-const userUpdateSelector = (state: any) => state.home.user
+const dataUserSelector = (state: RootState) => state.auth.user
+const userUpdateSelector = (state: RootState) => state.home.user
 
-const NewPostScreen = ({ navigation }: any) => {
+const NewPostScreen = () => {
     const dispatch = useDispatch()
+    const navigation = useNavigation<stackScreenProp>()
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
     const [title, setTitle] = useState<string>('')

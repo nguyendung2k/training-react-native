@@ -2,10 +2,8 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
-import Input from '../../components/Input/Input'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import ButtonForm from '../../components/Button/ButtonForm'
-import MessageError from '../../components/MessageError/MessageError'
+import { ButtonForm, Input, MessageError } from '@components'
+import { COLORS, SIZES } from '@assets/constants'
 
 const ForgotPassword = ({ navigation }: any) => {
     const checkLogin = Yup.object().shape({

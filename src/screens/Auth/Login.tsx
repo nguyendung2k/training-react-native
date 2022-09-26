@@ -11,19 +11,19 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
 
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 
-import Input from '../../components/Input/Input'
-import ButtonForm from '../../components/Button/ButtonForm'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-
-import { ArrowRight } from '../../components/Svg/Icon'
-import MessageError from '../../components/MessageError/MessageError'
 import { loginAuth } from '../../redux/slices/authSlice'
-import ButtonNoBg from '../../components/Button/ButtonNoBg'
+import {
+    ArrowRight,
+    ButtonForm,
+    ButtonNoBg,
+    Input,
+    MessageError,
+} from '@components'
+import { COLORS, SIZES } from '@assets/constants'
 
 const loadingSelector = (state: any) => state.auth.loading
 

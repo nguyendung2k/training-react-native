@@ -7,13 +7,9 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
-import React, { useState } from 'react'
-
-import { COLORS, SIZES } from '../../assets/constants/theme'
-
-import ButtonForm from '../../components/Button/ButtonForm'
-import VerifyCode from '../../components/VerifyCode/VerifyCode'
-import { IconCheck } from '../../components/Svg/Icon'
+import React from 'react'
+import { ButtonForm, IconCheck, VerifyCode } from '@components'
+import { COLORS, SIZES } from '@assets/constants'
 
 const VerificationCode = ({ navigation }: any) => {
     return (

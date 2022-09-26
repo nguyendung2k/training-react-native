@@ -9,9 +9,8 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React, { useState } from 'react'
-import Input from '../../components/Input/Input'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import ButtonForm from '../../components/Button/ButtonForm'
+import { ButtonForm, Input } from '@components'
+import { COLORS, SIZES } from '@assets/constants'
 
 const ResetPassword = ({ navigation }: any) => {
     const [showPass, setShowPass] = useState<boolean>(true)
