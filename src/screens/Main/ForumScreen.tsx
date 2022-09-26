@@ -1,23 +1,13 @@
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    ScrollView,
-    FlatList,
-} from 'react-native'
+import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { apiPosts } from './../../services/posts'
-
-import { likePostById } from '../../redux/slices/homeSlice'
 import { Header, IConBack, ListPost, Loading } from '@components'
-import { COLORS } from '@assets/constants'
 import { useNavigation } from '@react-navigation/native'
-import { homeScreenProp } from '@navigation/Main'
 import { RootState } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import { likePostById } from '@redux/slices/homeSlice'
 
 const listPostUpdateSelector = (state: RootState) => state.home.posts
 const userUpdateSelector = (state: RootState) => state.home.user
@@ -111,7 +101,6 @@ const styles = StyleSheet.create({
         marginBottom: 28,
     },
     content: {
-        // marginBottom: 100,
         flex: 1,
     },
     contentPost: {

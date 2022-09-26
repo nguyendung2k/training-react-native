@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { COLORS, BORDER, SIZES } from '../../assets/constants/theme'
+
 import React from 'react'
+import { SIZES, BORDER, COLORS } from '@theme'
 
 interface btnProps {
     label: string

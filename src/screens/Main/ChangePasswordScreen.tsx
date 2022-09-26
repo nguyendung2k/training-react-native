@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import { Header, IConBack, Input } from '@components'
-import { COLORS } from '@assets/constants'
-import { accountScreenProp } from '@navigation/Main'
 import { useNavigation } from '@react-navigation/native'
+import { COLORS } from '@theme'
+import { accountScreenProp } from '@navigation/Main/AccountStack'
 
 const ChangePasswordScreen = () => {
     const navigation = useNavigation<accountScreenProp>()
@@ -15,7 +15,7 @@ const ChangePasswordScreen = () => {
                     showTextHeader
                     showRightIcon
                     title="Update Profile"
-                    onPress={() => navigation.navigate('Account')}
+                    onPress={() => navigation.navigate('AccountScreen')}
                 />
             </View>
             <ScrollView

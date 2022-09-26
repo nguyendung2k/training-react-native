@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { COLORS, BORDER, SIZES } from '@theme'
 
 interface buttonHomeProps {
     title?: string

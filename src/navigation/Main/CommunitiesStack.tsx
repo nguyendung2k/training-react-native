@@ -1,8 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackNavigationProp } from '@react-navigation/stack'
-import Communities from '@screens/Main/Communities'
-import DetailCommunities from '@screens/Main/DetailCommunities'
+import { Communities } from '@screens'
 
 export type CommunityStackParamList = {
     Communities: undefined

@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { IconCheckCircle } from '../Svg/Icon'
+import { BORDER, COLORS, SIZES } from '@theme'
 
 interface notificationModalProps {
     name: string

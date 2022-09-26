@@ -1,1 +1,1 @@
-export * from './MyAuthStack'
+export { default as MyAuthStack } from './MyAuthStack'

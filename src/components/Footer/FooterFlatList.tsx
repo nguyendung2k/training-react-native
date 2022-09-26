@@ -1,9 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {
+    ButtonHome,
+    ButtonNoBg,
+    IconCoin,
+    IconFacebook,
+    IconTwitter,
+} from '@components'
 import React from 'react'
-import ButtonNoBg from '../Button/ButtonNoBg'
-import ButtonHome from '../Button/ButtonHome'
-import { IconCoin, IconFacebook, IconTwitter } from '../Svg/Icon'
-import { useDispatch, useSelector } from 'react-redux'
+import { StyleSheet, View } from 'react-native'
+
+import { useDispatch } from 'react-redux'
 import { getAllGroup, getGroup } from '../../redux/slices/homeSlice'
 
 const FooterFlatList = () => {

@@ -1,9 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-
-import CaretLeft from '../../assets/icons/CaretLeft.svg'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { IconPencil, IconPencilAdd } from '../Svg/Icon'
+import { IconPencil, IconPencilAdd } from '@components'
+import { BORDER, COLORS, SIZES } from '@theme'
 
 interface headerProps {
     showTextHeader?: boolean

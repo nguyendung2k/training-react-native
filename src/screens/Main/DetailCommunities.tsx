@@ -7,15 +7,8 @@ import {
     SafeAreaView,
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    changeStatusJoinGroup,
-    filterMemberByCondition,
-    getDataMember,
-    searchMemberByTitle,
-    showModal,
-} from '../../redux/slices/homeSlice'
+
 import {
     Banner,
     BannerForum,
@@ -28,10 +21,17 @@ import {
     InputSearch,
     ListMember,
 } from '@components'
-import { COLORS } from '@assets/constants'
 import { useNavigation } from '@react-navigation/native'
 import { AppDispatch, RootState } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import {
+    changeStatusJoinGroup,
+    filterMemberByCondition,
+    getDataMember,
+    searchMemberByTitle,
+    showModal,
+} from '@redux/slices/homeSlice'
 
 const dataMemberSelector = (state: RootState) => state.home.members
 const showConditionModal = (state: RootState) => state.home.modal

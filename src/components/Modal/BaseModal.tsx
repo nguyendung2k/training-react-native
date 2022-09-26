@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { useDispatch } from 'react-redux'
 import { logoutSuccess } from '../../redux/slices/authSlice'
-import TitleModal from './TitleModal'
-import ButtonHaft from '../Button/ButtonHaft'
 import { hideModal } from '../../redux/slices/homeSlice'
+import { ButtonHaft, TitleModal } from '@components'
+import { BORDER, COLORS } from '@theme'
 
 interface baseModalProps {
     onPress?: () => void
@@ -78,7 +77,6 @@ const styles = StyleSheet.create({
         borderRadius: BORDER.base,
     },
     btnLogoutTxt: {
-        // paddingHorizontal: 0,
         paddingVertical: 16,
         color: COLORS.Neutral0,
         fontWeight: '600',

@@ -1,4 +1,3 @@
-import { COLORS, SIZES } from '@assets/constants'
 import {
     ArrowRight,
     ButtonForm,
@@ -10,20 +9,23 @@ import {
     InputDrop,
     MessageError,
 } from '@components'
+import { stackScreenProp } from '@navigation/type'
+import { useNavigation } from '@react-navigation/native'
+import { COLORS, SIZES } from '@theme'
 import { Formik } from 'formik'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
     StyleSheet,
     Text,
-    TouchableOpacity,
     View,
     SafeAreaView,
 } from 'react-native'
 
-const Register = ({ navigation }: any) => {
+const Register = () => {
+    const navigation = useNavigation<stackScreenProp>()
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: 'Male' },

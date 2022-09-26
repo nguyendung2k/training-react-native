@@ -1,40 +1,31 @@
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { apiPosts } from '../../services/posts'
-import axios from 'axios'
 
+import { Comment, Header, IConBack, InputReplyPost, Posted } from '@components'
+import { RootState } from '@redux/store'
+import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
 import {
     addComment,
     getCommentById,
     getPostById,
     likePostById,
-} from '../../redux/slices/homeSlice'
-import { Comment, Header, IConBack, InputReplyPost, Posted } from '@components'
-import { COLORS } from '@assets/constants'
-import { RootState } from '@redux/store'
-import { homeScreenProp } from '@navigation/Main'
-import { stackScreenProp } from '@navigation/type'
+} from '@redux/slices/homeSlice'
 
 const dataCommentSelector = (state: RootState) => state.home.comments
 const quantityLikePostSelector = (state: RootState) => state.home.quantity_like
 const userUpdateSelector = (state: RootState) => state.home.user
 const dataUserSelector = (state: RootState) => state.auth.user
-
 const dataPostByIdSelector = (state: RootState) => state.home.posts
 
 const CommentForumScreen = () => {
-    const navigation = useNavigation<stackScreenProp>()
     const dispatch = useDispatch()
+    const navigation = useNavigation<stackScreenProp>()
     const idFromParam = useRoute().params
-
     const dataComment = useSelector(dataCommentSelector)
-
-    // console.log('dataComment: ', dataComment[0]?.data)
     const dataPost = useSelector(dataPostByIdSelector)
-
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
     const quantityLike = useSelector(quantityLikePostSelector)
@@ -46,7 +37,9 @@ const CommentForumScreen = () => {
         dispatch(getCommentById(idFromParam))
     }, [])
 
-    const handleOnLikePost = (id: any) => {
+    console.log('dataPost', dataPost)
+
+    const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
     }
 

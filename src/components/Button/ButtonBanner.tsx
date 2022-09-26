@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import React from 'react'
+import { BORDER, COLORS, SIZES } from '@theme'
 
 interface buttonProps {
     label?: string

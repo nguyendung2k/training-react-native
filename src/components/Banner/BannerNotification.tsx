@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { IconBell } from '../Svg/Icon'
+import { IconBell } from '@components'
+import { COLORS, BORDER, SIZES } from '@theme'
 
 interface bannerNotificationProps {
     Icon?: () => JSX.Element
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         paddingVertical: 16,
-        // justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.DarkerPrimary,
         borderTopLeftRadius: BORDER.base,

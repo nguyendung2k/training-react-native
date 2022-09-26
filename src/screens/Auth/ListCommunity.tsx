@@ -1,8 +1,11 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ButtonForm, HeaderAuth, ListCommunityView } from '@components'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
-const ListCommunity = ({ navigation }: any) => {
+const ListCommunity = () => {
+    const navigation = useNavigation<stackScreenProp>()
     return (
         <>
             <View style={styles.container}>

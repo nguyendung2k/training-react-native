@@ -8,11 +8,8 @@ import {
     Platform,
 } from 'react-native'
 import React, { useState } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
-
-import { updateUser } from '../../redux/slices/homeSlice'
 import {
     ButtonForm,
     ChoseAddressSocial,
@@ -24,11 +21,11 @@ import {
     InputDrop,
     UpdateAvatar,
 } from '@components'
-import { COLORS } from '@assets/constants'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
-import { accountScreenProp } from '@navigation/Main'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import { updateUser } from '@redux/slices/homeSlice'
 
 const dataUserSelector = (state: RootState) => state.auth.user
 const userUpdateSelector = (state: RootState) => state.home.user

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import React from 'react'
 import { IconComment, IconDotTime, IconHeart } from '../Svg/Icon'
 import { useSelector } from 'react-redux'
-import moment from 'moment'
+import { BORDER, COLORS, SIZES } from '@theme'
+
 interface postedProps {
     Icon?: () => JSX.Element
     primary?: boolean

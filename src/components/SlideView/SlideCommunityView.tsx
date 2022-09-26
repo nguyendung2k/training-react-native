@@ -7,11 +7,9 @@ import {
     View,
 } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 
 import { LinearGradient } from 'expo-linear-gradient'
-
-import { NavigationProp } from '@react-navigation/native'
+import { BORDER, COLORS, SIZES } from '@theme'
 
 interface slideProps {
     title?: string
@@ -20,7 +18,7 @@ interface slideProps {
     onPress?: () => void | undefined
 }
 
-const SlideView = ({ item, onPress }: slideProps) => {
+const SlideCommunityView = ({ item, onPress }: slideProps) => {
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.container_Content}>
@@ -41,7 +39,7 @@ const SlideView = ({ item, onPress }: slideProps) => {
     )
 }
 
-export default SlideView
+export default SlideCommunityView
 
 const styles = StyleSheet.create({
     container: {

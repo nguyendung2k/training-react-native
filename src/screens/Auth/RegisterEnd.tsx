@@ -18,7 +18,7 @@ import {
     InputDrop,
 } from '@components'
 
-const RegisterEnd = ({ navigation }: any) => {
+const RegisterEnd = () => {
     const [valueProfession, setValueProfession] = useState<string>('Singer')
     const [itemsProfession, setItemsProfession] = useState<any[]>([
         { label: 'Singer', value: 'Singer' },

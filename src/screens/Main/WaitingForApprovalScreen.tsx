@@ -8,10 +8,9 @@ import {
     NotificationModal,
     WaitingFormRequest,
 } from '@components'
-import { COLORS } from '@assets/constants'
 import { useNavigation } from '@react-navigation/native'
-import { accountScreenProp } from '@navigation/Main'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
 
 const requests = [
     {

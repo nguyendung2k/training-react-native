@@ -9,9 +9,12 @@ import {
 } from 'react-native'
 import React from 'react'
 import { ButtonForm, IconCheck, VerifyCode } from '@components'
-import { COLORS, SIZES } from '@assets/constants'
+import { COLORS, SIZES } from '@theme'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
-const VerificationCode = ({ navigation }: any) => {
+const VerificationCode = () => {
+    const navigation = useNavigation<stackScreenProp>()
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

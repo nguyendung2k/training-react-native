@@ -1,16 +1,8 @@
-import {
-    Image,
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    ScrollView,
-} from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
-import Input from './Input'
-import ButtonReply from '../Button/ButtonReply'
-import { COLORS } from '../../assets/constants/theme'
 import { useSelector } from 'react-redux'
+import { ButtonReply, Input } from '@components'
+import { COLORS } from '@theme'
 
 interface inputReplyProps {
     avatar?: string
@@ -28,7 +20,6 @@ const InputReplyPost = ({
     onChangeText,
 }: inputReplyProps) => {
     const userUpdate = useSelector(userUpdateSelector)
-
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -60,7 +51,6 @@ export default InputReplyPost
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: 'red',
         borderTopWidth: 1,
         borderTopColor: COLORS.Neutral2,
         marginBottom: 23,

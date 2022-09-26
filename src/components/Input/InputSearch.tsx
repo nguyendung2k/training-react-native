@@ -1,14 +1,7 @@
-import {
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from 'react-native'
-import React, { useState } from 'react'
-import Header from '../Header/Header'
-import { BORDER, COLORS } from '../../assets/constants/theme'
-import { IconSearchDetail } from '../Svg/Icon'
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { IconSearchDetail } from '@components'
+import { COLORS, BORDER } from '@theme'
 
 interface inputSearchProps {
     placeholder?: string
@@ -55,7 +48,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.BackgroundInput,
         marginTop: 20,
-        marginBottom: 36,
+        // marginBottom: 36,
         borderRadius: BORDER.base,
     },
     content: {
@@ -70,7 +63,6 @@ const styles = StyleSheet.create({
     },
     icon: {
         height: 40,
-        // backgroundColor: 'red',
         alignItems: 'center',
         justifyContent: 'center',
         width: 40,

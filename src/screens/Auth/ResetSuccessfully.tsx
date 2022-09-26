@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '@assets/constants'
 import { ButtonForm } from '@components'
+import { COLORS, SIZES } from '@theme'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
-const ResetSuccessfully = ({ navigation }: any) => {
+const ResetSuccessfully = () => {
+    const navigation = useNavigation<stackScreenProp>()
     return (
         <View style={styles.container}>
             <View>
@@ -17,7 +20,6 @@ const ResetSuccessfully = ({ navigation }: any) => {
                     reset successfully!
                 </Text>
             </View>
-
             <View style={styles.footer}>
                 <ButtonForm
                     label="Back to login"

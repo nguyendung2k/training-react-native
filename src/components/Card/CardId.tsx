@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { IconCopy } from '../Svg/Icon'
-import { COLORS, SIZES } from '../../assets/constants/theme'
 import { useSelector } from 'react-redux'
+import { IconCopy } from '@components'
+import { SIZES, COLORS } from '@theme'
 
 const dataUserSelector = (state: any) => state.auth.user
 

@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { IconComment, IconDotTime, IconHeart } from '../Svg/Icon'
+import React from 'react'
+
 import { useSelector } from 'react-redux'
+import { IconComment, IconDotTime, IconHeart } from '@components'
+import { COLORS, SIZES, BORDER } from '@theme'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -16,7 +17,6 @@ interface postedProps {
     timeDetail?: string
     dateDetail?: string
     contentHeader?: string
-
     quantityLike?: string | number
     quantityComment?: number
     image_link: string

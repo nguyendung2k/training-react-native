@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import { Header, IConBack, WaitingFormRequest } from '@components'
-import { COLORS } from '@assets/constants'
+import { COLORS } from '@theme'
 
 const FriendRequestScreen = () => {
     return (

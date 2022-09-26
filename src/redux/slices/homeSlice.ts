@@ -25,11 +25,11 @@ interface iState {
         id: string
         title: string
         description: string
-        imagePost: []
-        body: string
-        quantity_like: string
-        quantity_comment: string
-    }[]
+        imagePost?: []
+        body?: string
+        quantity_like?: string
+        quantity_comment?: string
+    }
     like: any[]
     quantity_like?: number
     joinGroupStatus?: boolean
@@ -49,7 +49,11 @@ const initialState: iState = {
         image: '',
         introduction: '',
     },
-    posts: [],
+    posts: {
+        id: '',
+        title: '',
+        description: '',
+    },
     like: [],
     quantity_like: 0,
     imagePost: [],
@@ -108,7 +112,7 @@ export const homeSlice = createSlice({
             // }
         },
         addPost(state, action) {
-            state.posts.unshift(action.payload)
+            // state.posts.unshift(action.payload)
         },
         updateUser(state, action) {
             state.user = action.payload

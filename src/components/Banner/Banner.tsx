@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import ButtonBanner from '../Button/ButtonBanner'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { IconSignOut } from '../Svg/Icon'
-import { useSelector } from 'react-redux'
 import { apiGroup } from '../../services/groups'
 import { useRoute } from '@react-navigation/native'
+import { ButtonBanner, IconSignOut } from '@components'
+import { BORDER, COLORS, SIZES } from '@theme'
 
 interface bannerProps {
     onPress?: () => void | undefined | boolean

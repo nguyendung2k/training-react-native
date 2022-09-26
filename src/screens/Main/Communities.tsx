@@ -1,15 +1,12 @@
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux'
-import { getGroup, searchGroupByTitle } from '../../redux/slices/homeSlice'
 import { Header, IconSearch, InputSearch, ListCommunityView } from '@components'
-import { COLORS } from '@assets/constants'
 import { useNavigation } from '@react-navigation/native'
-import { communityScreenProp } from '@navigation/Main'
 import { RootState } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import { getGroup, searchGroupByTitle } from '@redux/slices/homeSlice'
 
 const Communities = () => {
     const dispatch = useDispatch()
@@ -72,6 +69,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     content: {
-        marginBottom: 410,
+        // marginBottom: 410,
     },
 })

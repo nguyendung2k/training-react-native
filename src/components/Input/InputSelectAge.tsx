@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { COLORS, BORDER, SIZES } from '@theme'
 
 interface inputProps {
     value?: string

@@ -8,8 +8,6 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-
 import { useSelector } from 'react-redux'
 import {
     BannerNotification,
@@ -18,6 +16,7 @@ import {
     ButtonNoBg,
     ButtonNotification,
     ButtonSocialNetwork,
+    CardInfo,
     Header,
     HeaderSlide,
     IConBack,
@@ -27,11 +26,10 @@ import {
     IconDotNotification,
     IconUsersDual,
 } from '@components'
-import { COLORS, SIZES } from '@assets/constants'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
-import { accountScreenProp } from '@navigation/Main'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS, SIZES } from '@theme'
 
 const dataUserSelector = (state: RootState) => state.auth.user
 const userUpdateSelector = (state: RootState) => state.home.user
@@ -58,7 +56,7 @@ const YourProfileScreen = () => {
                             showRightIcon
                             secondary
                             showIcon
-                            onPress={() => navigation.navigate('Account')}
+                            onPress={() => navigation.navigate('AccountScreen')}
                             onDirection={() =>
                                 navigation.navigate('UpdateProfileScreen')
                             }
@@ -67,7 +65,7 @@ const YourProfileScreen = () => {
                     </View>
                 </ImageBackground>
                 <View style={styles.card_header}>
-                    {/* <CardInfo secondary /> */}
+                    <CardInfo secondary />
                 </View>
             </View>
             {/* -----Content----- */}

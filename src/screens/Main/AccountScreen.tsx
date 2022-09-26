@@ -1,11 +1,9 @@
 import { Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
-
 import { useDispatch } from 'react-redux'
-import { showModal } from '../../redux/slices/homeSlice'
+
 import {
     BaseModal,
     ButtonAccountMenu,
@@ -18,12 +16,11 @@ import {
     IconUserCircle,
     IconWarning,
 } from '@components'
-
-import { COLORS } from '@assets/constants'
-import { RootState, useAppSelector } from '@redux/store'
+import { RootState, useAppSelector } from '@redux'
 import { useNavigation } from '@react-navigation/native'
-import { accountScreenProp } from '@navigation/Main'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import { showModal } from '@redux/slices/homeSlice'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -33,7 +30,7 @@ Notifications.setNotificationHandler({
     }),
 })
 
-const Account = () => {
+const AccountScreen = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation<stackScreenProp>()
 
@@ -181,7 +178,7 @@ const Account = () => {
     )
 }
 
-export default Account
+export default AccountScreen
 
 const styles = StyleSheet.create({
     container: {

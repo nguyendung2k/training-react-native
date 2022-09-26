@@ -1,20 +1,17 @@
 import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
-import { getGroup, getGroupById } from '../../redux/slices/homeSlice'
-
 import { useNavigation } from '@react-navigation/native'
-import ListCommunityView from '../../components/ListView/ListCommunityView'
-import { FooterFlatList, HeaderFlatList } from '@components'
-import { COLORS } from '@assets/constants'
-import { RootState } from '@redux/store'
+import { FooterFlatList, HeaderFlatList, ListCommunityView } from '@components'
+import { RootState } from '@redux'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import { getGroup } from '@redux/slices/homeSlice'
 
 const loadingSelector = (state: RootState) => state.auth.loading
 const listGroupSelector = (state: RootState) => state.home.groups
 
-export default function Home() {
+export default function HomeScreen() {
     const dispatch = useDispatch()
     // const loading = useSelector(loadingSelector)
     const navigation = useNavigation<stackScreenProp>()

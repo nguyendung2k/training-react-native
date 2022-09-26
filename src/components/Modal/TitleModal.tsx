@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import { COLORS, SIZES } from '@theme'
 
 interface titleProps {
     title?: string

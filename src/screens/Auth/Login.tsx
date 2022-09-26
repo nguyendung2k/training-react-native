@@ -9,13 +9,9 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
 } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
+import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-
-import { loginAuth } from '../../redux/slices/authSlice'
 import {
     ArrowRight,
     ButtonForm,
@@ -23,16 +19,16 @@ import {
     Input,
     MessageError,
 } from '@components'
-import { COLORS, SIZES } from '@assets/constants'
+import { COLORS, SIZES } from '@theme'
+import { loginAuth } from '@redux/slices/authSlice'
+import { RootState, useAppDispatch, useAppSelector } from '@redux/store'
 
-const loadingSelector = (state: any) => state.auth.loading
+const loadingSelector = (state: RootState) => state.auth.loading
 
 const Login = ({ navigation }: any) => {
-    const dispatch = useDispatch()
-
-    const loading = useSelector(loadingSelector)
-
-    const handleLogin = (values: any) => {
+    const dispatch = useAppDispatch()
+    const loading = useAppSelector(loadingSelector)
+    const handleLogin = (values: { email: string; password: string }) => {
         dispatch(loginAuth(values))
     }
 

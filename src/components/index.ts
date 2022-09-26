@@ -95,6 +95,7 @@ export { default as Posted } from './Posted/Posted'
 // -----
 
 export * from './Svg/Icon'
+export { default as SlideCommunityView } from './SlideView/SlideCommunityView'
 
 // -----
 

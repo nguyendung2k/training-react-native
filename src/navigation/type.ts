@@ -11,7 +11,14 @@ export type RootStackParamList = {
     NewPostScreen: undefined
     ForumScreen: undefined
     Home: undefined
-    Account: undefined
+    AccountScreen: undefined
+    RegisterEnd: undefined
+    ResetSuccessfully: undefined
+    Login: undefined
+    Register: undefined
+    PersonalIntroduction: undefined
+    ListCommunity: undefined
+    VerificationCode: undefined
 }
 
 export type stackScreenProp = StackNavigationProp<RootStackParamList>

@@ -1,7 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import Input from '../Input/Input'
-import InputDropLogo from '../Input/InputDropLogo'
+import { Input, InputDropLogo } from '@components'
 
 interface props {
     valueAddress?: string
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'red',
     },
     inputLogo: {
         flex: 1,

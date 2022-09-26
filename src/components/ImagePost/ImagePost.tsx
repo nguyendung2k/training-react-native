@@ -1,14 +1,13 @@
 import {
     StyleSheet,
-    Text,
     View,
     TouchableOpacity,
     Image,
     ScrollView,
 } from 'react-native'
 import React from 'react'
-import { IconX } from '../Svg/Icon'
-import { BORDER, COLORS } from '../../assets/constants/theme'
+import { IconX } from '@components'
+import { COLORS, BORDER } from '@theme'
 
 interface imageProps {
     onClose?: (index: number) => void

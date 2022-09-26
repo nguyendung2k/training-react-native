@@ -3,9 +3,12 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 import { ButtonForm, Input, MessageError } from '@components'
-import { COLORS, SIZES } from '@assets/constants'
+import { COLORS, SIZES } from '@theme'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
-const ForgotPassword = ({ navigation }: any) => {
+const ForgotPassword = () => {
+    const navigation = useNavigation<stackScreenProp>()
     const checkLogin = Yup.object().shape({
         email: Yup.string()
             .email('Please enter valid email')

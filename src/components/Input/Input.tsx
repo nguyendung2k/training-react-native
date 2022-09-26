@@ -3,15 +3,12 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    StyleProp,
-    TextStyle,
     Text,
     TextProps,
 } from 'react-native'
 import React, { useState } from 'react'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import { Eye, EyeSlash } from '../Svg/Icon'
-import MessageError from '../MessageError/MessageError'
+import { Eye, EyeSlash } from '@components'
+import { COLORS, SIZES } from '@theme'
 
 interface inputProps extends TextProps {
     value?: string

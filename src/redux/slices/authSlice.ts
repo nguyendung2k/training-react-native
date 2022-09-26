@@ -1,7 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
-import axios from 'axios'
-
 import { api } from '../../services/user'
 interface iState {
     user: {
@@ -11,6 +8,7 @@ interface iState {
         first_name: string
         last_name?: string
         introduction: string
+        image: string
     }
     modal: {
         showModal: boolean
@@ -25,6 +23,7 @@ const initialState: iState = {
         password: '',
         introduction: '',
         first_name: '',
+        image: '',
     },
     modal: {
         showModal: false,

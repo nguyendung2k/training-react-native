@@ -3,8 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { persistor, store } from './src/redux/store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import MyStack from '@navigation/root'
 
-import MyStack from './src/navigation'
 const Stack = createNativeStackNavigator()
 
 export default function App() {

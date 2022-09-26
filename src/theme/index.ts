@@ -29,13 +29,6 @@ export const SIZES = {
     extraLarge: 28,
 }
 
-// export const WEIGHT = {
-//     minimum: '400',
-//     base: '500',
-//     large: '600',
-//     extraWeight: '700',
-// }
-
 export const BORDER = {
     minimum: 4,
     base: 8,

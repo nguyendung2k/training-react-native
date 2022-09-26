@@ -1,19 +1,22 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import CardId from './CardId'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
 import { useSelector } from 'react-redux'
+import { RootState } from '@redux/store'
+import { CardId } from '@components'
+import { BORDER, COLORS, SIZES } from '@theme'
 
 interface cardInfoProps {
     secondary?: boolean
     primary?: boolean
 }
-const dataUserSelector = (state: any) => state.auth.user
-const userUpdateSelector = (state: any) => state.home.user
+const dataUserSelector = (state: RootState) => state.auth.user
+const userUpdateSelector = (state: RootState) => state.home.user
 
 const CardInfo = ({ secondary, primary }: cardInfoProps) => {
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
+
+    console.log('dataUser: ', dataUser)
 
     return (
         <View style={[styles.container, primary && styles.containerPrimary]}>
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
     },
     containerPrimary: {
         backgroundColor: COLORS.BackgroundInput,
-        // backgroundColor: COLORS.Neutral0,
     },
     content: {
         flexDirection: 'row',

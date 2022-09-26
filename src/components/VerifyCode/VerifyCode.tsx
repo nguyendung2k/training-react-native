@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-
 import {
     CodeField,
     Cursor,
     useBlurOnFulfill,
 } from 'react-native-confirmation-code-field'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import { SIZES, COLORS } from '@theme'
 
 const VerifyCode = () => {
     const CELL_COUNT = 4

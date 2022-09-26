@@ -1,7 +1,7 @@
+import { SIZES, COLORS } from '@theme'
 import React, { Dispatch, useState } from 'react'
 import { StyleSheet, Text, TextProps, View } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { COLORS, SIZES } from '../../assets/constants/theme'
 
 interface inputProps extends TextProps {
     title?: string
@@ -12,7 +12,6 @@ interface inputProps extends TextProps {
     onChangeValue?: ((value: any) => void | undefined) | undefined
     modalTitle?: string
     error?: React.ReactNode
-    //(e: string | ChangeEvent<any>) => void
 }
 
 const InputDrop = ({

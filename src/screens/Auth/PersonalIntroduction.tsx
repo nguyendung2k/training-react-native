@@ -1,9 +1,12 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { ButtonForm, HeaderAuth } from '@components'
-import { COLORS } from '@assets/constants'
+import { COLORS } from '@theme'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
-const PersonalIntroduction = ({ navigation }: any) => {
+const PersonalIntroduction = () => {
+    const navigation = useNavigation<stackScreenProp>()
     return (
         <ScrollView
             style={styles.container}

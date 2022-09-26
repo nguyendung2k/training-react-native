@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
-import React, { useState } from 'react'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import React from 'react'
+import { COLORS, SIZES } from '@theme'
 
 interface checkBoxProps {
     onPress?: () => void | boolean

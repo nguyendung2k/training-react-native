@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../../assets/constants/theme'
+import { COLORS, SIZES } from '@theme'
 
 interface buttonActiveLogsProps {
     name?: string
@@ -38,14 +38,9 @@ const ButtonActiveLogs = ({
 export default ButtonActiveLogs
 
 const styles = StyleSheet.create({
-    container: {
-        // marginTop: 40,
-        // backgroundColor: 'red',
-    },
+    container: {},
     body: { marginLeft: 14 },
-    dotNotification: {
-        // marginTop: 19,
-    },
+    dotNotification: {},
     content: {
         fontSize: SIZES.small,
         color: COLORS.Neutral6,

@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import CheckBox from '../Checkbox/CheckBox'
+import React from 'react'
 
 import Check from '../../assets/icons/Check.svg'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
+import { CheckBox } from '@components'
+import { BORDER, SIZES, COLORS } from '@theme'
 
 interface listViewProps {
     title?: string
@@ -45,7 +45,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    image: { width: 74, height: 74, borderRadius: BORDER.maximum },
+    image: {
+        width: 74,
+        height: 74,
+        borderRadius: BORDER.maximum,
+    },
     content: {
         flexDirection: 'row',
         marginBottom: 15,

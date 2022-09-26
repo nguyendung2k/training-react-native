@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../../assets/constants/theme'
-import { IconDotTime } from '../Svg/Icon'
+import { IconDotTime } from '@components'
+import { COLORS, SIZES } from '@theme'
 
 interface commentProps {
     name?: string

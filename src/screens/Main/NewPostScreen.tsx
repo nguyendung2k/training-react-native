@@ -2,12 +2,12 @@ import { StyleSheet, View, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
-import { addPost } from '../../redux/slices/homeSlice'
 import { Header, IConBack, NewPost } from '@components'
-import { COLORS } from '@assets/constants'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
 import { stackScreenProp } from '@navigation/type'
+import { COLORS } from '@theme'
+import { addPost } from '@redux/slices/homeSlice'
 
 const dataUserSelector = (state: RootState) => state.auth.user
 const userUpdateSelector = (state: RootState) => state.home.user

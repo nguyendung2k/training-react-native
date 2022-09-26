@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React, { useEffect } from 'react'
-import axios from 'axios'
 interface messageErrorProps {
     error?: string
 }

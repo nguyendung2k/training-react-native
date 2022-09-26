@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import { CardBlockList, Header, IConBack } from '@components'
-import { COLORS } from '@assets/constants'
 import { useNavigation } from '@react-navigation/native'
-import { accountScreenProp } from '@navigation/Main'
+import { COLORS } from '@theme'
+import { accountScreenProp } from '@navigation/Main/AccountStack'
 
 const dataBlockUser = [
     {
@@ -34,7 +34,7 @@ const BlockListScreen = () => {
                     showTextHeader
                     showRightIcon
                     title="Update Profile"
-                    onPress={() => navigation.navigate('Account')}
+                    onPress={() => navigation.navigate('AccountScreen')}
                 />
             </View>
             <ScrollView

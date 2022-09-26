@@ -1,12 +1,8 @@
 import thunk from 'redux-thunk'
 import { configureStore } from '@reduxjs/toolkit'
-
 import { persistStore, persistReducer } from 'redux-persist'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
 import logger from 'redux-logger'
-
 import rootReducer from './slices'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 

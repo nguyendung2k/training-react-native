@@ -1,9 +1,7 @@
 import { Image, StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import Input from '../Input/Input'
-import { SIZES } from '../../assets/constants/theme'
-import ButtonPickImage from '../Button/ButtonPickImage'
-import ImagePost from '../ImagePost/ImagePost'
+import { ButtonPickImage, ImagePost, Input } from '@components'
+import { SIZES } from '@theme'
 
 interface newPostProps {
     avatar?: string
@@ -91,7 +89,6 @@ const styles = StyleSheet.create({
         marginRight: 16,
     },
     content: {
-        // backgroundColor: 'red',
         paddingTop: 20,
     },
     name: {

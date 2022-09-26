@@ -1,15 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState, useEffect } from 'react'
-
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import HeaderSlide from '../Header/HeaderSlide'
-import InputSelectAge from '../Input/InputSelectAge'
-import CheckBox from '../Checkbox/CheckBox'
-import ButtonHaft from '../Button/ButtonHaft'
 
-import { IconCheck } from '../Svg/Icon'
-import { BORDER, COLORS } from '../../assets/constants/theme'
-import { GENDER } from '../../assets/constants/filter'
 import {
     handleClearFitterConditionModal,
     searchAgeMaxChange,
@@ -18,18 +10,28 @@ import {
     updateGenderChange,
     updateStatusGender,
 } from '../../redux/slices/filterSlice'
-import { boolean } from 'yup'
+
 import { getDataMember } from '../../redux/slices/homeSlice'
+import { RootState } from '@redux/store'
+import {
+    ButtonHaft,
+    CheckBox,
+    HeaderSlide,
+    IconCheck,
+    InputSelectAge,
+} from '@components'
+import { BORDER, COLORS } from '@theme'
+import { GENDER } from '@constant/filter'
 
 interface conditionModalProps {
     onPress: (minAge: string, maxAge: string, status: boolean) => void
 }
 
-const valueAgeMinSelector = (state: any) => state.filters.age.from
-const valueAgeMaxSelector = (state: any) => state.filters.age.to
-const valueGenderSelector = (state: any) => state.filters.gender
-const valueStatusGender = (state: any) => state.filters.statusGender
-const checkBoxSelector = (state: any) => state.filters.checkBox
+const valueAgeMinSelector = (state: RootState) => state.filters.age.from
+const valueAgeMaxSelector = (state: RootState) => state.filters.age.to
+const valueGenderSelector = (state: RootState) => state.filters.gender
+const valueStatusGender = (state: RootState) => state.filters.statusGender
+const checkBoxSelector = (state: RootState) => state.filters.checkBox
 
 const ConditionModal = ({ onPress }: conditionModalProps) => {
     const dispatch = useDispatch()

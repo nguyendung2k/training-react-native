@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { IconCaretRight, IconChat, IconInfo } from '../Svg/Icon'
+import { IconCaretRight, IconChat } from '@components'
+import { COLORS, BORDER, SIZES } from '@theme'
 
 interface bannerFormProps {
     title?: string
@@ -16,7 +16,6 @@ interface bannerFormProps {
 const BannerForum = ({
     title,
     des,
-    txt,
     Icon,
     status,
     onDirection,

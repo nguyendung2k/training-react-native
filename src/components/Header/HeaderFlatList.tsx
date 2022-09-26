@@ -1,21 +1,14 @@
 import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
-
-import HeaderSlide from '../../components/Header/HeaderSlide'
-
-import SlideView from '../../components/SlideView/SlideView'
-import { BORDER, COLORS, SIZES } from '../../assets/constants/theme'
-import { api } from '../../services/user'
-import { apiSlice } from '../../services/slides'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { apiGroup } from './../../services/groups'
+import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { RootState } from '@redux/store'
+import { HeaderSlide, SlideCommunityView } from '@components'
+import { BORDER, COLORS, SIZES } from '@theme'
+import { api } from '@services/user'
+import { apiGroup } from '@services/groups'
 
-// interface headerFlatListProp {
-//     navigation?: NavigationProp<any, any>
-// }
-
-const userUpdateSelector = (state: any) => state.home.user
+const userUpdateSelector = (state: RootState) => state.home.user
 
 const HeaderFlatList = () => {
     const userUpdate = useSelector(userUpdateSelector)
@@ -29,12 +22,12 @@ const HeaderFlatList = () => {
         const getData = async () => {
             const data = await api.getDetailUser()
             setDataUser(data)
+            console.log('data: ', data)
         }
         const getDataSlice = async () => {
             const data = await apiGroup.getAllGroupData()
             setDataSlices(data)
         }
-
         getDataSlice()
         getData()
     }, [])
@@ -42,6 +35,8 @@ const HeaderFlatList = () => {
     const handleDirection = (id: string) => {
         navigation.navigate('DetailCommunities', id)
     }
+
+    // console.log('userUpdate: ', userUpdate.image)
 
     return (
         <View>
@@ -91,7 +86,7 @@ const HeaderFlatList = () => {
                 <FlatList
                     data={dataSlices}
                     renderItem={({ item }) => (
-                        <SlideView
+                        <SlideCommunityView
                             onPress={() => handleDirection(item.id)}
                             item={item}
                         />

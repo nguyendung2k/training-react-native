@@ -1,17 +1,7 @@
-import {
-    Image,
-    StyleSheet,
-    Text,
-    TextProps,
-    TouchableOpacity,
-    View,
-} from 'react-native'
+import { StyleSheet, TextProps, View } from 'react-native'
 import React, { Dispatch, useState } from 'react'
-
-import CareDown from '../../assets/icons/CaretDown.svg'
-import Input from './Input'
-import { BORDER, COLORS } from '../../assets/constants/theme'
 import DropDownPicker from 'react-native-dropdown-picker'
+import { BORDER, COLORS } from '@theme'
 
 interface inputProps extends TextProps {
     title?: string
