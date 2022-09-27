@@ -34,11 +34,11 @@ const AccountScreen = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation<stackScreenProp>()
 
-    const [expoPushToken, setExpoPushToken] = useState<any>('')
+    const [expoPushToken, setExpoPushToken] = useState<string>('')
 
-    const notificationListener = useRef<any>()
+    // const notificationListener = useRef<any>()
 
-    const responseListener = useRef<any>()
+    // const responseListener = useRef<any>()
 
     const modal = useAppSelector(
         (state: RootState) => state.home.modal.showModal

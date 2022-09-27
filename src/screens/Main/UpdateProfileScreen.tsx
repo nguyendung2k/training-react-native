@@ -53,7 +53,9 @@ const UpdateProfileScreen = () => {
     )
 
     const [valueGender, setValueGender] = useState<string>('Male')
-    const [itemsGender, setItemsGender] = useState<any[]>([
+    const [itemsGender, setItemsGender] = useState<
+        { label: string; value: string }[]
+    >([
         {
             label: 'Male',
             value: 'Male',
@@ -62,7 +64,12 @@ const UpdateProfileScreen = () => {
     ])
 
     const [valueBirth, setValueBirth] = useState<string>('2000')
-    const [itemsBirth, setItemsBirth] = useState<any[]>([
+    const [itemsBirth, setItemsBirth] = useState<
+        {
+            label: string
+            value: string
+        }[]
+    >([
         { label: '2000', value: '2000' },
         { label: '2001', value: '2001' },
         { label: '2002', value: '2002' },

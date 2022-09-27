@@ -4,14 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { Header, IConBack, ListPost, Loading } from '@components'
 import { useNavigation } from '@react-navigation/native'
-import { RootState } from '@redux/store'
+import { RootState, useAppSelector } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
-import { likePostById } from '@redux/slices/homeSlice'
+import {
+    getLikePost,
+    likePostById,
+    onChangeLikePost,
+} from '@redux/slices/homeSlice'
+import dataLike from '../../services/likePost.json'
 
 const listPostUpdateSelector = (state: RootState) => state.home.posts
 const userUpdateSelector = (state: RootState) => state.home.user
-const quantityLikePostSelector = (state: RootState) => state.home.quantity_like
+const dataCommentSelector = (state: RootState) => state.home.comments
+const dataLikePostSelector = (state: RootState) => state.home.likePost
 
 const ForumScreen = () => {
     const dispatch = useDispatch()
@@ -19,12 +25,15 @@ const ForumScreen = () => {
     // const dataPosts = useSelector(dataPostsSelector)
     const userUpdate = useSelector(userUpdateSelector)
     const postUpdate = useSelector(listPostUpdateSelector)
+    const likePost = useAppSelector(dataLikePostSelector)
+    console.log('likePost', likePost)
 
-    const quantityLike = useSelector(quantityLikePostSelector)
-    const [quantityComments, setQuantityComments] = useState<number>(5)
+    // console.log('dataLike: ', dataLike)
+    const dataComment = useSelector(dataCommentSelector)
     const [dataPosts, setDataPosts] = useState<any[]>([])
     const [pagePost, setPagePost] = useState(1)
     const [loading, setLoading] = useState<boolean>(false)
+    const [like, setLike] = useState(likePost)
 
     useEffect(() => {
         const getData = async () => {
@@ -32,9 +41,9 @@ const ForumScreen = () => {
             const response = await axios.get(urlApi)
             const result: [] = response.status === 200 ? response.data : []
             setLoading(false)
-
             setDataPosts(dataPosts.concat(result))
         }
+        dispatch(getLikePost())
         getData()
     }, [pagePost])
 
@@ -50,6 +59,7 @@ const ForumScreen = () => {
 
     const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
+        dispatch(onChangeLikePost(id))
     }
 
     return (
@@ -71,6 +81,8 @@ const ForumScreen = () => {
                         data={dataPosts}
                         renderItem={({ item }) => (
                             <ListPost
+                                quantityLike={likePost[0].quantity}
+                                // quantityComment={dataComment[0]?.data.length}
                                 primary
                                 onPress={() => handlePressPost(item.id)}
                                 onLikePost={() => handleOnLikePost(item.id)}

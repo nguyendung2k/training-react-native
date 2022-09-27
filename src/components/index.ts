@@ -57,7 +57,7 @@ export { default as ImagePost } from './ImagePost/ImagePost'
 // -----
 
 export { default as Input } from './Input/Input'
-export { default as InputDrop } from './Input/Input'
+export { default as InputDrop } from './Input/InputDrop'
 export { default as InputDropLogo } from './Input/InputDropLogo'
 export { default as InputReplyPost } from './Input/InputReplyPost'
 export { default as InputSearch } from './Input/InputSearch'

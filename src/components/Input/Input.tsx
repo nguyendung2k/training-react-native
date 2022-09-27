@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     },
     input: {
         // fontWeight: '400',
-        // paddingTop: 20,
-        // paddingBottom: 16,
+        paddingTop: 20,
+        paddingBottom: 16,
         backgroundColor: COLORS.BackgroundInput,
         borderRadius: 8,
         width: '100%',

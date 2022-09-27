@@ -78,6 +78,7 @@ const DetailCommunities = () => {
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                // keyboardVerticalOffset={10}
             >
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -101,6 +102,7 @@ const DetailCommunities = () => {
                     />
 
                     <HeaderSlide title="Members" />
+
                     <InputSearch
                         Icon={() => <IconSearch />}
                         placeholder="Search by Name"
@@ -148,6 +150,7 @@ const styles = StyleSheet.create({
     },
     listMember: {
         marginBottom: 60,
+        marginTop: 24,
         minHeight: 650,
     },
 })

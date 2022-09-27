@@ -3,6 +3,7 @@ import React from 'react'
 import { IconComment, IconDotTime, IconHeart } from '../Svg/Icon'
 import { useSelector } from 'react-redux'
 import { BORDER, COLORS, SIZES } from '@theme'
+import { RootState } from '@redux/store'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -10,6 +11,8 @@ interface postedProps {
     secondary?: boolean
     onPress: () => void
     onLikePost?: () => void
+    quantityLike?: number
+    quantityComment?: string
     item: {
         id: string
         body: string
@@ -20,7 +23,7 @@ interface postedProps {
     }
 }
 
-const dataLikePostSelector = (state: any) => state.home.like
+const dataLikePostSelector = (state: RootState) => state.home.like
 
 const ListPost = ({
     onPress,
@@ -28,11 +31,11 @@ const ListPost = ({
     primary,
     secondary,
     item,
+    quantityLike,
+    quantityComment,
 }: postedProps) => {
-    const checkLikePost: any[] = useSelector(dataLikePostSelector)
+    const checkLikePost = useSelector(dataLikePostSelector)
     const isLike = checkLikePost.includes(item.id)
-    // console.log('checkLikePost-----', checkLikePost)
-    // const [isLike, setIsLike] = useState<boolean>(false)
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
@@ -131,7 +134,7 @@ const ListPost = ({
                                 />
                             </TouchableOpacity>
                             <Text style={styles.postedQuantityFeedback}>
-                                {secondary && <Text>likes</Text>}
+                                {quantityLike}
                             </Text>
                         </View>
                         <View style={styles.postedFeedback}>
@@ -143,6 +146,7 @@ const ListPost = ({
                                 />
                             </TouchableOpacity>
                             <Text style={styles.postedQuantityFeedback}>
+                                {quantityComment}
                                 {secondary && <Text> replies</Text>}
                             </Text>
                         </View>

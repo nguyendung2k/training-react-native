@@ -4,16 +4,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiPosts } from './../../services/posts'
 import { apiComment } from './../../services/comment'
 import dataComment from '../../services/commentData.json'
-import Comment from './../../components/Comment/Comment'
+import dataLike from '../../services/likePost.json'
 
 interface iState {
     modal: {
         showModal: boolean
     }
-    groups: any[]
-    members: any[]
-    comments: any[]
-    imagePost: any[]
     user: {
         id: string
         email: string
@@ -25,13 +21,17 @@ interface iState {
         id: string
         title: string
         description: string
-        imagePost?: []
+        image: string
         body?: string
         quantity_like?: string
         quantity_comment?: string
     }
+    groups: any[]
+    members: any[]
+    comments: any[]
+    imagePost: any[]
     like: any[]
-    quantity_like?: number
+    likePost: any[]
     joinGroupStatus?: boolean
 }
 
@@ -53,9 +53,10 @@ const initialState: iState = {
         id: '',
         title: '',
         description: '',
+        image: '',
     },
     like: [],
-    quantity_like: 0,
+    likePost: [],
     imagePost: [],
     joinGroupStatus: false,
 }
@@ -75,14 +76,30 @@ export const homeSlice = createSlice({
             const index = state.like.indexOf(action.payload)
             if (index > -1) {
                 state.like = [...temp.slice(0, index), ...temp.slice(index + 1)]
-                state.quantity_like = initialState.quantity_like
             } else {
                 state.like = [...temp, action.payload]
-                state.quantity_like = +1
             }
         },
+        getLikePost(state) {
+            state.likePost = dataLike
+        },
+        onChangeLikePost(state, action) {
+            const idPost = action.payload
+            const index = state.likePost[0].post_id.indexOf(idPost)
+
+            console.log('index:  ', index)
+
+            if (index == -1) {
+                // console.log('giam')
+                // state.likePost[0].quantity = state.likePost[0].quantity - 1
+            } else if (index > -1) {
+                console.log('tang')
+                state.likePost[0].quantity = state.likePost[0].quantity + 1
+            }
+
+            // console.log('temp', temp)
+        },
         getCommentById(state, action) {
-            // console.log('Comment---: ', action.payload)
             const idFromParam = action.payload
 
             const findComment = dataComment.filter((item) => {
@@ -97,12 +114,20 @@ export const homeSlice = createSlice({
             console.log('dataPayload', dataPayload)
 
             const findComment = dataComment.filter((item) => {
-                if (item.post_id === dataPayload.post_id) {
-                    return true
-                }
+                if (item.post_id === dataPayload.post_id) return true
             })
 
-            console.log(findComment[0])
+            if (findComment) {
+                state.comments = [...dataComment, dataPayload]
+            }
+
+            // const findComment = dataComment.filter((item) => {
+            //     if (item.post_id === dataPayload.post_id) {
+            //         return true
+            //     }
+            // })
+
+            // console.log(findComment[0])
 
             // let comment = []
             // if (dataPayload.idPost === state.comments.post_id) {
@@ -238,6 +263,8 @@ export const {
     updateUser,
     changeStatusJoinGroup,
     getCommentById,
+    getLikePost,
+    onChangeLikePost,
     // getComment,
 } = homeSlice.actions
 

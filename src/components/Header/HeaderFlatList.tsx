@@ -36,7 +36,7 @@ const HeaderFlatList = () => {
         navigation.navigate('DetailCommunities', id)
     }
 
-    // console.log('userUpdate: ', userUpdate.image)
+    console.log('userUpdate: ', userUpdate.image)
 
     return (
         <View>

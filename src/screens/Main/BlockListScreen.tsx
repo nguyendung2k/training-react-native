@@ -41,9 +41,9 @@ const BlockListScreen = () => {
                 style={styles.content}
                 showsVerticalScrollIndicator={false}
             >
-                <CardBlockList name="Jerome Bell" />
-                <CardBlockList name="Ronald Richards" />
-                <CardBlockList name="Ralph Edwards" />
+                {dataBlockUser.map((item) => {
+                    return <CardBlockList key={item.id} name={item.name} />
+                })}
             </ScrollView>
         </SafeAreaView>
     )

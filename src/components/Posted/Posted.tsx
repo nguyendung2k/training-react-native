@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-
 import { useSelector } from 'react-redux'
 import { IconComment, IconDotTime, IconHeart } from '@components'
 import { COLORS, SIZES, BORDER } from '@theme'
+import { RootState } from '@redux/store'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -24,7 +24,7 @@ interface postedProps {
     id: string
 }
 
-const dataLikePostSelector = (state: any) => state.home.like
+const dataLikePostSelector = (state: RootState) => state.home.like
 
 const Posted = ({
     onPress,

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { Comment, Header, IConBack, InputReplyPost, Posted } from '@components'
-import { RootState } from '@redux/store'
+import { RootState, useAppSelector } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import {
@@ -15,20 +15,21 @@ import {
 } from '@redux/slices/homeSlice'
 
 const dataCommentSelector = (state: RootState) => state.home.comments
-const quantityLikePostSelector = (state: RootState) => state.home.quantity_like
 const userUpdateSelector = (state: RootState) => state.home.user
 const dataUserSelector = (state: RootState) => state.auth.user
 const dataPostByIdSelector = (state: RootState) => state.home.posts
+const dataLikePostSelector = (state: RootState) => state.home.likePost
 
 const CommentForumScreen = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation<stackScreenProp>()
     const idFromParam = useRoute().params
     const dataComment = useSelector(dataCommentSelector)
+    console.log('dataComment: ', dataComment)
     const dataPost = useSelector(dataPostByIdSelector)
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
-    const quantityLike = useSelector(quantityLikePostSelector)
+    const likePost = useAppSelector(dataLikePostSelector)
 
     const [valueText, setValueText] = useState<string>('')
 
@@ -36,8 +37,6 @@ const CommentForumScreen = () => {
         dispatch(getPostById(idFromParam))
         dispatch(getCommentById(idFromParam))
     }, [])
-
-    console.log('dataPost', dataPost)
 
     const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
@@ -72,13 +71,13 @@ const CommentForumScreen = () => {
                             name="Esther Howard"
                             title={dataPost.title}
                             contentHeader={dataPost.body}
-                            quantityLike={quantityLike}
                             quantityComment={dataComment[0]?.data.length}
                             secondary
                             onLikePost={() => handleOnLikePost(dataPost.id)}
                             image_link={dataPost.image}
                             timeDetail="8:50PM"
                             dateDetail="23 Sep 2021 "
+                            quantityLike={likePost[0].quantity}
                         />
                         <View>
                             <InputReplyPost
