@@ -49,6 +49,7 @@ export { default as Header } from './Header/Header'
 export { default as HeaderAuth } from './Header/HeaderAuth'
 export { default as HeaderFlatList } from './Header/HeaderFlatList'
 export { default as HeaderSlide } from './Header/HeaderSlide'
+export { default as HeaderCommentForumFlatList } from './Header/HeaderCommentForumFlatList'
 
 // ------
 

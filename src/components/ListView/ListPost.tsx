@@ -12,7 +12,7 @@ interface postedProps {
     onPress: () => void
     onLikePost?: () => void
     quantityLike?: number
-    quantityComment?: string
+    quantityComment?: string | number
     item: {
         id: string
         body: string
@@ -23,7 +23,7 @@ interface postedProps {
     }
 }
 
-const dataLikePostSelector = (state: RootState) => state.home.like
+const dataLikePostSelector = (state: RootState) => state.forum.like
 
 const ListPost = ({
     onPress,

@@ -24,7 +24,7 @@ interface postedProps {
     id: string
 }
 
-const dataLikePostSelector = (state: RootState) => state.home.like
+const dataLikePostSelector = (state: RootState) => state.forum.like
 
 const Posted = ({
     onPress,
@@ -42,8 +42,9 @@ const Posted = ({
     image_link,
     id,
 }: postedProps) => {
-    const checkLikePost: any[] = useSelector(dataLikePostSelector)
+    const checkLikePost = useSelector(dataLikePostSelector)
     const isLike = checkLikePost.includes(id)
+    // console.log('isLike', isLike)
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
@@ -89,7 +90,7 @@ const Posted = ({
                                                 marginLeft: 8,
                                             }}
                                         >
-                                            {dateDetail}{' '}
+                                            {dateDetail}
                                         </Text>
                                     </View>
                                 </>

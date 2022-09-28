@@ -4,36 +4,42 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { Header, IConBack, ListPost, Loading } from '@components'
 import { useNavigation } from '@react-navigation/native'
-import { RootState, useAppSelector } from '@redux/store'
+import { RootState } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import {
-    getLikePost,
     likePostById,
     onChangeLikePost,
-} from '@redux/slices/homeSlice'
-import dataLike from '../../services/likePost.json'
+    onChangeUnlikePost,
+} from '@redux/slices/forumSlice'
 
-const listPostUpdateSelector = (state: RootState) => state.home.posts
+interface forumScreenProps {
+    id: string
+}
+
+const listPostUpdateSelector = (state: RootState) => state.forum.posts
 const userUpdateSelector = (state: RootState) => state.home.user
-const dataCommentSelector = (state: RootState) => state.home.comments
-const dataLikePostSelector = (state: RootState) => state.home.likePost
+const dataCommentSelector = (state: RootState) => state.forum.comments
+const dataLikePostSelector = (state: RootState) => state.forum.like
+const likeQuantitySelector = (state: RootState) => state.forum.quantityLike
 
-const ForumScreen = () => {
+const ForumScreen = ({ id }: forumScreenProps) => {
     const dispatch = useDispatch()
     const navigation = useNavigation<stackScreenProp>()
-    // const dataPosts = useSelector(dataPostsSelector)
+    const checkLikePost = useSelector(dataLikePostSelector)
+    // console.log('checkLikePost', checkLikePost)
+    // const isLike = checkLikePost.includes(id)
+    // console.log('isLike', isLike)
     const userUpdate = useSelector(userUpdateSelector)
     const postUpdate = useSelector(listPostUpdateSelector)
-    const likePost = useAppSelector(dataLikePostSelector)
-    console.log('likePost', likePost)
-
-    // console.log('dataLike: ', dataLike)
     const dataComment = useSelector(dataCommentSelector)
+    console.log('dataComment: ', dataComment)
+    const like = useSelector(likeQuantitySelector)
     const [dataPosts, setDataPosts] = useState<any[]>([])
     const [pagePost, setPagePost] = useState(1)
     const [loading, setLoading] = useState<boolean>(false)
-    const [like, setLike] = useState(likePost)
+
+    // console.log('dataPost', dataPosts)
 
     useEffect(() => {
         const getData = async () => {
@@ -43,7 +49,6 @@ const ForumScreen = () => {
             setLoading(false)
             setDataPosts(dataPosts.concat(result))
         }
-        dispatch(getLikePost())
         getData()
     }, [pagePost])
 
@@ -59,7 +64,12 @@ const ForumScreen = () => {
 
     const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
-        dispatch(onChangeLikePost(id))
+        if (checkLikePost.includes(id)) {
+            dispatch(onChangeUnlikePost())
+        } else {
+            dispatch(onChangeLikePost())
+        }
+        // dispatch(onChangeLikePost(id))
     }
 
     return (
@@ -81,15 +91,15 @@ const ForumScreen = () => {
                         data={dataPosts}
                         renderItem={({ item }) => (
                             <ListPost
-                                quantityLike={likePost[0].quantity}
-                                // quantityComment={dataComment[0]?.data.length}
+                                quantityLike={like}
+                                // quantityComment={dataComment.length}
                                 primary
                                 onPress={() => handlePressPost(item.id)}
                                 onLikePost={() => handleOnLikePost(item.id)}
                                 item={item}
                             />
                         )}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(_, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
                         onEndReached={handleLoadMorePost}
                         onEndReachedThreshold={0}

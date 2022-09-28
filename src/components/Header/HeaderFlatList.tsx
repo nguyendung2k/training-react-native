@@ -22,7 +22,6 @@ const HeaderFlatList = () => {
         const getData = async () => {
             const data = await api.getDetailUser()
             setDataUser(data)
-            console.log('data: ', data)
         }
         const getDataSlice = async () => {
             const data = await apiGroup.getAllGroupData()
@@ -36,7 +35,7 @@ const HeaderFlatList = () => {
         navigation.navigate('DetailCommunities', id)
     }
 
-    console.log('userUpdate: ', userUpdate.image)
+    // console.log('userUpdate: ', userUpdate.image)
 
     return (
         <View>

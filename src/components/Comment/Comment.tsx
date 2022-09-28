@@ -8,28 +8,29 @@ interface commentProps {
     time?: string
     description?: string
     avatar?: string
+    item: { avatar: string; body: string; id: string; name: string }
 }
 
-const Comment = ({ name, time, description, avatar }: commentProps) => {
+const Comment = ({ time, item }: commentProps) => {
     return (
         <View style={styles.comment}>
             <View style={styles.commentContainer}>
                 <View style={styles.image}>
                     <Image
-                        source={{ uri: avatar }}
+                        source={{ uri: item?.avatar }}
                         style={styles.imageAvatar}
                     />
                 </View>
                 <View>
                     <View style={styles.commentHeader}>
-                        <Text style={styles.commentName}>{name}</Text>
+                        <Text style={styles.commentName}>{item?.name}</Text>
                         <View>
                             <IconDotTime fill={COLORS.Neutral4} />
                         </View>
                         <Text style={styles.commentDate}>{time}</Text>
                     </View>
                     <View style={styles.commentDescription}>
-                        <Text style={styles.commentTxt}>{description}</Text>
+                        <Text style={styles.commentTxt}>{item?.body}</Text>
                     </View>
                 </View>
             </View>
