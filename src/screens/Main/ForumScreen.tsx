@@ -75,9 +75,9 @@ const ForumScreen = ({ id }: forumScreenProps) => {
         }
     }
 
-    console.log('dataComment: ', dataComment)
-    console.log('length: ', dataComment[0].data.length)
-    console.log('dataPost: ', dataPosts)
+    // console.log('dataComment: ', dataComment)
+    // console.log('length: ', dataComment[0].data.length)
+    // console.log('dataPost: ', dataPosts)
 
     return (
         <SafeAreaView style={styles.container}>
@@ -97,7 +97,7 @@ const ForumScreen = ({ id }: forumScreenProps) => {
                     <FlatList
                         data={dataPosts}
                         renderItem={({ item, index }) => {
-                            console.log('item - render : ', item, index)
+                            // console.log('item - render : ', item, index)
                             return (
                                 <ListPost
                                     quantityLike={like}

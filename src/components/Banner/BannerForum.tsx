@@ -2,24 +2,28 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { IconCaretRight, IconChat } from '@components'
 import { COLORS, BORDER, SIZES } from '@theme'
+import { RootState } from '@redux'
+import { useSelector } from 'react-redux'
 
 interface bannerFormProps {
     title?: string
     des?: string
     txt?: string
     Icon?: () => JSX.Element
-    status?: boolean
     onPress?: () => void
     onDirection?: () => void
 }
+const dataFindGroupSelector = (state: RootState) => state.group.findGroup
 
 const BannerForum = ({
     title,
     des,
     Icon,
-    status,
+
     onDirection,
 }: bannerFormProps) => {
+    const dataFindGroup = useSelector(dataFindGroupSelector)
+
     return (
         <View style={styles.container}>
             <View style={styles.body}>
@@ -30,7 +34,7 @@ const BannerForum = ({
                         <Text style={styles.des}>{des}</Text>
                     </View>
                 </View>
-                {status ? (
+                {dataFindGroup[0]?.joinGr ? (
                     <TouchableOpacity style={styles.btn} onPress={onDirection}>
                         <Text style={styles.btnText}>Go to forum</Text>
                         <IconCaretRight stroke={COLORS.DarkerPrimary} />

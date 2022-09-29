@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import TabsBottoms from './navigator/TabsBottoms'
 import MyAuthStack from './Auth/MyAuthStack'
-// import { RootState } from '@redux'
 import { RootState } from '@redux'
 
 import {

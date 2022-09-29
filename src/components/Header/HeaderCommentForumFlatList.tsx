@@ -1,12 +1,9 @@
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation, useRoute } from '@react-navigation/native'
-
-import { Header, IConBack, InputReplyPost, Posted } from '@components'
+import { useRoute } from '@react-navigation/native'
+import { InputReplyPost, Posted } from '@components'
 import { RootState } from '@redux/store'
-import { stackScreenProp } from '@navigation/type'
-import { COLORS } from '@theme'
 import {
     addComment,
     getPostById,
@@ -24,7 +21,6 @@ const userUpdateSelector = (state: RootState) => state.home.user
 
 const HeaderCommentForumFlatList = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
     const idFromParam: any = useRoute().params
     const dataComment = useSelector(dataCommentSelector)
 
@@ -92,6 +88,7 @@ const HeaderCommentForumFlatList = () => {
                         dateDetail="23 Sep 2021 "
                         quantityLike={like}
                     />
+
                     <View>
                         <InputReplyPost
                             onPress={() => handleComment(dataPost.id)}

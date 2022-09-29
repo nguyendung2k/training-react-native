@@ -1,15 +1,14 @@
 {
     "expo": {
-        "name": "my-app-v2",
-        "slug": "my-app-v2",
+        "name": "Follower",
+        "slug": "Follower",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/icon.png",
+        "icon": "./src/assets/images/Icon.png",
         "userInterfaceStyle": "light",
         "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "image": "./src/assets/images/Bg-Splash.png",
+            "resizeMode": "cover"
         },
         "updates": {
             "fallbackToCacheTimeout": 0

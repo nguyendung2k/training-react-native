@@ -1,4 +1,5 @@
-import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
+import { StyleSheet, View, SafeAreaView } from 'react-native'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -29,8 +30,6 @@ const CommentForumScreen = () => {
     >([])
     const dataComment = useSelector(dataCommentSelector)
 
-    console.log('dataComment:-------- ', dataComment)
-
     useEffect(() => {
         handleGetForumComment(idFromParam)
     }, [dataComment])
@@ -50,17 +49,13 @@ const CommentForumScreen = () => {
                     Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                 />
             </View>
-            <View style={styles.flatlist}>
-                <FlatList
-                    data={comments}
-                    renderItem={({ item }) => (
-                        <Comment time="12h" item={item} />
-                    )}
-                    keyExtractor={(item) => item.id}
-                    ListHeaderComponent={HeaderCommentForumFlatList}
-                    showsVerticalScrollIndicator={false}
-                />
-            </View>
+            <KeyboardAwareFlatList
+                data={comments}
+                renderItem={({ item }) => <Comment time="12h" item={item} />}
+                ListHeaderComponent={HeaderCommentForumFlatList}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item) => item.id}
+            />
         </SafeAreaView>
     )
 }
@@ -75,7 +70,7 @@ const styles = StyleSheet.create({
     header: {
         marginHorizontal: 24,
     },
-    flatlist: {
+    flatList: {
         marginBottom: 28,
     },
 })

@@ -1,0 +1,73 @@
+[
+    {
+        "title": "Future Marketing Designer",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 60372,
+        "id": "1",
+        "joinGr": true
+    },
+    {
+        "title": "Internal Web Coordinator",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 26828,
+        "id": "2",
+        "joinGr": true
+    },
+    {
+        "title": "Principal Communications Administrator",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 73194,
+        "id": "3",
+        "joinGr": true
+    },
+    {
+        "title": "Dynamic Metrics Liaison",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 49891,
+        "id": "4",
+        "joinGr": true
+    },
+    {
+        "title": "Customer Response Associate",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 34912,
+        "id": "5",
+        "joinGr": true
+    },
+
+    {
+        "title": "Legacy Usability Assistant",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 4113,
+        "id": "6",
+        "joinGr": false
+    },
+    {
+        "title": "Senior Branding Facilitator",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 4465,
+        "id": "7",
+        "joinGr": false
+    },
+    {
+        "title": "Future Identity Manager",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 39648,
+        "id": "8",
+        "joinGr": false
+    },
+    {
+        "title": "Legacy Program Associate",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 99788,
+        "id": "9",
+        "joinGr": false
+    },
+    {
+        "title": "Regional Data Executive",
+        "image": "http://loremflickr.com/640/480/sports",
+        "total_members": 14045,
+        "id": "10",
+        "joinGr": false
+    }
+]

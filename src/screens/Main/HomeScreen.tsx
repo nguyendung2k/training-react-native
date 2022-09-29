@@ -1,56 +1,75 @@
-import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
-import React, { useEffect } from 'react'
+import {
+    StyleSheet,
+    View,
+    FlatList,
+    SafeAreaView,
+    ActivityIndicator,
+} from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import {
-    FooterFlatList,
-    HeaderFlatList,
-    HeaderSlide,
-    ListCommunityView,
-} from '@components'
+import { FooterFlatList, HeaderFlatList, ListCommunityView } from '@components'
 import { RootState } from '@redux'
 import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
-import { getGroup } from '@redux/slices/homeSlice'
 
-const loadingSelector = (state: RootState) => state.auth.loading
-const listGroupSelector = (state: RootState) => state.home.groups
+const listGroupSelector = (state: RootState) => state.group.groups
 
 export default function HomeScreen() {
     const dispatch = useDispatch()
-    // const loading = useSelector(loadingSelector)
     const navigation = useNavigation<stackScreenProp>()
+    const [groupNotJoin, setGroupNotJoin] = useState<any[]>([])
     const listGroup = useSelector(listGroupSelector)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        dispatch(getGroup())
+        filterGroupNotJoin()
+    }, [listGroup])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(!loading)
+        }, 2000)
     }, [])
 
     const handleOnChangeGroup = (id: { id: string }) => {
         navigation.navigate('DetailCommunities', id)
     }
 
+    const filterGroupNotJoin = () => {
+        const filterGroup = listGroup.filter((item) => {
+            return item.joinGr === false
+        })
+        setGroupNotJoin(filterGroup)
+    }
+
+    // console.log('listGrNotJoin  : ', groupNotJoin)
+
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.contentBody}>
-                <View>
-                    <HeaderSlide title="Others" />
-
-                    <FlatList
-                        data={listGroup}
-                        renderItem={({ item }) => (
-                            <ListCommunityView
-                                onPress={() => handleOnChangeGroup(item.id)}
-                                item={item}
-                            />
-                        )}
-                        keyExtractor={(item) => item.id}
-                        showsVerticalScrollIndicator={false}
-                        ListHeaderComponent={HeaderFlatList}
-                        ListFooterComponent={FooterFlatList}
-                    />
+            {loading ? (
+                <View style={styles.loading}>
+                    <ActivityIndicator size="large" color={COLORS.Primary} />
                 </View>
-            </View>
+            ) : (
+                <View style={styles.contentBody}>
+                    <View>
+                        <FlatList
+                            data={groupNotJoin}
+                            renderItem={({ item }) => (
+                                <ListCommunityView
+                                    onPress={() => handleOnChangeGroup(item.id)}
+                                    item={item}
+                                />
+                            )}
+                            keyExtractor={(item) => item.id}
+                            showsVerticalScrollIndicator={false}
+                            ListHeaderComponent={HeaderFlatList}
+                            ListFooterComponent={FooterFlatList}
+                        />
+                    </View>
+                </View>
+            )}
         </SafeAreaView>
     )
 }
@@ -59,6 +78,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.White,
+    },
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
     },
     contentBody: {
         marginHorizontal: 24,

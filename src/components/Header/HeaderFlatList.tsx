@@ -6,37 +6,40 @@ import { RootState } from '@redux/store'
 import { HeaderSlide, SlideCommunityView } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { api } from '@services/user'
-import { apiGroup } from '@services/groups'
 import { stackScreenProp } from '@navigation/type'
 
 const userUpdateSelector = (state: RootState) => state.home.user
+const dataGroupSelector = (state: RootState) => state.group.groups
 
 const HeaderFlatList = () => {
+    const navigation = useNavigation<stackScreenProp>()
     const userUpdate = useSelector(userUpdateSelector)
+    const dataGroup = useSelector(dataGroupSelector)
 
     const [dataUser, setDataUser] = useState<any>({})
-    const [dataSlices, setDataSlices] = useState<any>()
-
-    const navigation = useNavigation<stackScreenProp>()
+    const [groupJoin, setGroupJoin] = useState<any>([])
 
     useEffect(() => {
         const getDataUser = async () => {
             const data = await api.getDetailUser()
             setDataUser(data)
         }
-        const getDataSlice = async () => {
-            const data = await apiGroup.getAllGroupData()
-            setDataSlices(data)
-        }
-        getDataSlice()
         getDataUser()
-    }, [])
+        filterGroupByJoin()
+    }, [dataGroup])
+
+    const filterGroupByJoin = () => {
+        const filterGroup = dataGroup.filter((item) => {
+            return item.joinGr === true
+        })
+        setGroupJoin(filterGroup)
+    }
 
     const handleDirection = (id: { id: string }) => {
         navigation.navigate('DetailCommunities', id)
     }
 
-    // console.log('userUpdate: ', userUpdate.image)
+    console.log('groupJoin: ', groupJoin)
 
     return (
         <View>
@@ -84,7 +87,7 @@ const HeaderFlatList = () => {
             <View>
                 <HeaderSlide title="Joined communities" />
                 <FlatList
-                    data={dataSlices}
+                    data={groupJoin}
                     renderItem={({ item }) => (
                         <SlideCommunityView
                             onPress={() => handleDirection(item.id)}
@@ -95,6 +98,7 @@ const HeaderFlatList = () => {
                     showsHorizontalScrollIndicator={false}
                 />
             </View>
+            <HeaderSlide title="Others" />
         </View>
     )
 }

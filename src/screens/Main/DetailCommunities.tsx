@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import {
     Banner,
     BannerForum,
@@ -21,43 +20,64 @@ import {
     InputSearch,
     ListMember,
 } from '@components'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { AppDispatch, RootState } from '@redux/store'
 import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import {
-    changeStatusJoinGroup,
     filterMemberByCondition,
     getDataMember,
     searchMemberByTitle,
     showModal,
 } from '@redux/slices/homeSlice'
+import { changeAttendGroup, changeLeavingGroup } from '@redux/slices/groupSlice'
 
 const dataMemberSelector = (state: RootState) => state.home.members
 const showConditionModal = (state: RootState) => state.home.modal
-const statusJoinGroup = (state: RootState) => state.home.joinGroupStatus
+const dataGroupSelector = (state: RootState) => state.group.groups
+// const statusJoinGroup = (state: RootState) => state.group.joinGroupStatus
 
 const DetailCommunities = () => {
     const dispatch = useDispatch<AppDispatch>()
+    const idParamDetail = useRoute().params
     const navigation = useNavigation<stackScreenProp>()
-    const statusJoin = useSelector(statusJoinGroup)
-
-    const [textValue, setTextValue] = useState('')
+    const dataGroup = useSelector(dataGroupSelector)
+    const member = useSelector(dataMemberSelector)
+    const modal = useSelector(showConditionModal)
+    const [textValue, setTextValue] = useState<string>('')
 
     useEffect(() => {
         dispatch(getDataMember())
     }, [])
 
-    const member = useSelector(dataMemberSelector)
-
-    const modal = useSelector(showConditionModal)
-
     const handleShowOrHideModalCondition = () => {
         dispatch(showModal({ showModal: !modal.showModal }))
     }
 
-    const handleChangeStatus = () => {
-        dispatch(changeStatusJoinGroup(!statusJoin))
+    const handleLeavingGroup = (id: any) => {
+        const copyDataGroup = [...dataGroup]
+        copyDataGroup.forEach((item, index) => {
+            if (item.id == id) {
+                copyDataGroup[index] = {
+                    ...copyDataGroup[index],
+                    joinGr: false,
+                }
+            }
+        })
+        dispatch(changeLeavingGroup({ copyDataGroup, id }))
+    }
+
+    const handleParticipateGroup = (id: any) => {
+        const copyDataGroup = [...dataGroup]
+        copyDataGroup.forEach((item, index) => {
+            if (item.id == id) {
+                copyDataGroup[index] = {
+                    ...copyDataGroup[index],
+                    joinGr: true,
+                }
+            }
+        })
+        dispatch(changeAttendGroup({ copyDataGroup, id }))
     }
 
     const handleChangeValueInputSearch = (value: string) => {
@@ -82,7 +102,7 @@ const DetailCommunities = () => {
             >
                 <View style={styles.header}>
                     <Header
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => navigation.navigate('HomeScreen')}
                         Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                     />
                 </View>
@@ -90,16 +110,17 @@ const DetailCommunities = () => {
                     showsVerticalScrollIndicator={false}
                     style={styles.body}
                 >
-                    <Banner status={statusJoin} onPress={handleChangeStatus} />
+                    <Banner
+                        onPressLeaving={() => handleLeavingGroup(idParamDetail)}
+                        onPressParticipate={() =>
+                            handleParticipateGroup(idParamDetail)
+                        }
+                    />
 
                     <BannerForum
                         title="Real-time Forum"
                         des="Join now to give real-time PR about yourself"
                         Icon={() => <IconInfo stroke={COLORS.Primary} />}
-                        status={statusJoin}
-                        onPress={() => {
-                            handleChangeStatus()
-                        }}
                         onDirection={() => navigation.navigate('ForumScreen')}
                     />
 

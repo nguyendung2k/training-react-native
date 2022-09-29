@@ -1,5 +1,4 @@
 import {
-    Image,
     ImageBackground,
     StyleSheet,
     Text,
@@ -13,7 +12,6 @@ import { BORDER, COLORS, SIZES } from '@theme'
 
 interface slideProps {
     title?: string
-    source?: any
     item: { id: string; title: string; image: string }
     onPress?: () => void | undefined
 }
@@ -23,7 +21,6 @@ const SlideCommunityView = ({ item, onPress }: slideProps) => {
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.container_Content}>
                 <Text style={styles.title}>{item.title}</Text>
-
                 <ImageBackground
                     source={{ uri: item.image }}
                     style={styles.image}

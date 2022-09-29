@@ -1,26 +1,28 @@
 import {
     ButtonHome,
     ButtonNoBg,
+    IconCaretRight,
     IconCoin,
     IconFacebook,
     IconTwitter,
 } from '@components'
+import { COLORS } from '@theme'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-
-import { useDispatch } from 'react-redux'
-import { getAllGroup, getGroup } from '../../redux/slices/homeSlice'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { communityScreenProp } from '@navigation/Main/CommunitiesStack'
 
 const FooterFlatList = () => {
-    const dispatch = useDispatch()
+    const navigation = useNavigation<communityScreenProp>()
     const handleSeeAllGroup = () => {
-        dispatch(getAllGroup())
+        navigation.navigate('CommunitiesStackScreen')
     }
     return (
         <View>
-            <View style={styles.btn}>
+            <TouchableOpacity activeOpacity={1} style={styles.btn}>
                 <ButtonNoBg title="See all" onPress={handleSeeAllGroup} />
-            </View>
+                <IconCaretRight stroke={COLORS.Primary} />
+            </TouchableOpacity>
 
             <View style={styles.btnGroup}>
                 <ButtonHome
@@ -47,6 +49,10 @@ export default FooterFlatList
 const styles = StyleSheet.create({
     btn: {
         marginBottom: 42,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     btnGroup: {
         marginBottom: 40,

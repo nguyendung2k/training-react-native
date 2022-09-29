@@ -13,16 +13,13 @@ interface iState {
         image: string
         introduction: string
     }
-    groups: any[]
     members: any[]
-    joinGroupStatus?: boolean
 }
 
 const initialState: iState = {
     modal: {
         showModal: false,
     },
-    groups: [],
     members: [],
     user: {
         id: '',
@@ -31,7 +28,6 @@ const initialState: iState = {
         image: '',
         introduction: '',
     },
-    joinGroupStatus: false,
 }
 
 export const homeSlice = createSlice({
@@ -48,26 +44,12 @@ export const homeSlice = createSlice({
         updateUser(state, action) {
             state.user = action.payload
         },
-        changeStatusJoinGroup(state, action) {
-            state.joinGroupStatus = action.payload
-        },
     },
     extraReducers(builder) {
-        builder.addCase(getGroup.fulfilled, (state, action) => {
-            state.groups = action.payload
-        })
-        builder.addCase(getAllGroup.fulfilled, (state, action) => {
-            state.groups = action.payload
-        })
-        builder.addCase(searchGroupByTitle.fulfilled, (state, action) => {
-            state.groups = action.payload
-        })
         builder.addCase(searchMemberByTitle.fulfilled, (state, action) => {
             state.members = action.payload
         })
-        builder.addCase(getGroupById.fulfilled, (state, action) => {
-            state.groups = action.payload
-        })
+
         builder.addCase(getDataMember.fulfilled, (state, action) => {
             state.members = action.payload
         })
@@ -77,38 +59,35 @@ export const homeSlice = createSlice({
     },
 })
 
-export const getGroup: any = createAsyncThunk('home/group', async () => {
-    const dataGroup = await apiGroup.getGroupData()
-    return dataGroup
-})
+// export const getGroup: any = createAsyncThunk('home/group', async () => {
+//     const dataGroup = await apiGroup.getGroupData()
+//     return dataGroup
+// })
 
-export const getAllGroup: any = createAsyncThunk(
-    'home/  allgroup',
-    async () => {
-        const dataGroup = await apiGroup.getAllGroupData()
-        return dataGroup
-    }
-)
+// export const getAllGroup: any = createAsyncThunk('home/allgroup', async () => {
+//     const dataGroup = await apiGroup.getAllGroupData()
+//     return dataGroup
+// })
 
-export const getGroupById: any = createAsyncThunk(
-    'home/groupById',
-    async (id) => {
-        const dataGroupById = await apiGroup.getGroupDataById(id)
-        return dataGroupById
-    }
-)
+// export const getGroupById: any = createAsyncThunk(
+//     'home/groupById',
+//     async (id) => {
+//         const dataGroupById = await apiGroup.getGroupDataById(id)
+//         return dataGroupById
+//     }
+// )
 
-export const searchGroupByTitle: any = createAsyncThunk(
-    'home/filterGroupByTitle',
-    async (value: string) => {
-        const dataGroupByTitle = await apiGroup.getGroupDataByFilter(value)
-        if (value) {
-            return dataGroupByTitle.filter((item: any) => {
-                return item.title.includes(value)
-            })
-        }
-    }
-)
+// export const searchGroupByTitle: any = createAsyncThunk(
+//     'home/filterGroupByTitle',
+//     async (value: string) => {
+//         const dataGroupByTitle = await apiGroup.getGroupDataByFilter(value)
+//         if (value) {
+//             return dataGroupByTitle.filter((item: any) => {
+//                 return item.title.includes(value)
+//             })
+//         }
+//     }
+// )
 
 export const getDataMember: any = createAsyncThunk(
     'home/getDataMember',
@@ -147,7 +126,6 @@ export const searchMemberByTitle: any = createAsyncThunk(
     }
 )
 
-export const { showModal, hideModal, updateUser, changeStatusJoinGroup } =
-    homeSlice.actions
+export const { showModal, hideModal, updateUser } = homeSlice.actions
 
 export default homeSlice.reducer

@@ -1,59 +1,72 @@
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { apiGroup } from '../../services/groups'
 import { useRoute } from '@react-navigation/native'
 import { ButtonBanner, IconSignOut } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
+import { changeGroupById } from '@redux/slices/groupSlice'
+import { RootState } from '@redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface bannerProps {
-    onPress?: () => void | undefined | boolean
+    onPressLeaving?: () => void
+    onPressParticipate?: () => void
     status?: boolean
 }
 
-const Banner = ({ status, onPress }: bannerProps) => {
-    const idFromParam = useRoute().params
-    const [groupDetail, setGroupDetail] = useState<any>()
+const dataFindGroupSelector = (state: RootState) => state.group.findGroup
 
+const Banner = ({ onPressLeaving, onPressParticipate }: bannerProps) => {
+    const dispatch = useDispatch()
+    const idFromParam = useRoute().params
+    const dataFindGroup = useSelector(dataFindGroupSelector)
     useEffect(() => {
-        const getDataGroupDetail = async () => {
-            const data = await apiGroup.getGroupDataById(idFromParam)
-            setGroupDetail(data)
-        }
-        getDataGroupDetail()
+        console.log('idFromParam: ', idFromParam)
+        dispatch(changeGroupById(idFromParam))
     }, [])
+
+    // console.log('data sau khi thay doi: ', dataDetailGroup)
+
+    // const findGroupById = (idFromParam: any) => {
+    //     const findGroup = dataGroup.filter((item) => {
+    //         return item.id === idFromParam
+    //     })
+
+    // console.log('dataFindGroup[0]?.joinGr: ', dataFindGroup[0]?.joinGr)
 
     return (
         <View style={styles.container}>
             <View>
                 <ImageBackground
-                    source={{ uri: groupDetail?.image }}
+                    source={{ uri: dataFindGroup[0]?.image }}
                     resizeMode="cover"
                     style={styles.image}
                     imageStyle={{ borderRadius: BORDER.maximum }}
                 >
                     <View style={styles.content}>
                         <Text style={styles.title}>
-                            {groupDetail?.title ? groupDetail.title : ''}{' '}
+                            {dataFindGroup[0]?.title
+                                ? dataFindGroup[0].title
+                                : ''}{' '}
                         </Text>
                         <Text style={styles.des}>
-                            {groupDetail?.total_members
-                                ? groupDetail.total_members
+                            {dataFindGroup[0]?.total_members
+                                ? dataFindGroup[0].total_members
                                 : ''}{' '}
                             members
                         </Text>
-                        {status ? (
+                        {dataFindGroup[0]?.joinGr ? (
                             <ButtonBanner
                                 secondary
                                 label="Leaving"
                                 Icon={() => (
                                     <IconSignOut stroke={COLORS.Neutral0} />
                                 )}
-                                onPress={onPress}
+                                onPress={onPressLeaving}
                             />
                         ) : (
                             <ButtonBanner
                                 label="Participate"
-                                onPress={onPress}
+                                onPress={onPressParticipate}
                             />
                         )}
                     </View>

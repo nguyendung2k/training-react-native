@@ -1,6 +1,6 @@
 export { default as ChangePasswordScreen } from './ChangePasswordScreen'
 export { default as CommentForumScreen } from './CommentForumScreen'
-export { default as Communities } from './Communities'
+export { default as CommunitiesScreen } from './CommunitiesScreen'
 export { default as DetailCommunities } from './DetailCommunities'
 export { default as ForumScreen } from './ForumScreen'
 export { default as FriendRequestScreen } from './FriendRequestScreen'

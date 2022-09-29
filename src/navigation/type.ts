@@ -10,15 +10,15 @@ export type RootStackParamList = {
     CommentForumScreen?: { id: string | undefined }
     NewPostScreen: undefined
     ForumScreen: undefined
-    Home: undefined
+    HomeScreen: undefined
     AccountScreen: undefined
     RegisterEnd: undefined
     ResetSuccessfully: undefined
     Login: undefined
     Register: undefined
     PersonalIntroduction: undefined
-    ListCommunity: undefined
     VerificationCode: undefined
+    CommunitiesScreen: undefined
 }
 
 export type stackScreenProp = StackNavigationProp<RootStackParamList>

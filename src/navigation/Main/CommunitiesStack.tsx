@@ -1,11 +1,12 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Communities } from '@screens'
+import { CommunitiesScreen } from '@screens'
 
 export type CommunityStackParamList = {
-    Communities: undefined
-    DetailCommunities: { id: string }
+    CommunitiesScreen: undefined
+    // DetailCommunities: { id: string }
+    // CommunitiesStackScreen: undefined
 }
 export type communityScreenProp = StackNavigationProp<CommunityStackParamList>
 
@@ -15,8 +16,8 @@ const CommunitiesStackScreen = () => {
     return (
         <CommunitiesStack.Navigator screenOptions={{ headerShown: false }}>
             <CommunitiesStack.Screen
-                name="Communities"
-                component={Communities}
+                name="CommunitiesScreen"
+                component={CommunitiesScreen}
             />
         </CommunitiesStack.Navigator>
     )
