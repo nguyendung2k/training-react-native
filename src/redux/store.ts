@@ -9,8 +9,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    blacklist: ['filters'],
-    whitelist: ['home', 'forum', 'auth'],
+    blacklist: ['filters', 'forum'],
+    whitelist: ['home', 'auth'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

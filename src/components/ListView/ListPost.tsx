@@ -4,6 +4,8 @@ import { IconComment, IconDotTime, IconHeart } from '../Svg/Icon'
 import { useSelector } from 'react-redux'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { RootState } from '@redux/store'
+import { useNavigation } from '@react-navigation/native'
+import { stackScreenProp } from '@navigation/type'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -11,6 +13,8 @@ interface postedProps {
     secondary?: boolean
     onPress: () => void
     onLikePost?: () => void
+    onComment?: () => void
+    onPressImage?: () => void
     quantityLike?: number
     quantityComment?: string | number
     item: {
@@ -33,9 +37,12 @@ const ListPost = ({
     item,
     quantityLike,
     quantityComment,
+    onComment,
+    onPressImage,
 }: postedProps) => {
     const checkLikePost = useSelector(dataLikePostSelector)
     const isLike = checkLikePost.includes(item.id)
+    const navigation = useNavigation<stackScreenProp>()
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
@@ -111,7 +118,10 @@ const ListPost = ({
                                 {item.body}
                             </Text>
                         </View>
-                        <TouchableOpacity activeOpacity={0.8}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={onPressImage}
+                        >
                             <Image
                                 source={{ uri: item.image }}
                                 style={styles.postImage}
@@ -138,7 +148,10 @@ const ListPost = ({
                             </Text>
                         </View>
                         <View style={styles.postedFeedback}>
-                            <TouchableOpacity style={styles.postedIconComment}>
+                            <TouchableOpacity
+                                onPress={onComment}
+                                style={styles.postedIconComment}
+                            >
                                 <IconComment
                                     stroke={COLORS.Neutral8}
                                     fill={COLORS.White}

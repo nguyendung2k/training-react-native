@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -9,7 +9,6 @@ import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import {
     addComment,
-    getCommentById,
     getPostById,
     likePostById,
     onChangeLikePost,
@@ -27,6 +26,7 @@ const HeaderCommentForumFlatList = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation<stackScreenProp>()
     const idFromParam: any = useRoute().params
+    const dataComment = useSelector(dataCommentSelector)
 
     const dataPost = useSelector(dataPostByIdSelector)
     const dataUser = useSelector(dataUserSelector)
@@ -51,32 +51,33 @@ const HeaderCommentForumFlatList = () => {
 
     const handleComment = (id: string) => {
         if (valueText) {
-            dispatch(
-                addComment({
-                    post_id: id,
-                    data: {
-                        name: `${dataUser.first_name} ${dataUser.last_name}`,
-                        avatar: userUpdate.image
-                            ? userUpdate.image
-                            : dataUser.image,
-                        body: valueText,
-                        id: Math.random().toString(),
-                        createdAt: Date.now().toString(),
-                    },
-                })
-            )
+            const copyData = [...dataComment]
+            copyData.forEach((item, index) => {
+                if (item.post_id === id) {
+                    copyData[index] = {
+                        ...copyData[index],
+                        data: [
+                            {
+                                name: `${dataUser.first_name} ${dataUser.last_name}`,
+                                avatar: userUpdate.image
+                                    ? userUpdate.image
+                                    : dataUser.image,
+                                body: valueText,
+                                id: Math.random().toString(),
+                                createdAt: Date.now().toString(),
+                            },
+                            ...copyData[index].data,
+                        ],
+                    }
+                }
+            })
+            setValueText('')
+            dispatch(addComment(copyData))
         }
-        setValueText('')
     }
     return (
-        <View>
-            <View style={styles.header}>
-                <Header
-                    onPress={() => navigation.navigate('ForumScreen')}
-                    Icon={() => <IConBack stroke={COLORS.Neutral10} />}
-                />
-            </View>
-            <View style={styles.commentContainer}>
+        <SafeAreaView>
+            <ScrollView style={styles.commentContainer}>
                 <View style={styles.posted}>
                     <Posted
                         id={dataPost.id}
@@ -100,8 +101,8 @@ const HeaderCommentForumFlatList = () => {
                         />
                     </View>
                 </View>
-            </View>
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 

@@ -80,14 +80,16 @@ const DetailCommunities = () => {
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 // keyboardVerticalOffset={10}
             >
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={styles.body}
-                >
+                <View style={styles.header}>
                     <Header
                         onPress={() => navigation.navigate('Home')}
                         Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                     />
+                </View>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    style={styles.body}
+                >
                     <Banner status={statusJoin} onPress={handleChangeStatus} />
 
                     <BannerForum
@@ -140,6 +142,9 @@ const styles = StyleSheet.create({
     },
     body: {
         marginHorizontal: 24,
+    },
+    header: {
+        marginHorizontal: 10,
     },
     content: {
         position: 'relative',

@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.Neutral1,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.Neutral2,
+        // flex: 1,
     },
     commentContainer: {
         flexDirection: 'row',

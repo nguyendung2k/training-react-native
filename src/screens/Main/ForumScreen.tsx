@@ -27,13 +27,10 @@ const ForumScreen = ({ id }: forumScreenProps) => {
     const dispatch = useDispatch()
     const navigation = useNavigation<stackScreenProp>()
     const checkLikePost = useSelector(dataLikePostSelector)
-    // console.log('checkLikePost', checkLikePost)
-    // const isLike = checkLikePost.includes(id)
-    // console.log('isLike', isLike)
     const userUpdate = useSelector(userUpdateSelector)
     const postUpdate = useSelector(listPostUpdateSelector)
     const dataComment = useSelector(dataCommentSelector)
-    console.log('dataComment: ', dataComment)
+    // console.log('dataComment: ', dataComment)
     const like = useSelector(likeQuantitySelector)
     const [dataPosts, setDataPosts] = useState<any[]>([])
     const [pagePost, setPagePost] = useState(1)
@@ -55,6 +52,13 @@ const ForumScreen = ({ id }: forumScreenProps) => {
     const handlePressPost = (id: { id: string }) => {
         navigation.navigate('CommentForumScreen', id)
     }
+    const handlePressComment = (id: { id: string }) => {
+        navigation.navigate('CommentForumScreen', id)
+    }
+
+    const handlePressImage = (id: { id: string }) => {
+        navigation.navigate('CommentForumScreen', id)
+    }
 
     const handleLoadMorePost = () => {
         setPagePost(pagePost + 1)
@@ -69,8 +73,11 @@ const ForumScreen = ({ id }: forumScreenProps) => {
         } else {
             dispatch(onChangeLikePost())
         }
-        // dispatch(onChangeLikePost(id))
     }
+
+    console.log('dataComment: ', dataComment)
+    console.log('length: ', dataComment[0].data.length)
+    console.log('dataPost: ', dataPosts)
 
     return (
         <SafeAreaView style={styles.container}>
@@ -89,16 +96,28 @@ const ForumScreen = ({ id }: forumScreenProps) => {
                 <View style={styles.contentPost}>
                     <FlatList
                         data={dataPosts}
-                        renderItem={({ item }) => (
-                            <ListPost
-                                quantityLike={like}
-                                // quantityComment={dataComment.length}
-                                primary
-                                onPress={() => handlePressPost(item.id)}
-                                onLikePost={() => handleOnLikePost(item.id)}
-                                item={item}
-                            />
-                        )}
+                        renderItem={({ item, index }) => {
+                            console.log('item - render : ', item, index)
+                            return (
+                                <ListPost
+                                    quantityLike={like}
+                                    quantityComment={
+                                        0
+                                        // dataComment[index].data.length
+                                    }
+                                    primary
+                                    onPress={() => handlePressPost(item.id)}
+                                    onLikePost={() => handleOnLikePost(item.id)}
+                                    item={item}
+                                    onComment={() =>
+                                        handlePressComment(item.id)
+                                    }
+                                    onPressImage={() =>
+                                        handlePressImage(item.id)
+                                    }
+                                />
+                            )
+                        }}
                         keyExtractor={(_, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
                         onEndReached={handleLoadMorePost}

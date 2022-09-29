@@ -2,7 +2,12 @@ import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { FooterFlatList, HeaderFlatList, ListCommunityView } from '@components'
+import {
+    FooterFlatList,
+    HeaderFlatList,
+    HeaderSlide,
+    ListCommunityView,
+} from '@components'
 import { RootState } from '@redux'
 import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
@@ -29,6 +34,8 @@ export default function HomeScreen() {
         <SafeAreaView style={styles.container}>
             <View style={styles.contentBody}>
                 <View>
+                    <HeaderSlide title="Others" />
+
                     <FlatList
                         data={listGroup}
                         renderItem={({ item }) => (

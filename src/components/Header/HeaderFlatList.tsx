@@ -7,6 +7,7 @@ import { HeaderSlide, SlideCommunityView } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { api } from '@services/user'
 import { apiGroup } from '@services/groups'
+import { stackScreenProp } from '@navigation/type'
 
 const userUpdateSelector = (state: RootState) => state.home.user
 
@@ -16,10 +17,10 @@ const HeaderFlatList = () => {
     const [dataUser, setDataUser] = useState<any>({})
     const [dataSlices, setDataSlices] = useState<any>()
 
-    const navigation: any = useNavigation()
+    const navigation = useNavigation<stackScreenProp>()
 
     useEffect(() => {
-        const getData = async () => {
+        const getDataUser = async () => {
             const data = await api.getDetailUser()
             setDataUser(data)
         }
@@ -28,10 +29,10 @@ const HeaderFlatList = () => {
             setDataSlices(data)
         }
         getDataSlice()
-        getData()
+        getDataUser()
     }, [])
 
-    const handleDirection = (id: string) => {
+    const handleDirection = (id: { id: string }) => {
         navigation.navigate('DetailCommunities', id)
     }
 
@@ -94,7 +95,6 @@ const HeaderFlatList = () => {
                     showsHorizontalScrollIndicator={false}
                 />
             </View>
-            <HeaderSlide title="Others" />
         </View>
     )
 }

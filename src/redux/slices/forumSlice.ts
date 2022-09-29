@@ -48,36 +48,11 @@ export const forumSlice = createSlice({
         onChangeUnlikePost(state) {
             state.quantityLike = initialState.quantityLike
         },
-        // getComments(state) {
-        //     console.log('data: ', dataComment)
-
-        //     state.comments = dataComment
-        // },
-        getCommentById(state, action) {
-            console.log('state: ', state)
-
-            const idFromParam = action.payload
-            const findComment = state.comments.filter((item) => {
-                console.log('item: ', item)
-                return item.post_id === idFromParam
-            })
-
-            console.log('findComment', findComment)
-            // state.comments = findComment[0].data
-        },
         addComment(state, action) {
             const dataPayload = action.payload
-            console.log('dataPayLoad: ', dataPayload)
-            // state.comments = [dataPayload.data, ...state.comments]
-            // initialState.comments.filter((item) => {
-            //     if (item.post_id === dataPayload.post_id) {
-            //     }
-            // })
-            state.comments = [dataPayload.data, ...state.comments]
+            state.comments = dataPayload
         },
-        addPost(state, action) {
-            // state.posts.unshift(action.payload)
-        },
+        addPost(state, action) {},
     },
     extraReducers(builder) {
         builder.addCase(getPostById.fulfilled, (state, action) => {
@@ -90,7 +65,6 @@ export const getPostById: any = createAsyncThunk(
     'forum/getPostById',
     async (id: string) => {
         const dataPostById = await apiPosts.getPostsById(id)
-
         return dataPostById
     }
 )
@@ -99,7 +73,6 @@ export const {
     likePostById,
     addComment,
     addPost,
-    getCommentById,
     onChangeLikePost,
     onChangeUnlikePost,
 } = forumSlice.actions
