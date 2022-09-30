@@ -10,12 +10,15 @@ import { COLORS } from '@theme'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { communityScreenProp } from '@navigation/Main/CommunitiesStack'
+import { CommunitiesScreenProp } from '@navigation/type'
 
 const FooterFlatList = () => {
-    const navigation = useNavigation<communityScreenProp>()
+    const navigation =
+        useNavigation<
+            CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
+        >()
     const handleSeeAllGroup = () => {
-        navigation.navigate('CommunitiesStackScreen')
+        navigation.navigate('CommunitiesStackScreen' as never)
     }
     return (
         <View>

@@ -23,7 +23,6 @@ import {
 } from '@components'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import { updateUser } from '@redux/slices/homeSlice'
 
@@ -39,7 +38,7 @@ const inputChooseSocial = [
 
 const UpdateProfileScreen = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation()
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
 
@@ -112,7 +111,7 @@ const UpdateProfileScreen = () => {
                 image: image,
             })
         )
-        navigation.navigate('YourProfileScreen')
+        navigation.goBack()
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -132,9 +131,7 @@ const UpdateProfileScreen = () => {
                                 showTextHeader
                                 showRightIcon
                                 title="Update Profile"
-                                onPress={() =>
-                                    navigation.navigate('YourProfileScreen')
-                                }
+                                onPress={() => navigation.goBack()}
                             />
                         </View>
                         <View style={styles.updateAvatar}>

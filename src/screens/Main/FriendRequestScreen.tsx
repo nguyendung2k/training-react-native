@@ -2,8 +2,10 @@ import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import { Header, IConBack, WaitingFormRequest } from '@components'
 import { COLORS } from '@theme'
+import { useNavigation } from '@react-navigation/native'
 
 const FriendRequestScreen = () => {
+    const navigation = useNavigation()
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -12,6 +14,7 @@ const FriendRequestScreen = () => {
                     showTextHeader
                     showRightIcon
                     title="Waiting for approval"
+                    onPress={() => navigation.goBack()}
                 />
             </View>
             <ScrollView

@@ -59,36 +59,6 @@ export const homeSlice = createSlice({
     },
 })
 
-// export const getGroup: any = createAsyncThunk('home/group', async () => {
-//     const dataGroup = await apiGroup.getGroupData()
-//     return dataGroup
-// })
-
-// export const getAllGroup: any = createAsyncThunk('home/allgroup', async () => {
-//     const dataGroup = await apiGroup.getAllGroupData()
-//     return dataGroup
-// })
-
-// export const getGroupById: any = createAsyncThunk(
-//     'home/groupById',
-//     async (id) => {
-//         const dataGroupById = await apiGroup.getGroupDataById(id)
-//         return dataGroupById
-//     }
-// )
-
-// export const searchGroupByTitle: any = createAsyncThunk(
-//     'home/filterGroupByTitle',
-//     async (value: string) => {
-//         const dataGroupByTitle = await apiGroup.getGroupDataByFilter(value)
-//         if (value) {
-//             return dataGroupByTitle.filter((item: any) => {
-//                 return item.title.includes(value)
-//             })
-//         }
-//     }
-// )
-
 export const getDataMember: any = createAsyncThunk(
     'home/getDataMember',
     async () => {

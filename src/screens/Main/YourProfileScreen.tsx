@@ -28,14 +28,16 @@ import {
 } from '@components'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+
 import { COLORS, SIZES } from '@theme'
+import { RootStackScreenProps } from '@navigation/type'
 
 const dataUserSelector = (state: RootState) => state.auth.user
 const userUpdateSelector = (state: RootState) => state.home.user
 
 const YourProfileScreen = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<RootStackScreenProps<'YourProfileScreen'>['navigation']>()
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
 
@@ -56,7 +58,7 @@ const YourProfileScreen = () => {
                             showRightIcon
                             secondary
                             showIcon
-                            onPress={() => navigation.navigate('AccountScreen')}
+                            onPress={() => navigation.goBack()}
                             onDirection={() =>
                                 navigation.navigate('UpdateProfileScreen')
                             }

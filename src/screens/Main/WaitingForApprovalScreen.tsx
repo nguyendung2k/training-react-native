@@ -9,7 +9,6 @@ import {
     WaitingFormRequest,
 } from '@components'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 
 const requests = [
@@ -47,7 +46,7 @@ const notice = [
 ]
 
 const WaitingForApprovalScreen = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation()
     const [showNoticeAccept, setShowNoticeAccept] = useState<boolean>(false)
     const [showNoticeReject, setShowNoticeReject] = useState(false)
     const [dataRequests, setDataRequests] = useState<any[]>(requests)
@@ -140,7 +139,7 @@ const WaitingForApprovalScreen = () => {
                     showTextHeader
                     showRightIcon
                     title="Waiting for approval"
-                    onPress={() => navigation.navigate('YourProfileScreen')}
+                    onPress={() => navigation.goBack()}
                 />
             </View>
             <ScrollView

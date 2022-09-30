@@ -22,7 +22,6 @@ import {
 } from '@components'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AppDispatch, RootState } from '@redux/store'
-import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import {
     filterMemberByCondition,
@@ -31,6 +30,11 @@ import {
     showModal,
 } from '@redux/slices/homeSlice'
 import { changeAttendGroup, changeLeavingGroup } from '@redux/slices/groupSlice'
+import { DetailCommunityScreenProp } from '@navigation/type'
+import ContentLoader, { Facebook } from 'react-content-loader/native'
+
+const MyLoader = () => <ContentLoader />
+const MyFacebookLoader = () => <Facebook />
 
 const dataMemberSelector = (state: RootState) => state.home.members
 const showConditionModal = (state: RootState) => state.home.modal
@@ -40,7 +44,8 @@ const dataGroupSelector = (state: RootState) => state.group.groups
 const DetailCommunities = () => {
     const dispatch = useDispatch<AppDispatch>()
     const idParamDetail = useRoute().params
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<DetailCommunityScreenProp<'HomeScreen'>['navigation']>()
     const dataGroup = useSelector(dataGroupSelector)
     const member = useSelector(dataMemberSelector)
     const modal = useSelector(showConditionModal)
@@ -98,11 +103,10 @@ const DetailCommunities = () => {
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                // keyboardVerticalOffset={10}
             >
                 <View style={styles.header}>
                     <Header
-                        onPress={() => navigation.navigate('HomeScreen')}
+                        onPress={() => navigation.goBack()}
                         Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                     />
                 </View>

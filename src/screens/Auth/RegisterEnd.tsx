@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Text,
     View,
+    SafeAreaView,
 } from 'react-native'
 import React, { useState } from 'react'
 
@@ -40,151 +41,153 @@ const RegisterEnd = () => {
     ])
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-        >
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <HeaderAuth
-                    title="Getting started"
-                    description="Personal Introduction"
-                    txtContent="Profile picture"
-                    number="3"
-                />
-
-                <View style={styles.content}>
-                    <Image
-                        source={require('../../assets/images/Choosepicture.png')}
+        <SafeAreaView style={{ flex: 1 }}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.container}
+            >
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <HeaderAuth
+                        title="Getting started"
+                        description="Personal Introduction"
+                        txtContent="Profile picture"
+                        number="3"
                     />
-                    <ButtonNoBg
-                        title="Choose picture"
-                        onPress={() => console.log('OnPress')}
-                    />
-                </View>
 
-                <HeaderAuth txtContent="Profile info" number="4" />
+                    <View style={styles.content}>
+                        <Image
+                            source={require('../../assets/images/Choosepicture.png')}
+                        />
+                        <ButtonNoBg
+                            title="Choose picture"
+                            onPress={() => console.log('OnPress')}
+                        />
+                    </View>
 
-                <Formik
-                    initialValues={{
-                        profession: 'Singer',
-                        birth_year: '2000',
-                        gender: 'Male',
-                        introduction: '',
-                    }}
-                    // validationSchema={checkInputTest}
-                    onSubmit={(values) => console.log('values', values)}
-                >
-                    {({
-                        handleSubmit,
-                        handleChange,
-                        values,
-                        errors,
-                        touched,
-                    }) => (
-                        <>
-                            <View style={styles.contentInfo}>
-                                <View>
-                                    <InputDrop
-                                        title="Profession"
-                                        value={valueProfession}
-                                        items={itemsProfession}
-                                        setValue={setValueProfession}
-                                        setItems={setItemsProfession}
-                                        onChangeValue={handleChange(
-                                            'profession'
-                                        )}
-                                    />
-                                    {touched.profession && (
-                                        <Text
-                                            style={{
-                                                fontSize: 10,
-                                                color: 'red',
-                                            }}
-                                        >
-                                            {errors.profession}
-                                        </Text>
-                                    )}
-                                </View>
-                                <View style={styles.groupInput}>
+                    <HeaderAuth txtContent="Profile info" number="4" />
+
+                    <Formik
+                        initialValues={{
+                            profession: 'Singer',
+                            birth_year: '2000',
+                            gender: 'Male',
+                            introduction: '',
+                        }}
+                        // validationSchema={checkInputTest}
+                        onSubmit={(values) => console.log('values', values)}
+                    >
+                        {({
+                            handleSubmit,
+                            handleChange,
+                            values,
+                            errors,
+                            touched,
+                        }) => (
+                            <>
+                                <View style={styles.contentInfo}>
                                     <View>
                                         <InputDrop
-                                            title="Birth year"
-                                            value={valueBirth}
-                                            items={itemsBirth}
-                                            setValue={setValueBirth}
-                                            setItems={setItemsBirth}
+                                            title="Profession"
+                                            value={valueProfession}
+                                            items={itemsProfession}
+                                            setValue={setValueProfession}
+                                            setItems={setItemsProfession}
                                             onChangeValue={handleChange(
-                                                'birth_year'
+                                                'profession'
                                             )}
                                         />
-                                        {touched.birth_year && (
+                                        {touched.profession && (
                                             <Text
                                                 style={{
                                                     fontSize: 10,
                                                     color: 'red',
                                                 }}
                                             >
-                                                {errors.birth_year}
+                                                {errors.profession}
                                             </Text>
                                         )}
                                     </View>
-                                    <View>
-                                        <InputDrop
-                                            title="Gender"
-                                            value={valueGender}
-                                            items={itemsGender}
-                                            setValue={setValueGender}
-                                            setItems={setItemsGender}
-                                            onChangeValue={handleChange(
-                                                'gender'
+                                    <View style={styles.groupInput}>
+                                        <View>
+                                            <InputDrop
+                                                title="Birth year"
+                                                value={valueBirth}
+                                                items={itemsBirth}
+                                                setValue={setValueBirth}
+                                                setItems={setItemsBirth}
+                                                onChangeValue={handleChange(
+                                                    'birth_year'
+                                                )}
+                                            />
+                                            {touched.birth_year && (
+                                                <Text
+                                                    style={{
+                                                        fontSize: 10,
+                                                        color: 'red',
+                                                    }}
+                                                >
+                                                    {errors.birth_year}
+                                                </Text>
                                             )}
+                                        </View>
+                                        <View>
+                                            <InputDrop
+                                                title="Gender"
+                                                value={valueGender}
+                                                items={itemsGender}
+                                                setValue={setValueGender}
+                                                setItems={setItemsGender}
+                                                onChangeValue={handleChange(
+                                                    'gender'
+                                                )}
+                                            />
+                                            {touched.gender && (
+                                                <Text
+                                                    style={{
+                                                        fontSize: 10,
+                                                        color: 'red',
+                                                    }}
+                                                >
+                                                    {errors.gender}
+                                                </Text>
+                                            )}
+                                        </View>
+                                    </View>
+
+                                    <View>
+                                        <Input
+                                            title="Introduction"
+                                            secondary
+                                            onChangeText={handleChange(
+                                                'introduction'
+                                            )}
+                                            value={values.introduction}
                                         />
-                                        {touched.gender && (
+                                        {touched.introduction && (
                                             <Text
                                                 style={{
                                                     fontSize: 10,
                                                     color: 'red',
                                                 }}
                                             >
-                                                {errors.gender}
+                                                {errors.introduction}
                                             </Text>
                                         )}
                                     </View>
                                 </View>
 
-                                <View>
-                                    <Input
-                                        title="Introduction"
-                                        secondary
-                                        onChangeText={handleChange(
-                                            'introduction'
-                                        )}
-                                        value={values.introduction}
+                                <View style={styles.btn}>
+                                    <ButtonForm
+                                        label="Start"
+                                        onPress={handleSubmit}
                                     />
-                                    {touched.introduction && (
-                                        <Text
-                                            style={{
-                                                fontSize: 10,
-                                                color: 'red',
-                                            }}
-                                        >
-                                            {errors.introduction}
-                                        </Text>
-                                    )}
                                 </View>
-                            </View>
-
-                            <View style={styles.btn}>
-                                <ButtonForm
-                                    label="Start"
-                                    onPress={handleSubmit}
-                                />
-                            </View>
-                        </>
-                    )}
-                </Formik>
-            </ScrollView>
-        </KeyboardAvoidingView>
+                            </>
+                        )}
+                    </Formik>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 

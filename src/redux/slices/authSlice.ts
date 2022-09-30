@@ -13,7 +13,6 @@ interface iState {
     modal: {
         showModal: boolean
     }
-    loading: boolean
 }
 
 const initialState: iState = {
@@ -28,7 +27,6 @@ const initialState: iState = {
     modal: {
         showModal: false,
     },
-    loading: false,
 }
 
 export const authSlice = createSlice({
@@ -40,14 +38,9 @@ export const authSlice = createSlice({
         },
     },
     extraReducers(builder) {
-        builder
-            .addCase(loginAuth.pending, (state) => {
-                state.loading = true
-            })
-            .addCase(loginAuth.fulfilled, (state, action) => {
-                state.loading = false
-                state.user = action.payload
-            })
+        builder.addCase(loginAuth.fulfilled, (state, action) => {
+            state.user = action.payload
+        })
     },
 })
 

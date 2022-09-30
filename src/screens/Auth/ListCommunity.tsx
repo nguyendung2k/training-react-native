@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ButtonForm, HeaderAuth, ListCommunityView } from '@components'
 import { useNavigation } from '@react-navigation/native'
@@ -7,27 +7,26 @@ import { stackScreenProp } from '@navigation/type'
 const ListCommunity = () => {
     const navigation = useNavigation<stackScreenProp>()
     return (
-        <>
-            <View style={styles.container}>
-                <HeaderAuth
-                    title="Getting started"
-                    description="Join your communities"
-                    number="2"
-                    txtContent="Choose communities you prefer"
-                    txtEnd="(Up to 3 communities - 0/3)"
+        <SafeAreaView style={styles.container}>
+            <HeaderAuth
+                title="Getting started"
+                description="Join your communities"
+                number="2"
+                txtContent="Choose communities you prefer"
+                txtEnd="(Up to 3 communities - 0/3)"
+            />
+            <ScrollView
+                contentContainerStyle={styles.listView}
+                showsVerticalScrollIndicator={false}
+            >
+                <ListCommunityView
+                    showBox={true}
+                    title="Movies"
+                    number="20335"
+                    members="members"
                 />
-                <ScrollView
-                    contentContainerStyle={styles.listView}
-                    showsVerticalScrollIndicator={false}
-                >
-                    <ListCommunityView
-                        showBox={true}
-                        title="Movies"
-                        number="20335"
-                        members="members"
-                    />
-                </ScrollView>
-            </View>
+            </ScrollView>
+
             <View style={styles.btn}>
                 <View style={styles.content}>
                     <ButtonForm
@@ -38,7 +37,7 @@ const ListCommunity = () => {
                     />
                 </View>
             </View>
-        </>
+        </SafeAreaView>
     )
 }
 

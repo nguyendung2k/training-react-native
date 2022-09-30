@@ -5,13 +5,13 @@ import axios from 'axios'
 import { Header, IConBack, ListPost, Loading } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { RootState } from '@redux/store'
-import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import {
     likePostById,
     onChangeLikePost,
     onChangeUnlikePost,
 } from '@redux/slices/forumSlice'
+import { CommentScreenProp } from '@navigation/type'
 
 interface forumScreenProps {
     id: string
@@ -25,18 +25,13 @@ const likeQuantitySelector = (state: RootState) => state.forum.quantityLike
 
 const ForumScreen = ({ id }: forumScreenProps) => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<CommentScreenProp<'CommentForumScreen'>['navigation']>()
     const checkLikePost = useSelector(dataLikePostSelector)
-    const userUpdate = useSelector(userUpdateSelector)
-    const postUpdate = useSelector(listPostUpdateSelector)
-    const dataComment = useSelector(dataCommentSelector)
-    // console.log('dataComment: ', dataComment)
     const like = useSelector(likeQuantitySelector)
     const [dataPosts, setDataPosts] = useState<any[]>([])
     const [pagePost, setPagePost] = useState(1)
     const [loading, setLoading] = useState<boolean>(false)
-
-    // console.log('dataPost', dataPosts)
 
     useEffect(() => {
         const getData = async () => {
@@ -75,10 +70,6 @@ const ForumScreen = ({ id }: forumScreenProps) => {
         }
     }
 
-    // console.log('dataComment: ', dataComment)
-    // console.log('length: ', dataComment[0].data.length)
-    // console.log('dataPost: ', dataPosts)
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -88,7 +79,7 @@ const ForumScreen = ({ id }: forumScreenProps) => {
                     showIconAdd
                     showIcon
                     Icon={() => <IConBack stroke={COLORS.Neutral10} />}
-                    onPress={() => navigation.navigate('DetailCommunities')}
+                    onPress={() => navigation.goBack()}
                     onDirection={() => navigation.navigate('NewPostScreen')}
                 />
             </View>
@@ -96,15 +87,11 @@ const ForumScreen = ({ id }: forumScreenProps) => {
                 <View style={styles.contentPost}>
                     <FlatList
                         data={dataPosts}
-                        renderItem={({ item, index }) => {
-                            // console.log('item - render : ', item, index)
+                        renderItem={({ item }) => {
                             return (
                                 <ListPost
                                     quantityLike={like}
-                                    quantityComment={
-                                        0
-                                        // dataComment[index].data.length
-                                    }
+                                    quantityComment={0}
                                     primary
                                     onPress={() => handlePressPost(item.id)}
                                     onLikePost={() => handleOnLikePost(item.id)}

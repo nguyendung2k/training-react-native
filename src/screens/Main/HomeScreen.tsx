@@ -8,16 +8,22 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { FooterFlatList, HeaderFlatList, ListCommunityView } from '@components'
+import {
+    FooterFlatList,
+    HeaderFlatList,
+    ListCommunityView,
+    Loading,
+} from '@components'
 import { RootState } from '@redux'
-import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
+import { HomeScreenProps } from '@navigation/type'
 
 const listGroupSelector = (state: RootState) => state.group.groups
 
 export default function HomeScreen() {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<HomeScreenProps<'HomeScreen'>['navigation']>()
     const [groupNotJoin, setGroupNotJoin] = useState<any[]>([])
     const listGroup = useSelector(listGroupSelector)
     const [loading, setLoading] = useState<boolean>(true)
@@ -29,7 +35,7 @@ export default function HomeScreen() {
     useEffect(() => {
         setTimeout(() => {
             setLoading(!loading)
-        }, 2000)
+        }, 1500)
     }, [])
 
     const handleOnChangeGroup = (id: { id: string }) => {
@@ -49,7 +55,7 @@ export default function HomeScreen() {
         <SafeAreaView style={styles.container}>
             {loading ? (
                 <View style={styles.loading}>
-                    <ActivityIndicator size="large" color={COLORS.Primary} />
+                    <Loading />
                 </View>
             ) : (
                 <View style={styles.contentBody}>
