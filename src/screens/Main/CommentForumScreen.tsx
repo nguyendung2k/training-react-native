@@ -11,13 +11,12 @@ import {
 import { RootState } from '@redux/store'
 import { COLORS } from '@theme'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 
 const dataCommentSelector = (state: RootState) => state.forum.comments
 
 const CommentForumScreen = () => {
     const idFromParam: any = useRoute().params
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation()
 
     const [comments, setComments] = useState<
         {
@@ -45,7 +44,7 @@ const CommentForumScreen = () => {
         <SafeAreaView style={styles.commentForum}>
             <View style={styles.header}>
                 <Header
-                    onPress={() => navigation.navigate('ForumScreen')}
+                    onPress={() => navigation.goBack()}
                     Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                 />
             </View>

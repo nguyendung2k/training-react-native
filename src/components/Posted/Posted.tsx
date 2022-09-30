@@ -44,7 +44,6 @@ const Posted = ({
 }: postedProps) => {
     const checkLikePost = useSelector(dataLikePostSelector)
     const isLike = checkLikePost.includes(id)
-    // console.log('isLike', isLike)
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>

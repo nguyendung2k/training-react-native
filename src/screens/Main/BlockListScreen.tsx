@@ -3,7 +3,6 @@ import React from 'react'
 import { CardBlockList, Header, IConBack } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
-import { accountScreenProp } from '@navigation/Main/AccountStack'
 
 const dataBlockUser = [
     {
@@ -25,7 +24,7 @@ const dataBlockUser = [
 ]
 
 const BlockListScreen = () => {
-    const navigation = useNavigation<accountScreenProp>()
+    const navigation = useNavigation()
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -34,7 +33,7 @@ const BlockListScreen = () => {
                     showTextHeader
                     showRightIcon
                     title="Update Profile"
-                    onPress={() => navigation.navigate('AccountScreen')}
+                    onPress={() => navigation.goBack()}
                 />
             </View>
             <ScrollView

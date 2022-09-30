@@ -18,9 +18,10 @@ import {
 } from '@components'
 import { RootState, useAppSelector } from '@redux'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+
 import { COLORS } from '@theme'
 import { showModal } from '@redux/slices/homeSlice'
+import { AccountScreenProp } from '@navigation/type'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -32,13 +33,8 @@ Notifications.setNotificationHandler({
 
 const AccountScreen = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
-
-    const [expoPushToken, setExpoPushToken] = useState<string>('')
-
-    // const notificationListener = useRef<any>()
-
-    // const responseListener = useRef<any>()
+    const navigation =
+        useNavigation<AccountScreenProp<'AccountStackScreen'>['navigation']>()
 
     const modal = useAppSelector(
         (state: RootState) => state.home.modal.showModal
@@ -50,28 +46,12 @@ const AccountScreen = () => {
 
     useEffect(() => {
         registerForPushNotificationsAsync()
-            .then((token: any) => {
-                setExpoPushToken(token)
+            .then((token: string | undefined) => {
+                console.log('token: ', token)
             })
             .catch((e) => {
                 console.log('error: ', e)
             })
-
-        // responseListener.current =
-        //     Notifications.addNotificationResponseReceivedListener(
-        //         (response) => {
-        //             console.log('response', response)
-        //         }
-        //     )
-
-        // return () => {
-        //     Notifications.removeNotificationSubscription(
-        //         notificationListener.current
-        //     )
-        //     Notifications.removeNotificationSubscription(
-        //         responseListener.current
-        //     )
-        // }
     }, [])
 
     async function schedulePushNotification() {
@@ -85,8 +65,6 @@ const AccountScreen = () => {
             },
         })
     }
-
-    // console.log('expoPushToken---: ', expoPushToken)
 
     async function registerForPushNotificationsAsync() {
         let token
@@ -110,7 +88,6 @@ const AccountScreen = () => {
         } else {
             Alert.alert('Must use physical device for Push Notifications')
         }
-
         return token
     }
 

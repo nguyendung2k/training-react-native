@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import TabsBottoms from './navigator/TabsBottoms'
 import MyAuthStack from './Auth/MyAuthStack'
 import { RootState } from '@redux'
-
 import {
     BlockListScreen,
     ChangePasswordScreen,
@@ -18,7 +17,6 @@ import {
     WaitingForApprovalScreen,
     YourProfileScreen,
 } from '@screens'
-
 const RootStack = createNativeStackNavigator()
 const tokenUser = (state: RootState) => state.auth.user?.token
 

@@ -6,13 +6,16 @@ import { RootState } from '@redux/store'
 import { HeaderSlide, SlideCommunityView } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { api } from '@services/user'
-import { stackScreenProp } from '@navigation/type'
+import { CommunitiesScreenProp } from '@navigation/type'
 
 const userUpdateSelector = (state: RootState) => state.home.user
 const dataGroupSelector = (state: RootState) => state.group.groups
 
 const HeaderFlatList = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<
+            CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
+        >()
     const userUpdate = useSelector(userUpdateSelector)
     const dataGroup = useSelector(dataGroupSelector)
 

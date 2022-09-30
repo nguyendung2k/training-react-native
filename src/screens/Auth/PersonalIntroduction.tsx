@@ -3,10 +3,10 @@ import React from 'react'
 import { ButtonForm, HeaderAuth } from '@components'
 import { COLORS } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+// import { stackScreenProp } from '@navigation/type'
 
 const PersonalIntroduction = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation()
     return (
         <ScrollView
             style={styles.container}

@@ -5,16 +5,18 @@ import * as ImagePicker from 'expo-image-picker'
 import { Header, IConBack, NewPost } from '@components'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+
 import { COLORS } from '@theme'
-import { addPost } from '@redux/slices/homeSlice'
+// import { addPost } from '@redux/slices/homeSlice'
+import { RootStackScreenProps } from '@navigation/type'
 
 const dataUserSelector = (state: RootState) => state.auth.user
 const userUpdateSelector = (state: RootState) => state.home.user
 
 const NewPostScreen = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<RootStackScreenProps<'NewPostScreen'>['navigation']>()
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
     const [title, setTitle] = useState<string>('')
@@ -41,17 +43,17 @@ const NewPostScreen = () => {
     }
 
     const handlePost = () => {
-        if (title && description && dataUser.image) {
-            dispatch(
-                addPost({
-                    title: title,
-                    body: description,
-                    image: dataUser.image,
-                    name: dataUser.first_name,
-                })
-            )
-            navigation.navigate('ForumScreen')
-        }
+        // if (title && description && dataUser.image) {
+        //     dispatch(
+        //         addPost({
+        //             title: title,
+        //             body: description,
+        //             image: dataUser.image,
+        //             name: dataUser.first_name,
+        //         })
+        //     )
+        //     navigation.navigate('ForumScreen')
+        // }
     }
 
     return (

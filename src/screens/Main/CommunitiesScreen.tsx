@@ -1,18 +1,21 @@
-import { FlatList, StyleSheet, View, SafeAreaView } from 'react-native'
+import { FlatList, StyleSheet, View, SafeAreaView, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Header, IconSearch, InputSearch, ListCommunityView } from '@components'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 import { COLORS } from '@theme'
 import { RootState } from '@redux'
 import { searchGroupByValue } from '@redux/slices/groupSlice'
+import { CommunitiesScreenProp } from '@navigation/type'
 
 const dataGroupSelector = (state: RootState) => state.group.groups
 
 const CommunitiesScreen = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<
+            CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
+        >()
     const dataGroup = useSelector(dataGroupSelector)
     const [textInput, setTextInput] = useState('')
 
@@ -36,16 +39,28 @@ const CommunitiesScreen = () => {
                     Icon={() => <IconSearch />}
                 />
 
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={dataGroup}
-                    renderItem={({ item }) => (
-                        <ListCommunityView
-                            onPress={() => handleOnChangeGroup(item.id)}
-                            item={item}
-                        />
-                    )}
-                />
+                {dataGroup.length > 0 ? (
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={dataGroup}
+                        renderItem={({ item }) => (
+                            <ListCommunityView
+                                onPress={() => handleOnChangeGroup(item.id)}
+                                item={item}
+                            />
+                        )}
+                    />
+                ) : (
+                    <View
+                        style={{
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            marginTop: 10,
+                        }}
+                    >
+                        <Text style={{ color: 'red' }}>Data Not Found!!!</Text>
+                    </View>
+                )}
             </View>
         </SafeAreaView>
     )

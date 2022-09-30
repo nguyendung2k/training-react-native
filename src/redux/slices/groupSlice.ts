@@ -43,8 +43,11 @@ export const groupSlices = createSlice({
         searchGroupByValue(state, action) {
             const valueFilter = action.payload
             const filterGroup = initialState.groups.filter((item) => {
-                if (valueFilter.trim() == '') {
+                console.log('valueFilter: ', valueFilter)
+                if (valueFilter === '') {
                     return item
+                } else if (valueFilter.trim() == '') {
+                    return
                 } else {
                     return item.title
                         .toUpperCase()
