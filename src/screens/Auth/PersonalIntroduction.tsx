@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 // import { stackScreenProp } from '@navigation/type'
 
 const PersonalIntroduction = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<any>()
     return (
         <ScrollView
             style={styles.container}

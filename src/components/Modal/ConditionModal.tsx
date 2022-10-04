@@ -11,7 +11,7 @@ import {
     updateStatusGender,
 } from '../../redux/slices/filterSlice'
 
-import { getDataMember } from '../../redux/slices/homeSlice'
+import { getDataMember } from '../../redux/slices/memberSlice'
 import { RootState } from '@redux/store'
 import {
     ButtonHaft,

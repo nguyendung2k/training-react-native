@@ -15,25 +15,25 @@ const requests = [
     {
         id: 1,
         name: 'Annette Black',
-        dataRequest: 'last week',
+        dateRequest: 'last week',
         quantityFollow: '1',
     },
     {
         id: 2,
         name: 'Jenny Wilson',
-        dataRequest: '7 days ago',
+        dateRequest: '7 days ago',
         quantityFollow: '2',
     },
     {
         id: 3,
         name: 'Cody Fisher',
-        dataRequest: '7 days ago',
+        dateRequest: '7 days ago',
         quantityFollow: '3',
     },
     {
         id: 4,
         name: 'Cody Fisher',
-        dataRequest: '7 days ago',
+        dateRequest: '7 days ago',
         quantityFollow: '4',
     },
 ]
@@ -49,9 +49,28 @@ const WaitingForApprovalScreen = () => {
     const navigation = useNavigation()
     const [showNoticeAccept, setShowNoticeAccept] = useState<boolean>(false)
     const [showNoticeReject, setShowNoticeReject] = useState(false)
-    const [dataRequests, setDataRequests] = useState<any[]>(requests)
-    const [noticesAccept, setNoticesAccept] = useState<any[]>(notice)
-    const [noticesReject, setNoticesReject] = useState<any[]>(notice)
+    const [dataRequests, setDataRequests] = useState<
+        {
+            id: number
+            name: string
+            dateRequest: string
+            quantityFollow: string
+        }[]
+    >(requests)
+
+    const [noticesAccept, setNoticesAccept] = useState<
+        {
+            id: number
+            notice: any
+        }[]
+    >(notice)
+
+    const [noticesReject, setNoticesReject] = useState<
+        {
+            id: number
+            notice: any
+        }[]
+    >(notice)
 
     useEffect(() => {
         setTimeout(() => {
@@ -103,7 +122,7 @@ const WaitingForApprovalScreen = () => {
                     id: Math.random(),
                     notice: (
                         <NotificationModal
-                            name=" Jenny Wilson Official "
+                            name="Jenny Wilson Official "
                             ICon={() => (
                                 <IconMinusCircle fill={COLORS.Neutral4} />
                             )}

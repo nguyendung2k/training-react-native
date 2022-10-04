@@ -20,7 +20,6 @@ const Banner = ({ onPressLeaving, onPressParticipate }: bannerProps) => {
     const idFromParam = useRoute().params
     const dataFindGroup = useSelector(dataFindGroupSelector)
     useEffect(() => {
-        console.log('idFromParam: ', idFromParam)
         dispatch(changeGroupById(idFromParam))
     }, [])
 

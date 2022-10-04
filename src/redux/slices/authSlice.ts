@@ -1,32 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { api } from '../../services/user'
+
 interface iState {
-    user: {
-        token: any
-        email: string
-        password: string
-        first_name: string
-        last_name?: string
-        introduction: string
-        image: string
-    }
-    modal: {
-        showModal: boolean
-    }
+    token: null | string
+    showModal: boolean
+    // showNotice: boolean
 }
 
 const initialState: iState = {
-    user: {
-        token: null,
-        email: '',
-        password: '',
-        introduction: '',
-        first_name: '',
-        image: '',
-    },
-    modal: {
-        showModal: false,
-    },
+    token: null,
+    showModal: false,
+    // showNotice: false,
 }
 
 export const authSlice = createSlice({
@@ -34,39 +17,17 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         logoutSuccess(state) {
-            state.user = initialState.user
+            state.token = initialState.token
         },
-    },
-    extraReducers(builder) {
-        builder.addCase(loginAuth.fulfilled, (state, action) => {
-            state.user = action.payload
-        })
+        loginAuth(state, action) {
+            state.token = action.payload
+        },
+        modalHandle(state, action) {
+            state.showModal = action.payload
+        },
     },
 })
 
-export const loginAuth: any = createAsyncThunk(
-    'auth/logIn',
-    async (values: any) => {
-        const dataUser = await api.getDataUser()
-        const dataDetail = await api.getDetailUser()
-        const filterUser = dataUser.filter(
-            (item: any) =>
-                item.email === values.email && item.password === values.password
-        )
-        if (filterUser) {
-            return {
-                token: dataDetail.token,
-                first_name: dataDetail.first_name,
-                last_name: dataDetail.last_name,
-                image: dataDetail.image,
-                introduce_code: dataDetail.introduce_code,
-                email: dataDetail.email,
-                introduction: dataDetail.introduction,
-            }
-        }
-    }
-)
-
-export const { logoutSuccess } = authSlice.actions
+export const { modalHandle, logoutSuccess, loginAuth } = authSlice.actions
 
 export default authSlice.reducer

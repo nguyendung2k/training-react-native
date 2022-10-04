@@ -26,6 +26,7 @@ interface inputProps extends TextProps {
     secureTextEntry?: boolean
     error?: React.ReactNode
     introduction?: boolean
+    onBlur?: any
 }
 
 export default function Input({
@@ -42,6 +43,7 @@ export default function Input({
     onChangeText,
     isPassword,
     error,
+    onBlur,
 }: inputProps) {
     const [showPass, setShowPass] = useState<boolean>(true)
 
@@ -67,6 +69,7 @@ export default function Input({
                 value={value}
                 onChangeText={onChangeText}
                 multiline={introduction && true}
+                onBlur={onBlur}
             />
             {error}
             <TouchableOpacity

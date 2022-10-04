@@ -1,13 +1,22 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {
+    FlatList,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native'
+import React, { useState } from 'react'
 import { ButtonForm, HeaderAuth, ListCommunityView } from '@components'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+import { RootState } from '@redux'
+import { useSelector } from 'react-redux'
 
-const ListCommunity = () => {
-    const navigation = useNavigation<stackScreenProp>()
+const listGroupSelector = (state: RootState) => state.group.groups
+
+export const Header = () => {
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             <HeaderAuth
                 title="Getting started"
                 description="Join your communities"
@@ -15,28 +24,44 @@ const ListCommunity = () => {
                 txtContent="Choose communities you prefer"
                 txtEnd="(Up to 3 communities - 0/3)"
             />
-            <ScrollView
-                contentContainerStyle={styles.listView}
-                showsVerticalScrollIndicator={false}
-            >
-                <ListCommunityView
-                    showBox={true}
-                    title="Movies"
-                    number="20335"
-                    members="members"
-                />
-            </ScrollView>
+        </SafeAreaView>
+    )
+}
 
-            <View style={styles.btn}>
-                <View style={styles.content}>
-                    <ButtonForm
-                        label="Next"
-                        // disabled={true}
-                        disable
-                        onPress={() => navigation.navigate('RegisterEnd')}
+export const Footer = () => {
+    const navigation = useNavigation<any>()
+    return (
+        <View style={styles.btn}>
+            <ButtonForm
+                label="Next"
+                // disabled={true}
+                disable
+                onPress={() => navigation.navigate('RegisterEnd')}
+            />
+        </View>
+    )
+}
+
+const ListCommunity = () => {
+    const listGroup = useSelector(listGroupSelector)
+    const [checkBox, setCheckBox] = useState(false)
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <FlatList
+                data={listGroup}
+                renderItem={({ item }) => (
+                    <ListCommunityView
+                        onPress={() => setCheckBox(!checkBox)}
+                        item={item}
+                        showBox={true}
+                        check={checkBox}
                     />
-                </View>
-            </View>
+                )}
+                ListHeaderComponent={Header}
+                ListFooterComponent={Footer}
+                showsVerticalScrollIndicator={false}
+            />
         </SafeAreaView>
     )
 }
@@ -48,16 +73,8 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 24,
     },
-    listView: {
-        zIndex: 100,
-    },
     btn: {
-        zIndex: 1,
-        paddingTop: 32,
-        paddingBottom: 72,
-        width: '100%',
-    },
-    content: {
-        marginHorizontal: 24,
+        marginTop: 'auto',
+        marginBottom: 30,
     },
 })

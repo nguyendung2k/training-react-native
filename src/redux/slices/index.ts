@@ -4,6 +4,8 @@ import filterSlice from './filterSlice'
 import homeSlice from './homeSlice'
 import forumSlice from './forumSlice'
 import groupSlices from './groupSlice'
+import memberSlice from './memberSlice'
+import userSlice from './userSlice'
 
 const rootReducer = combineReducers({
     auth: authSlice,
@@ -11,12 +13,8 @@ const rootReducer = combineReducers({
     filters: filterSlice,
     forum: forumSlice,
     group: groupSlices,
+    member: memberSlice,
+    user: userSlice,
 })
 
 export default rootReducer
-
-export { default as authSlice } from './authSlice'
-export { default as filterSlice } from './filterSlice'
-export { default as homeSlice } from './homeSlice'
-export { default as forumSlice } from './forumSlice'
-export { default as groupSlices } from './groupSlice'

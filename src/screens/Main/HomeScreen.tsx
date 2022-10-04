@@ -1,12 +1,6 @@
-import {
-    StyleSheet,
-    View,
-    FlatList,
-    SafeAreaView,
-    ActivityIndicator,
-} from 'react-native'
+import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import {
     FooterFlatList,
@@ -21,11 +15,19 @@ import { HomeScreenProps } from '@navigation/type'
 const listGroupSelector = (state: RootState) => state.group.groups
 
 export default function HomeScreen() {
-    const dispatch = useDispatch()
     const navigation =
         useNavigation<HomeScreenProps<'HomeScreen'>['navigation']>()
-    const [groupNotJoin, setGroupNotJoin] = useState<any[]>([])
+    const [groupNotJoin, setGroupNotJoin] = useState<
+        {
+            title: string
+            image: string
+            id: string
+            total_members: number
+            joinGr: boolean
+        }[]
+    >([])
     const listGroup = useSelector(listGroupSelector)
+
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -48,8 +50,6 @@ export default function HomeScreen() {
         })
         setGroupNotJoin(filterGroup)
     }
-
-    // console.log('listGrNotJoin  : ', groupNotJoin)
 
     return (
         <SafeAreaView style={styles.container}>

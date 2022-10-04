@@ -1,14 +1,21 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    SafeAreaView,
+    KeyboardAvoidingView,
+    Platform,
+} from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 import { ButtonForm, Input, MessageError } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 
 const ForgotPassword = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation<any>()
     const checkLogin = Yup.object().shape({
         email: Yup.string()
             .email('Please enter valid email')
@@ -16,45 +23,66 @@ const ForgotPassword = () => {
     })
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.header}>Forgot Password</Text>
-            <Text style={styles.description}>
-                Enter your email and we’ll send the instruction to you
-            </Text>
-            <Formik
-                initialValues={{
-                    email: '',
-                }}
-                validationSchema={checkLogin}
-                onSubmit={(x) => console.log(x)}
+        <SafeAreaView style={{ flex: 1 }}>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
-                {({ handleSubmit, handleChange, errors, values, touched }) => (
-                    <View style={styles.form}>
-                        <Input
-                            title="Email"
-                            placeholder="Your email"
-                            onChangeText={handleChange('email')}
-                            value={values.email}
-                            error={
-                                touched.email && (
-                                    <MessageError error={errors.email} />
-                                )
-                            }
-                            primary
-                        />
-
-                        <View style={styles.btn}>
-                            <ButtonForm label="Submit" onPress={handleSubmit} />
-                        </View>
-                        <ButtonForm
-                            secondary
-                            label="Back to login"
-                            onPress={() => navigation.navigate('Login')}
-                        />
+                <ScrollView contentContainerStyle={styles.container}>
+                    <View>
+                        <Text style={styles.header}>Forgot Password</Text>
+                        <Text style={styles.description}>
+                            Enter your email and we’ll send the instruction to
+                            you
+                        </Text>
                     </View>
-                )}
-            </Formik>
-        </ScrollView>
+                    <Formik
+                        initialValues={{
+                            email: '',
+                        }}
+                        validationSchema={checkLogin}
+                        onSubmit={(x) => console.log(x)}
+                    >
+                        {({
+                            handleSubmit,
+                            handleChange,
+                            errors,
+                            values,
+                            touched,
+                        }) => (
+                            <View style={styles.form}>
+                                <Input
+                                    title="Email"
+                                    placeholder="Your email"
+                                    onChangeText={handleChange('email')}
+                                    value={values.email}
+                                    error={
+                                        touched.email && (
+                                            <MessageError
+                                                error={errors.email}
+                                            />
+                                        )
+                                    }
+                                    primary
+                                />
+
+                                <View style={styles.btn}>
+                                    <ButtonForm
+                                        label="Submit"
+                                        onPress={handleSubmit}
+                                    />
+                                </View>
+                                <ButtonForm
+                                    secondary
+                                    label="Back to login"
+                                    onPress={() => navigation.navigate('Login')}
+                                />
+                            </View>
+                        )}
+                    </Formik>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 

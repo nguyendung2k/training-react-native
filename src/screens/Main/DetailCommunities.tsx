@@ -23,23 +23,22 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AppDispatch, RootState } from '@redux/store'
 import { COLORS } from '@theme'
+import { showModal } from '@redux/slices/homeSlice'
+import { changeAttendGroup, changeLeavingGroup } from '@redux/slices/groupSlice'
+import { DetailCommunityScreenProp } from '@navigation/type'
+import ContentLoader, { Facebook } from 'react-content-loader/native'
 import {
     filterMemberByCondition,
     getDataMember,
     searchMemberByTitle,
-    showModal,
-} from '@redux/slices/homeSlice'
-import { changeAttendGroup, changeLeavingGroup } from '@redux/slices/groupSlice'
-import { DetailCommunityScreenProp } from '@navigation/type'
-import ContentLoader, { Facebook } from 'react-content-loader/native'
+} from '@redux/slices/memberSlice'
 
-const MyLoader = () => <ContentLoader />
-const MyFacebookLoader = () => <Facebook />
+// const MyLoader = () => <ContentLoader />
+// const MyFacebookLoader = () => <Facebook />
 
-const dataMemberSelector = (state: RootState) => state.home.members
+const dataMemberSelector = (state: RootState) => state.member.members
 const showConditionModal = (state: RootState) => state.home.modal
 const dataGroupSelector = (state: RootState) => state.group.groups
-// const statusJoinGroup = (state: RootState) => state.group.joinGroupStatus
 
 const DetailCommunities = () => {
     const dispatch = useDispatch<AppDispatch>()

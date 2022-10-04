@@ -1,4 +1,17 @@
 import {
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { COLORS, SIZES } from '@theme'
+import { Formik } from 'formik'
+import React, { useState } from 'react'
+import {
     ArrowRight,
     ButtonForm,
     CheckBox,
@@ -9,23 +22,9 @@ import {
     InputDrop,
     MessageError,
 } from '@components'
-import { stackScreenProp } from '@navigation/type'
-import { useNavigation } from '@react-navigation/native'
-import { COLORS, SIZES } from '@theme'
-import { Formik } from 'formik'
-import React, { useState } from 'react'
-import {
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-} from 'react-native'
 
 const Register = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation<any>()
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: 'Male' },
@@ -39,16 +38,20 @@ const Register = () => {
         { label: '2002', value: '2002' },
     ])
 
+    const [checkBox, setCheckBox] = useState(false)
+
+    const handleSubmitForm = (data: any) => {
+        console.log('data----submit: ', data)
+        // navigation.navigate('VerificationCode')
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 keyboardVerticalOffset={10}
             >
-                <ScrollView
-                    style={styles.contentBody}
-                    showsVerticalScrollIndicator={false}
-                >
+                <View style={{ marginHorizontal: 22 }}>
                     <Header
                         Icon={() => <IConBack stroke={COLORS.Neutral10} />}
                         showTextHeader
@@ -56,6 +59,11 @@ const Register = () => {
                         title="Register"
                         onPress={() => navigation.navigate('Login')}
                     />
+                </View>
+                <ScrollView
+                    style={styles.contentBody}
+                    showsVerticalScrollIndicator={false}
+                >
                     <View style={styles.content}>
                         <Text style={styles.content_title}>
                             Your SNS accounts
@@ -67,20 +75,20 @@ const Register = () => {
 
                     <Formik
                         initialValues={{
-                            youtube: '',
-                            instagram: '',
-                            twitter: '',
-                            facebook: '',
-                            whatsapp: '',
-                            email: '',
-                            password: '',
-                            username: '',
+                            youtube: '@youtube',
+                            instagram: '@instagram',
+                            twitter: '@twitter',
+                            facebook: '@facebook',
+                            whatsapp: '@whatsapp',
+                            email: 'user2@gmail.com',
+                            password: '123456',
+                            username: 'User Secondary',
                             gender: 'Male',
                             birth_year: '2000',
-                            introductionCode: '',
+                            introductionCode: 'Hello everybody',
                         }}
                         // validationSchema={checkInputTest}
-                        onSubmit={() => navigation.navigate('VerificationCode')}
+                        onSubmit={(data: any) => handleSubmitForm(data)}
                     >
                         {({
                             handleSubmit,
@@ -171,6 +179,7 @@ const Register = () => {
                                         title="Email"
                                         placeholder="Your email"
                                         onChangeText={handleChange('email')}
+                                        value={values.email}
                                         error={
                                             touched.email && (
                                                 <MessageError
@@ -188,6 +197,7 @@ const Register = () => {
                                             onChangeText={handleChange(
                                                 'password'
                                             )}
+                                            value={values.password}
                                             isPassword
                                             error={
                                                 touched.password && (
@@ -278,11 +288,15 @@ const Register = () => {
                                 <View style={styles.footer}>
                                     <CheckBox
                                         Icon={() => (
-                                            <IconCheck stroke={COLORS.White} />
+                                            <IconCheck
+                                                stroke={COLORS.Neutral0}
+                                            />
                                         )}
+                                        check={checkBox}
+                                        onPress={() => setCheckBox(!checkBox)}
                                     />
                                     <Text>
-                                        I agree to the
+                                        I agree to the <Text />
                                         <Text style={styles.footerTxtPrimary}>
                                             Terms of Use
                                         </Text>
@@ -357,13 +371,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     btn: {
-        marginBottom: 18,
+        marginBottom: 50,
         marginTop: 36,
     },
     footer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 33,
+        // marginBottom: 30,
     },
 
     footerTxtPrimary: {

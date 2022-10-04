@@ -9,14 +9,12 @@ interface cardInfoProps {
     secondary?: boolean
     primary?: boolean
 }
-const dataUserSelector = (state: RootState) => state.auth.user
-const userUpdateSelector = (state: RootState) => state.home.user
+const dataUserSelector = (state: RootState) => state.user.userDetail
+const userUpdateSelector = (state: RootState) => state.user.userUpdate
 
 const CardInfo = ({ secondary, primary }: cardInfoProps) => {
     const dataUser = useSelector(dataUserSelector)
     const userUpdate = useSelector(userUpdateSelector)
-
-    console.log('dataUser: ', dataUser)
 
     return (
         <View style={[styles.container, primary && styles.containerPrimary]}>
@@ -60,11 +58,7 @@ const CardInfo = ({ secondary, primary }: cardInfoProps) => {
                             secondary && styles.titleSecondary,
                         ]}
                     >
-                        {userUpdate.name
-                            ? userUpdate.name
-                            : dataUser.first_name}
-                        <Text> </Text>
-                        {dataUser.last_name}
+                        {userUpdate.name ? userUpdate.name : dataUser.full_name}
                     </Text>
                     <CardId />
                 </View>

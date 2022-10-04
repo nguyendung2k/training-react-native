@@ -17,32 +17,75 @@ interface forumScreenProps {
     id: string
 }
 
-const listPostUpdateSelector = (state: RootState) => state.forum.posts
-const userUpdateSelector = (state: RootState) => state.home.user
+const userUpdateSelector = (state: RootState) => state.user.userUpdate
+const likePostSelector = (state: RootState) => state.forum.like
+const dataLikePostSelector = (state: RootState) => state.forum.likes
+const postsSelector = (state: RootState) => state.forum.posts
 const dataCommentSelector = (state: RootState) => state.forum.comments
-const dataLikePostSelector = (state: RootState) => state.forum.like
-const likeQuantitySelector = (state: RootState) => state.forum.quantityLike
 
 const ForumScreen = ({ id }: forumScreenProps) => {
     const dispatch = useDispatch()
     const navigation =
         useNavigation<CommentScreenProp<'CommentForumScreen'>['navigation']>()
-    const checkLikePost = useSelector(dataLikePostSelector)
-    const like = useSelector(likeQuantitySelector)
-    const [dataPosts, setDataPosts] = useState<any[]>([])
-    const [pagePost, setPagePost] = useState(1)
-    const [loading, setLoading] = useState<boolean>(false)
+    const checkLikePost = useSelector(likePostSelector)
 
-    useEffect(() => {
-        const getData = async () => {
-            const urlApi = `https://631ff913e3bdd81d8eefe904.mockapi.io/posts/?page=${pagePost}&limit=5`
-            const response = await axios.get(urlApi)
-            const result: [] = response.status === 200 ? response.data : []
-            setLoading(false)
-            setDataPosts(dataPosts.concat(result))
-        }
-        getData()
-    }, [pagePost])
+    const dataPosts = useSelector(postsSelector)
+    const dataComment = useSelector(dataCommentSelector)
+    const dataLike = useSelector(dataLikePostSelector)
+    // useEffect(() => {
+    //   checkPost()
+    // }, [])
+
+    // console.log('dataComment: ', dataComment)
+
+    // const checkPost = () => {
+    //     const postById = dataPosts.
+    // }
+
+    // console.log('forum Post: ', dataPosts)
+
+    // console.log('dataPosts: ', dataPosts)
+
+    // const [posts, setPosts] = useState<any>([])
+    // const [pagePost, setPagePost] = useState(1)
+    // const [loading, setLoading] = useState<boolean>(false)
+
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const urlApi = `https://631ff913e3bdd81d8eefe904.mockapi.io/posts/?page=1&limit=5`
+    //         const response = await axios.get(urlApi)
+    //         const result: [] = response.status === 200 ? response.data : []
+    //         // setLoading(false)
+    //         if (dataPosts.title !== '' && dataPosts.body !== '') {
+    //             setPosts(posts.concat(dataPosts))
+    //             console.log('post--:', posts)
+    //         } else {
+    //             setPosts(result)
+    //         }
+    //         // dispatch(getPost(posts.concat(result)))
+    //     }
+    //     getData()
+    // }, [])
+
+    // const handleAddPost = () => {
+    //     if (dataPosts.title !== '' && dataPosts.body !== '') {
+    //         setPosts(posts.unshift(dataPosts))
+    //         console.log('post--:', posts)
+    //     }
+    // }
+
+    // console.log('add post: ', posts.concat(dataPosts))
+    const handleAmountReply = (index: string) => {
+        const amountReply = dataComment.find(
+            (comment) => comment.post_id === index
+        )
+        return amountReply ? amountReply?.data.length : 0
+    }
+
+    const handleAmountLike = (id: string) => {
+        const amountLike = dataLike.find((like) => like.id === id)
+        return amountLike ? amountLike?.data.length : 0
+    }
 
     const handlePressPost = (id: { id: string }) => {
         navigation.navigate('CommentForumScreen', id)
@@ -55,19 +98,30 @@ const ForumScreen = ({ id }: forumScreenProps) => {
         navigation.navigate('CommentForumScreen', id)
     }
 
-    const handleLoadMorePost = () => {
-        setPagePost(pagePost + 1)
-        setDataPosts(dataPosts)
-        setLoading(true)
-    }
+    // const handleLoadMorePost = () => {
+    //     // setPagePost(pagePost + 1)
+    //     setPosts(posts)
+    //     // setLoading(true)
+    // }
+
+    // console.log('dataPost: ', dataPosts)
 
     const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
-        if (checkLikePost.includes(id)) {
-            dispatch(onChangeUnlikePost())
-        } else {
-            dispatch(onChangeLikePost())
-        }
+        // if (checkLikePost.includes(id)) {
+        //     // dispatch(onChangeUnlikePost())
+        //     dispatch(onChangeLikePost())
+        // } else {
+        //     dataLike.find((item) => {
+        //         // return item.id.includes(
+        //         //     dataLike.filter((item) => {
+        //         //         return item.post_id
+        //         //     })
+        //         // )
+        //     })
+
+        //     // console.log('12312: ', checkLikePost)
+        // }
     }
 
     return (
@@ -90,8 +144,8 @@ const ForumScreen = ({ id }: forumScreenProps) => {
                         renderItem={({ item }) => {
                             return (
                                 <ListPost
-                                    quantityLike={like}
-                                    quantityComment={0}
+                                    quantityLike={handleAmountLike(item.id)}
+                                    quantityComment={handleAmountReply(item.id)}
                                     primary
                                     onPress={() => handlePressPost(item.id)}
                                     onLikePost={() => handleOnLikePost(item.id)}
@@ -107,9 +161,9 @@ const ForumScreen = ({ id }: forumScreenProps) => {
                         }}
                         keyExtractor={(_, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
-                        onEndReached={handleLoadMorePost}
-                        onEndReachedThreshold={0}
-                        ListFooterComponent={loading ? Loading : null}
+                        // onEndReached={handleLoadMorePost}
+                        // onEndReachedThreshold={0}
+                        // ListFooterComponent={loading ? Loading : null}
                     />
                 </View>
             </View>
@@ -133,6 +187,5 @@ const styles = StyleSheet.create({
     },
     contentPost: {
         marginHorizontal: 24,
-        // marginBottom: 100,
     },
 })

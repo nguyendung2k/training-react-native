@@ -2,8 +2,20 @@ import { createSlice } from '@reduxjs/toolkit'
 import dataGroup from '../../services/groupsData.json'
 
 interface groupState {
-    groups: any[]
-    findGroup: any[]
+    groups: {
+        title: string
+        image: string
+        total_members: number
+        id: string
+        joinGr: boolean
+    }[]
+    findGroup: {
+        title: string
+        image: string
+        total_members: number
+        id: string
+        joinGr: boolean
+    }[]
 }
 
 const initialState: groupState = {
@@ -19,7 +31,7 @@ export const groupSlices = createSlice({
             const findGroup = state.groups.filter((item) => {
                 return item.id === action.payload
             })
-            console.log('123:', findGroup)
+
             state.findGroup = findGroup
         },
         changeLeavingGroup(state, action) {
@@ -43,7 +55,6 @@ export const groupSlices = createSlice({
         searchGroupByValue(state, action) {
             const valueFilter = action.payload
             const filterGroup = initialState.groups.filter((item) => {
-                console.log('valueFilter: ', valueFilter)
                 if (valueFilter === '') {
                     return item
                 } else if (valueFilter.trim() == '') {

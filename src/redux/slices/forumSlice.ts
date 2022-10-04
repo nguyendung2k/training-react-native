@@ -1,33 +1,38 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { apiPosts } from '@services/posts'
+import { createSlice } from '@reduxjs/toolkit'
 import dataComment from '../../services/commentData.json'
+import dataPosts from '../../services/postData.json'
+import dataLike from '../../services/likeData.json'
 
 interface IState {
     posts: {
-        id: string
+        id: string | any
         title: string
-        description: string
         image: string
-        body?: string
-        quantity_like?: string
-        quantity_comment?: string
-    }
-    comments: any[]
+        body: string
+        createdAt: string
+    }[]
+    comments: {
+        post_id: string
+        data: {
+            createdAt: string
+            name: string
+            avatar: string
+            body: string
+            id: string
+        }[]
+    }[]
     like: any[]
-    quantityLike: number
+    likes: any[]
 }
 
 const initialState: IState = {
     comments: dataComment,
-    posts: {
-        id: '',
-        title: '',
-        description: '',
-        image: '',
-    },
+    posts: dataPosts,
     like: [],
-    quantityLike: 0,
+    likes: dataLike,
 }
+
+//  "createdAt": "2069-03-09T04:23:28.128Z",
 
 export const forumSlice = createSlice({
     name: 'forum',
@@ -43,31 +48,39 @@ export const forumSlice = createSlice({
             }
         },
         onChangeLikePost(state) {
-            state.quantityLike = initialState.quantityLike + 1
+            // state.quantityLike = initialState.quantityLike + 1
         },
         onChangeUnlikePost(state) {
-            state.quantityLike = initialState.quantityLike
+            // state.quantityLike = initialState.quantityLike
         },
         addComment(state, action) {
             const dataPayload = action.payload
+            console.log('dataComment----: ', action.payload)
             state.comments = dataPayload
         },
-        addPost(state, action) {},
-    },
-    extraReducers(builder) {
-        builder.addCase(getPostById.fulfilled, (state, action) => {
+        // getPost(state, action) {
+        //     // console.log('action payload: ', action.payload)
+        //     state.posts = action.payload
+        // },
+        addPost(state, action) {
+            // console.log('action payload: ', action.payload)
             state.posts = action.payload
-        })
+        },
     },
+    // extraReducers(builder) {
+    //     builder.addCase(getPostById.fulfilled, (state, action) => {
+    //         state.posts = action.payload
+    //     })
+    // },
 })
 
-export const getPostById: any = createAsyncThunk(
-    'forum/getPostById',
-    async (id: string) => {
-        const dataPostById = await apiPosts.getPostsById(id)
-        return dataPostById
-    }
-)
+// export const getPostById: any = createAsyncThunk(
+//     'forum/getPostById',
+//     async (id: string) => {
+//         const dataPostById = await apiPosts.getPostsById(id)
+//         return dataPostById
+//     }
+// )
 
 export const {
     likePostById,

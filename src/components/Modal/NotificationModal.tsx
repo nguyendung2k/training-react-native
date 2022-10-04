@@ -3,12 +3,22 @@ import React from 'react'
 import { BORDER, COLORS, SIZES } from '@theme'
 
 interface notificationModalProps {
-    name: string
+    name?: string
     ICon?: () => JSX.Element
     onPress?: () => void
+    primary?: boolean
+    secondary?: boolean
+    tertiary?: boolean
 }
 
-const NotificationModal = ({ name, ICon, onPress }: notificationModalProps) => {
+const NotificationModal = ({
+    name,
+    ICon,
+    onPress,
+    primary,
+    secondary,
+    tertiary,
+}: notificationModalProps) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -18,9 +28,19 @@ const NotificationModal = ({ name, ICon, onPress }: notificationModalProps) => {
             <View style={styles.content}>
                 <TouchableOpacity>{!!ICon && <ICon />}</TouchableOpacity>
                 <Text style={styles.infoNotice}>
-                    You and
-                    <Text style={styles.blockText}> {name} </Text>
-                    have become friends
+                    {primary && (
+                        <>
+                            You and
+                            <Text style={styles.blockText}> {name} </Text>
+                            have become friends
+                        </>
+                    )}
+                    {secondary && (
+                        <Text style={styles.blockText}>
+                            Change password successfully
+                        </Text>
+                    )}
+                    {tertiary && <Text>Email or Password not correct!</Text>}
                 </Text>
             </View>
         </TouchableOpacity>

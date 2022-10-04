@@ -1,27 +1,28 @@
 import { Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
-import { useDispatch } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
 import {
     BaseModal,
     ButtonAccountMenu,
     ButtonForm,
     CardInfo,
     Header,
+    IconCheckCircle,
     IconLockKeyOpen,
     IconProhibit,
     IconSignOut,
     IconUserCircle,
     IconWarning,
+    NotificationModal,
 } from '@components'
-import { RootState, useAppSelector } from '@redux'
+import { RootState } from '@redux'
 import { useNavigation } from '@react-navigation/native'
-
 import { COLORS } from '@theme'
-import { showModal } from '@redux/slices/homeSlice'
 import { AccountScreenProp } from '@navigation/type'
+import { modalHandle } from '@redux/slices/authSlice'
+import { showNotice } from '@redux/slices/userSlice'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -31,23 +32,30 @@ Notifications.setNotificationHandler({
     }),
 })
 
+const showNoticeSelector = (state: RootState) => state.user.modal
+const showModalSelector = (state: RootState) => state.auth.showModal
+
 const AccountScreen = () => {
     const dispatch = useDispatch()
     const navigation =
         useNavigation<AccountScreenProp<'AccountStackScreen'>['navigation']>()
-
-    const modal = useAppSelector(
-        (state: RootState) => state.home.modal.showModal
-    )
+    const showModal = useSelector(showModalSelector)
+    const showNoticeModal = useSelector(showNoticeSelector)
 
     const handleShowModal = () => {
-        dispatch(showModal({ showModal: true }))
+        dispatch(modalHandle(true))
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(showNotice(false))
+        }, 1500)
+    }, [showNoticeModal])
 
     useEffect(() => {
         registerForPushNotificationsAsync()
             .then((token: string | undefined) => {
-                console.log('token: ', token)
+                // console.log('token: ', token)
             })
             .catch((e) => {
                 console.log('error: ', e)
@@ -93,6 +101,15 @@ const AccountScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.notification}>
+                {showNoticeModal && (
+                    <NotificationModal
+                        onPress={() => dispatch(showNotice(false))}
+                        secondary
+                        ICon={() => <IconCheckCircle fill={COLORS.Primary} />}
+                    />
+                )}
+            </View>
             <ScrollView
                 style={styles.content}
                 showsVerticalScrollIndicator={false}
@@ -142,7 +159,7 @@ const AccountScreen = () => {
                     />
                 </View>
 
-                {modal ? (
+                {showModal ? (
                     <View style={styles.showModal}>
                         <BaseModal
                             title="Do you want to Log out?"
@@ -175,5 +192,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '37%',
         left: '10%',
+    },
+    notification: {
+        position: 'absolute',
+        top: 15,
+        left: 18,
+        zIndex: 100,
     },
 })

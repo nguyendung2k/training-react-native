@@ -10,16 +10,28 @@ interface listViewProps {
     number?: string
     members?: string
     showBox?: boolean
+    check?: boolean
     source?: any
-    item?: { id: string; title: string; image: string; total_members: string }
+    item: {
+        id: string | { id: string }
+        title: string
+        image: string
+        total_members: number
+        joinGr: boolean
+    }
     onPress?: () => void | undefined
 }
 
-const ListCommunityView = ({ showBox, onPress, item }: listViewProps) => {
+const ListCommunityView = ({
+    showBox,
+    onPress,
+    item,
+    check,
+}: listViewProps) => {
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
-            <View style={styles.checkbox}>
-                {showBox && <CheckBox Icon={() => <Check />} />}
+            <View style={[styles.checkbox]}>
+                {showBox && <CheckBox check={check} Icon={() => <Check />} />}
             </View>
             <View style={styles.content}>
                 <Image source={{ uri: item?.image }} style={styles.image} />

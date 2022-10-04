@@ -11,7 +11,7 @@ interface inputReplyProps {
     onChangeText?: (value: string) => void
 }
 
-const userUpdateSelector = (state: any) => state.home.user
+const userUpdateSelector = (state: any) => state.user.userUpdate
 
 const InputReplyPost = ({
     avatar,

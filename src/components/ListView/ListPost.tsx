@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -19,15 +18,16 @@ interface postedProps {
     quantityComment?: string | number
     item: {
         id: string
-        body: string
-        image: string
-        title: string
-        name: string
-        time: number
+        body?: string
+        image?: string
+        title?: string
+        name?: string
+        time?: number
     }
 }
 
 const dataLikePostSelector = (state: RootState) => state.forum.like
+const postedSelector = (state: RootState) => state.forum.posts
 
 const ListPost = ({
     onPress,
@@ -42,13 +42,17 @@ const ListPost = ({
 }: postedProps) => {
     const checkLikePost = useSelector(dataLikePostSelector)
     const isLike = checkLikePost.includes(item.id)
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation()
+    const dataPosts = useSelector(postedSelector)
+
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
                 <View>
                     <Image
-                        source={{ uri: item.image }}
+                        source={{
+                            uri: item.image,
+                        }}
                         style={styles.postedImage}
                     />
                 </View>

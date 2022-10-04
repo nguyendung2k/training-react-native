@@ -6,35 +6,47 @@ import { InputReplyPost, Posted } from '@components'
 import { RootState } from '@redux/store'
 import {
     addComment,
-    getPostById,
     likePostById,
     onChangeLikePost,
     onChangeUnlikePost,
 } from '@redux/slices/forumSlice'
 
-const dataUserSelector = (state: RootState) => state.auth.user
-const dataPostByIdSelector = (state: RootState) => state.forum.posts
+const userUpdateSelector = (state: RootState) => state.user.userUpdate
+const dataUserSelector = (state: RootState) => state.user.userDetail
+
 const likePostSelector = (state: RootState) => state.forum.like
-const likeQuantitySelector = (state: RootState) => state.forum.quantityLike
+const dataLikePostSelector = (state: RootState) => state.forum.likes
+
+const dataPostSelector = (state: RootState) => state.forum.posts
 const dataCommentSelector = (state: RootState) => state.forum.comments
-const userUpdateSelector = (state: RootState) => state.home.user
 
 const HeaderCommentForumFlatList = () => {
     const dispatch = useDispatch()
     const idFromParam: any = useRoute().params
     const dataComment = useSelector(dataCommentSelector)
+    const dataLike = useSelector(dataLikePostSelector)
 
-    const dataPost = useSelector(dataPostByIdSelector)
+    const dataPost = useSelector(dataPostSelector)
     const dataUser = useSelector(dataUserSelector)
-    const like = useSelector(likeQuantitySelector)
+
     const checkLikePost = useSelector(likePostSelector)
     const userUpdate = useSelector(userUpdateSelector)
 
     const [valueText, setValueText] = useState<string>('')
+    const [dataPostById, setDataPostById] = useState<any>()
+
+    const amountReply = dataComment.find(
+        (comment) => comment.post_id === idFromParam
+    )
+
+    const handleAmountLike = (id: string) => {
+        const amountLike = dataLike.find((like) => like.id === id)
+        return amountLike ? amountLike?.data.length : 0
+    }
 
     useEffect(() => {
-        dispatch(getPostById(idFromParam))
-    }, [])
+        handleFindPostById(idFromParam)
+    }, [idFromParam])
 
     const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
@@ -45,30 +57,56 @@ const HeaderCommentForumFlatList = () => {
         }
     }
 
+    const handleFindPostById = (idFromParam: string) => {
+        const findPost = dataPost.find((item) => {
+            return item.id === idFromParam
+        })
+
+        setDataPostById(findPost)
+    }
+
     const handleComment = (id: string) => {
         if (valueText) {
-            const copyData = [...dataComment]
-            copyData.forEach((item, index) => {
+            let copyDataComment = [...dataComment]
+            copyDataComment.forEach((item, index) => {
                 if (item.post_id === id) {
-                    copyData[index] = {
-                        ...copyData[index],
+                    copyDataComment[index] = {
+                        ...copyDataComment[index],
                         data: [
                             {
-                                name: `${dataUser.first_name} ${dataUser.last_name}`,
+                                name: dataUser.full_name,
                                 avatar: userUpdate.image
                                     ? userUpdate.image
                                     : dataUser.image,
                                 body: valueText,
                                 id: Math.random().toString(),
-                                createdAt: Date.now().toString(),
+                                createdAt: new Date().toISOString(),
                             },
-                            ...copyData[index].data,
+                            ...copyDataComment[index].data,
                         ],
                     }
+                } else if (item.post_id !== id) {
+                    copyDataComment = [
+                        ...copyDataComment,
+                        {
+                            post_id: id,
+                            data: [
+                                {
+                                    name: dataUser.full_name,
+                                    avatar: userUpdate.image
+                                        ? userUpdate.image
+                                        : dataUser.image,
+                                    body: valueText,
+                                    id: Math.random().toString(),
+                                    createdAt: Date.now().toString(),
+                                },
+                            ],
+                        },
+                    ]
                 }
             })
             setValueText('')
-            dispatch(addComment(copyData))
+            dispatch(addComment(copyDataComment))
         }
     }
     return (
@@ -76,22 +114,25 @@ const HeaderCommentForumFlatList = () => {
             <ScrollView style={styles.commentContainer}>
                 <View style={styles.posted}>
                     <Posted
-                        id={dataPost.id}
-                        name="Esther Howard"
-                        title={dataPost.title}
-                        contentHeader={dataPost.body}
-                        // quantityComment={dataComment.length}
+                        id={dataPostById?.id}
+                        name={dataPostById?.name}
+                        title={dataPostById?.title}
+                        contentHeader={dataPostById?.body}
+                        quantityComment={
+                            amountReply?.data.length === undefined
+                                ? 0
+                                : amountReply.data.length
+                        }
                         secondary
-                        onLikePost={() => handleOnLikePost(dataPost.id)}
-                        image_link={dataPost.image}
+                        onLikePost={() => handleOnLikePost(dataPostById?.id)}
+                        image_link={dataPostById?.image}
                         timeDetail="8:50PM"
-                        dateDetail="23 Sep 2021 "
-                        quantityLike={like}
+                        dateDetail={dataPostById?.createdAt}
+                        quantityLike={handleAmountLike(idFromParam)}
                     />
-
                     <View>
                         <InputReplyPost
-                            onPress={() => handleComment(dataPost.id)}
+                            onPress={() => handleComment(dataPostById.id)}
                             avatar={dataUser.image}
                             value={valueText}
                             onChangeText={setValueText}

@@ -8,6 +8,7 @@ interface headerAuth {
     number?: string
     txtContent?: string
     txtEnd?: string
+    primary?: boolean
 }
 
 const HeaderAuth = ({
@@ -16,11 +17,16 @@ const HeaderAuth = ({
     number,
     txtContent,
     txtEnd,
+    primary,
 }: headerAuth) => {
     return (
         <View>
             <View style={styles.image}>
-                <Image source={require('../../assets/images/LogoBlue.png')} />
+                {primary && (
+                    <Image
+                        source={require('../../assets/images/LogoBlue.png')}
+                    />
+                )}
             </View>
             <View>
                 <Text style={styles.title}>{title}</Text>

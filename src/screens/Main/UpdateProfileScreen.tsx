@@ -24,10 +24,10 @@ import {
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
-import { updateUser } from '@redux/slices/homeSlice'
+import { updateUser } from '@redux/slices/userSlice'
 
-const dataUserSelector = (state: RootState) => state.auth.user
-const userUpdateSelector = (state: RootState) => state.home.user
+const dataUserSelector = (state: RootState) => state.user.userDetail
+const userUpdateSelector = (state: RootState) => state.user.userUpdate
 
 const inputChooseSocial = [
     {
@@ -43,7 +43,9 @@ const UpdateProfileScreen = () => {
     const userUpdate = useSelector(userUpdateSelector)
 
     const [email, setEmail] = useState<string>(dataUser.email)
-    const [first_name, setFirst_name] = useState<string>(dataUser.first_name)
+    const [full_name, setFull_name] = useState<string>(
+        userUpdate.name ? userUpdate.name : dataUser.full_name
+    )
 
     const [introduction, setIntroduction] = useState<string>(
         userUpdate.introduction
@@ -73,6 +75,8 @@ const UpdateProfileScreen = () => {
         { label: '2001', value: '2001' },
         { label: '2002', value: '2002' },
     ])
+
+    console.log('dataUser: ', dataUser)
 
     const [arrayChooseSocial, setArrayChooseSocial] =
         useState(inputChooseSocial)
@@ -106,7 +110,7 @@ const UpdateProfileScreen = () => {
         dispatch(
             updateUser({
                 email: email,
-                name: first_name,
+                name: full_name,
                 introduction: introduction,
                 image: image,
             })
@@ -159,10 +163,10 @@ const UpdateProfileScreen = () => {
                             />
                             <Input
                                 title="Username"
-                                value={first_name}
+                                value={full_name}
                                 primary
                                 onChangeText={(value: string) =>
-                                    setFirst_name(value)
+                                    setFull_name(value)
                                 }
                             />
                             <View style={styles.inputDrop}>

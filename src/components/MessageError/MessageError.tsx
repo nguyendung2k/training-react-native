@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 interface messageErrorProps {
-    error?: string
+    error?: string | React.ReactNode
 }
 
 const MessageError = ({ error }: messageErrorProps) => {

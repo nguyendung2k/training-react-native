@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
 import { HeaderSlide, SlideCommunityView } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
-import { api } from '@services/user'
 import { CommunitiesScreenProp } from '@navigation/type'
 
-const userUpdateSelector = (state: RootState) => state.home.user
+const userUpdateSelector = (state: RootState) => state.user.userUpdate
+const userDetailSelector = (state: RootState) => state.user.userDetail
 const dataGroupSelector = (state: RootState) => state.group.groups
 
 const HeaderFlatList = () => {
@@ -16,18 +16,14 @@ const HeaderFlatList = () => {
         useNavigation<
             CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
         >()
+    const user = useSelector(userDetailSelector)
+    console.log('userDetail--', user)
     const userUpdate = useSelector(userUpdateSelector)
     const dataGroup = useSelector(dataGroupSelector)
 
-    const [dataUser, setDataUser] = useState<any>({})
     const [groupJoin, setGroupJoin] = useState<any>([])
 
     useEffect(() => {
-        const getDataUser = async () => {
-            const data = await api.getDetailUser()
-            setDataUser(data)
-        }
-        getDataUser()
         filterGroupByJoin()
     }, [dataGroup])
 
@@ -42,8 +38,6 @@ const HeaderFlatList = () => {
         navigation.navigate('DetailCommunities', id)
     }
 
-    console.log('groupJoin: ', groupJoin)
-
     return (
         <View>
             <View style={styles.header}>
@@ -52,7 +46,7 @@ const HeaderFlatList = () => {
                         source={{
                             uri: userUpdate.image
                                 ? userUpdate.image
-                                : dataUser.image,
+                                : user.image,
                         }}
                         style={styles.image}
                     />
@@ -60,11 +54,7 @@ const HeaderFlatList = () => {
                 <View>
                     <Text style={styles.header_Title}>Hello</Text>
                     <Text style={styles.header_Name}>
-                        {userUpdate.name
-                            ? userUpdate.name
-                            : dataUser.first_name}
-                        <Text> </Text>
-                        {dataUser.last_name}
+                        {userUpdate.name ? userUpdate.name : user.full_name}
                     </Text>
                 </View>
             </View>

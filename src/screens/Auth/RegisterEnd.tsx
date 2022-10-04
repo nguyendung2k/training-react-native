@@ -9,7 +9,6 @@ import {
     SafeAreaView,
 } from 'react-native'
 import React, { useState } from 'react'
-
 import { Formik } from 'formik'
 import {
     ButtonForm,
@@ -19,7 +18,9 @@ import {
     InputDrop,
 } from '@components'
 
+import { useNavigation } from '@react-navigation/native'
 const RegisterEnd = () => {
+    const navigation = useNavigation<any>()
     const [valueProfession, setValueProfession] = useState<string>('Singer')
     const [itemsProfession, setItemsProfession] = useState<any[]>([
         { label: 'Singer', value: 'Singer' },
@@ -40,6 +41,10 @@ const RegisterEnd = () => {
         { label: '2002', value: '2002' },
     ])
 
+    const handelSubmitForm = () => {
+        navigation.navigate('Login')
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <KeyboardAvoidingView
@@ -52,6 +57,7 @@ const RegisterEnd = () => {
                         description="Personal Introduction"
                         txtContent="Profile picture"
                         number="3"
+                        primary
                     />
 
                     <View style={styles.content}>
@@ -74,7 +80,7 @@ const RegisterEnd = () => {
                             introduction: '',
                         }}
                         // validationSchema={checkInputTest}
-                        onSubmit={(values) => console.log('values', values)}
+                        onSubmit={handelSubmitForm}
                     >
                         {({
                             handleSubmit,

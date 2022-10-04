@@ -20,15 +20,14 @@ const CommentForumScreen = () => {
 
     const [comments, setComments] = useState<
         {
+            createdAt: string
+            name: string
             avatar: string
             body: string
             id: string
-            name: string
-            createAt: string
         }[]
-    >([])
+    >()
     const dataComment = useSelector(dataCommentSelector)
-
     useEffect(() => {
         handleGetForumComment(idFromParam)
     }, [dataComment])

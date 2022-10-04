@@ -18,7 +18,7 @@ import {
     YourProfileScreen,
 } from '@screens'
 const RootStack = createNativeStackNavigator()
-const tokenUser = (state: RootState) => state.auth.user?.token
+const tokenUser = (state: RootState) => state.auth.token
 
 const MyStack = () => {
     const token = useSelector(tokenUser)

@@ -3,17 +3,16 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { IconCopy } from '@components'
 import { SIZES, COLORS } from '@theme'
+import { RootState } from '@redux/store'
 
-const dataUserSelector = (state: any) => state.auth.user
+const dataUserSelector = (state: RootState) => state.user.userDetail
 
 const CardId = () => {
     const dataUser = useSelector(dataUserSelector)
-    // console.log('dataUser++++', dataUser)
-
+    // console.log('dataUser---', dataUser)
     return (
         <View style={styles.container}>
             <Text style={styles.txtID}>ID: {dataUser.introduce_code}</Text>
-
             <TouchableOpacity activeOpacity={0.5}>
                 <IconCopy stroke={'#5A636D'} />
             </TouchableOpacity>
