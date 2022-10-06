@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import dataComment from '../../services/commentData.json'
-import dataPosts from '../../services/postData.json'
-import dataLike from '../../services/likeData.json'
+import { dataComment, dataLike, dataPosts } from '@services'
 
 interface IState {
     posts: {

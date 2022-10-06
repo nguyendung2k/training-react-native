@@ -1,5 +1,3 @@
-import { apiGroup } from './../../services/groups'
-import { apiMember } from './../../services/members'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface iState {
@@ -27,8 +25,6 @@ export const homeSlice = createSlice({
             state.modal = initialState.modal
         },
         showNoticeSuccess(state, action) {
-            console.log('payload: ', action.payload)
-
             state.notice = action.payload
         },
     },

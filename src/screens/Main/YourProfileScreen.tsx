@@ -332,7 +332,9 @@ const styles = StyleSheet.create({
         zIndex: 10,
         marginLeft: 10,
     },
-    notification: { marginTop: 36 },
+    notification: {
+        marginTop: 36,
+    },
     blockActiveLog: {
         minHeight: 338,
         width: '100%',

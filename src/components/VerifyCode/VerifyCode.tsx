@@ -14,27 +14,24 @@ const VerifyCode = () => {
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT })
 
     return (
-        <View>
-            <CodeField
-                ref={ref}
-                // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-                value={value}
-                onChangeText={setValue}
-                cellCount={CELL_COUNT}
-                rootStyle={styles.codeFieldRoot}
-                keyboardType="number-pad"
-                renderCell={({ index, symbol, isFocused }) => (
-                    <View style={styles.box} key={index}>
-                        <Text
-                            style={[styles.cell, isFocused && styles.focusCell]}
-                        >
-                            {symbol || (isFocused ? <Cursor /> : null)}
-                        </Text>
-                        <View></View>
-                    </View>
-                )}
-            />
-        </View>
+        <CodeField
+            ref={ref}
+            // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+            value={value}
+            onChangeText={setValue}
+            cellCount={CELL_COUNT}
+            rootStyle={styles.codeFieldRoot}
+            keyboardType="number-pad"
+            renderCell={({ index, symbol, isFocused }) => (
+                <View style={styles.box} key={index}>
+                    <Text style={[styles.cell, isFocused && styles.focusCell]}>
+                        {symbol || (isFocused ? <Cursor /> : null)}
+                    </Text>
+                    <View></View>
+                </View>
+            )}
+            textContentType="oneTimeCode"
+        />
     )
 }
 

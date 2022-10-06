@@ -5,18 +5,26 @@ import { IconCopy } from '@components'
 import { SIZES, COLORS } from '@theme'
 import { RootState } from '@redux/store'
 
+interface cardId {
+    onPress?: () => void
+}
+
 const dataUserSelector = (state: RootState) => state.user.userDetail
 
-const CardId = () => {
+const CardId = ({ onPress }: cardId) => {
     const dataUser = useSelector(dataUserSelector)
     // console.log('dataUser---', dataUser)
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            onPress={onPress}
+            activeOpacity={0.5}
+            style={styles.container}
+        >
             <Text style={styles.txtID}>ID: {dataUser.introduce_code}</Text>
-            <TouchableOpacity activeOpacity={0.5}>
+            <TouchableOpacity>
                 <IconCopy stroke={'#5A636D'} />
             </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
     )
 }
 

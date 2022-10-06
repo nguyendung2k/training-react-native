@@ -112,12 +112,11 @@ const AccountScreen = () => {
                 style={styles.content}
                 showsVerticalScrollIndicator={false}
             >
-                <View>
-                    <Header title="Account" showTextHeader primary />
-                </View>
-                <View>
-                    <CardInfo primary />
-                </View>
+                <Header title="Account" showTextHeader primary />
+                <CardInfo
+                    primary
+                    onPress={() => navigation.navigate('YourProfileScreen')}
+                />
                 <View style={styles.btn}>
                     <ButtonAccountMenu
                         label="Your profile"

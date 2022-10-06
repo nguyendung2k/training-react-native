@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { userData } from '../../services/index'
+import { userData } from '@services'
 
 interface iState {
     user: {

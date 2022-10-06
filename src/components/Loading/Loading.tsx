@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 const Loading = () => (
     <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color={COLORS.Primary} />
+        <ActivityIndicator size="small" color={COLORS.Primary} />
     </View>
 )
 

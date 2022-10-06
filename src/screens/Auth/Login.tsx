@@ -36,11 +36,7 @@ const Login = ({ navigation }: any) => {
     const userData = useSelector(userSelector)
     const notice = useSelector(noticeSelector)
 
-    const [notification, setNotification] = useState<boolean>(notice)
-
     const [showNotice, setShowNotice] = useState<boolean>(false)
-
-    console.log('notification', notice)
 
     useEffect(() => {
         setTimeout(() => {

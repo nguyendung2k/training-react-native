@@ -7,6 +7,7 @@ import groupSlices from './groupSlice'
 import memberSlice from './memberSlice'
 import userSlice from './userSlice'
 import registerSlice from './registerSlice'
+
 export * from './registerSlice'
 export * from './userSlice'
 export * from './memberSlice'

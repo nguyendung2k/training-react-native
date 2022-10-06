@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import dataGroup from '../../services/groupsData.json'
+import { dataGroup } from '@services'
 
 interface groupState {
     groups: {

@@ -23,8 +23,11 @@ const FooterFlatList = () => {
     return (
         <View>
             <TouchableOpacity activeOpacity={1} style={styles.btn}>
-                <ButtonNoBg title="See all" onPress={handleSeeAllGroup} />
-                <IconCaretRight stroke={COLORS.Primary} />
+                <ButtonNoBg
+                    title="See all"
+                    onPress={handleSeeAllGroup}
+                    Icon={() => <IconCaretRight stroke={COLORS.Primary} />}
+                />
             </TouchableOpacity>
 
             <View style={styles.btnGroup}>
