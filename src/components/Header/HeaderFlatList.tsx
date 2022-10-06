@@ -17,7 +17,7 @@ const HeaderFlatList = () => {
             CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
         >()
     const user = useSelector(userDetailSelector)
-    console.log('userDetail--', user)
+    // console.log('userDetail--', user)
     const userUpdate = useSelector(userUpdateSelector)
     const dataGroup = useSelector(dataGroupSelector)
 

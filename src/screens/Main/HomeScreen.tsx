@@ -1,4 +1,10 @@
-import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
+import {
+    StyleSheet,
+    View,
+    FlatList,
+    SafeAreaView,
+    StatusBar,
+} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
@@ -51,8 +57,16 @@ export default function HomeScreen() {
         setGroupNotJoin(filterGroup)
     }
 
+    // console.log('loading: ', loading)
+
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar
+                barStyle="dark-content"
+                hidden={false}
+                backgroundColor={COLORS.Neutral0}
+                // translucent={true}
+            />
             {loading ? (
                 <View style={styles.loading}>
                     <Loading />
@@ -64,7 +78,7 @@ export default function HomeScreen() {
                             data={groupNotJoin}
                             renderItem={({ item }) => (
                                 <ListCommunityView
-                                    onPress={() => handleOnChangeGroup(item.id)}
+                                    onPress={handleOnChangeGroup}
                                     item={item}
                                 />
                             )}

@@ -7,7 +7,9 @@ import {
     Text,
     View,
     SafeAreaView,
+    TouchableWithoutFeedback,
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import {
@@ -16,183 +18,258 @@ import {
     HeaderAuth,
     Input,
     InputDrop,
+    MessageError,
 } from '@components'
+import * as ImagePicker from 'expo-image-picker'
+import {
+    createUser,
+    formatNewUser,
+    resetGroupJoin,
+    RootState,
+    showNoticeSuccess,
+} from '@redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { COLORS } from '@theme'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import * as Yup from 'yup'
+import { RegisterEndProp } from '@navigation/type'
 
-import { useNavigation } from '@react-navigation/native'
+const userSelector = (state: RootState) => state.user.user
+const registerSelector = (state: RootState) => state.register
+
 const RegisterEnd = () => {
-    const navigation = useNavigation<any>()
+    const navigation = useNavigation<RegisterEndProp<'Login'>['navigation']>()
+    const dispatch = useDispatch()
+    const userData = useSelector(userSelector)
+    const registerUser = useSelector(registerSelector)
+
     const [valueProfession, setValueProfession] = useState<string>('Singer')
-    const [itemsProfession, setItemsProfession] = useState<any[]>([
+    const [itemsProfession, setItemsProfession] = useState<
+        {
+            label: string
+            value: string
+        }[]
+    >([
         { label: 'Singer', value: 'Singer' },
         { label: 'Doctor', value: 'Doctor' },
         { label: 'Cook', value: 'Cook' },
     ])
 
     const [valueGender, setValueGender] = useState<string>('Male')
-    const [itemsGender, setItemsGender] = useState<any[]>([
+    const [itemsGender, setItemsGender] = useState<
+        {
+            label: string
+            value: string
+        }[]
+    >([
         { label: 'Male', value: '1' },
         { label: 'Female', value: '2' },
     ])
 
     const [valueBirth, setValueBirth] = useState<string>('2000')
-    const [itemsBirth, setItemsBirth] = useState<any[]>([
+    const [itemsBirth, setItemsBirth] = useState<
+        {
+            label: string
+            value: string
+        }[]
+    >([
         { label: '2000', value: '2000' },
         { label: '2001', value: '2001' },
         { label: '2002', value: '2002' },
     ])
 
-    const handelSubmitForm = () => {
-        navigation.navigate('Login')
+    const [image, setImage] = useState<string>('')
+
+    const handlePickImage = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        })
+        if (!result.cancelled) {
+            setImage(result.uri)
+        }
     }
 
+    const handelSubmitForm = (values: any) => {
+        const newUser = {
+            ...registerUser,
+            data: {
+                ...registerUser.data,
+                image: image,
+                introduction: values.introduction,
+            },
+        }
+
+        const ListNewUser = [...userData, newUser]
+        dispatch(createUser(ListNewUser))
+        dispatch(formatNewUser())
+        dispatch(showNoticeSuccess(true))
+        dispatch(resetGroupJoin())
+        navigation.popToTop()
+    }
+
+    const checkInput = Yup.object({
+        introduction: Yup.string().required('Introduction is required'),
+    })
+
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={styles.container}
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.Neutral0 }}>
+            <KeyboardAwareScrollView
+                style={{ marginHorizontal: 24 }}
+                showsVerticalScrollIndicator={false}
             >
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <HeaderAuth
-                        title="Getting started"
-                        description="Personal Introduction"
-                        txtContent="Profile picture"
-                        number="3"
-                        primary
-                    />
+                <HeaderAuth
+                    title="Getting started"
+                    description="Personal Introduction"
+                    txtContent="Profile picture"
+                    number="3"
+                    primary
+                />
 
-                    <View style={styles.content}>
-                        <Image
-                            source={require('../../assets/images/Choosepicture.png')}
-                        />
-                        <ButtonNoBg
-                            title="Choose picture"
-                            onPress={() => console.log('OnPress')}
-                        />
-                    </View>
-
-                    <HeaderAuth txtContent="Profile info" number="4" />
-
-                    <Formik
-                        initialValues={{
-                            profession: 'Singer',
-                            birth_year: '2000',
-                            gender: 'Male',
-                            introduction: '',
+                <View style={styles.content}>
+                    <Image
+                        source={{
+                            uri:
+                                image === ''
+                                    ? 'https://i.stack.imgur.com/l60Hf.png'
+                                    : image,
                         }}
-                        // validationSchema={checkInputTest}
-                        onSubmit={handelSubmitForm}
-                    >
-                        {({
-                            handleSubmit,
-                            handleChange,
-                            values,
-                            errors,
-                            touched,
-                        }) => (
-                            <>
-                                <View style={styles.contentInfo}>
+                        style={{
+                            width: 120,
+                            height: 120,
+                            borderRadius: 100,
+                            marginBottom: 20,
+                        }}
+                    />
+                    <ButtonNoBg
+                        title="Choose picture"
+                        onPress={handlePickImage}
+                    />
+                </View>
+
+                <HeaderAuth txtContent="Profile info" number="4" />
+
+                <Formik
+                    initialValues={{
+                        profession: 'Singer',
+                        birth_year: '2000',
+                        gender: 'Male',
+                        introduction: 'Hello world',
+                    }}
+                    validationSchema={checkInput}
+                    onSubmit={handelSubmitForm}
+                >
+                    {({
+                        handleSubmit,
+                        handleChange,
+                        values,
+                        errors,
+                        touched,
+                    }) => (
+                        <View>
+                            <View style={styles.contentInfo}>
+                                <View>
+                                    <InputDrop
+                                        title="Profession"
+                                        value={valueProfession}
+                                        items={itemsProfession}
+                                        setValue={setValueProfession}
+                                        setItems={setItemsProfession}
+                                        onChangeValue={handleChange(
+                                            'profession'
+                                        )}
+                                    />
+                                    {/* {touched.profession && (
+                                        <Text
+                                            style={{
+                                                fontSize: 10,
+                                                color: 'red',
+                                            }}
+                                        >
+                                            {errors.profession}
+                                        </Text>
+                                    )} */}
+                                </View>
+                                <View style={styles.groupInput}>
                                     <View>
                                         <InputDrop
-                                            title="Profession"
-                                            value={valueProfession}
-                                            items={itemsProfession}
-                                            setValue={setValueProfession}
-                                            setItems={setItemsProfession}
+                                            title="Birth year"
+                                            value={valueBirth}
+                                            items={itemsBirth}
+                                            setValue={setValueBirth}
+                                            setItems={setItemsBirth}
                                             onChangeValue={handleChange(
-                                                'profession'
+                                                'birth_year'
                                             )}
                                         />
-                                        {touched.profession && (
+                                        {/* {touched.birth_year && (
                                             <Text
                                                 style={{
                                                     fontSize: 10,
                                                     color: 'red',
                                                 }}
                                             >
-                                                {errors.profession}
+                                                {errors.birth_year}
                                             </Text>
-                                        )}
+                                        )} */}
                                     </View>
-                                    <View style={styles.groupInput}>
-                                        <View>
-                                            <InputDrop
-                                                title="Birth year"
-                                                value={valueBirth}
-                                                items={itemsBirth}
-                                                setValue={setValueBirth}
-                                                setItems={setItemsBirth}
-                                                onChangeValue={handleChange(
-                                                    'birth_year'
-                                                )}
-                                            />
-                                            {touched.birth_year && (
-                                                <Text
-                                                    style={{
-                                                        fontSize: 10,
-                                                        color: 'red',
-                                                    }}
-                                                >
-                                                    {errors.birth_year}
-                                                </Text>
-                                            )}
-                                        </View>
-                                        <View>
-                                            <InputDrop
-                                                title="Gender"
-                                                value={valueGender}
-                                                items={itemsGender}
-                                                setValue={setValueGender}
-                                                setItems={setItemsGender}
-                                                onChangeValue={handleChange(
-                                                    'gender'
-                                                )}
-                                            />
-                                            {touched.gender && (
-                                                <Text
-                                                    style={{
-                                                        fontSize: 10,
-                                                        color: 'red',
-                                                    }}
-                                                >
-                                                    {errors.gender}
-                                                </Text>
-                                            )}
-                                        </View>
-                                    </View>
-
                                     <View>
-                                        <Input
-                                            title="Introduction"
-                                            secondary
-                                            onChangeText={handleChange(
-                                                'introduction'
+                                        <InputDrop
+                                            title="Gender"
+                                            value={valueGender}
+                                            items={itemsGender}
+                                            setValue={setValueGender}
+                                            setItems={setItemsGender}
+                                            onChangeValue={handleChange(
+                                                'gender'
                                             )}
-                                            value={values.introduction}
                                         />
-                                        {touched.introduction && (
+                                        {/* {touched.gender && (
                                             <Text
                                                 style={{
                                                     fontSize: 10,
                                                     color: 'red',
                                                 }}
                                             >
-                                                {errors.introduction}
+                                                {errors.gender}
                                             </Text>
-                                        )}
+                                        )} */}
                                     </View>
                                 </View>
 
-                                <View style={styles.btn}>
-                                    <ButtonForm
-                                        label="Start"
-                                        onPress={handleSubmit}
+                                <View>
+                                    <Input
+                                        title="Introduction"
+                                        secondary
+                                        onChangeText={handleChange(
+                                            'introduction'
+                                        )}
+                                        introduction
+                                        value={values.introduction}
+                                        error={
+                                            touched.introduction &&
+                                            errors.introduction ? (
+                                                <MessageError
+                                                    error={errors.introduction}
+                                                />
+                                            ) : null
+                                        }
                                     />
                                 </View>
-                            </>
-                        )}
-                    </Formik>
-                </ScrollView>
-            </KeyboardAvoidingView>
+                            </View>
+
+                            <View style={styles.btn}>
+                                <ButtonForm
+                                    label="Start"
+                                    onPress={handleSubmit}
+                                />
+                            </View>
+                        </View>
+                    )}
+                </Formik>
+            </KeyboardAwareScrollView>
         </SafeAreaView>
     )
 }
@@ -216,7 +293,7 @@ const styles = StyleSheet.create({
         // flexDirection:'row'
     },
     btn: {
-        marginTop: 48,
+        marginTop: 60,
         marginBottom: 10,
     },
 })

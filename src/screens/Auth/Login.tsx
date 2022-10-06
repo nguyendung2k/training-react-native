@@ -9,6 +9,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     SafeAreaView,
+    StatusBar,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
@@ -24,23 +25,34 @@ import {
     NotificationModal,
 } from '@components'
 import { COLORS, SIZES } from '@theme'
-import { loginAuth } from '@redux/slices/authSlice'
 import { RootState, useAppDispatch } from '@redux/store'
-import { detailUser } from '@redux/slices/userSlice'
 import { useSelector } from 'react-redux'
+import { detailUser, loginAuth, showNoticeSuccess } from '@redux'
 
 const userSelector = (state: RootState) => state.user.user
+const noticeSelector = (state: RootState) => state.home.notice
 const Login = ({ navigation }: any) => {
     const dispatch = useAppDispatch()
     const userData = useSelector(userSelector)
-    console.log('user:', userData)
+    const notice = useSelector(noticeSelector)
+
+    const [notification, setNotification] = useState<boolean>(notice)
+
     const [showNotice, setShowNotice] = useState<boolean>(false)
+
+    console.log('notification', notice)
 
     useEffect(() => {
         setTimeout(() => {
             setShowNotice(false)
-        }, 5000)
+        }, 3000)
     }, [showNotice])
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(showNoticeSuccess(false))
+        }, 5000)
+    }, [notice])
 
     const handleLogin = (values: { email: string; password: string }) => {
         const checkLogin = userData.filter((item) => {
@@ -69,6 +81,12 @@ const Login = ({ navigation }: any) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar
+                barStyle="dark-content"
+                hidden={false}
+                backgroundColor={COLORS.Neutral0}
+                // translucent={true}
+            />
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
@@ -83,6 +101,19 @@ const Login = ({ navigation }: any) => {
                                     ICon={() => (
                                         <IconMinusCircle
                                             fill={COLORS.Neutral4}
+                                        />
+                                    )}
+                                />
+                            )}
+                        </View>
+                        <View style={styles.notification}>
+                            {notice && (
+                                <NotificationModal
+                                    onPress={() => setShowNotice(false)}
+                                    value="Register Success"
+                                    ICon={() => (
+                                        <IconCheckCircle
+                                            fill={COLORS.Primary}
                                         />
                                     )}
                                 />

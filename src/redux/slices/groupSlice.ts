@@ -16,11 +16,13 @@ interface groupState {
         id: string
         joinGr: boolean
     }[]
+    groupChoose: any[]
 }
 
 const initialState: groupState = {
     groups: dataGroup,
     findGroup: [],
+    groupChoose: [],
 }
 
 export const groupSlices = createSlice({
@@ -67,6 +69,23 @@ export const groupSlices = createSlice({
             })
             state.groups = filterGroup
         },
+        changeGroupByToJoin(state, action) {
+            let temp = state.groupChoose
+            const index = state.groupChoose.indexOf(action.payload)
+            // console.log('index:--- ', index)
+            if (index > -1) {
+                state.groupChoose = [
+                    ...temp.slice(0, index),
+                    ...temp.slice(index + 1),
+                ]
+            } else {
+                // console.log('chay vao 2')
+                state.groupChoose = [...temp, action.payload]
+            }
+        },
+        resetGroupJoin(state) {
+            state.groupChoose = initialState.groupChoose
+        },
     },
 })
 
@@ -75,6 +94,8 @@ export const {
     changeLeavingGroup,
     changeAttendGroup,
     searchGroupByValue,
+    changeGroupByToJoin,
+    resetGroupJoin,
 } = groupSlices.actions
 
 export default groupSlices.reducer

@@ -11,10 +11,11 @@ import React from 'react'
 import { ButtonForm, IconCheck, VerifyCode } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+import { VerificationCodeProp } from '@navigation/type'
 
 const VerificationCode = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation =
+        useNavigation<VerificationCodeProp<'VerificationCode'>['navigation']>()
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -26,7 +27,7 @@ const VerificationCode = () => {
             >
                 <View style={styles.header}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Register')}
+                        onPress={() => navigation.goBack()}
                     ></TouchableOpacity>
                 </View>
                 <View style={styles.content}>

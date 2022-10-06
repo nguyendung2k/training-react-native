@@ -1,67 +1,63 @@
-import {
-    FlatList,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native'
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { ButtonForm, HeaderAuth, ListCommunityView } from '@components'
 import { useNavigation } from '@react-navigation/native'
-import { RootState } from '@redux'
-import { useSelector } from 'react-redux'
+import { changeGroupByToJoin, RootState } from '@redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { COLORS } from '@theme'
+import { ListCommunityProp } from '@navigation/type'
+
+interface community {
+    id: string
+}
 
 const listGroupSelector = (state: RootState) => state.group.groups
+const dataChooseGroup = (state: RootState) => state.group.groupChoose
 
-export const Header = () => {
-    return (
-        <SafeAreaView>
-            <HeaderAuth
-                title="Getting started"
-                description="Join your communities"
-                number="2"
-                txtContent="Choose communities you prefer"
-                txtEnd="(Up to 3 communities - 0/3)"
-            />
-        </SafeAreaView>
-    )
-}
-
-export const Footer = () => {
-    const navigation = useNavigation<any>()
-    return (
-        <View style={styles.btn}>
-            <ButtonForm
-                label="Next"
-                // disabled={true}
-                disable
-                onPress={() => navigation.navigate('RegisterEnd')}
-            />
-        </View>
-    )
-}
-
-const ListCommunity = () => {
+const ListCommunity = ({ id }: community) => {
+    const dispatch = useDispatch()
+    const navigation =
+        useNavigation<ListCommunityProp<'RegisterEnd'>['navigation']>()
     const listGroup = useSelector(listGroupSelector)
-    const [checkBox, setCheckBox] = useState(false)
+    const checkJoinGroup = useSelector(dataChooseGroup)
+    const isCheck = checkJoinGroup.includes(id)
+
+    const handleChooseGroup = (id: string) => {
+        dispatch(changeGroupByToJoin(id))
+    }
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={listGroup}
-                renderItem={({ item }) => (
-                    <ListCommunityView
-                        onPress={() => setCheckBox(!checkBox)}
-                        item={item}
-                        showBox={true}
-                        check={checkBox}
+            <View style={{ marginHorizontal: 24 }}>
+                <HeaderAuth
+                    title="Getting started"
+                    description="Join your communities"
+                    number="2"
+                    txtContent="Choose communities you prefer"
+                    txtEnd="(Up to 3 communities - 0/3)"
+                    primary
+                />
+                <FlatList
+                    data={listGroup}
+                    renderItem={({ item }) => (
+                        <ListCommunityView
+                            onPress={handleChooseGroup}
+                            item={item}
+                            showBox={true}
+                            check={isCheck}
+                        />
+                    )}
+                    showsVerticalScrollIndicator={false}
+                />
+                <View style={styles.btn}>
+                    <ButtonForm
+                        label="Next"
+                        disabled={checkJoinGroup.length < 3}
+                        disable={checkJoinGroup.length < 3}
+                        onPress={() => navigation.navigate('RegisterEnd')}
                     />
-                )}
-                ListHeaderComponent={Header}
-                ListFooterComponent={Footer}
-                showsVerticalScrollIndicator={false}
-            />
+                </View>
+            </View>
         </SafeAreaView>
     )
 }
@@ -71,10 +67,12 @@ export default ListCommunity
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: 24,
+
+        backgroundColor: COLORS.Neutral0,
     },
     btn: {
         marginTop: 'auto',
         marginBottom: 30,
+        paddingTop: 32,
     },
 })

@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Check from '../../assets/icons/Check.svg'
 import { CheckBox } from '@components'
@@ -13,25 +13,41 @@ interface listViewProps {
     check?: boolean
     source?: any
     item: {
-        id: string | { id: string }
+        id: string
         title: string
         image: string
         total_members: number
         joinGr: boolean
     }
-    onPress?: () => void | undefined
+    onPress?: (id: string) => void | undefined
 }
 
 const ListCommunityView = ({
     showBox,
     onPress,
     item,
-    check,
-}: listViewProps) => {
+}: // check,
+listViewProps) => {
+    // const [showBox, setShowBox] = useState<boolean>()
+    const [check, setCheck] = useState<boolean>()
+    const handlePress = () => {
+        onPress && onPress(item.id)
+        setCheck(!check)
+    }
     return (
-        <TouchableOpacity style={styles.container} onPress={onPress}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={handlePress}
+            activeOpacity={0.8}
+        >
             <View style={[styles.checkbox]}>
-                {showBox && <CheckBox check={check} Icon={() => <Check />} />}
+                {showBox && (
+                    <CheckBox
+                        onPress={handlePress}
+                        check={check}
+                        Icon={() => <Check />}
+                    />
+                )}
             </View>
             <View style={styles.content}>
                 <Image source={{ uri: item?.image }} style={styles.image} />

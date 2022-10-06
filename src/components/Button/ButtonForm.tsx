@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     },
     btn_Tertiary: {
         borderStyle: 'dotted',
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: COLORS.Neutral4,
         backgroundColor: COLORS.White,
     },
@@ -93,22 +93,23 @@ const styles = StyleSheet.create({
         borderRadius: BORDER.base,
         borderColor: COLORS.Primary,
         backgroundColor: COLORS.White,
-        borderWidth: 2,
+        borderWidth: 1,
     },
     btn_Quinary: {
         borderRadius: BORDER.base,
         borderColor: COLORS.Semantic4,
         backgroundColor: COLORS.White,
-        borderWidth: 2,
+        borderWidth: 1,
     },
     btn_Disable: {
         backgroundColor: COLORS.White,
         borderColor: COLORS.Neutral4,
-        borderWidth: 2,
+        borderWidth: 1,
+        paddingVertical: 16,
     },
     text: {
         fontSize: SIZES.large,
-        fontWeight: '800',
+        fontWeight: '600',
         marginRight: 10,
     },
     textLogin: {

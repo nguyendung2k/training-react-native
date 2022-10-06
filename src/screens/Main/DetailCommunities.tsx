@@ -23,15 +23,16 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AppDispatch, RootState } from '@redux/store'
 import { COLORS } from '@theme'
-import { showModal } from '@redux/slices/homeSlice'
-import { changeAttendGroup, changeLeavingGroup } from '@redux/slices/groupSlice'
 import { DetailCommunityScreenProp } from '@navigation/type'
 import ContentLoader, { Facebook } from 'react-content-loader/native'
 import {
+    changeAttendGroup,
+    changeLeavingGroup,
     filterMemberByCondition,
     getDataMember,
     searchMemberByTitle,
-} from '@redux/slices/memberSlice'
+    showModal,
+} from '@redux'
 
 // const MyLoader = () => <ContentLoader />
 // const MyFacebookLoader = () => <Facebook />
@@ -60,11 +61,13 @@ const DetailCommunities = () => {
 
     const handleLeavingGroup = (id: any) => {
         const copyDataGroup = [...dataGroup]
+        // console.log('copyDataGroup', copyDataGroup)
         copyDataGroup.forEach((item, index) => {
             if (item.id == id) {
                 copyDataGroup[index] = {
                     ...copyDataGroup[index],
                     joinGr: false,
+                    total_members: copyDataGroup[index].total_members - 1,
                 }
             }
         })
@@ -78,6 +81,7 @@ const DetailCommunities = () => {
                 copyDataGroup[index] = {
                     ...copyDataGroup[index],
                     joinGr: true,
+                    total_members: copyDataGroup[index].total_members + 1,
                 }
             }
         })
@@ -119,7 +123,6 @@ const DetailCommunities = () => {
                             handleParticipateGroup(idParamDetail)
                         }
                     />
-
                     <BannerForum
                         title="Real-time Forum"
                         des="Join now to give real-time PR about yourself"

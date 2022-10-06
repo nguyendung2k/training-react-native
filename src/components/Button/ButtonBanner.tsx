@@ -13,7 +13,7 @@ const ButtonBanner = ({ label, onPress, Icon, secondary }: buttonProps) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                activeOpacity={0.5}
+                activeOpacity={0.8}
                 style={[
                     styles.btn,
                     styles.btnPrimary,

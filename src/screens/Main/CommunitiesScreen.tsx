@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Header, IconSearch, InputSearch, ListCommunityView } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
-import { RootState } from '@redux'
-import { searchGroupByValue } from '@redux/slices/groupSlice'
+import { RootState, searchGroupByValue } from '@redux'
 import { CommunitiesScreenProp } from '@navigation/type'
 
 const dataGroupSelector = (state: RootState) => state.group.groups
@@ -45,7 +44,7 @@ const CommunitiesScreen = () => {
                         data={dataGroup}
                         renderItem={({ item }) => (
                             <ListCommunityView
-                                onPress={() => handleOnChangeGroup(item.id)}
+                                onPress={handleOnChangeGroup}
                                 item={item}
                             />
                         )}

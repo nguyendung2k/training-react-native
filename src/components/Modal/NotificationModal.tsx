@@ -9,6 +9,7 @@ interface notificationModalProps {
     primary?: boolean
     secondary?: boolean
     tertiary?: boolean
+    value?: string
 }
 
 const NotificationModal = ({
@@ -18,11 +19,12 @@ const NotificationModal = ({
     primary,
     secondary,
     tertiary,
+    value,
 }: notificationModalProps) => {
     return (
         <TouchableOpacity
             onPress={onPress}
-            activeOpacity={0.6}
+            activeOpacity={1}
             style={styles.container}
         >
             <View style={styles.content}>
@@ -35,6 +37,7 @@ const NotificationModal = ({
                             have become friends
                         </>
                     )}
+                    <Text>{value}</Text>
                     {secondary && (
                         <Text style={styles.blockText}>
                             Change password successfully

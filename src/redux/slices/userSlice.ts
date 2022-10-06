@@ -67,7 +67,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         detailUser(state, action) {
-            console.log('ac', action.payload)
+            // console.log('ac', action.payload)
             state.userDetail = action.payload
         },
         updateUser(state, action) {
@@ -79,10 +79,19 @@ export const userSlice = createSlice({
         showNotice(state, action) {
             state.modal = action.payload
         },
+        createUser(state, action) {
+            // console.log('userCreate: ', action.payload)
+            state.user = action.payload
+        },
     },
 })
 
-export const { detailUser, updateUser, updatePassword, showNotice } =
-    userSlice.actions
+export const {
+    detailUser,
+    updateUser,
+    updatePassword,
+    showNotice,
+    createUser,
+} = userSlice.actions
 
 export default userSlice.reducer

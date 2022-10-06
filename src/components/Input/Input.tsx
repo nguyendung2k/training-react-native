@@ -11,7 +11,7 @@ import { Eye, EyeSlash } from '@components'
 import { COLORS, SIZES } from '@theme'
 
 interface inputProps extends TextProps {
-    value?: string
+    value?: string | undefined
     placeholder?: string
     Icon?: () => JSX.Element
     onChangeText?: (value: string) => void | undefined
@@ -27,6 +27,7 @@ interface inputProps extends TextProps {
     error?: React.ReactNode
     introduction?: boolean
     onBlur?: any
+    number?: boolean
 }
 
 export default function Input({
@@ -44,6 +45,7 @@ export default function Input({
     isPassword,
     error,
     onBlur,
+    number,
 }: inputProps) {
     const [showPass, setShowPass] = useState<boolean>(true)
 
@@ -70,6 +72,7 @@ export default function Input({
                 onChangeText={onChangeText}
                 multiline={introduction && true}
                 onBlur={onBlur}
+                keyboardType={number ? 'numeric' : 'default'}
             />
             {error}
             <TouchableOpacity

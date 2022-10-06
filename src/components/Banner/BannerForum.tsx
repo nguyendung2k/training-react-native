@@ -15,13 +15,7 @@ interface bannerFormProps {
 }
 const dataFindGroupSelector = (state: RootState) => state.group.findGroup
 
-const BannerForum = ({
-    title,
-    des,
-    Icon,
-
-    onDirection,
-}: bannerFormProps) => {
+const BannerForum = ({ title, des, Icon, onDirection }: bannerFormProps) => {
     const dataFindGroup = useSelector(dataFindGroupSelector)
 
     return (

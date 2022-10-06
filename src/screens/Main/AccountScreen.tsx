@@ -17,12 +17,10 @@ import {
     IconWarning,
     NotificationModal,
 } from '@components'
-import { RootState } from '@redux'
+import { modalHandle, RootState, showNotice } from '@redux'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
 import { AccountScreenProp } from '@navigation/type'
-import { modalHandle } from '@redux/slices/authSlice'
-import { showNotice } from '@redux/slices/userSlice'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -144,7 +142,14 @@ const AccountScreen = () => {
                     />
                     <ButtonAccountMenu
                         label="Log out"
-                        Icon={() => <IconSignOut stroke={COLORS.Neutral10} />}
+                        Icon={() => (
+                            <IconSignOut
+                                width={32}
+                                height={32}
+                                strokeWidth={1.5}
+                                stroke={COLORS.Neutral10}
+                            />
+                        )}
                         onPress={handleShowModal}
                     />
                 </View>
@@ -184,6 +189,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         marginBottom: 90,
+        // backgroundColor: 'red',
     },
     btnCancel: {
         marginBottom: 55,

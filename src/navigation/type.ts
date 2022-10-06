@@ -42,6 +42,8 @@ export type AuthStackParamList = {
     VerificationCode: undefined
     PersonalIntroduction: undefined
     ForgotPassword: undefined
+    ListCommunity: undefined
+    RegisterEnd: undefined
 }
 
 export type TabBottomParamList = {
@@ -62,7 +64,6 @@ export type HomeScreenProps<T extends keyof HomeStackParamList> =
 export type CommunitiesScreenProp<T extends keyof TabBottomParamList> =
     CompositeScreenProps<
         BottomTabScreenProps<TabBottomParamList, T>,
-        // StackScreenProps<CommunityStackParamList, T>,
         RootStackScreenProps<keyof RootStackParamList>
     >
 
@@ -80,3 +81,15 @@ export type AccountScreenProp<T extends keyof TabBottomParamList> =
         BottomTabScreenProps<TabBottomParamList, T>,
         RootStackScreenProps<keyof RootStackParamList>
     >
+
+export type VerificationCodeProp<T extends keyof AuthStackParamList> =
+    StackScreenProps<AuthStackParamList, T>
+
+export type PersonalIntroductionProp<T extends keyof AuthStackParamList> =
+    StackScreenProps<AuthStackParamList, T>
+
+export type ListCommunityProp<T extends keyof AuthStackParamList> =
+    StackScreenProps<AuthStackParamList, T>
+
+export type RegisterEndProp<T extends keyof AuthStackParamList> =
+    StackScreenProps<AuthStackParamList, T>

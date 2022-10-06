@@ -273,13 +273,19 @@ function IconLockKeyOpen({ stroke, ...props }: any) {
     )
 }
 
-function IconSignOut({ stroke, width, height, ...props }: any) {
+function IconSignOut({ stroke, width, height, strokeWidth, ...props }: any) {
     return (
-        <Svg width={19} height={19} viewBox="0 0 32 32" fill="none" {...props}>
+        <Svg
+            width={width}
+            height={height}
+            viewBox="0 0 32 32"
+            fill="none"
+            {...props}
+        >
             <Path
                 d="M21.751 10.75L27 16l-5.249 5.25M13 16h13.996M13 27H6a1 1 0 01-1-1V6a1 1 0 011-1h7"
                 stroke={stroke}
-                strokeWidth={3}
+                strokeWidth={strokeWidth}
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />

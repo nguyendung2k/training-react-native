@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native'
 import { ButtonBanner, IconSignOut } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
-import { changeGroupById } from '@redux/slices/groupSlice'
-import { RootState } from '@redux'
+
+import { changeGroupById, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
 
 interface bannerProps {
@@ -58,7 +58,12 @@ const Banner = ({ onPressLeaving, onPressParticipate }: bannerProps) => {
                                 secondary
                                 label="Leaving"
                                 Icon={() => (
-                                    <IconSignOut stroke={COLORS.Neutral0} />
+                                    <IconSignOut
+                                        width={18}
+                                        height={18}
+                                        strokeWidth={2}
+                                        stroke={COLORS.Neutral0}
+                                    />
                                 )}
                                 onPress={onPressLeaving}
                             />

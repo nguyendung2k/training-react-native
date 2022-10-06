@@ -41,6 +41,7 @@ export const forumSlice = createSlice({
         likePostById(state, action) {
             let temp = state.like
             const index = state.like.indexOf(action.payload)
+            // console.log('index: ', index)
             if (index > -1) {
                 state.like = [...temp.slice(0, index), ...temp.slice(index + 1)]
             } else {
@@ -55,7 +56,7 @@ export const forumSlice = createSlice({
         },
         addComment(state, action) {
             const dataPayload = action.payload
-            console.log('dataComment----: ', action.payload)
+            // console.log('dataComment----: ', action.payload)
             state.comments = dataPayload
         },
         // getPost(state, action) {

@@ -4,12 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRoute } from '@react-navigation/native'
 import { InputReplyPost, Posted } from '@components'
 import { RootState } from '@redux/store'
-import {
-    addComment,
-    likePostById,
-    onChangeLikePost,
-    onChangeUnlikePost,
-} from '@redux/slices/forumSlice'
+import { addComment, likePostById } from '@redux'
 
 const userUpdateSelector = (state: RootState) => state.user.userUpdate
 const dataUserSelector = (state: RootState) => state.user.userDetail
@@ -50,11 +45,11 @@ const HeaderCommentForumFlatList = () => {
 
     const handleOnLikePost = (id: string) => {
         dispatch(likePostById(id))
-        if (checkLikePost.includes(id)) {
-            dispatch(onChangeUnlikePost())
-        } else {
-            dispatch(onChangeLikePost())
-        }
+        // if (checkLikePost.includes(id)) {
+        //     dispatch(onChangeUnlikePost())
+        // } else {
+        //     dispatch(onChangeLikePost())
+        // }
     }
 
     const handleFindPostById = (idFromParam: string) => {

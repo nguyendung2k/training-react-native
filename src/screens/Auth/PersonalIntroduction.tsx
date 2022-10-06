@@ -1,41 +1,91 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
-import React from 'react'
-import { ButtonForm, HeaderAuth } from '@components'
+import {
+    KeyboardAvoidingView,
+    Platform,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    View,
+} from 'react-native'
+import React, { useState } from 'react'
+import { ButtonForm, ChoseAddressSocial, HeaderAuth } from '@components'
 import { COLORS } from '@theme'
 import { useNavigation } from '@react-navigation/native'
+import { PersonalIntroductionProp } from '@navigation/type'
 // import { stackScreenProp } from '@navigation/type'
+const inputChooseSocial = [
+    {
+        id: 1,
+        input: <ChoseAddressSocial nameAddress="Facebook" />,
+    },
+]
 
 const PersonalIntroduction = () => {
-    const navigation = useNavigation<any>()
+    const navigation =
+        useNavigation<PersonalIntroductionProp<'ListCommunity'>['navigation']>()
+    const [arrayChooseSocial, setArrayChooseSocial] =
+        useState(inputChooseSocial)
+
+    const handleAddNewAddress = () => {
+        setArrayChooseSocial(
+            arrayChooseSocial.concat([
+                {
+                    id: Math.random(),
+                    input: <ChoseAddressSocial />,
+                },
+            ])
+        )
+    }
+
     return (
-        <ScrollView
-            style={styles.container}
-            showsVerticalScrollIndicator={false}
-        >
-            <View style={styles.contentBody}>
-                <HeaderAuth
-                    title="Getting started"
-                    description="Personal Introduction"
-                    number="1"
-                    txtContent="SNS accounts"
-                    txtEnd="(Up to 5 accounts)"
-                />
-
-                <View></View>
-
-                <View style={styles.btn}>
-                    <ButtonForm label="Add New Address" tertiary />
-                </View>
-
-                <View style={styles.footer}>
-                    <ButtonForm
-                        label="Next"
-                        quaternary
-                        onPress={() => navigation.navigate('ListCommunity')}
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.Neutral0 }}>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={10}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            >
+                <View style={styles.header}>
+                    <HeaderAuth
+                        title="Getting started"
+                        description="Personal Introduction"
+                        number="1"
+                        txtContent="SNS accounts"
+                        txtEnd="(Up to 5 accounts)"
+                        primary
                     />
                 </View>
-            </View>
-        </ScrollView>
+
+                <ScrollView
+                    style={styles.container}
+                    showsVerticalScrollIndicator={false}
+                >
+                    <View style={styles.contentBody}>
+                        <View>
+                            {arrayChooseSocial.map((item) => {
+                                return <View key={item.id}>{item.input}</View>
+                            })}
+                        </View>
+
+                        <View style={styles.btn}>
+                            <ButtonForm
+                                label="Add New Address"
+                                tertiary
+                                onPress={handleAddNewAddress}
+                            />
+                        </View>
+
+                        <View style={styles.footer}>
+                            <ButtonForm
+                                label="Next"
+                                quaternary
+                                onPress={() =>
+                                    navigation.navigate('ListCommunity')
+                                }
+                            />
+                        </View>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 
@@ -46,6 +96,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.White,
     },
+    header: {
+        backgroundColor: COLORS.White,
+        marginHorizontal: 24,
+    },
     contentBody: {
         marginHorizontal: 24,
         marginVertical: 40,
@@ -54,7 +108,7 @@ const styles = StyleSheet.create({
         marginTop: 34,
     },
     footer: {
-        marginTop: 294,
+        marginTop: 34,
         // backgroundColor: 'red',
     },
 })

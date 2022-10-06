@@ -14,7 +14,7 @@ import { COLORS } from '@theme'
 import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import { RootState } from '@redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { showNotice, updatePassword } from '@redux/slices/userSlice'
+import { showNotice, updatePassword } from '@redux'
 
 const userSelector = (state: RootState) => state.user.user
 

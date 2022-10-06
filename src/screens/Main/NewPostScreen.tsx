@@ -7,8 +7,8 @@ import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
 import { RootStackScreenProps } from '@navigation/type'
-import { addPost } from '@redux/slices/forumSlice'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { addPost } from '@redux'
 
 const dataUserSelector = (state: RootState) => state.user.userDetail
 const userUpdateSelector = (state: RootState) => state.user.userUpdate
@@ -22,8 +22,8 @@ const NewPostScreen = () => {
     const userUpdate = useSelector(userUpdateSelector)
     const dataPost = useSelector(dataPostsSelector)
     const [title, setTitle] = useState<string>('')
-    const [image, setImage] = useState<string>('')
     const [description, setDescription] = useState<string>('')
+    const [image, setImage] = useState<string>('')
     const [images, setImages] = useState<
         {
             assetId: string | null | undefined
@@ -32,7 +32,7 @@ const NewPostScreen = () => {
             fileSize: number
             height: number
             width: number
-            type: image | video | undefined
+            type: undefined
             uri: string
         }[]
     >([])

@@ -1,3 +1,13 @@
+import {
+    Button,
+    Platform,
+    SafeAreaView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { persistor, store } from './src/redux/store'

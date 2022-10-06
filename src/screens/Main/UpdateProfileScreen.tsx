@@ -24,7 +24,7 @@ import {
 import { RootState } from '@redux/store'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
-import { updateUser } from '@redux/slices/userSlice'
+import { updateUser } from '@redux'
 
 const dataUserSelector = (state: RootState) => state.user.userDetail
 const userUpdateSelector = (state: RootState) => state.user.userUpdate
@@ -76,7 +76,7 @@ const UpdateProfileScreen = () => {
         { label: '2002', value: '2002' },
     ])
 
-    console.log('dataUser: ', dataUser)
+    // console.log('dataUser: ', dataUser)
 
     const [arrayChooseSocial, setArrayChooseSocial] =
         useState(inputChooseSocial)
@@ -122,22 +122,20 @@ const UpdateProfileScreen = () => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
+                <View style={styles.header}>
+                    <Header
+                        Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                        showTextHeader
+                        showRightIcon
+                        title="Update Profile"
+                        onPress={() => navigation.goBack()}
+                    />
+                </View>
                 <TouchableWithoutFeedback>
                     <ScrollView
                         style={styles.contentUpdateProfile}
                         showsVerticalScrollIndicator={false}
                     >
-                        <View style={styles.header}>
-                            <Header
-                                Icon={() => (
-                                    <IConBack stroke={COLORS.Neutral10} />
-                                )}
-                                showTextHeader
-                                showRightIcon
-                                title="Update Profile"
-                                onPress={() => navigation.goBack()}
-                            />
-                        </View>
                         <View style={styles.updateAvatar}>
                             <HeaderSlide title="Profile picture" />
                             <UpdateAvatar
@@ -241,7 +239,9 @@ const styles = StyleSheet.create({
     contentUpdateProfile: {
         marginHorizontal: 24,
     },
-    header: {},
+    header: {
+        marginHorizontal: 18,
+    },
     updateAvatar: {
         marginBottom: 20,
     },

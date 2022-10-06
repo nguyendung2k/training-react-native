@@ -6,12 +6,8 @@ import { Header, IConBack, ListPost, Loading } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { RootState } from '@redux/store'
 import { COLORS } from '@theme'
-import {
-    likePostById,
-    onChangeLikePost,
-    onChangeUnlikePost,
-} from '@redux/slices/forumSlice'
 import { CommentScreenProp } from '@navigation/type'
+import { likePostById } from '@redux'
 
 interface forumScreenProps {
     id: string
