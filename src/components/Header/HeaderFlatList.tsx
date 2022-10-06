@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    FlatList,
+    SafeAreaView,
+    TouchableOpacity,
+} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
@@ -34,13 +42,17 @@ const HeaderFlatList = () => {
         setGroupJoin(filterGroup)
     }
 
-    const handleDirection = (id: { id: string }) => {
+    const handleDirection = (id: string) => {
         navigation.navigate('DetailCommunities', id)
     }
 
     return (
-        <View>
-            <View style={styles.header}>
+        <SafeAreaView style={{ flex: 1 }}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.header}
+                onPress={() => navigation.navigate('YourProfileScreen')}
+            >
                 <View style={styles.header_Image}>
                     <Image
                         source={{
@@ -57,7 +69,7 @@ const HeaderFlatList = () => {
                         {userUpdate.name ? userUpdate.name : user.full_name}
                     </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.content}>
                 <View style={styles.content_Container}>
@@ -92,7 +104,7 @@ const HeaderFlatList = () => {
                 />
             </View>
             <HeaderSlide title="Others" />
-        </View>
+        </SafeAreaView>
     )
 }
 

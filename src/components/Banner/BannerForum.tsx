@@ -18,6 +18,7 @@ const dataFindGroupSelector = (state: RootState) => state.group.findGroup
 const BannerForum = ({ title, des, Icon, onDirection }: bannerFormProps) => {
     const dataFindGroup = useSelector(dataFindGroupSelector)
 
+    // console.log('dataFind: ', dataFindGroup)
     return (
         <View style={styles.container}>
             <View style={styles.body}>

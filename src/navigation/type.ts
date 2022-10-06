@@ -14,13 +14,9 @@ export type RootStackParamList = {
     UpdateProfileScreen: undefined
     WaitingForApprovalScreen: undefined
     FriendRequestScreen: undefined
-    DetailCommunities: {
-        id: string
-    }
+    DetailCommunities: undefined | {}
     ForumScreen: undefined
-    CommentForumScreen: {
-        id: string
-    }
+    CommentForumScreen: undefined | {}
     NewPostScreen: undefined
 }
 

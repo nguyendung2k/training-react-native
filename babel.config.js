@@ -33,6 +33,7 @@ module.exports = function (api) {
                         '@constant': './src/constant',
                     },
                 },
+                'react-native-reanimated/plugin',
             ],
         ],
     }
