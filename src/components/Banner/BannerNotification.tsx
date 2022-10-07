@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { IconBell } from '@components'
 import { COLORS, BORDER, SIZES } from '@theme'
+import { IconBell } from '@components/Svg'
 
 interface bannerNotificationProps {
     Icon?: () => JSX.Element

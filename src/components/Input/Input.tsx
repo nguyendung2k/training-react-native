@@ -7,8 +7,8 @@ import {
     TextProps,
 } from 'react-native'
 import React, { useState } from 'react'
-import { Eye, EyeSlash } from '@components'
 import { COLORS, SIZES } from '@theme'
+import { Eye, EyeSlash } from '@components/Svg'
 
 interface inputProps extends TextProps {
     value?: string | undefined
@@ -28,12 +28,13 @@ interface inputProps extends TextProps {
     introduction?: boolean
     onBlur?: any
     number?: boolean
+    disable?: boolean
 }
 
-export default function Input({
-    placeholder,
-    value,
-    title,
+const Input = ({
+    placeholder = '',
+    value = '',
+    title = '',
     secondary,
     primary,
     tertiary,
@@ -41,12 +42,13 @@ export default function Input({
     senary,
     introduction,
     Icon,
-    onChangeText,
+    onChangeText = () => {},
     isPassword,
-    error,
-    onBlur,
+    error = '',
+    onBlur = () => {},
     number,
-}: inputProps) {
+    disable,
+}: inputProps) => {
     const [showPass, setShowPass] = useState<boolean>(true)
 
     const handleShowPass = () => {
@@ -73,6 +75,7 @@ export default function Input({
                 multiline={introduction && true}
                 onBlur={onBlur}
                 keyboardType={number ? 'numeric' : 'default'}
+                editable={disable}
             />
             {error}
             <TouchableOpacity
@@ -91,6 +94,8 @@ export default function Input({
         </View>
     )
 }
+
+export default Input
 
 const styles = StyleSheet.create({
     container: {

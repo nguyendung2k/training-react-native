@@ -1,11 +1,11 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { logoutSuccess, modalHandle } from '../../redux/slices/authSlice'
-import { hideModal } from '../../redux/slices/homeSlice'
-import { ButtonHaft, TitleModal } from '@components'
+import { useDispatch } from 'react-redux'
 import { BORDER, COLORS } from '@theme'
-import { RootState } from '@redux'
+import { logoutSuccess, modalHandle, RootState } from '@redux'
+
+import { ButtonHaft } from '@components/Button'
+import TitleModal from './TitleModal'
 
 interface baseModalProps {
     onPress?: () => void
@@ -18,8 +18,6 @@ const showModalSelector = (state: RootState) => state.auth.showModal
 
 const BaseModal = ({ primary, title, label }: baseModalProps) => {
     const dispatch = useDispatch()
-
-    const showModal = useSelector(showModalSelector)
 
     const handelConfirmLogout = () => {
         dispatch(modalHandle(false))

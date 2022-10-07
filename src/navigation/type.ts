@@ -8,10 +8,10 @@ import type { StackScreenProps } from '@react-navigation/stack'
 export type RootStackParamList = {
     Auth: NavigatorScreenParams<AuthStackParamList>
     Tabs: NavigatorScreenParams<TabBottomParamList>
-    YourProfileScreen: undefined
+    YourProfileScreen: undefined | {}
     BlockListScreen: undefined
     ChangePasswordScreen: undefined
-    UpdateProfileScreen: undefined
+    UpdateProfileScreen: undefined | {}
     WaitingForApprovalScreen: undefined
     FriendRequestScreen: undefined
     DetailCommunities: undefined | {}

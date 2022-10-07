@@ -1,0 +1,6 @@
+export { default as Input } from './Input'
+export { default as InputDrop } from './InputDrop'
+export { default as InputDropLogo } from './InputDropLogo'
+export { default as InputReplyPost } from './InputReplyPost'
+export { default as InputSearch } from './InputSearch'
+export { default as InputSelectAge } from './InputSelectAge'

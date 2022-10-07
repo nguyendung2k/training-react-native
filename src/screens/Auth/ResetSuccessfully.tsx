@@ -3,10 +3,9 @@ import React from 'react'
 import { ButtonForm } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
 
 const ResetSuccessfully = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation<any>()
     return (
         <View style={styles.container}>
             <View>

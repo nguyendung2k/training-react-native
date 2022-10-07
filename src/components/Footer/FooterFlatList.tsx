@@ -1,16 +1,15 @@
-import {
-    ButtonHome,
-    ButtonNoBg,
-    IconCaretRight,
-    IconCoin,
-    IconFacebook,
-    IconTwitter,
-} from '@components'
 import { COLORS } from '@theme'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { CommunitiesScreenProp } from '@navigation/type'
+import { ButtonHome, ButtonNoBg } from '@components/Button'
+import {
+    IconCaretRight,
+    IconCoin,
+    IconFacebook,
+    IconTwitter,
+} from '@components/Svg'
 
 const FooterFlatList = () => {
     const navigation =

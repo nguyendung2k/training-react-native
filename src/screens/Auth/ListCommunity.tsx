@@ -1,11 +1,13 @@
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
-import { ButtonForm, HeaderAuth, ListCommunityView } from '@components'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { changeGroupByToJoin, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { COLORS } from '@theme'
 import { ListCommunityProp } from '@navigation/type'
+import { HeaderAuth } from '@components/Header'
+import { ListCommunityView } from '@components/ListView'
+import { ButtonForm } from '@components/Button'
 
 interface community {
     id: string

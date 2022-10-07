@@ -7,7 +7,7 @@ interface headerSlideProps {
     secondary?: boolean
 }
 
-export default function HeaderSlide({ title, secondary }: headerSlideProps) {
+const HeaderSlide = ({ title, secondary }: headerSlideProps) => {
     return (
         <View>
             <View>
@@ -23,6 +23,8 @@ export default function HeaderSlide({ title, secondary }: headerSlideProps) {
         </View>
     )
 }
+
+export default HeaderSlide
 
 const styles = StyleSheet.create({
     container_Title: {

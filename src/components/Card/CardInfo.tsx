@@ -2,20 +2,24 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { CardId } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
+import CardId from './CardId'
 
 interface cardInfoProps {
     secondary?: boolean
     primary?: boolean
     onPress?: () => void
 }
-const dataUserSelector = (state: RootState) => state.user.userDetail
-const userUpdateSelector = (state: RootState) => state.user.userUpdate
+
+const userDetailSelector = (state: RootState) => state.user.userDetail
+
+// const dataUserSelector = (state: RootState) => state.user.userDetail
+// const userUpdateSelector = (state: RootState) => state.user.userUpdate
 
 const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
-    const dataUser = useSelector(dataUserSelector)
-    const userUpdate = useSelector(userUpdateSelector)
+    // const dataUser = useSelector(dataUserSelector)
+    // const userUpdate = useSelector(userUpdateSelector)
+    const userDetail = useSelector(userDetailSelector)
 
     return (
         <TouchableOpacity
@@ -30,9 +34,7 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                     {secondary ? (
                         <Image
                             source={{
-                                uri: userUpdate.image
-                                    ? userUpdate.image
-                                    : dataUser.image,
+                                uri: userDetail.image,
                             }}
                             style={{
                                 width: 120,
@@ -43,9 +45,7 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                     ) : (
                         <Image
                             source={{
-                                uri: userUpdate.image
-                                    ? userUpdate.image
-                                    : dataUser.image,
+                                uri: userDetail.image,
                             }}
                             style={{
                                 width: 50,
@@ -63,7 +63,7 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                             secondary && styles.titleSecondary,
                         ]}
                     >
-                        {userUpdate.name ? userUpdate.name : dataUser.full_name}
+                        {userDetail.full_name}
                     </Text>
                     <CardId />
                 </View>

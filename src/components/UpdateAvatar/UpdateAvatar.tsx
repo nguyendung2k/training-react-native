@@ -1,7 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { ButtonNoBg } from '@components'
+import { ButtonNoBg } from '@components/Button'
 
 interface updateAvatarProps {
     avatar?: string

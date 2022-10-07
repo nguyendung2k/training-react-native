@@ -2,12 +2,13 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRoute } from '@react-navigation/native'
-import { InputReplyPost, Posted } from '@components'
 import { RootState } from '@redux/store'
 import { addComment, likePostById } from '@redux'
+import { Posted } from '@components/Posted'
+import { InputReplyPost } from '@components/Input'
 
-const userUpdateSelector = (state: RootState) => state.user.userUpdate
-const dataUserSelector = (state: RootState) => state.user.userDetail
+// const userUpdateSelector = (state: RootState) => state.user.userUpdate
+const userDetailSelector = (state: RootState) => state.user.userDetail
 
 const likePostSelector = (state: RootState) => state.forum.like
 const dataLikePostSelector = (state: RootState) => state.forum.likes
@@ -20,12 +21,10 @@ const HeaderCommentForumFlatList = () => {
     const idFromParam: any = useRoute().params
     const dataComment = useSelector(dataCommentSelector)
     const dataLike = useSelector(dataLikePostSelector)
-
     const dataPost = useSelector(dataPostSelector)
-    const dataUser = useSelector(dataUserSelector)
-
-    const checkLikePost = useSelector(likePostSelector)
-    const userUpdate = useSelector(userUpdateSelector)
+    const userDetail = useSelector(userDetailSelector)
+    // const checkLikePost = useSelector(likePostSelector)
+    // const userUpdate = useSelector(userUpdateSelector)
 
     const [valueText, setValueText] = useState<string>('')
     const [dataPostById, setDataPostById] = useState<any>()
@@ -69,10 +68,8 @@ const HeaderCommentForumFlatList = () => {
                         ...copyDataComment[index],
                         data: [
                             {
-                                name: dataUser.full_name,
-                                avatar: userUpdate.image
-                                    ? userUpdate.image
-                                    : dataUser.image,
+                                name: userDetail.full_name,
+                                avatar: userDetail.image,
                                 body: valueText,
                                 id: Math.random().toString(),
                                 createdAt: new Date().toISOString(),
@@ -87,10 +84,8 @@ const HeaderCommentForumFlatList = () => {
                             post_id: id,
                             data: [
                                 {
-                                    name: dataUser.full_name,
-                                    avatar: userUpdate.image
-                                        ? userUpdate.image
-                                        : dataUser.image,
+                                    name: userDetail.full_name,
+                                    avatar: userDetail.image,
                                     body: valueText,
                                     id: Math.random().toString(),
                                     createdAt: Date.now().toString(),
@@ -128,7 +123,7 @@ const HeaderCommentForumFlatList = () => {
                     <View>
                         <InputReplyPost
                             onPress={() => handleComment(dataPostById.id)}
-                            avatar={dataUser.image}
+                            avatar={userDetail?.image}
                             value={valueText}
                             onChangeText={setValueText}
                         />

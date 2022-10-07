@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 interface messageErrorProps {
     error?: string | React.ReactNode
 }

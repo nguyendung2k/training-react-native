@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
-import {
-    ButtonForm,
-    Header,
-    IConBack,
-    IconCheckCircle,
-    Input,
-    MessageError,
-    NotificationModal,
-} from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
 import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import { RootState } from '@redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { showNotice, updatePassword } from '@redux'
+import { Input } from '@components/Input'
+import { Header } from '@components/Header'
+import { IConBack } from '@components/Svg'
+import { MessageError } from '@components/MessageError'
+import { ButtonForm } from '@components/Button'
 
 const userSelector = (state: RootState) => state.user.user
 

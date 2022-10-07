@@ -14,20 +14,16 @@ import {
 import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import {
-    ArrowRight,
-    ButtonForm,
-    ButtonNoBg,
-    IconCheckCircle,
-    IconMinusCircle,
-    Input,
-    MessageError,
-    NotificationModal,
-} from '@components'
+
 import { COLORS, SIZES } from '@theme'
 import { RootState, useAppDispatch } from '@redux/store'
 import { useSelector } from 'react-redux'
-import { detailUser, loginAuth, showNoticeSuccess } from '@redux'
+import { detailUser, loadingAction, loginAuth, showNoticeSuccess } from '@redux'
+import { Input } from '@components/Input'
+import { NotificationModal } from '@components/Modal'
+import { ArrowRight, IconCheckCircle, IconMinusCircle } from '@components/Svg'
+import { MessageError } from '@components/MessageError'
+import { ButtonForm, ButtonNoBg } from '@components/Button'
 
 const userSelector = (state: RootState) => state.user.user
 const noticeSelector = (state: RootState) => state.home.notice
@@ -52,17 +48,20 @@ const Login = ({ navigation }: any) => {
 
     const handleLogin = (values: { email: string; password: string }) => {
         const checkLogin = userData.filter((item) => {
-            return (
-                item.email === values.email && item.password === values.password
-            )
+            const email = values.email.toLowerCase()
+            const password = values.password.toLowerCase()
+            return item.email === email && item.password === password
         })
         if (checkLogin.length === 0) {
             setShowNotice(true)
         } else {
             const tokenUser = checkLogin[0].data.token
             const detail = checkLogin[0].data
+            console.log('detail: ', detail)
+
             dispatch(loginAuth(tokenUser))
             dispatch(detailUser(detail))
+            dispatch(loadingAction(true))
         }
     }
 

@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import { Input, InputDropLogo } from '@components'
+import { Input, InputDropLogo } from '@components/Input'
 
 interface props {
     valueAddress?: string

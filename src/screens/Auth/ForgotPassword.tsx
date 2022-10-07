@@ -10,9 +10,11 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
-import { ButtonForm, Input, MessageError } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
+import { Input } from '@components/Input'
+import { MessageError } from '@components/MessageError'
+import { ButtonForm } from '@components/Button'
 
 const ForgotPassword = () => {
     const navigation = useNavigation<any>()

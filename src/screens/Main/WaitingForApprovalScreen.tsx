@@ -1,15 +1,11 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import {
-    Header,
-    IConBack,
-    IconCheckCircle,
-    IconMinusCircle,
-    NotificationModal,
-    WaitingFormRequest,
-} from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
+import { NotificationModal } from '@components/Modal'
+import { IConBack, IconCheckCircle, IconMinusCircle } from '@components/Svg'
+import { Header } from '@components/Header'
+import { WaitingFormRequest } from '@components/FormRequest'
 
 const requests = [
     {

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { IconCaretRight, IconChat } from '@components'
 import { COLORS, BORDER, SIZES } from '@theme'
 import { RootState } from '@redux'
 import { useSelector } from 'react-redux'
+import { IconCaretRight, IconChat } from '@components/Svg'
 
 interface bannerFormProps {
     title?: string
@@ -18,7 +18,6 @@ const dataFindGroupSelector = (state: RootState) => state.group.findGroup
 const BannerForum = ({ title, des, Icon, onDirection }: bannerFormProps) => {
     const dataFindGroup = useSelector(dataFindGroupSelector)
 
-    // console.log('dataFind: ', dataFindGroup)
     return (
         <View style={styles.container}>
             <View style={styles.body}>

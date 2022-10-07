@@ -6,8 +6,8 @@ import {
     ScrollView,
 } from 'react-native'
 import React from 'react'
-import { IconX } from '@components'
 import { COLORS, BORDER } from '@theme'
+import { IconX } from '@components/Svg'
 
 interface imageProps {
     onClose?: (index: number) => void

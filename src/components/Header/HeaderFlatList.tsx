@@ -11,22 +11,30 @@ import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { HeaderSlide, SlideCommunityView } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { CommunitiesScreenProp } from '@navigation/type'
+import { SlideCommunityView } from '@components/SlideView'
+import HeaderSlide from './HeaderSlide'
 
-const userUpdateSelector = (state: RootState) => state.user.userUpdate
+// const userUpdateSelector = (state: RootState) => state.user.userUpdate
 const userDetailSelector = (state: RootState) => state.user.userDetail
 const dataGroupSelector = (state: RootState) => state.group.groups
+const dataUser = (state: RootState) => state.user.user
 
 const HeaderFlatList = () => {
     const navigation =
         useNavigation<
             CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
         >()
-    const user = useSelector(userDetailSelector)
-    // console.log('userDetail--', user)
-    const userUpdate = useSelector(userUpdateSelector)
+    const userDetail = useSelector(userDetailSelector)
+    // console.log('userDetail: ', userDetail)
+
+    // const dataUsers = useSelector(dataUser)
+    // console.log('dataUsers: ', dataUsers)
+
+    // console.log('user: ', user)
+
+    // const userUpdate = useSelector(userUpdateSelector)
     const dataGroup = useSelector(dataGroupSelector)
 
     const [groupJoin, setGroupJoin] = useState<any>([])
@@ -56,9 +64,7 @@ const HeaderFlatList = () => {
                 <View style={styles.header_Image}>
                     <Image
                         source={{
-                            uri: userUpdate.image
-                                ? userUpdate.image
-                                : user.image,
+                            uri: userDetail.image,
                         }}
                         style={styles.image}
                     />
@@ -66,7 +72,8 @@ const HeaderFlatList = () => {
                 <View>
                     <Text style={styles.header_Title}>Hello</Text>
                     <Text style={styles.header_Name}>
-                        {userUpdate.name ? userUpdate.name : user.full_name}
+                        {userDetail.full_name}
+                        {/* {userUpdate.name ? userUpdate.name : user.full_name} */}
                     </Text>
                 </View>
             </TouchableOpacity>

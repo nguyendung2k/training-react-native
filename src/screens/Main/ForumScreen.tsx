@@ -1,25 +1,21 @@
 import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
-import { Header, IConBack, ListPost, Loading } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { RootState } from '@redux/store'
 import { COLORS } from '@theme'
 import { CommentScreenProp } from '@navigation/type'
 import { likePostById } from '@redux'
+import { Header } from '@components/Header'
+import { IConBack } from '@components/Svg'
+import { ListPost } from '@components/ListView'
 
-interface forumScreenProps {
-    id: string
-}
-
-const userUpdateSelector = (state: RootState) => state.user.userUpdate
 const likePostSelector = (state: RootState) => state.forum.like
 const dataLikePostSelector = (state: RootState) => state.forum.likes
 const postsSelector = (state: RootState) => state.forum.posts
 const dataCommentSelector = (state: RootState) => state.forum.comments
 
-const ForumScreen = ({ id }: forumScreenProps) => {
+const ForumScreen = () => {
     const dispatch = useDispatch()
     const navigation =
         useNavigation<CommentScreenProp<'CommentForumScreen'>['navigation']>()
@@ -83,14 +79,14 @@ const ForumScreen = ({ id }: forumScreenProps) => {
         return amountLike ? amountLike?.data.length : 0
     }
 
-    const handlePressPost = (id: { id: string }) => {
+    const handlePressPost = (id: string) => {
         navigation.navigate('CommentForumScreen', id)
     }
-    const handlePressComment = (id: { id: string }) => {
+    const handlePressComment = (id: string) => {
         navigation.navigate('CommentForumScreen', id)
     }
 
-    const handlePressImage = (id: { id: string }) => {
+    const handlePressImage = (id: string) => {
         navigation.navigate('CommentForumScreen', id)
     }
 
@@ -119,6 +115,8 @@ const ForumScreen = ({ id }: forumScreenProps) => {
         //     // console.log('12312: ', checkLikePost)
         // }
     }
+
+    console.log('dataPost: ', dataPosts)
 
     return (
         <SafeAreaView style={styles.container}>

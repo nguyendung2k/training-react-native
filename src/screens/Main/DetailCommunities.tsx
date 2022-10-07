@@ -8,23 +8,10 @@ import {
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    Banner,
-    BannerForum,
-    ConditionModal,
-    Header,
-    HeaderSlide,
-    IConBack,
-    IconInfo,
-    IconSearch,
-    InputSearch,
-    ListMember,
-} from '@components'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AppDispatch, RootState } from '@redux/store'
 import { COLORS } from '@theme'
 import { DetailCommunityScreenProp } from '@navigation/type'
-import ContentLoader, { Facebook } from 'react-content-loader/native'
 import {
     changeAttendGroup,
     changeLeavingGroup,
@@ -33,6 +20,12 @@ import {
     searchMemberByTitle,
     showModal,
 } from '@redux'
+import { InputSearch } from '@components/Input'
+import { ConditionModal } from '@components/Modal'
+import { Header, HeaderSlide } from '@components/Header'
+import { IConBack, IconInfo, IconSearch } from '@components/Svg'
+import { Banner, BannerForum } from '@components/Banner'
+import { ListMember } from '@components/ListView'
 
 // const MyLoader = () => <ContentLoader />
 // const MyFacebookLoader = () => <Facebook />
@@ -44,6 +37,8 @@ const dataGroupSelector = (state: RootState) => state.group.groups
 const DetailCommunities = () => {
     const dispatch = useDispatch<AppDispatch>()
     const idParamDetail = useRoute().params
+    // console.log('idParamDetail:', idParamDetail)
+
     const navigation =
         useNavigation<DetailCommunityScreenProp<'HomeScreen'>['navigation']>()
     const dataGroup = useSelector(dataGroupSelector)

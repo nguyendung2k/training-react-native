@@ -2,20 +2,20 @@ import { StyleSheet, View, SafeAreaView } from 'react-native'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-    Comment,
-    Header,
-    HeaderCommentForumFlatList,
-    IConBack,
-} from '@components'
 import { RootState } from '@redux/store'
 import { COLORS } from '@theme'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { Header, HeaderCommentForumFlatList } from '@components/Header'
+import { IConBack } from '@components/Svg'
+import { Comment } from '@components/Comment'
 
 const dataCommentSelector = (state: RootState) => state.forum.comments
 
 const CommentForumScreen = () => {
     const idFromParam: any = useRoute().params
+
+    // console.log('type id: ', typeof idFromParam)
+
     const navigation = useNavigation()
 
     const [comments, setComments] = useState<
@@ -31,6 +31,8 @@ const CommentForumScreen = () => {
     useEffect(() => {
         handleGetForumComment(idFromParam)
     }, [dataComment])
+
+    console.log('comment: ', comments)
 
     const handleGetForumComment = (id: string) => {
         const findComment = dataComment.filter((item) => {

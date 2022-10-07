@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { IconComment, IconDotTime, IconHeart } from '@components'
 import { COLORS, SIZES, BORDER } from '@theme'
 import { RootState } from '@redux/store'
+import { IconComment, IconDotTime, IconHeart } from '@components/Svg'
 
 interface postedProps {
     Icon?: () => JSX.Element
@@ -43,7 +43,7 @@ const Posted = ({
     id,
 }: postedProps) => {
     const checkLikePost = useSelector(dataLikePostSelector)
-    console.log('idPost:  ', id)
+    // console.log('idPost:  ', id)
     const isLike = checkLikePost.includes(id)
     return (
         <View style={styles.posted}>

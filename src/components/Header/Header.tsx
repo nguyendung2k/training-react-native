@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { IconPencil, IconPencilAdd } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
+import { IconPencil, IconPencilAdd } from '@components/Svg'
 
 interface headerProps {
     showTextHeader?: boolean

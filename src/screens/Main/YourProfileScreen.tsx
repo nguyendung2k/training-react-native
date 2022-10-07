@@ -9,38 +9,46 @@ import {
     SafeAreaView,
 } from 'react-native'
 import React from 'react'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { RootState } from '@redux/store'
+import { COLORS, SIZES } from '@theme'
+import { RootStackScreenProps } from '@navigation/type'
+import { BannerNotification } from '@components/Banner'
+import { Header, HeaderSlide } from '@components/Header'
 import {
-    BannerNotification,
-    ButtonActiveLogs,
-    ButtonInfoFollow,
-    ButtonNoBg,
-    ButtonNotification,
-    ButtonSocialNetwork,
-    CardInfo,
-    Header,
-    HeaderSlide,
     IConBack,
     IconCaretRight,
     IconCoin,
     IconCrown,
     IconDotNotification,
     IconUsersDual,
-} from '@components'
-import { RootState } from '@redux/store'
-import { useNavigation } from '@react-navigation/native'
+} from '@components/Svg'
+import { CardInfo } from '@components/Card'
+import {
+    ButtonActiveLogs,
+    ButtonInfoFollow,
+    ButtonNoBg,
+    ButtonNotification,
+    ButtonSocialNetwork,
+} from '@components/Button'
 
-import { COLORS, SIZES } from '@theme'
-import { RootStackScreenProps } from '@navigation/type'
+// const dataUserSelector = (state: RootState) => state.user.userDetail
+// const userUpdateSelector = (state: RootState) => state.user.userUpdate
 
-const dataUserSelector = (state: RootState) => state.user.userDetail
-const userUpdateSelector = (state: RootState) => state.user.userUpdate
+const userDetailSelector = (state: RootState) => state.user.userDetail
 
 const YourProfileScreen = () => {
+    const idUserParam = useRoute().params
+
+    console.log('idUserParam: ', idUserParam)
+
     const navigation =
         useNavigation<RootStackScreenProps<'YourProfileScreen'>['navigation']>()
-    const dataUser = useSelector(dataUserSelector)
-    const userUpdate = useSelector(userUpdateSelector)
+    const userDetail = useSelector(userDetailSelector)
+
+    // const dataUser = useSelector(dataUserSelector)
+    // const userUpdate = useSelector(userUpdateSelector)
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -62,7 +70,10 @@ const YourProfileScreen = () => {
                                 showIcon
                                 onPress={() => navigation.goBack()}
                                 onDirection={() =>
-                                    navigation.navigate('UpdateProfileScreen')
+                                    navigation.navigate(
+                                        'UpdateProfileScreen',
+                                        idUserParam
+                                    )
                                 }
                                 Icon={() => (
                                     <IConBack stroke={COLORS.Neutral0} />
@@ -147,9 +158,10 @@ const YourProfileScreen = () => {
 
                     <HeaderSlide title="Introduction" />
                     <Text style={styles.textIntroduction}>
-                        {userUpdate.introduction
+                        {userDetail.introduction}
+                        {/* {userUpdate.introduction
                             ? userUpdate.introduction
-                            : dataUser.introduction}
+                            : dataUser.introduction} */}
                     </Text>
                     {/* ------- */}
 

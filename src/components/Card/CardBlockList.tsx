@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { ButtonForm } from '@components'
 import { COLORS, BORDER, SIZES } from '@theme'
+import { ButtonForm } from '@components/Button'
 
 interface cardBlockProps {
     name: string

@@ -7,11 +7,12 @@ import {
     View,
 } from 'react-native'
 import React, { useState } from 'react'
-import { ButtonForm, ChoseAddressSocial, HeaderAuth } from '@components'
 import { COLORS } from '@theme'
 import { useNavigation } from '@react-navigation/native'
 import { PersonalIntroductionProp } from '@navigation/type'
-// import { stackScreenProp } from '@navigation/type'
+import { ChoseAddressSocial } from '@components/ChoseAddressSocial'
+import { HeaderAuth } from '@components/Header'
+import { ButtonForm } from '@components/Button'
 const inputChooseSocial = [
     {
         id: 1,

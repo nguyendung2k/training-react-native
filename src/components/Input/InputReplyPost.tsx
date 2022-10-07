@@ -1,8 +1,9 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { ButtonReply, Input } from '@components'
 import { COLORS } from '@theme'
+import Input from './Input'
+import { ButtonReply } from '@components/Button'
 
 interface inputReplyProps {
     avatar?: string
@@ -26,7 +27,7 @@ const InputReplyPost = ({
                 <View style={styles.image}>
                     <Image
                         source={{
-                            uri: userUpdate.image ? userUpdate.image : avatar,
+                            uri: avatar,
                         }}
                         style={styles.imageAvatar}
                     />

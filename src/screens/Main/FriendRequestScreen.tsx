@@ -1,8 +1,10 @@
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
-import { Header, IConBack, WaitingFormRequest } from '@components'
 import { COLORS } from '@theme'
 import { useNavigation } from '@react-navigation/native'
+import { Header } from '@components/Header'
+import { IConBack } from '@components/Svg'
+import { WaitingFormRequest } from '@components/FormRequest'
 
 const FriendRequestScreen = () => {
     const navigation = useNavigation()

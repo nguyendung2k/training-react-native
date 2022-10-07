@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { IconCommunities, IconHome, IconUser } from '@components'
 import { COLORS, SIZES } from '@theme'
 import {
     AccountStackScreen,
     CommunitiesStackScreen,
     HomeStackScreen,
 } from '@navigation/Main'
+import { IconCommunities, IconHome, IconUser } from '@components/Svg'
 
 const Tabs = createBottomTabNavigator()
 

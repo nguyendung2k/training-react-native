@@ -3,24 +3,22 @@ import React, { useEffect, useState } from 'react'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
 import { useDispatch, useSelector } from 'react-redux'
+import { modalHandle, RootState, showNotice } from '@redux'
+import { useNavigation } from '@react-navigation/native'
+import { COLORS } from '@theme'
+import { AccountScreenProp } from '@navigation/type'
+import { BaseModal, NotificationModal } from '@components/Modal'
 import {
-    BaseModal,
-    ButtonAccountMenu,
-    ButtonForm,
-    CardInfo,
-    Header,
     IconCheckCircle,
     IconLockKeyOpen,
     IconProhibit,
     IconSignOut,
     IconUserCircle,
     IconWarning,
-    NotificationModal,
-} from '@components'
-import { modalHandle, RootState, showNotice } from '@redux'
-import { useNavigation } from '@react-navigation/native'
-import { COLORS } from '@theme'
-import { AccountScreenProp } from '@navigation/type'
+} from '@components/Svg'
+import { CardInfo } from '@components/Card'
+import { ButtonAccountMenu, ButtonForm } from '@components/Button'
+import { Header } from '@components/Header'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -31,6 +29,7 @@ Notifications.setNotificationHandler({
 })
 
 const showNoticeSelector = (state: RootState) => state.user.modal
+const userDetailSelector = (state: RootState) => state.user.userDetail
 const showModalSelector = (state: RootState) => state.auth.showModal
 
 const AccountScreen = () => {
@@ -39,6 +38,9 @@ const AccountScreen = () => {
         useNavigation<AccountScreenProp<'AccountStackScreen'>['navigation']>()
     const showModal = useSelector(showModalSelector)
     const showNoticeModal = useSelector(showNoticeSelector)
+    const userDetail = useSelector(userDetailSelector)
+
+    console.log('userDetailID: ', userDetail.user_id)
 
     const handleShowModal = () => {
         dispatch(modalHandle(true))

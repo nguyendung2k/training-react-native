@@ -1,11 +1,14 @@
 import { FlatList, StyleSheet, View, SafeAreaView, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Header, IconSearch, InputSearch, ListCommunityView } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
 import { RootState, searchGroupByValue } from '@redux'
 import { CommunitiesScreenProp } from '@navigation/type'
+import { InputSearch } from '@components/Input'
+import { Header } from '@components/Header'
+import { IconSearch } from '@components/Svg'
+import { ListCommunityView } from '@components/ListView'
 
 const dataGroupSelector = (state: RootState) => state.group.groups
 
@@ -23,7 +26,7 @@ const CommunitiesScreen = () => {
         dispatch(searchGroupByValue(value))
     }
 
-    const handleOnChangeGroup = (id: { id: string }) => {
+    const handleOnChangeGroup = (id: string) => {
         navigation.navigate('DetailCommunities', id)
     }
 

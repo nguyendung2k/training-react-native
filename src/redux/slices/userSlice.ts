@@ -15,34 +15,35 @@ interface iState {
             image: string
             introduction: string
             introduce_code: number
+            user_id?: string
         }
     }[]
     userDetail: {
-        id: string
-        token: any
+        token: any | null
         email: string
         first_name: string
         last_name: string
         full_name: string
         image: string
         introduction: string
-        introduce_code: number
+        introduce_code: number | null
+        user_id: string
     }
-    userUpdate: {
-        id: string
-        email: string
-        name: string
-        image: string
-        introduction: string
-        password?: string
-    }
+    // userUpdate: {
+    //     id: string
+    //     email: string
+    //     name: string
+    //     image: string
+    //     introduction: string
+    //     password?: string
+    // }
     modal: boolean
 }
 
 const initialState: iState = {
     user: userData,
     userDetail: {
-        id: '',
+        user_id: '',
         token: null,
         email: '',
         first_name: '',
@@ -50,15 +51,15 @@ const initialState: iState = {
         full_name: '',
         image: '',
         introduction: '',
-        introduce_code: 0,
+        introduce_code: null,
     },
-    userUpdate: {
-        id: '',
-        email: '',
-        name: '',
-        image: '',
-        introduction: '',
-    },
+    // userUpdate: {
+    //     id: '',
+    //     email: '',
+    //     name: '',
+    //     image: '',
+    //     introduction: '',
+    // },
     modal: false,
 }
 
@@ -67,12 +68,13 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         detailUser(state, action) {
-            // console.log('ac', action.payload)
+            console.log('ac: ', action.payload)
+
             state.userDetail = action.payload
         },
-        updateUser(state, action) {
-            state.userUpdate = action.payload
-        },
+        // updateUser(state, action) {
+        //     state.userUpdate = action.payload
+        // },
         updatePassword(state, action) {
             state.user = action.payload
         },
@@ -88,7 +90,7 @@ export const userSlice = createSlice({
 
 export const {
     detailUser,
-    updateUser,
+    // updateUser,
     updatePassword,
     showNotice,
     createUser,

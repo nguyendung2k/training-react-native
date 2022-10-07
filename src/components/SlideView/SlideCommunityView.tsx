@@ -6,7 +6,6 @@ import {
     View,
 } from 'react-native'
 import React from 'react'
-
 import { LinearGradient } from 'expo-linear-gradient'
 import { BORDER, COLORS, SIZES } from '@theme'
 

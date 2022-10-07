@@ -2,8 +2,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 
 import Check from '../../assets/icons/Check.svg'
-import { CheckBox } from '@components'
 import { BORDER, SIZES, COLORS } from '@theme'
+import { CheckBox } from '@components/Checkbox'
 
 interface listViewProps {
     title?: string

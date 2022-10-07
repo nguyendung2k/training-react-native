@@ -1,25 +1,7 @@
-import {
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    TouchableWithoutFeedback,
-} from 'react-native'
+import { Image, StyleSheet, View, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Formik } from 'formik'
-import {
-    ButtonForm,
-    ButtonNoBg,
-    HeaderAuth,
-    Input,
-    InputDrop,
-    MessageError,
-} from '@components'
 import * as ImagePicker from 'expo-image-picker'
 import {
     createUser,
@@ -33,6 +15,10 @@ import { COLORS } from '@theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Yup from 'yup'
 import { RegisterEndProp } from '@navigation/type'
+import { Input, InputDrop } from '@components/Input'
+import { HeaderAuth } from '@components/Header'
+import { ButtonForm, ButtonNoBg } from '@components/Button'
+import { MessageError } from '@components/MessageError'
 
 const userSelector = (state: RootState) => state.user.user
 const registerSelector = (state: RootState) => state.register
@@ -181,16 +167,6 @@ const RegisterEnd = () => {
                                             'profession'
                                         )}
                                     />
-                                    {/* {touched.profession && (
-                                        <Text
-                                            style={{
-                                                fontSize: 10,
-                                                color: 'red',
-                                            }}
-                                        >
-                                            {errors.profession}
-                                        </Text>
-                                    )} */}
                                 </View>
                                 <View style={styles.groupInput}>
                                     <View>
@@ -204,16 +180,6 @@ const RegisterEnd = () => {
                                                 'birth_year'
                                             )}
                                         />
-                                        {/* {touched.birth_year && (
-                                            <Text
-                                                style={{
-                                                    fontSize: 10,
-                                                    color: 'red',
-                                                }}
-                                            >
-                                                {errors.birth_year}
-                                            </Text>
-                                        )} */}
                                     </View>
                                     <View>
                                         <InputDrop
@@ -226,16 +192,6 @@ const RegisterEnd = () => {
                                                 'gender'
                                             )}
                                         />
-                                        {/* {touched.gender && (
-                                            <Text
-                                                style={{
-                                                    fontSize: 10,
-                                                    color: 'red',
-                                                }}
-                                            >
-                                                {errors.gender}
-                                            </Text>
-                                        )} */}
                                     </View>
                                 </View>
 

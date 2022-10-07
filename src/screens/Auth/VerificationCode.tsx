@@ -8,10 +8,12 @@ import {
     View,
 } from 'react-native'
 import React from 'react'
-import { ButtonForm, IconCheck, VerifyCode } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
 import { VerificationCodeProp } from '@navigation/type'
+import { VerifyCode } from '@components/VerifyCode'
+import { ButtonForm } from '@components/Button'
+import { IconCheck } from '@components/Svg'
 
 const VerificationCode = () => {
     const navigation =

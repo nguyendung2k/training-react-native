@@ -1,8 +1,10 @@
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
-import { CardBlockList, Header, IConBack } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
+import { Header } from '@components/Header'
+import { IConBack } from '@components/Svg'
+import { CardBlockList } from '@components/Card'
 
 const dataBlockUser = [
     {

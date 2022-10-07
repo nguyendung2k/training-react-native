@@ -1,27 +1,23 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { RootState } from '@redux/store'
+import { BORDER, COLORS } from '@theme'
+import { GENDER } from '@constant/filter'
 import {
+    getDataMember,
     handleClearFitterConditionModal,
     searchAgeMaxChange,
     searchAgeMinChange,
     updateCheckboxIdChange,
     updateGenderChange,
     updateStatusGender,
-} from '../../redux/slices/filterSlice'
-
-import { getDataMember } from '../../redux/slices/memberSlice'
-import { RootState } from '@redux/store'
-import {
-    ButtonHaft,
-    CheckBox,
-    HeaderSlide,
-    IconCheck,
-    InputSelectAge,
-} from '@components'
-import { BORDER, COLORS } from '@theme'
-import { GENDER } from '@constant/filter'
+} from '@redux'
+import { HeaderSlide } from '@components/Header'
+import { InputSelectAge } from '@components/Input'
+import { CheckBox } from '@components/Checkbox'
+import { IconCheck } from '@components/Svg'
+import { ButtonHaft } from '@components/Button'
 
 interface conditionModalProps {
     onPress: (minAge: string, maxAge: string, status: boolean) => void

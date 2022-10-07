@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { IconDotTime } from '@components'
 import { COLORS, SIZES } from '@theme'
+import { IconDotTime } from '@components/Svg'
 
 interface commentProps {
     name?: string

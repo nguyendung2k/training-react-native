@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { ButtonHaft, IconUsersDual } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
+import { IconUsersDual } from '@components/Svg'
+import { ButtonHaft } from '@components/Button'
 
 interface waitingFormProps {
     name?: string

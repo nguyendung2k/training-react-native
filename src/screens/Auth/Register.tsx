@@ -3,23 +3,22 @@ import { useNavigation } from '@react-navigation/native'
 import { COLORS, SIZES } from '@theme'
 import { Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import {
-    ArrowRight,
-    ButtonForm,
-    CheckBox,
-    Header,
-    IConBack,
-    IconCheck,
-    IconMinusCircle,
-    Input,
-    InputDrop,
-    MessageError,
-    NotificationModal,
-} from '@components'
 import { createNewUser, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Yup from 'yup'
+import { NotificationModal } from '@components/Modal'
+import {
+    ArrowRight,
+    IConBack,
+    IconCheck,
+    IconMinusCircle,
+} from '@components/Svg'
+import { Header } from '@components/Header'
+import { Input, InputDrop } from '@components/Input'
+import { MessageError } from '@components/MessageError'
+import { CheckBox } from '@components/Checkbox'
+import { ButtonForm } from '@components/Button'
 
 interface dataUserRegister {
     id: string
@@ -38,7 +37,7 @@ const Register = () => {
     const dispatch = useDispatch()
     const userData = useSelector(userSelector)
 
-    console.log('userData', userData)
+    // console.log('userData', userData)
 
     const navigation = useNavigation<any>()
     const [valueGender, setValueGender] = useState<string>('Male')
@@ -72,15 +71,15 @@ const Register = () => {
             const [first, last] = data.username.split(' ')
             const params = {
                 id: (userData.length + 1).toString(),
-                email: data.email,
-                password: data.password,
+                email: data.email.toLowerCase(),
+                password: data.password.toLowerCase(),
                 data: {
                     token: Math.random().toString(),
                     first_name: first,
                     last_name: last,
                     full_name: data.username,
                     introduce_code: Number(data.introductionCode),
-                    email: data.email,
+                    email: data.email.toLowerCase(),
                 },
             }
             dispatch(createNewUser(params))

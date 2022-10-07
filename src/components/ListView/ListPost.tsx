@@ -45,13 +45,15 @@ const ListPost = ({
     const navigation = useNavigation()
     const dataPosts = useSelector(postedSelector)
 
+    console.log('itemPost: ', item)
+
     return (
         <View style={styles.posted}>
             <View style={styles.postedContainer}>
                 <View>
                     <Image
                         source={{
-                            uri: item.image,
+                            uri: 'https://picsum.photos/200/300',
                         }}
                         style={styles.postedImage}
                     />

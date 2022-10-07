@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { IconCopy } from '@components'
 import { SIZES, COLORS } from '@theme'
 import { RootState } from '@redux/store'
+import { IconCopy } from '@components/Svg'
 
 interface cardId {
     onPress?: () => void

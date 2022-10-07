@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { IconSearchDetail } from '@components'
 import { COLORS, BORDER } from '@theme'
+import { IconSearchDetail } from '@components/Svg'
 
 interface inputSearchProps {
     placeholder?: string

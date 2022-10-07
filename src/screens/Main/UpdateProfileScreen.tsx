@@ -10,24 +10,21 @@ import {
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
-import {
-    ButtonForm,
-    ChoseAddressSocial,
-    Header,
-    HeaderSlide,
-    IConBack,
-    IconCheck,
-    Input,
-    InputDrop,
-    UpdateAvatar,
-} from '@components'
 import { RootState } from '@redux/store'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { COLORS } from '@theme'
-import { updateUser } from '@redux'
+// import { updateUser } from '@redux'
+import { Input, InputDrop } from '@components/Input'
+import { ChoseAddressSocial } from '@components/ChoseAddressSocial'
+import { IConBack, IconCheck } from '@components/Svg'
+import { Header, HeaderSlide } from '@components/Header'
+import { UpdateAvatar } from '@components/UpdateAvatar'
+import { ButtonForm } from '@components/Button'
 
-const dataUserSelector = (state: RootState) => state.user.userDetail
-const userUpdateSelector = (state: RootState) => state.user.userUpdate
+// const dataUserSelector = (state: RootState) => state.user.userDetail
+// const userUpdateSelector = (state: RootState) => state.user.userUpdate
+
+const userDetailSelector = (state: RootState) => state.user.userDetail
 
 const inputChooseSocial = [
     {
@@ -38,19 +35,21 @@ const inputChooseSocial = [
 
 const UpdateProfileScreen = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation()
-    const dataUser = useSelector(dataUserSelector)
-    const userUpdate = useSelector(userUpdateSelector)
+    const idUserParam = useRoute().params
 
-    const [email, setEmail] = useState<string>(dataUser.email)
-    const [full_name, setFull_name] = useState<string>(
-        userUpdate.name ? userUpdate.name : dataUser.full_name
-    )
+    console.log('idUser', idUserParam)
+
+    const navigation = useNavigation()
+    const userDetail = useSelector(userDetailSelector)
+
+    // const dataUser = useSelector(dataUserSelector)
+    // const userUpdate = useSelector(userUpdateSelector)
+
+    const [email, setEmail] = useState<string>(userDetail.email)
+    const [full_name, setFull_name] = useState<string>(userDetail.full_name)
 
     const [introduction, setIntroduction] = useState<string>(
-        userUpdate.introduction
-            ? userUpdate.introduction
-            : dataUser.introduction
+        userDetail.introduction
     )
 
     const [valueGender, setValueGender] = useState<string>('Male')
@@ -91,9 +90,13 @@ const UpdateProfileScreen = () => {
             quality: 1,
         })
         if (!result.cancelled) {
+            // console.log('123412')
+
             setImage(result.uri)
         }
     }
+
+    // console.log('imagePick: ', image)
 
     const handleAddNewAddress = () => {
         setArrayChooseSocial(
@@ -107,14 +110,14 @@ const UpdateProfileScreen = () => {
     }
 
     const handleUpdateProfile = () => {
-        dispatch(
-            updateUser({
-                email: email,
-                name: full_name,
-                introduction: introduction,
-                image: image,
-            })
-        )
+        // dispatch(
+        //     updateUser({
+        //         // email: email,
+        //         name: full_name,
+        //         introduction: introduction,
+        //         image: image,
+        //     })
+        // )
         navigation.goBack()
     }
     return (
@@ -140,13 +143,7 @@ const UpdateProfileScreen = () => {
                             <HeaderSlide title="Profile picture" />
                             <UpdateAvatar
                                 onPress={handlePickImage}
-                                avatar={
-                                    image
-                                        ? image
-                                        : userUpdate.image
-                                        ? userUpdate.image
-                                        : dataUser.image
-                                }
+                                avatar={image ? image : userDetail.image}
                             />
                         </View>
                         <View>
@@ -158,6 +155,7 @@ const UpdateProfileScreen = () => {
                                     setEmail(value)
                                 }
                                 tertiary
+                                disable={false}
                             />
                             <Input
                                 title="Username"

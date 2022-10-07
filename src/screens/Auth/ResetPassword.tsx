@@ -8,13 +8,13 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React, { useState } from 'react'
-import { ButtonForm, Input } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { stackScreenProp } from '@navigation/type'
+import { Input } from '@components/Input'
+import { ButtonForm } from '@components/Button'
 
 const ResetPassword = () => {
-    const navigation = useNavigation<stackScreenProp>()
+    const navigation = useNavigation<any>()
     const [showPass, setShowPass] = useState<boolean>(true)
 
     const updateShowPassAndIcon = () => {

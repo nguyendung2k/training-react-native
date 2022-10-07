@@ -19,7 +19,7 @@ module.exports = function (api) {
                     ],
                     root: ['.'],
                     alias: {
-                        '@assets': './src/assets/',
+                        '@assets': './src/assets',
                         '@components': './src/components',
                         '@i18n': './src/i18n',
                         '@redux': './src/redux',
@@ -33,7 +33,6 @@ module.exports = function (api) {
                         '@constant': './src/constant',
                     },
                 },
-                'react-native-reanimated/plugin',
             ],
         ],
     }

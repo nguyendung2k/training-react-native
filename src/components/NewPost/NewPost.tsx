@@ -1,33 +1,32 @@
 import { Image, StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import { ButtonPickImage, ImagePost, Input } from '@components'
 import { SIZES } from '@theme'
-
+import Input from '../Input/Input'
+import { ImagePost } from '@components/ImagePost'
+import { ButtonPickImage } from '@components/Button'
 interface newPostProps {
     avatar?: string
-    first_name?: string
-    last_name?: string
-    OnChangeTextTitle?: (value: string) => void
-    OnChangeTextDescription?: (value: string) => void
+    full_name?: string
     valueTitle?: string
     valueDescription?: string
+    imagePost: any[]
+    OnChangeTextTitle?: (value: string) => void
+    OnChangeTextDescription?: (value: string) => void
     onPress?: () => void
     onPickImage?: () => void
     onCloseImage?: (index: number) => void
-    imagePost: any[]
 }
 
 const NewPost = ({
     avatar,
-    first_name,
-    last_name,
-    OnChangeTextTitle,
-    OnChangeTextDescription,
+    full_name,
     valueTitle,
     valueDescription,
+    imagePost,
+    OnChangeTextTitle,
+    OnChangeTextDescription,
     onPickImage,
     onCloseImage,
-    imagePost,
 }: newPostProps) => {
     return (
         <View style={styles.container}>
@@ -42,11 +41,7 @@ const NewPost = ({
                     />
                 </View>
                 <View>
-                    <Text style={styles.name}>
-                        {first_name}
-                        <Text> </Text>
-                        {last_name}
-                    </Text>
+                    <Text style={styles.name}>{full_name}</Text>
                     <View style={styles.inputTitle}>
                         <Input
                             placeholder="Title"
@@ -94,6 +89,7 @@ const styles = StyleSheet.create({
     name: {
         fontWeight: '600',
         fontSize: SIZES.medium,
+        marginTop: 5,
     },
     inputTitle: {
         marginTop: 21,

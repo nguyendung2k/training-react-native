@@ -5,6 +5,7 @@ interface iState {
         showModal: boolean
     }
     notice: boolean
+    loading: boolean
 }
 
 const initialState: iState = {
@@ -12,6 +13,7 @@ const initialState: iState = {
         showModal: false,
     },
     notice: false,
+    loading: false,
 }
 
 export const homeSlice = createSlice({
@@ -27,9 +29,13 @@ export const homeSlice = createSlice({
         showNoticeSuccess(state, action) {
             state.notice = action.payload
         },
+        loadingAction(state, action) {
+            state.loading = action.payload
+        },
     },
 })
 
-export const { showModal, hideModal, showNoticeSuccess } = homeSlice.actions
+export const { showModal, hideModal, showNoticeSuccess, loadingAction } =
+    homeSlice.actions
 
 export default homeSlice.reducer

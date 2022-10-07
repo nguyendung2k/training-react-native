@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRoute } from '@react-navigation/native'
-import { ButtonBanner, IconSignOut } from '@components'
 import { BORDER, COLORS, SIZES } from '@theme'
 
 import { changeGroupById, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
+import { ButtonBanner } from '@components/Button'
+import { IconSignOut } from '@components/Svg'
 
 interface bannerProps {
     onPressLeaving?: () => void
@@ -22,15 +23,6 @@ const Banner = ({ onPressLeaving, onPressParticipate }: bannerProps) => {
     useEffect(() => {
         dispatch(changeGroupById(idFromParam))
     }, [])
-
-    // console.log('data sau khi thay doi: ', dataDetailGroup)
-
-    // const findGroupById = (idFromParam: any) => {
-    //     const findGroup = dataGroup.filter((item) => {
-    //         return item.id === idFromParam
-    //     })
-
-    // console.log('dataFindGroup[0]?.joinGr: ', dataFindGroup[0]?.joinGr)
 
     return (
         <View style={styles.container}>

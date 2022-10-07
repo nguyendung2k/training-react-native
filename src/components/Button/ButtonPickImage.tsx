@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { IconPickImage } from '@components'
 import { COLORS, BORDER } from '@theme'
+import { IconPickImage } from '@components/Svg'
 
 interface buttonProps {
     onPress?: () => void

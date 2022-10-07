@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { COLORS, BORDER, SIZES } from '@theme'
-import { IconUsers } from '@components'
+import { IconUsers } from '@components/Svg'
 
 const ListMember = ({ data }: any) => {
     return (
