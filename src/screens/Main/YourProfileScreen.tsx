@@ -33,22 +33,14 @@ import {
     ButtonSocialNetwork,
 } from '@components/Button'
 
-// const dataUserSelector = (state: RootState) => state.user.userDetail
-// const userUpdateSelector = (state: RootState) => state.user.userUpdate
-
 const userDetailSelector = (state: RootState) => state.user.userDetail
 
 const YourProfileScreen = () => {
     const idUserParam = useRoute().params
 
-    console.log('idUserParam: ', idUserParam)
-
     const navigation =
         useNavigation<RootStackScreenProps<'YourProfileScreen'>['navigation']>()
     const userDetail = useSelector(userDetailSelector)
-
-    // const dataUser = useSelector(dataUserSelector)
-    // const userUpdate = useSelector(userUpdateSelector)
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

@@ -16,6 +16,7 @@ import {
     UpdateProfileScreen,
     WaitingForApprovalScreen,
     YourProfileScreen,
+    YourUserScreen,
 } from '@screens'
 const RootStack = createNativeStackNavigator()
 const tokenUser = (state: RootState) => state.auth.token
@@ -25,7 +26,7 @@ const MyStack = () => {
     return (
         <NavigationContainer independent={true}>
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
-                {token ? (
+                {token !== null ? (
                     <>
                         <RootStack.Screen
                             name="TabsBottom"
@@ -43,6 +44,11 @@ const MyStack = () => {
                             name="ChangePasswordScreen"
                             component={ChangePasswordScreen}
                         />
+                        <RootStack.Screen
+                            name="YourUserScreen"
+                            component={YourUserScreen}
+                        />
+
                         <RootStack.Screen
                             name="UpdateProfileScreen"
                             component={UpdateProfileScreen}

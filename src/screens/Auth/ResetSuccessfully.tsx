@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { ButtonForm } from '@components'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
+import { ButtonForm } from '@components/Button'
 
 const ResetSuccessfully = () => {
     const navigation = useNavigation<any>()

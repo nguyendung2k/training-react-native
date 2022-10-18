@@ -17,7 +17,7 @@ import { MessageError } from '@components/MessageError'
 import { ButtonForm } from '@components/Button'
 
 const ForgotPassword = () => {
-    const navigation = useNavigation<any>()
+    const navigation = useNavigation()
     const checkLogin = Yup.object().shape({
         email: Yup.string()
             .email('Please enter valid email')
@@ -77,7 +77,7 @@ const ForgotPassword = () => {
                                 <ButtonForm
                                     secondary
                                     label="Back to login"
-                                    onPress={() => navigation.navigate('Login')}
+                                    onPress={() => navigation.goBack()}
                                 />
                             </View>
                         )}

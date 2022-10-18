@@ -40,7 +40,7 @@ const AccountScreen = () => {
     const showNoticeModal = useSelector(showNoticeSelector)
     const userDetail = useSelector(userDetailSelector)
 
-    console.log('userDetailID: ', userDetail.user_id)
+    // console.log('userDetailID: ', userDetail.user_id)
 
     const handleShowModal = () => {
         dispatch(modalHandle(true))
@@ -117,7 +117,12 @@ const AccountScreen = () => {
                 <Header title="Account" showTextHeader primary />
                 <CardInfo
                     primary
-                    onPress={() => navigation.navigate('YourProfileScreen')}
+                    onPress={() =>
+                        navigation.navigate(
+                            'YourProfileScreen',
+                            userDetail.user_id
+                        )
+                    }
                 />
                 <View style={styles.btn}>
                     <ButtonAccountMenu
@@ -125,7 +130,12 @@ const AccountScreen = () => {
                         Icon={() => (
                             <IconUserCircle stroke={COLORS.Neutral10} />
                         )}
-                        onPress={() => navigation.navigate('YourProfileScreen')}
+                        onPress={() =>
+                            navigation.navigate(
+                                'YourProfileScreen',
+                                userDetail.user_id
+                            )
+                        }
                     />
                     <ButtonAccountMenu
                         label="Block List"

@@ -1,7 +1,6 @@
 import {
     StyleSheet,
     View,
-    ScrollView,
     Platform,
     KeyboardAvoidingView,
     SafeAreaView,
@@ -26,18 +25,29 @@ import { Header, HeaderSlide } from '@components/Header'
 import { IConBack, IconInfo, IconSearch } from '@components/Svg'
 import { Banner, BannerForum } from '@components/Banner'
 import { ListMember } from '@components/ListView'
-
-// const MyLoader = () => <ContentLoader />
-// const MyFacebookLoader = () => <Facebook />
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
 const dataMemberSelector = (state: RootState) => state.member.members
 const showConditionModal = (state: RootState) => state.home.modal
 const dataGroupSelector = (state: RootState) => state.group.groups
 
+interface dataUser {
+    id?: string
+    first_name?: string
+    last_name?: string
+    full_name?: string
+    age?: number
+    gender?: boolean
+    description?: string
+    introduction?: string
+    introduce_code?: number
+    image?: string
+    total_follow?: number
+}
+
 const DetailCommunities = () => {
     const dispatch = useDispatch<AppDispatch>()
     const idParamDetail = useRoute().params
-    // console.log('idParamDetail:', idParamDetail)
 
     const navigation =
         useNavigation<DetailCommunityScreenProp<'HomeScreen'>['navigation']>()
@@ -54,35 +64,6 @@ const DetailCommunities = () => {
         dispatch(showModal({ showModal: !modal.showModal }))
     }
 
-    const handleLeavingGroup = (id: any) => {
-        const copyDataGroup = [...dataGroup]
-        // console.log('copyDataGroup', copyDataGroup)
-        copyDataGroup.forEach((item, index) => {
-            if (item.id == id) {
-                copyDataGroup[index] = {
-                    ...copyDataGroup[index],
-                    joinGr: false,
-                    total_members: copyDataGroup[index].total_members - 1,
-                }
-            }
-        })
-        dispatch(changeLeavingGroup({ copyDataGroup, id }))
-    }
-
-    const handleParticipateGroup = (id: any) => {
-        const copyDataGroup = [...dataGroup]
-        copyDataGroup.forEach((item, index) => {
-            if (item.id == id) {
-                copyDataGroup[index] = {
-                    ...copyDataGroup[index],
-                    joinGr: true,
-                    total_members: copyDataGroup[index].total_members + 1,
-                }
-            }
-        })
-        dispatch(changeAttendGroup({ copyDataGroup, id }))
-    }
-
     const handleChangeValueInputSearch = (value: string) => {
         setTextValue(value)
         dispatch(searchMemberByTitle(value))
@@ -97,36 +78,52 @@ const DetailCommunities = () => {
         dispatch(filterMemberByCondition({ ageMin, ageMax, statusGender }))
     }
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
-                <View style={styles.header}>
-                    <Header
-                        onPress={() => navigation.goBack()}
-                        Icon={() => <IConBack stroke={COLORS.Neutral10} />}
-                    />
-                </View>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={styles.body}
-                >
-                    <Banner
-                        onPressLeaving={() => handleLeavingGroup(idParamDetail)}
-                        onPressParticipate={() =>
-                            handleParticipateGroup(idParamDetail)
-                        }
-                    />
-                    <BannerForum
-                        title="Real-time Forum"
-                        des="Join now to give real-time PR about yourself"
-                        Icon={() => <IconInfo stroke={COLORS.Primary} />}
-                        onDirection={() => navigation.navigate('ForumScreen')}
-                    />
+    const HeaderFlatList = () => {
+        const handleLeavingGroup = (id: any) => {
+            const newDataGroup = [...dataGroup]
+            newDataGroup.forEach((item, index) => {
+                if (item.id == id) {
+                    newDataGroup[index] = {
+                        ...newDataGroup[index],
+                        joinGr: false,
+                        total_members: newDataGroup[index].total_members - 1,
+                    }
+                }
+            })
+            dispatch(changeLeavingGroup({ newDataGroup, id }))
+        }
 
-                    <HeaderSlide title="Members" />
+        const handleParticipateGroup = (id: any) => {
+            const newDataGroup = [...dataGroup]
+            newDataGroup.forEach((item, index) => {
+                if (item.id == id) {
+                    newDataGroup[index] = {
+                        ...newDataGroup[index],
+                        joinGr: true,
+                        total_members: newDataGroup[index].total_members + 1,
+                    }
+                }
+            })
+            dispatch(changeAttendGroup({ newDataGroup, id }))
+        }
+        return (
+            <>
+                <Banner
+                    onPressLeaving={() => handleLeavingGroup(idParamDetail)}
+                    onPressParticipate={() =>
+                        handleParticipateGroup(idParamDetail)
+                    }
+                />
+                <BannerForum
+                    title="Real-time Forum"
+                    des="Join now to give real-time PR about yourself"
+                    Icon={() => <IconInfo stroke={COLORS.Primary} />}
+                    onDirection={() => navigation.navigate('ForumScreen')}
+                />
 
+                <HeaderSlide title="Members" />
+
+                <View style={styles.input}>
                     <InputSearch
                         Icon={() => <IconSearch />}
                         placeholder="Search by Name"
@@ -135,21 +132,38 @@ const DetailCommunities = () => {
                         onPress={handleShowOrHideModalCondition}
                         onChangeText={handleChangeValueInputSearch}
                     />
-
-                    <View style={styles.content}>
-                        <View style={styles.modal}>
-                            {modal.showModal && (
-                                <ConditionModal onPress={handleFilter} />
-                            )}
-                        </View>
-
-                        <View style={styles.listMember}>
-                            {member.map((item: any, index: any) => (
-                                <ListMember data={item} key={index} />
-                            ))}
-                        </View>
+                    <View style={styles.modal}>
+                        {modal.showModal && (
+                            <ConditionModal onPress={handleFilter} />
+                        )}
                     </View>
-                </ScrollView>
+                </View>
+            </>
+        )
+    }
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.content}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            >
+                <View style={styles.listMember}>
+                    <View style={styles.header}>
+                        <Header
+                            onPress={() => navigation.goBack()}
+                            Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                        />
+                    </View>
+                    <KeyboardAwareFlatList
+                        showsVerticalScrollIndicator={false}
+                        data={member}
+                        renderItem={({ item }: any) => (
+                            <ListMember item={item} />
+                        )}
+                        ListHeaderComponent={HeaderFlatList}
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
@@ -159,25 +173,23 @@ export default DetailCommunities
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: COLORS.Neutral0,
     },
-    body: {
-        marginHorizontal: 24,
-    },
     header: {
-        marginHorizontal: 10,
+        marginTop: -20,
     },
     content: {
-        position: 'relative',
+        marginHorizontal: 24,
+    },
+    input: {
+        marginBottom: 15,
     },
     modal: {
-        position: 'absolute',
-        zIndex: 100,
+        marginTop: 10,
     },
     listMember: {
-        marginBottom: 60,
-        marginTop: 24,
+        marginTop: 30,
+        zIndex: 1,
         minHeight: 650,
     },
 })

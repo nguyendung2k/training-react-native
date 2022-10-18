@@ -14,20 +14,24 @@ import {
 import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-
+import { useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 import { COLORS, SIZES } from '@theme'
 import { RootState, useAppDispatch } from '@redux/store'
-import { useSelector } from 'react-redux'
 import { detailUser, loadingAction, loginAuth, showNoticeSuccess } from '@redux'
 import { Input } from '@components/Input'
 import { NotificationModal } from '@components/Modal'
 import { ArrowRight, IconCheckCircle, IconMinusCircle } from '@components/Svg'
 import { MessageError } from '@components/MessageError'
 import { ButtonForm, ButtonNoBg } from '@components/Button'
+import { RegisterScreenProp } from '@navigation/type'
 
 const userSelector = (state: RootState) => state.user.user
 const noticeSelector = (state: RootState) => state.home.notice
-const Login = ({ navigation }: any) => {
+
+const Login = () => {
+    const navigation =
+        useNavigation<RegisterScreenProp<'Login'>['navigation']>()
     const dispatch = useAppDispatch()
     const userData = useSelector(userSelector)
     const notice = useSelector(noticeSelector)
@@ -47,6 +51,8 @@ const Login = ({ navigation }: any) => {
     }, [notice])
 
     const handleLogin = (values: { email: string; password: string }) => {
+        console.log('userData: ', userData)
+
         const checkLogin = userData.filter((item) => {
             const email = values.email.toLowerCase()
             const password = values.password.toLowerCase()
@@ -57,8 +63,6 @@ const Login = ({ navigation }: any) => {
         } else {
             const tokenUser = checkLogin[0].data.token
             const detail = checkLogin[0].data
-            console.log('detail: ', detail)
-
             dispatch(loginAuth(tokenUser))
             dispatch(detailUser(detail))
             dispatch(loadingAction(true))
@@ -80,7 +84,6 @@ const Login = ({ navigation }: any) => {
                 barStyle="dark-content"
                 hidden={false}
                 backgroundColor={COLORS.Neutral0}
-                // translucent={true}
             />
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -121,8 +124,8 @@ const Login = ({ navigation }: any) => {
 
                         <Formik
                             initialValues={{
-                                email: 'user123@gmail.com',
-                                password: '123456',
+                                email: 'user2@gmail.com',
+                                password: '1234567',
                             }}
                             validationSchema={checkInput}
                             onSubmit={(values) => handleLogin(values)}

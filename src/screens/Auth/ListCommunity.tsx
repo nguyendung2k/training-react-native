@@ -4,10 +4,10 @@ import { useNavigation } from '@react-navigation/native'
 import { changeGroupByToJoin, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { COLORS } from '@theme'
-import { ListCommunityProp } from '@navigation/type'
 import { HeaderAuth } from '@components/Header'
 import { ListCommunityView } from '@components/ListView'
 import { ButtonForm } from '@components/Button'
+import { RegisterScreenProp } from '@navigation/type'
 
 interface community {
     id: string
@@ -19,7 +19,7 @@ const dataChooseGroup = (state: RootState) => state.group.groupChoose
 const ListCommunity = ({ id }: community) => {
     const dispatch = useDispatch()
     const navigation =
-        useNavigation<ListCommunityProp<'RegisterEnd'>['navigation']>()
+        useNavigation<RegisterScreenProp<'ListCommunity'>['navigation']>()
     const listGroup = useSelector(listGroupSelector)
     const checkJoinGroup = useSelector(dataChooseGroup)
     const isCheck = checkJoinGroup.includes(id)

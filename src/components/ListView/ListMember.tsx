@@ -3,22 +3,36 @@ import React from 'react'
 import { COLORS, BORDER, SIZES } from '@theme'
 import { IconUsers } from '@components/Svg'
 
-const ListMember = ({ data }: any) => {
+// interface dataUser {
+//     id?: string
+//     first_name?: string
+//     last_name?: string
+//     full_name?: string
+//     age?: number
+//     gender?: boolean
+//     description?: string
+//     introduction?: string
+//     introduce_code?: number
+//     image?: string
+//     total_follow?: number
+// }
+
+const ListMember = ({ item }: any) => {
     return (
         <View>
             <TouchableOpacity style={styles.container}>
                 <View style={styles.content}>
-                    <Image style={styles.image} source={{ uri: data.image }} />
+                    <Image style={styles.image} source={{ uri: item?.image }} />
                     <View style={styles.info}>
-                        <Text style={styles.title}>{data.title}</Text>
+                        <Text style={styles.title}>{item?.full_name}</Text>
                         <View style={styles.body}>
                             <Text style={styles.quantity}>
-                                {data.total_follow}
+                                {item?.total_follow}
                             </Text>
                             <IconUsers stroke={COLORS.Neutral8} />
                         </View>
                         <Text style={styles.description}>
-                            {data.description}
+                            {item?.description}
                         </Text>
                     </View>
                 </View>

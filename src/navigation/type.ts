@@ -4,6 +4,7 @@ import type {
     NavigatorScreenParams,
 } from '@react-navigation/native'
 import type { StackScreenProps } from '@react-navigation/stack'
+import YourUserScreen from './../screens/Main/YourUserScreen'
 
 export type RootStackParamList = {
     Auth: NavigatorScreenParams<AuthStackParamList>
@@ -18,6 +19,7 @@ export type RootStackParamList = {
     ForumScreen: undefined
     CommentForumScreen: undefined | {}
     NewPostScreen: undefined
+    YourUserScreen: undefined | {}
 }
 
 export type HomeStackParamList = {
@@ -78,14 +80,5 @@ export type AccountScreenProp<T extends keyof TabBottomParamList> =
         RootStackScreenProps<keyof RootStackParamList>
     >
 
-export type VerificationCodeProp<T extends keyof AuthStackParamList> =
-    StackScreenProps<AuthStackParamList, T>
-
-export type PersonalIntroductionProp<T extends keyof AuthStackParamList> =
-    StackScreenProps<AuthStackParamList, T>
-
-export type ListCommunityProp<T extends keyof AuthStackParamList> =
-    StackScreenProps<AuthStackParamList, T>
-
-export type RegisterEndProp<T extends keyof AuthStackParamList> =
+export type RegisterScreenProp<T extends keyof AuthStackParamList> =
     StackScreenProps<AuthStackParamList, T>

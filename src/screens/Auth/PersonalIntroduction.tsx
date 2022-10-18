@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react'
 import { COLORS } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { PersonalIntroductionProp } from '@navigation/type'
+import { RegisterScreenProp } from '@navigation/type'
 import { ChoseAddressSocial } from '@components/ChoseAddressSocial'
 import { HeaderAuth } from '@components/Header'
 import { ButtonForm } from '@components/Button'
@@ -22,7 +22,9 @@ const inputChooseSocial = [
 
 const PersonalIntroduction = () => {
     const navigation =
-        useNavigation<PersonalIntroductionProp<'ListCommunity'>['navigation']>()
+        useNavigation<
+            RegisterScreenProp<'PersonalIntroduction'>['navigation']
+        >()
     const [arrayChooseSocial, setArrayChooseSocial] =
         useState(inputChooseSocial)
 

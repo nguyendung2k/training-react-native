@@ -14,18 +14,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { COLORS } from '@theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Yup from 'yup'
-import { RegisterEndProp } from '@navigation/type'
+import { RegisterScreenProp } from '@navigation/type'
 import { Input, InputDrop } from '@components/Input'
 import { HeaderAuth } from '@components/Header'
 import { ButtonForm, ButtonNoBg } from '@components/Button'
 import { MessageError } from '@components/MessageError'
 
+interface inputValue {
+    profession?: string
+    birth_year?: string
+    gender?: string
+    introduction?: string
+}
+
 const userSelector = (state: RootState) => state.user.user
 const registerSelector = (state: RootState) => state.register
 
 const RegisterEnd = () => {
-    const navigation = useNavigation<RegisterEndProp<'Login'>['navigation']>()
     const dispatch = useDispatch()
+    const navigation =
+        useNavigation<RegisterScreenProp<'RegisterEnd'>['navigation']>()
     const userData = useSelector(userSelector)
     const registerUser = useSelector(registerSelector)
 
@@ -78,7 +86,7 @@ const RegisterEnd = () => {
         }
     }
 
-    const handelSubmitForm = (values: any) => {
+    const handelSubmitForm = (values: inputValue) => {
         const newUser = {
             ...registerUser,
             data: {

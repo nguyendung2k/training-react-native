@@ -18,6 +18,7 @@ import { FooterFlatList } from '@components/Footer'
 
 const listGroupSelector = (state: RootState) => state.group.groups
 const loadingSelector = (state: RootState) => state.home.loading
+const userDetailSelector = (state: RootState) => state.user.userDetail
 
 export default function HomeScreen() {
     const dispatch = useDispatch()

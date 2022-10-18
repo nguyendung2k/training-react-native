@@ -59,7 +59,9 @@ const HeaderFlatList = () => {
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.header}
-                onPress={() => navigation.navigate('YourProfileScreen')}
+                onPress={() =>
+                    navigation.navigate('YourProfileScreen', userDetail.user_id)
+                }
             >
                 <View style={styles.header_Image}>
                     <Image
@@ -73,7 +75,6 @@ const HeaderFlatList = () => {
                     <Text style={styles.header_Title}>Hello</Text>
                     <Text style={styles.header_Name}>
                         {userDetail.full_name}
-                        {/* {userUpdate.name ? userUpdate.name : user.full_name} */}
                     </Text>
                 </View>
             </TouchableOpacity>

@@ -13,18 +13,16 @@ import * as ImagePicker from 'expo-image-picker'
 import { RootState } from '@redux/store'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { COLORS } from '@theme'
-// import { updateUser } from '@redux'
 import { Input, InputDrop } from '@components/Input'
 import { ChoseAddressSocial } from '@components/ChoseAddressSocial'
 import { IConBack, IconCheck } from '@components/Svg'
 import { Header, HeaderSlide } from '@components/Header'
 import { UpdateAvatar } from '@components/UpdateAvatar'
 import { ButtonForm } from '@components/Button'
-
-// const dataUserSelector = (state: RootState) => state.user.userDetail
-// const userUpdateSelector = (state: RootState) => state.user.userUpdate
+import { updateDetailUser, updateUser } from '@redux'
 
 const userDetailSelector = (state: RootState) => state.user.userDetail
+const userDataSelector = (state: RootState) => state.user.user
 
 const inputChooseSocial = [
     {
@@ -35,15 +33,11 @@ const inputChooseSocial = [
 
 const UpdateProfileScreen = () => {
     const dispatch = useDispatch()
-    const idUserParam = useRoute().params
-
-    console.log('idUser', idUserParam)
+    const idUserParam: any = useRoute().params
 
     const navigation = useNavigation()
     const userDetail = useSelector(userDetailSelector)
-
-    // const dataUser = useSelector(dataUserSelector)
-    // const userUpdate = useSelector(userUpdateSelector)
+    const userData = useSelector(userDataSelector)
 
     const [email, setEmail] = useState<string>(userDetail.email)
     const [full_name, setFull_name] = useState<string>(userDetail.full_name)
@@ -75,8 +69,6 @@ const UpdateProfileScreen = () => {
         { label: '2002', value: '2002' },
     ])
 
-    // console.log('dataUser: ', dataUser)
-
     const [arrayChooseSocial, setArrayChooseSocial] =
         useState(inputChooseSocial)
 
@@ -90,13 +82,9 @@ const UpdateProfileScreen = () => {
             quality: 1,
         })
         if (!result.cancelled) {
-            // console.log('123412')
-
             setImage(result.uri)
         }
     }
-
-    // console.log('imagePick: ', image)
 
     const handleAddNewAddress = () => {
         setArrayChooseSocial(
@@ -110,14 +98,33 @@ const UpdateProfileScreen = () => {
     }
 
     const handleUpdateProfile = () => {
-        // dispatch(
-        //     updateUser({
-        //         // email: email,
-        //         name: full_name,
-        //         introduction: introduction,
-        //         image: image,
-        //     })
-        // )
+        let newUserDetail = { ...userDetail }
+        const newUserData = [...userData]
+
+        if (userDetail.user_id === idUserParam) {
+            newUserDetail = {
+                ...newUserDetail,
+                full_name: full_name,
+                introduction: introduction,
+                image: image.length > 0 ? image : userDetail.image,
+            }
+            dispatch(updateDetailUser(newUserDetail))
+        }
+
+        newUserData.forEach((item, index) => {
+            if (item.id === idUserParam) {
+                newUserData[index] = {
+                    ...newUserData[index],
+                    data: {
+                        ...newUserData[index].data,
+                        full_name: full_name,
+                        introduction: introduction,
+                        image: image,
+                    },
+                }
+            }
+            dispatch(updateUser(newUserData))
+        })
         navigation.goBack()
     }
     return (

@@ -18,7 +18,7 @@ const dataCommentSelector = (state: RootState) => state.forum.comments
 const ForumScreen = () => {
     const dispatch = useDispatch()
     const navigation =
-        useNavigation<CommentScreenProp<'CommentForumScreen'>['navigation']>()
+        useNavigation<CommentScreenProp<'ForumScreen'>['navigation']>()
     const checkLikePost = useSelector(likePostSelector)
 
     const dataPosts = useSelector(postsSelector)

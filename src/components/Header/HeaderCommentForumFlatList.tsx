@@ -88,7 +88,7 @@ const HeaderCommentForumFlatList = () => {
                                     avatar: userDetail.image,
                                     body: valueText,
                                     id: Math.random().toString(),
-                                    createdAt: Date.now().toString(),
+                                    createdAt: new Date().toISOString(),
                                 },
                             ],
                         },

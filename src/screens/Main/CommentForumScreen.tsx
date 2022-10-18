@@ -13,9 +13,6 @@ const dataCommentSelector = (state: RootState) => state.forum.comments
 
 const CommentForumScreen = () => {
     const idFromParam: any = useRoute().params
-
-    // console.log('type id: ', typeof idFromParam)
-
     const navigation = useNavigation()
 
     const [comments, setComments] = useState<
@@ -31,8 +28,6 @@ const CommentForumScreen = () => {
     useEffect(() => {
         handleGetForumComment(idFromParam)
     }, [dataComment])
-
-    console.log('comment: ', comments)
 
     const handleGetForumComment = (id: string) => {
         const findComment = dataComment.filter((item) => {

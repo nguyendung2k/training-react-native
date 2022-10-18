@@ -12,6 +12,8 @@ interface commentProps {
 }
 
 const Comment = ({ time, item }: commentProps) => {
+    console.log('item: ', item)
+
     return (
         <View style={styles.comment}>
             <View style={styles.commentContainer}>

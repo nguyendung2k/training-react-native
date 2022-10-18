@@ -39,20 +39,20 @@ export const groupSlices = createSlice({
         changeLeavingGroup(state, action) {
             const dataPayload = action.payload
             const idPayload = dataPayload.id
-            const findGroup = dataPayload.copyDataGroup.filter((item: any) => {
+            const findGroup = dataPayload.newDataGroup.filter((item: any) => {
                 return item.id === idPayload
             })
             state.findGroup = findGroup
-            state.groups = dataPayload.copyDataGroup
+            state.groups = dataPayload.newDataGroup
         },
         changeAttendGroup(state, action) {
             const dataPayload = action.payload
             const idPayload = dataPayload.id
-            const findGroup = dataPayload.copyDataGroup.filter((item: any) => {
+            const findGroup = dataPayload.newDataGroup.filter((item: any) => {
                 return item.id === idPayload
             })
             state.findGroup = findGroup
-            state.groups = dataPayload.copyDataGroup
+            state.groups = dataPayload.newDataGroup
         },
         searchGroupByValue(state, action) {
             const valueFilter = action.payload

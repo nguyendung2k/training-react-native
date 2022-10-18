@@ -10,14 +10,14 @@ import {
 import React from 'react'
 import { COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { VerificationCodeProp } from '@navigation/type'
 import { VerifyCode } from '@components/VerifyCode'
 import { ButtonForm } from '@components/Button'
 import { IconCheck } from '@components/Svg'
+import { RegisterScreenProp } from '@navigation/type'
 
 const VerificationCode = () => {
     const navigation =
-        useNavigation<VerificationCodeProp<'VerificationCode'>['navigation']>()
+        useNavigation<RegisterScreenProp<'VerificationCode'>['navigation']>()
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

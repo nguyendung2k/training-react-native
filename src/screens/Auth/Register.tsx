@@ -19,6 +19,7 @@ import { Input, InputDrop } from '@components/Input'
 import { MessageError } from '@components/MessageError'
 import { CheckBox } from '@components/Checkbox'
 import { ButtonForm } from '@components/Button'
+import { RegisterScreenProp } from '@navigation/type'
 
 interface dataUserRegister {
     id: string
@@ -37,9 +38,8 @@ const Register = () => {
     const dispatch = useDispatch()
     const userData = useSelector(userSelector)
 
-    // console.log('userData', userData)
-
-    const navigation = useNavigation<any>()
+    const navigation =
+        useNavigation<RegisterScreenProp<'Register'>['navigation']>()
     const [valueGender, setValueGender] = useState<string>('Male')
     const [itemsGender, setItemsGender] = useState<any[]>([
         { label: 'Male', value: 'Male' },
@@ -66,8 +66,7 @@ const Register = () => {
         const checkUser = userData.every((item) => {
             return item.email !== data.email
         })
-
-        if (checkUser === true) {
+        if (checkUser === true && checkBox === true) {
             const [first, last] = data.username.split(' ')
             const params = {
                 id: (userData.length + 1).toString(),
@@ -75,6 +74,7 @@ const Register = () => {
                 password: data.password.toLowerCase(),
                 data: {
                     token: Math.random().toString(),
+                    user_id: (userData.length + 1).toString(),
                     first_name: first,
                     last_name: last,
                     full_name: data.username,
@@ -259,10 +259,12 @@ const Register = () => {
 
                             <View style={styles.btn}>
                                 <ButtonForm
+                                    disabled={!checkBox}
+                                    disable={!checkBox}
                                     label="Submit"
                                     onPress={handleSubmit}
                                     Icon={() => (
-                                        <ArrowRight stroke={COLORS.White} />
+                                        <ArrowRight stroke={COLORS.Neutral3} />
                                     )}
                                 />
                             </View>
