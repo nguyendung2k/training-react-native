@@ -151,9 +151,6 @@ const YourProfileScreen = () => {
                     <HeaderSlide title="Introduction" />
                     <Text style={styles.textIntroduction}>
                         {userDetail.introduction}
-                        {/* {userUpdate.introduction
-                            ? userUpdate.introduction
-                            : dataUser.introduction} */}
                     </Text>
                     {/* ------- */}
 

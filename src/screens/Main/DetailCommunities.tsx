@@ -1,10 +1,4 @@
-import {
-    StyleSheet,
-    View,
-    Platform,
-    KeyboardAvoidingView,
-    SafeAreaView,
-} from 'react-native'
+import { StyleSheet, View, SafeAreaView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -45,20 +39,14 @@ interface dataUser {
     total_follow?: number
 }
 
-const DetailCommunities = () => {
+export const HeaderFlatList = () => {
     const dispatch = useDispatch<AppDispatch>()
     const idParamDetail = useRoute().params
-
     const navigation =
         useNavigation<DetailCommunityScreenProp<'HomeScreen'>['navigation']>()
     const dataGroup = useSelector(dataGroupSelector)
-    const member = useSelector(dataMemberSelector)
     const modal = useSelector(showConditionModal)
     const [textValue, setTextValue] = useState<string>('')
-
-    useEffect(() => {
-        dispatch(getDataMember())
-    }, [])
 
     const handleShowOrHideModalCondition = () => {
         dispatch(showModal({ showModal: !modal.showModal }))
@@ -78,93 +66,103 @@ const DetailCommunities = () => {
         dispatch(filterMemberByCondition({ ageMin, ageMax, statusGender }))
     }
 
-    const HeaderFlatList = () => {
-        const handleLeavingGroup = (id: any) => {
-            const newDataGroup = [...dataGroup]
-            newDataGroup.forEach((item, index) => {
-                if (item.id == id) {
-                    newDataGroup[index] = {
-                        ...newDataGroup[index],
-                        joinGr: false,
-                        total_members: newDataGroup[index].total_members - 1,
-                    }
+    const handleLeavingGroup = (id: any) => {
+        const newDataGroup = [...dataGroup]
+        newDataGroup.forEach((item, index) => {
+            if (item.id == id) {
+                newDataGroup[index] = {
+                    ...newDataGroup[index],
+                    joinGr: false,
+                    total_members: newDataGroup[index].total_members - 1,
                 }
-            })
-            dispatch(changeLeavingGroup({ newDataGroup, id }))
-        }
+            }
+        })
+        dispatch(changeLeavingGroup({ newDataGroup, id }))
+    }
 
-        const handleParticipateGroup = (id: any) => {
-            const newDataGroup = [...dataGroup]
-            newDataGroup.forEach((item, index) => {
-                if (item.id == id) {
-                    newDataGroup[index] = {
-                        ...newDataGroup[index],
-                        joinGr: true,
-                        total_members: newDataGroup[index].total_members + 1,
-                    }
+    const handleParticipateGroup = (id: any) => {
+        const newDataGroup = [...dataGroup]
+        newDataGroup.forEach((item, index) => {
+            if (item.id == id) {
+                newDataGroup[index] = {
+                    ...newDataGroup[index],
+                    joinGr: true,
+                    total_members: newDataGroup[index].total_members + 1,
                 }
-            })
-            dispatch(changeAttendGroup({ newDataGroup, id }))
-        }
-        return (
-            <>
-                <Banner
-                    onPressLeaving={() => handleLeavingGroup(idParamDetail)}
-                    onPressParticipate={() =>
-                        handleParticipateGroup(idParamDetail)
-                    }
-                />
-                <BannerForum
-                    title="Real-time Forum"
-                    des="Join now to give real-time PR about yourself"
-                    Icon={() => <IconInfo stroke={COLORS.Primary} />}
-                    onDirection={() => navigation.navigate('ForumScreen')}
-                />
+            }
+        })
+        dispatch(changeAttendGroup({ newDataGroup, id }))
+    }
+    return (
+        <>
+            <Banner
+                onPressLeaving={() => handleLeavingGroup(idParamDetail)}
+                onPressParticipate={() => handleParticipateGroup(idParamDetail)}
+            />
+            <BannerForum
+                title="Real-time Forum"
+                des="Join now to give real-time PR about yourself"
+                Icon={() => <IconInfo stroke={COLORS.Primary} />}
+                onDirection={() => navigation.navigate('ForumScreen')}
+            />
 
-                <HeaderSlide title="Members" />
+            <HeaderSlide title="Members" />
 
-                <View style={styles.input}>
-                    <InputSearch
-                        Icon={() => <IconSearch />}
-                        placeholder="Search by Name"
-                        secondary
-                        value={textValue}
-                        onPress={handleShowOrHideModalCondition}
-                        onChangeText={handleChangeValueInputSearch}
-                    />
-                    <View style={styles.modal}>
-                        {modal.showModal && (
-                            <ConditionModal onPress={handleFilter} />
-                        )}
-                    </View>
+            <View style={styles.input}>
+                <InputSearch
+                    Icon={() => <IconSearch />}
+                    placeholder="Search by Name"
+                    secondary
+                    value={textValue}
+                    onPress={handleShowOrHideModalCondition}
+                    onChangeText={handleChangeValueInputSearch}
+                />
+                <View style={styles.modal}>
+                    {modal.showModal && (
+                        <ConditionModal onPress={handleFilter} />
+                    )}
                 </View>
-            </>
-        )
+            </View>
+        </>
+    )
+}
+
+const DetailCommunities = () => {
+    const navigation =
+        useNavigation<DetailCommunityScreenProp<'HomeScreen'>['navigation']>()
+    const dispatch = useDispatch<AppDispatch>()
+    const member = useSelector(dataMemberSelector)
+    useEffect(() => {
+        dispatch(getDataMember())
+    }, [])
+
+    const handleChangeUser = (id: string) => {
+        navigation.navigate('YourUserScreen', id)
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
+            <View style={styles.header}>
+                <Header
+                    onPress={() => navigation.goBack()}
+                    Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                />
+            </View>
+            <KeyboardAwareFlatList
                 style={styles.content}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
-                <View style={styles.listMember}>
-                    <View style={styles.header}>
-                        <Header
-                            onPress={() => navigation.goBack()}
-                            Icon={() => <IConBack stroke={COLORS.Neutral10} />}
+                showsVerticalScrollIndicator={false}
+                data={member}
+                renderItem={({ item }: any) => {
+                    return (
+                        <ListMember
+                            item={item}
+                            onChangeUser={() => handleChangeUser(item.id)}
                         />
-                    </View>
-                    <KeyboardAwareFlatList
-                        showsVerticalScrollIndicator={false}
-                        data={member}
-                        renderItem={({ item }: any) => (
-                            <ListMember item={item} />
-                        )}
-                        ListHeaderComponent={HeaderFlatList}
-                    />
-                </View>
-            </KeyboardAvoidingView>
+                    )
+                }}
+                ListHeaderComponent={HeaderFlatList}
+                keyExtractor={(item) => item.id}
+            />
         </SafeAreaView>
     )
 }
@@ -176,20 +174,18 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.Neutral0,
     },
     header: {
-        marginTop: -20,
+        marginHorizontal: 18,
     },
     content: {
         marginHorizontal: 24,
     },
     input: {
-        marginBottom: 15,
+        marginBottom: 12,
     },
     modal: {
         marginTop: 10,
     },
     listMember: {
-        marginTop: 30,
-        zIndex: 1,
-        minHeight: 650,
+        // flex: 1,
     },
 })

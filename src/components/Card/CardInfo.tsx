@@ -12,14 +12,15 @@ interface cardInfoProps {
 }
 
 const userDetailSelector = (state: RootState) => state.user.userDetail
-
-// const dataUserSelector = (state: RootState) => state.user.userDetail
-// const userUpdateSelector = (state: RootState) => state.user.userUpdate
+const userOtherDetailSelector = (state: RootState) => state.member.otherMember
 
 const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
-    // const dataUser = useSelector(dataUserSelector)
-    // const userUpdate = useSelector(userUpdateSelector)
     const userDetail = useSelector(userDetailSelector)
+    const userOtherDetail = useSelector(userOtherDetailSelector)
+
+    console.log('userOtherDetail: ', userOtherDetail)
+
+    console.log('userDetail', userDetail)
 
     return (
         <TouchableOpacity
@@ -30,11 +31,13 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
             <View
                 style={[styles.content, secondary && styles.contentSecondary]}
             >
-                <View style={styles.image}>
+                <View>
                     {secondary ? (
                         <Image
                             source={{
-                                uri: userDetail.image,
+                                uri: userOtherDetail.image
+                                    ? userOtherDetail.image
+                                    : userDetail.image,
                             }}
                             style={{
                                 width: 120,
@@ -45,7 +48,9 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                     ) : (
                         <Image
                             source={{
-                                uri: userDetail.image,
+                                uri: userOtherDetail.image
+                                    ? userOtherDetail.image
+                                    : userDetail.image,
                             }}
                             style={{
                                 width: 50,
@@ -63,7 +68,9 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                             secondary && styles.titleSecondary,
                         ]}
                     >
-                        {userDetail.full_name}
+                        {userOtherDetail.full_name
+                            ? userOtherDetail.full_name
+                            : userDetail.full_name}
                     </Text>
                     <CardId />
                 </View>
@@ -76,7 +83,6 @@ export default CardInfo
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: 'red',
         borderRadius: BORDER.base,
         marginVertical: 24,
     },
@@ -92,9 +98,6 @@ const styles = StyleSheet.create({
     },
     contentSecondary: {
         flexDirection: 'column',
-    },
-    image: {
-        // marginRight: 20,
     },
 
     title: {

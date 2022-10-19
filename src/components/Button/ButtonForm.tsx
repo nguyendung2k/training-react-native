@@ -10,6 +10,7 @@ interface btnProps {
     tertiary?: boolean
     quaternary?: boolean
     quinary?: boolean
+    block?: boolean
     disable?: boolean
     Icon?: () => JSX.Element
     onPress?: () => void
@@ -25,6 +26,7 @@ export default function ButtonForm({
     quinary,
     disable,
     disabled,
+    block,
     onPress,
     Icon,
 }: btnProps) {
@@ -53,6 +55,7 @@ export default function ButtonForm({
                         quaternary && styles.textNext,
                         quinary && styles.txt_Quinary,
                         disable && styles.txtDisable,
+                        block && styles.txt_Block,
                     ]}
                 >
                     {label}
@@ -135,5 +138,9 @@ const styles = StyleSheet.create({
         color: COLORS.Semantic4,
         fontWeight: '600',
         marginRight: 10,
+    },
+    txt_Block: {
+        color: COLORS.Semantic4,
+        fontWeight: '600',
     },
 })

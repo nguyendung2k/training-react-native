@@ -17,27 +17,32 @@ import { IconUsers } from '@components/Svg'
 //     total_follow?: number
 // }
 
-const ListMember = ({ item }: any) => {
+interface props {
+    onChangeUser?: () => void
+    item?: any
+}
+
+const ListMember = ({ onChangeUser, item }: props) => {
     return (
-        <View>
-            <TouchableOpacity style={styles.container}>
-                <View style={styles.content}>
-                    <Image style={styles.image} source={{ uri: item?.image }} />
-                    <View style={styles.info}>
-                        <Text style={styles.title}>{item?.full_name}</Text>
-                        <View style={styles.body}>
-                            <Text style={styles.quantity}>
-                                {item?.total_follow}
-                            </Text>
-                            <IconUsers stroke={COLORS.Neutral8} />
-                        </View>
-                        <Text style={styles.description}>
-                            {item?.description}
+        <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.container}
+            onPress={onChangeUser}
+        >
+            <View style={styles.content}>
+                <Image style={styles.image} source={{ uri: item?.image }} />
+                <View style={styles.info}>
+                    <Text style={styles.title}>{item?.full_name}</Text>
+                    <View style={styles.body}>
+                        <Text style={styles.quantity}>
+                            {item?.total_follow}
                         </Text>
+                        <IconUsers stroke={COLORS.Neutral8} />
                     </View>
+                    <Text style={styles.description}>{item?.description}</Text>
                 </View>
-            </TouchableOpacity>
-        </View>
+            </View>
+        </TouchableOpacity>
     )
 }
 
