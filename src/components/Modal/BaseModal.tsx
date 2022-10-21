@@ -14,8 +14,6 @@ interface baseModalProps {
     label?: string
 }
 
-const showModalSelector = (state: RootState) => state.auth.showModal
-
 const BaseModal = ({ primary, title, label }: baseModalProps) => {
     const dispatch = useDispatch()
 
@@ -91,7 +89,6 @@ const styles = StyleSheet.create({
     },
     btnCancelTxt: {
         paddingVertical: 16,
-
         fontWeight: '600',
     },
 })

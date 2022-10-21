@@ -83,12 +83,12 @@ const YourProfileScreen = () => {
                         <ButtonInfoFollow
                             number="1234"
                             Icon={() => (
-                                <IconUsersDual stroke={COLORS.Neutral10} />
+                                <IconUsersDual stroke={COLORS.Semantic5} />
                             )}
                         />
                         <ButtonInfoFollow
                             number="1234"
-                            Icon={() => <IconCrown stroke={COLORS.Neutral10} />}
+                            Icon={() => <IconCrown stroke={COLORS.Semantic2} />}
                             secondary
                         />
                         <ButtonInfoFollow
@@ -97,7 +97,7 @@ const YourProfileScreen = () => {
                                 <IconCoin
                                     width={20}
                                     height={20}
-                                    stroke={COLORS.Neutral10}
+                                    stroke={COLORS.Semantic1}
                                 />
                             )}
                             tertiary

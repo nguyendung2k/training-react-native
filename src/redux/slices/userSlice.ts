@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { userData } from '@services'
 
 interface iState {
     user: {
@@ -29,14 +28,6 @@ interface iState {
         introduce_code: number
         user_id: string
     }
-    // userUpdate: {
-    //     id: string
-    //     email: string
-    //     name: string
-    //     image: string
-    //     introduction: string
-    //     password?: string
-    // }
     modal: boolean
 }
 

@@ -3,13 +3,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 interface iState {
     token: null | string
     showModal: boolean
-    // showNotice: boolean
 }
 
 const initialState: iState = {
     token: null,
     showModal: false,
-    // showNotice: false,
 }
 
 export const authSlice = createSlice({

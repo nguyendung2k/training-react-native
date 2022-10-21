@@ -10,31 +10,37 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { AppDispatch, getOtherMember, RootState } from '@redux'
+import { AppDispatch, getOtherMember, modalHandle, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { COLORS, SIZES } from '@theme'
 import { RootStackScreenProps } from '@navigation/type'
 import { Header, HeaderSlide } from '@components/Header'
 import { IConBack, IconBlock, IconUsersDual } from '@components/Svg'
-import { CardInfo } from '@components/Card'
+import { CardInfo, CardInfoOtherUser } from '@components/Card'
 import {
     ButtonForm,
     ButtonInfoFollow,
     ButtonSocialNetwork,
 } from '@components/Button'
+import { BaseModal } from '@components/Modal'
+const showModalSelector = (state: RootState) => state.auth.showModal
 
-const userDetailSelector = (state: RootState) => state.user.userDetail
+const userOtherDetail = (state: RootState) => state.member.otherMember
 
 const YourUserScreen = () => {
     const idUserParam: any = useRoute().params
     const dispatch = useDispatch<AppDispatch>()
     const navigation =
         useNavigation<RootStackScreenProps<'YourProfileScreen'>['navigation']>()
-    const userDetail = useSelector(userDetailSelector)
-
+    const userOther = useSelector(userOtherDetail)
+    const showModal = useSelector(showModalSelector)
     useEffect(() => {
         dispatch(getOtherMember(idUserParam))
     }, [idUserParam])
+
+    const handleShowModal = () => {
+        dispatch(modalHandle(true))
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -42,7 +48,7 @@ const YourUserScreen = () => {
                 style={styles.container}
                 showsVerticalScrollIndicator={false}
             >
-                <View style={styles.header}>
+                <View>
                     <ImageBackground
                         style={styles.imageBg}
                         source={require('../../assets/images/Background3.png')}
@@ -59,13 +65,13 @@ const YourUserScreen = () => {
                         </View>
                     </ImageBackground>
                     <View style={styles.card_header}>
-                        <CardInfo secondary />
+                        <CardInfoOtherUser secondary />
                     </View>
                 </View>
                 <View style={styles.content}>
                     <View style={styles.btnFollow}>
                         <ButtonInfoFollow
-                            number="1234"
+                            number={userOther.total_follow}
                             Icon={() => (
                                 <IconUsersDual stroke={COLORS.Neutral10} />
                             )}
@@ -74,7 +80,7 @@ const YourUserScreen = () => {
 
                     <HeaderSlide title="Introduction" />
                     <Text style={styles.textIntroduction}>
-                        {userDetail.introduction}
+                        {userOther.introduction}
                     </Text>
                     <HeaderSlide title="Your joined communities" />
                     <View style={styles.communitiesJoined}>
@@ -121,9 +127,18 @@ const YourUserScreen = () => {
                                     stroke={'#FF4C41'}
                                 />
                             )}
+                            onPress={handleShowModal}
                         />
                     </View>
                 </View>
+                {showModal ? (
+                    <View style={styles.showModal}>
+                        <BaseModal
+                            title="Are you sure you want to block Matsuura Yuki"
+                            label="Block"
+                        />
+                    </View>
+                ) : null}
             </ScrollView>
         </SafeAreaView>
     )
@@ -150,11 +165,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginRight: 20,
     },
-    header: {
-        // position: 'relative',
-        // marginBottom: -160,
-        // backgroundColor: 'red',
-    },
+
     btnFollow: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -163,7 +174,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 24,
     },
     btnGroup: {
-        marginTop: 36,
+        // marginTop: 36,
     },
     textIntroduction: {
         fontSize: SIZES.medium,
@@ -185,9 +196,8 @@ const styles = StyleSheet.create({
     },
 
     footer: {
-        marginTop: 62,
         marginHorizontal: 24,
-        marginBottom: 63,
+        marginBottom: 10,
     },
     btnSentRequest: {
         marginTop: 68,
@@ -201,5 +211,10 @@ const styles = StyleSheet.create({
         borderColor: COLORS.Semantic4,
         borderWidth: 1,
         marginTop: 24,
+    },
+    showModal: {
+        position: 'absolute',
+        top: '37%',
+        left: '10%',
     },
 })

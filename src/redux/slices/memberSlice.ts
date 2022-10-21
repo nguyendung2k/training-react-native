@@ -22,7 +22,7 @@ interface iState {
         last_name: string | null
         full_name: string | null
         total_follow: number | null
-        image: string | null
+        image: string
         gender: boolean | null
         age: number | null
         description: string | null
@@ -41,7 +41,7 @@ const initialState: iState = {
         last_name: null,
         full_name: null,
         total_follow: null,
-        image: null,
+        image: '',
         gender: null,
         age: null,
         description: null,
@@ -65,7 +65,7 @@ export const memberSlice = createSlice({
                 state.members = dataMember.filter((item) => {
                     return item.full_name.includes(valueInput)
                 })
-            } else if (valueInput.trim() === 0) {
+            } else if (valueInput.trim() === '') {
                 state.members = dataMember
             }
         },

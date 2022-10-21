@@ -8,6 +8,7 @@ interface btnProps {
     secondary?: boolean
     tertiary?: boolean
     quaternary?: boolean
+    block?: boolean
     onPress?: () => void | undefined
 }
 
@@ -17,6 +18,7 @@ const ButtonHaft = ({
     secondary,
     tertiary,
     quaternary,
+    block,
     onPress,
 }: btnProps) => {
     return (
@@ -28,6 +30,7 @@ const ButtonHaft = ({
                     secondary && styles.btnSecondary,
                     tertiary && styles.btnTertiary,
                     quaternary && styles.btnRejectFollow,
+                    block && styles.btnBlock,
                 ]}
                 onPress={onPress}
             >
@@ -76,7 +79,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: COLORS.Neutral4,
     },
-
+    btnBlock: {
+        backgroundColor: COLORS.Semantic4,
+    },
     label: {
         color: COLORS.Neutral0,
         fontWeight: '600',

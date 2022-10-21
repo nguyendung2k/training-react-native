@@ -27,14 +27,6 @@ const HeaderFlatList = () => {
             CommunitiesScreenProp<'CommunitiesStackScreen'>['navigation']
         >()
     const userDetail = useSelector(userDetailSelector)
-    // console.log('userDetail: ', userDetail)
-
-    // const dataUsers = useSelector(dataUser)
-    // console.log('dataUsers: ', dataUsers)
-
-    // console.log('user: ', user)
-
-    // const userUpdate = useSelector(userUpdateSelector)
     const dataGroup = useSelector(dataGroupSelector)
 
     const [groupJoin, setGroupJoin] = useState<any>([])
@@ -91,8 +83,8 @@ const HeaderFlatList = () => {
                         <Text style={styles.Description}>
                             You don’t have enough{' '}
                             <Text style={styles.block}>TomoCoins! </Text>
-                            Please purchase some in the store.
                         </Text>
+                        <Text>Please purchase some in the store.</Text>
                     </View>
                 </View>
             </View>
@@ -180,6 +172,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.small,
         fontWeight: '400',
         lineHeight: 20,
+        marginBottom: 2,
     },
     block: {
         color: COLORS.Neutral10,

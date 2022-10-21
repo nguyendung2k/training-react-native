@@ -33,7 +33,6 @@ export const groupSlices = createSlice({
             const findGroup = state.groups.filter((item) => {
                 return item.id === action.payload
             })
-
             state.findGroup = findGroup
         },
         changeLeavingGroup(state, action) {
@@ -72,14 +71,12 @@ export const groupSlices = createSlice({
         changeGroupByToJoin(state, action) {
             let temp = state.groupChoose
             const index = state.groupChoose.indexOf(action.payload)
-            // console.log('index:--- ', index)
             if (index > -1) {
                 state.groupChoose = [
                     ...temp.slice(0, index),
                     ...temp.slice(index + 1),
                 ]
             } else {
-                // console.log('chay vao 2')
                 state.groupChoose = [...temp, action.payload]
             }
         },

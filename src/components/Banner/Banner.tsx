@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     image: {
-        width: 366,
         height: 205,
     },
     content: {

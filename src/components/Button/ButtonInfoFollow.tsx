@@ -8,7 +8,7 @@ interface buttonInfoFollow {
     tertiary?: boolean
     quinary?: boolean
     Icon?: () => JSX.Element
-    number: string
+    number: string | null | number
 }
 
 const ButtonInfoFollow = ({

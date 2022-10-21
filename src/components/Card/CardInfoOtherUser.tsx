@@ -11,16 +11,12 @@ interface cardInfoProps {
     onPress?: () => void
 }
 
-const userDetailSelector = (state: RootState) => state.user.userDetail
 const userOtherDetailSelector = (state: RootState) => state.member.otherMember
 
-const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
-    const userDetail = useSelector(userDetailSelector)
+const CardInfoOtherUser = ({ secondary, primary, onPress }: cardInfoProps) => {
     const userOtherDetail = useSelector(userOtherDetailSelector)
 
     console.log('userOtherDetail: ', userOtherDetail)
-
-    console.log('userDetail', userDetail)
 
     return (
         <TouchableOpacity
@@ -32,29 +28,15 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                 style={[styles.content, secondary && styles.contentSecondary]}
             >
                 <View>
-                    {secondary ? (
+                    {secondary && (
                         <Image
                             source={{
-                                uri: userOtherDetail.image
-                                    ? userOtherDetail.image
-                                    : userDetail.image,
+                                uri: userOtherDetail.image,
                             }}
                             style={{
                                 width: 120,
                                 height: 120,
                                 borderRadius: 100,
-                            }}
-                        />
-                    ) : (
-                        <Image
-                            source={{
-                                uri: userDetail.image,
-                            }}
-                            style={{
-                                width: 50,
-                                height: 50,
-                                borderRadius: 50,
-                                marginRight: 20,
                             }}
                         />
                     )}
@@ -66,7 +48,7 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
                             secondary && styles.titleSecondary,
                         ]}
                     >
-                        {userDetail.full_name}
+                        {userOtherDetail.full_name}
                     </Text>
                     <CardId />
                 </View>
@@ -75,7 +57,7 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
     )
 }
 
-export default CardInfo
+export default CardInfoOtherUser
 
 const styles = StyleSheet.create({
     container: {

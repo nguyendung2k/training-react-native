@@ -50,7 +50,6 @@ export default BannerForum
 
 const styles = StyleSheet.create({
     container: {
-        width: 366,
         height: 204,
         backgroundColor: COLORS.BackgroundInput,
         borderRadius: BORDER.base,

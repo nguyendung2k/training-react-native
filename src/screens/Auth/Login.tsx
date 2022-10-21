@@ -51,8 +51,6 @@ const Login = () => {
     }, [notice])
 
     const handleLogin = (values: { email: string; password: string }) => {
-        console.log('userData: ', userData)
-
         const checkLogin = userData.filter((item) => {
             const email = values.email.toLowerCase()
             const password = values.password.toLowerCase()
