@@ -12,7 +12,7 @@ import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { RootStackScreenProps } from '@navigation/type'
 import { BannerNotification } from '@components/Banner'
 import { Header, HeaderSlide } from '@components/Header'
@@ -27,7 +27,7 @@ import {
 import { CardInfo } from '@components/Card'
 import {
     ButtonActiveLogs,
-    ButtonInfoFollow,
+    ButtonComponent,
     ButtonNoBg,
     ButtonNotification,
     ButtonSocialNetwork,
@@ -80,27 +80,37 @@ const YourProfileScreen = () => {
                 {/* -----Content----- */}
                 <View style={styles.content}>
                     <View style={styles.btnFollow}>
-                        <ButtonInfoFollow
-                            number="1234"
-                            Icon={() => (
+                        <ButtonComponent
+                            label="1234"
+                            IconRight={
                                 <IconUsersDual stroke={COLORS.Semantic5} />
-                            )}
+                            }
+                            styleBtn={[styles.btn, styles.default]}
+                            styleText={[styles.txtBtnDefault]}
                         />
-                        <ButtonInfoFollow
-                            number="1234"
-                            Icon={() => <IconCrown stroke={COLORS.Semantic2} />}
-                            secondary
+                        <ButtonComponent
+                            label="1234"
+                            IconRight={<IconCrown stroke={COLORS.Semantic2} />}
+                            styleBtn={[styles.btn, styles.default]}
+                            styleText={[
+                                styles.txtBtnDefault,
+                                { color: COLORS.Semantic2 },
+                            ]}
                         />
-                        <ButtonInfoFollow
-                            number="1234"
-                            Icon={() => (
+                        <ButtonComponent
+                            label="1234"
+                            IconRight={
                                 <IconCoin
                                     width={20}
                                     height={20}
                                     stroke={COLORS.Semantic1}
                                 />
-                            )}
-                            tertiary
+                            }
+                            styleBtn={[styles.btn, styles.default]}
+                            styleText={[
+                                styles.txtBtnDefault,
+                                { color: COLORS.Semantic1 },
+                            ]}
                         />
                     </View>
 
@@ -110,9 +120,10 @@ const YourProfileScreen = () => {
                                 source={require('../../assets/images/LogoInstagram.png')}
                                 style={styles.imageSocial}
                             />
-                            <ButtonSocialNetwork
-                                primary
-                                title="@Matsuura Yuki "
+                            <ButtonComponent
+                                label="@Matsuura Yuki"
+                                styleBtn={styles.btnSocial}
+                                styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.btnContent}>
@@ -120,9 +131,10 @@ const YourProfileScreen = () => {
                                 source={require('../../assets/images/logos_youtube-icon.png')}
                                 style={styles.imageSocial}
                             />
-                            <ButtonSocialNetwork
-                                primary
-                                title="Matsuura Yuki official"
+                            <ButtonComponent
+                                label="@Matsuura Yuki"
+                                styleBtn={styles.btnSocial}
+                                styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.btnContent}>
@@ -130,9 +142,10 @@ const YourProfileScreen = () => {
                                 source={require('../../assets/images/LogoFacebook.png')}
                                 style={styles.imageSocial}
                             />
-                            <ButtonSocialNetwork
-                                primary
-                                title="@YukiMatsuura23"
+                            <ButtonComponent
+                                label="@Matsuura Yuki"
+                                styleBtn={styles.btnSocial}
+                                styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.btnContent}>
@@ -140,9 +153,10 @@ const YourProfileScreen = () => {
                                 source={require('../../assets/images/logos_twitter.png')}
                                 style={styles.imageSocial}
                             />
-                            <ButtonSocialNetwork
-                                primary
-                                title="Matsuura Yuki"
+                            <ButtonComponent
+                                label="@Matsuura Yuki"
+                                styleBtn={styles.btnSocial}
+                                styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
                     </View>
@@ -160,6 +174,11 @@ const YourProfileScreen = () => {
                             <Image
                                 source={require('../../assets/images/CommunitiesJoined1.png')}
                                 style={styles.imageCommunitiesJoined}
+                            />
+                            <ButtonComponent
+                                label="Anime"
+                                styleBtn={styles.btnCommunity}
+                                styleText={styles.txtBtnCommunity}
                             />
                             <ButtonSocialNetwork title="Anime" secondary />
                         </TouchableOpacity>
@@ -285,15 +304,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 24,
     },
     card_header: {
-        // position: 'absolute',
         marginTop: 100,
         marginRight: 20,
     },
-    header: {
-        // position: 'relative',
-        // marginBottom: -160,
-        // backgroundColor: 'red',
-    },
+    header: {},
     btnFollow: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -315,10 +329,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
-    btnContent: {
-        // position: 'relative',
-        // backgroundColor: 'red',
-    },
+    btnContent: {},
     imageSocial: {
         position: 'absolute',
         top: 15,
@@ -358,4 +369,40 @@ const styles = StyleSheet.create({
     btnRequest: {
         marginTop: 68,
     },
+    default: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        justifyContent: 'space-evenly',
+    },
+    btn: {
+        backgroundColor: COLORS.BackgroundInput,
+        width: 103,
+        height: 36,
+        borderRadius: BORDER.maximum,
+    },
+    txtBtnDefault: {
+        fontSize: SIZES.medium,
+        color: COLORS.Semantic5,
+        fontWeight: '600',
+    },
+    btnSocial: {
+        backgroundColor: COLORS.BackgroundInput,
+        borderRadius: BORDER.base,
+        paddingVertical: 21,
+        // paddingLeft: 20,
+        marginBottom: 12,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    txtBtnSocial: {
+        marginLeft: 70,
+        fontSize: SIZES.small,
+        fontWeight: '500',
+        color: COLORS.Neutral10,
+    },
+    btnCommunity: {},
+    txtBtnCommunity: {},
 })
