@@ -13,7 +13,7 @@ import { Eye, EyeSlash } from '@components/Svg'
 interface inputProps extends TextProps {
     value?: string | undefined
     placeholder?: string
-    Icon?: () => JSX.Element
+    Icon?: React.ReactNode
     onChangeText?: (value: string) => void | undefined
     onPress?: () => void | undefined
     title?: string
@@ -83,7 +83,7 @@ const Input = ({
                 style={styles.icon}
                 onPress={handleShowPass}
             >
-                {!!Icon && <Icon />}
+                {Icon}
                 {isPassword &&
                     (showPass ? (
                         <EyeSlash stroke={COLORS.Primary} />

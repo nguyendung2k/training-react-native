@@ -5,7 +5,7 @@ import { BORDER, COLORS, SIZES } from '@theme'
 
 import { changeGroupById, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { ButtonBanner } from '@components/Button'
+import { ButtonBanner, ButtonComponent } from '@components/Button'
 import { IconSignOut } from '@components/Svg'
 
 interface bannerProps {
@@ -46,21 +46,24 @@ const Banner = ({ onPressLeaving, onPressParticipate }: bannerProps) => {
                             members
                         </Text>
                         {dataFindGroup[0]?.joinGr ? (
-                            <ButtonBanner
-                                secondary
+                            <ButtonComponent
                                 label="Leaving"
-                                Icon={() => (
+                                styleBtn={styles.btnLeaving}
+                                styleText={styles.btnTxt}
+                                Icon={
                                     <IconSignOut
                                         width={18}
                                         height={18}
                                         strokeWidth={2}
                                         stroke={COLORS.Neutral0}
                                     />
-                                )}
+                                }
                                 onPress={onPressLeaving}
                             />
                         ) : (
-                            <ButtonBanner
+                            <ButtonComponent
+                                styleBtn={styles.btnParticipate}
+                                styleText={styles.btnTxt}
                                 label="Participate"
                                 onPress={onPressParticipate}
                             />
@@ -99,5 +102,30 @@ const styles = StyleSheet.create({
         color: COLORS.Neutral0,
         marginTop: 6,
         marginBottom: 33,
+    },
+    btnLeaving: {
+        paddingHorizontal: 32,
+        paddingVertical: 16,
+        borderRadius: BORDER.base,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.Semantic4,
+        flexDirection: 'row',
+    },
+    btnParticipate: {
+        paddingHorizontal: 32,
+        paddingVertical: 16,
+        borderRadius: BORDER.base,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.Primary,
+        flexDirection: 'row',
+    },
+    btnTxt: {
+        color: COLORS.Neutral0,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        textAlign: 'center',
+        marginRight: 5,
     },
 })

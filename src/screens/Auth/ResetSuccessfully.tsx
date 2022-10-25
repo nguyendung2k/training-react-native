@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent, ButtonForm } from '@components/Button'
 
 const ResetSuccessfully = () => {
     const navigation = useNavigation<any>()
@@ -20,9 +20,11 @@ const ResetSuccessfully = () => {
                 </Text>
             </View>
             <View style={styles.footer}>
-                <ButtonForm
+                <ButtonComponent
                     label="Back to login"
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => navigation.goBack()}
+                    styleBtn={styles.btnBackToLogin}
+                    styleText={styles.txtBackToLogin}
                 />
             </View>
         </View>
@@ -51,5 +53,24 @@ const styles = StyleSheet.create({
     footer: {
         flex: 1,
         width: '100%',
+    },
+    btnBackToLogin: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.White,
+        color: COLORS.Neutral8,
+        borderColor: COLORS.Neutral8,
+        borderWidth: 1,
+    },
+    txtBackToLogin: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        marginRight: 10,
+        color: COLORS.Neutral8,
     },
 })

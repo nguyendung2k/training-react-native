@@ -11,13 +11,13 @@ import {
     showNoticeSuccess,
 } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Yup from 'yup'
 import { RegisterScreenProp } from '@navigation/type'
 import { Input, InputDrop } from '@components/Input'
 import { HeaderAuth } from '@components/Header'
-import { ButtonForm, ButtonNoBg } from '@components/Button'
+import { ButtonComponent, ButtonForm, ButtonNoBg } from '@components/Button'
 import { MessageError } from '@components/MessageError'
 
 interface inputValue {
@@ -225,9 +225,11 @@ const RegisterEnd = () => {
                             </View>
 
                             <View style={styles.btn}>
-                                <ButtonForm
+                                <ButtonComponent
                                     label="Start"
                                     onPress={handleSubmit}
+                                    styleBtn={styles.btnStart}
+                                    styleText={styles.txtStart}
                                 />
                             </View>
                         </View>
@@ -259,5 +261,22 @@ const styles = StyleSheet.create({
     btn: {
         marginTop: 60,
         marginBottom: 10,
+    },
+    btnStart: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    txtStart: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        marginRight: 10,
+        color: COLORS.Neutral0,
     },
 })

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import { RootState } from '@redux/store'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,7 +10,7 @@ import { Input } from '@components/Input'
 import { Header } from '@components/Header'
 import { IConBack } from '@components/Svg'
 import { MessageError } from '@components/MessageError'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 
 const userSelector = (state: RootState) => state.user.user
 
@@ -174,9 +174,11 @@ const ChangePasswordScreen = () => {
                     />
                 </View>
                 <View style={styles.btn}>
-                    <ButtonForm
+                    <ButtonComponent
                         label="Update"
                         onPress={handleSubmit(handleChangePassword)}
+                        styleBtn={styles.btnUpdate}
+                        styleText={styles.txtBtnUpdate}
                     />
                 </View>
             </ScrollView>
@@ -204,5 +206,21 @@ const styles = StyleSheet.create({
     },
     btn: {
         marginTop: 'auto',
+    },
+    btnUpdate: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    txtBtnUpdate: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        color: COLORS.White,
     },
 })

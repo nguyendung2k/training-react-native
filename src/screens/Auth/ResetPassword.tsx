@@ -8,10 +8,10 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import React, { useState } from 'react'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
 import { Input } from '@components/Input'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent, ButtonForm } from '@components/Button'
 
 const ResetPassword = () => {
     const navigation = useNavigation<any>()
@@ -78,11 +78,18 @@ const ResetPassword = () => {
                             )}
                         </View>
                         <View style={styles.btn}>
-                            <ButtonForm label="Reset" onPress={handleSubmit} />
+                            <ButtonComponent
+                                label="Reset"
+                                onPress={handleSubmit}
+                                styleBtn={styles.btnReset}
+                                styleText={styles.txtReset}
+                            />
                         </View>
-                        <ButtonForm
+                        <ButtonComponent
                             label="Back to login"
-                            onPress={() => navigation.navigate('Login')}
+                            onPress={() => navigation.goBack()}
+                            styleBtn={styles.btnBackToLogin}
+                            styleText={styles.txtBackToLogin}
                         />
                     </View>
                 )}
@@ -124,5 +131,40 @@ const styles = StyleSheet.create({
         height: 24,
         right: 16,
         top: 11,
+    },
+    btnReset: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    txtReset: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        color: COLORS.Neutral0,
+    },
+    btnBackToLogin: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.White,
+        color: COLORS.Neutral8,
+        borderColor: COLORS.Neutral8,
+        borderWidth: 1,
+    },
+    txtBackToLogin: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        marginRight: 10,
+        color: COLORS.Neutral8,
     },
 })

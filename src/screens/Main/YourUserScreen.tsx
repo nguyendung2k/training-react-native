@@ -12,19 +12,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AppDispatch, getOtherMember, modalHandle, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { RootStackScreenProps } from '@navigation/type'
 import { Header, HeaderSlide } from '@components/Header'
 import { IConBack, IconBlock, IconUsersDual } from '@components/Svg'
 import { CardInfo, CardInfoOtherUser } from '@components/Card'
-import {
-    ButtonForm,
-    ButtonInfoFollow,
-    ButtonSocialNetwork,
-} from '@components/Button'
+import { ButtonComponent, ButtonSocialNetwork } from '@components/Button'
 import { BaseModal } from '@components/Modal'
-const showModalSelector = (state: RootState) => state.auth.showModal
 
+const showModalSelector = (state: RootState) => state.auth.showModal
 const userOtherDetail = (state: RootState) => state.member.otherMember
 
 const YourUserScreen = () => {
@@ -70,11 +66,13 @@ const YourUserScreen = () => {
                 </View>
                 <View style={styles.content}>
                     <View style={styles.btnFollow}>
-                        <ButtonInfoFollow
-                            number={userOther.total_follow}
-                            Icon={() => (
-                                <IconUsersDual stroke={COLORS.Neutral10} />
-                            )}
+                        <ButtonComponent
+                            label={userOther.total_follow}
+                            IconRight={
+                                <IconUsersDual stroke={COLORS.Semantic5} />
+                            }
+                            styleBtn={styles.btn}
+                            styleText={styles.txtBtn}
                         />
                     </View>
 
@@ -112,21 +110,25 @@ const YourUserScreen = () => {
                 </View>
                 <View style={styles.footer}>
                     <View style={styles.btnSentRequest}>
-                        <ButtonForm label="Send RuiTomo Request" />
+                        <ButtonComponent
+                            label="Send RuiTomo Request"
+                            styleBtn={styles.btnSend}
+                            styleText={styles.txtBtnText}
+                        />
                     </View>
                     <View>
-                        <ButtonForm
-                            style={styles.btnBlock}
+                        <ButtonComponent
                             label="Block user"
-                            block
-                            Icon={() => (
+                            styleBtn={styles.btnBlock}
+                            styleText={styles.txtBtnBlock}
+                            Icon={
                                 <IconBlock
                                     width={21}
                                     height={20}
                                     fill={'none'}
                                     stroke={'#FF4C41'}
                                 />
-                            )}
+                            }
                             onPress={handleShowModal}
                         />
                     </View>
@@ -211,10 +213,55 @@ const styles = StyleSheet.create({
         borderColor: COLORS.Semantic4,
         borderWidth: 1,
         marginTop: 24,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: COLORS.White,
     },
     showModal: {
         position: 'absolute',
         top: '37%',
         left: '10%',
+    },
+    btn: {
+        backgroundColor: COLORS.BackgroundInput,
+        width: 103,
+        height: 36,
+        borderRadius: BORDER.maximum,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        justifyContent: 'space-evenly',
+    },
+    txtBtn: {
+        fontSize: SIZES.medium,
+        color: COLORS.Semantic5,
+        fontWeight: '600',
+    },
+    btnSend: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    txtBtnBlock: {
+        color: COLORS.Semantic4,
+        fontWeight: '600',
+        fontSize: SIZES.large,
+    },
+    txtBtnText: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        color: COLORS.White,
     },
 })

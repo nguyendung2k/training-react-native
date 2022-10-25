@@ -1,11 +1,11 @@
 import { Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
 import { useDispatch, useSelector } from 'react-redux'
 import { modalHandle, RootState, showNotice } from '@redux'
 import { useNavigation } from '@react-navigation/native'
-import { COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { AccountScreenProp } from '@navigation/type'
 import { BaseModal, NotificationModal } from '@components/Modal'
 import {
@@ -17,7 +17,11 @@ import {
     IconWarning,
 } from '@components/Svg'
 import { CardInfo } from '@components/Card'
-import { ButtonAccountMenu, ButtonForm } from '@components/Button'
+import {
+    ButtonAccountMenu,
+    ButtonComponent,
+    ButtonForm,
+} from '@components/Button'
 import { Header } from '@components/Header'
 
 Notifications.setNotificationHandler({
@@ -39,8 +43,6 @@ const AccountScreen = () => {
     const showModal = useSelector(showModalSelector)
     const showNoticeModal = useSelector(showNoticeSelector)
     const userDetail = useSelector(userDetailSelector)
-
-    // console.log('userDetailID: ', userDetail.user_id)
 
     const handleShowModal = () => {
         dispatch(modalHandle(true))
@@ -125,11 +127,11 @@ const AccountScreen = () => {
                     }
                 />
                 <View style={styles.btn}>
-                    <ButtonAccountMenu
+                    <ButtonComponent
                         label="Your profile"
-                        Icon={() => (
-                            <IconUserCircle stroke={COLORS.Neutral10} />
-                        )}
+                        IconRight={<IconUserCircle stroke={COLORS.Neutral10} />}
+                        styleBtn={styles.btnDefault}
+                        styleText={styles.txtBtn}
                         onPress={() =>
                             navigation.navigate(
                                 'YourProfileScreen',
@@ -137,38 +139,45 @@ const AccountScreen = () => {
                             )
                         }
                     />
-                    <ButtonAccountMenu
+                    <ButtonComponent
                         label="Block List"
-                        Icon={() => <IconProhibit stroke={COLORS.Neutral10} />}
+                        IconRight={<IconProhibit stroke={COLORS.Neutral10} />}
                         onPress={() => navigation.navigate('BlockListScreen')}
+                        styleBtn={styles.btnDefault}
+                        styleText={styles.txtBtn}
                     />
-                    <ButtonAccountMenu
+                    <ButtonComponent
                         label="Change password"
-                        Icon={() => (
+                        IconRight={
                             <IconLockKeyOpen stroke={COLORS.Neutral10} />
-                        )}
+                        }
                         onPress={() =>
                             navigation.navigate('ChangePasswordScreen')
                         }
+                        styleBtn={styles.btnDefault}
+                        styleText={styles.txtBtn}
                     />
-                    <ButtonAccountMenu
+                    <ButtonComponent
                         label="Log out"
-                        Icon={() => (
+                        IconRight={
                             <IconSignOut
                                 width={32}
                                 height={32}
                                 strokeWidth={1.5}
                                 stroke={COLORS.Neutral10}
                             />
-                        )}
+                        }
                         onPress={handleShowModal}
+                        styleBtn={styles.btnDefault}
+                        styleText={styles.txtBtn}
                     />
                 </View>
                 <View style={styles.btnCancel}>
-                    <ButtonForm
+                    <ButtonComponent
                         label="Cancel account"
-                        quinary
-                        Icon={() => <IconWarning stroke={COLORS.Semantic4} />}
+                        styleBtn={styles.btnCan}
+                        styleText={styles.txtBtnCan}
+                        Icon={<IconWarning stroke={COLORS.Semantic4} />}
                         onPress={async () => {
                             await schedulePushNotification()
                         }}
@@ -200,7 +209,6 @@ const styles = StyleSheet.create({
     },
     btn: {
         marginBottom: 90,
-        // backgroundColor: 'red',
     },
     btnCancel: {
         marginBottom: 55,
@@ -215,5 +223,36 @@ const styles = StyleSheet.create({
         top: 15,
         left: 18,
         zIndex: 100,
+    },
+    btnDefault: {
+        borderBottomColor: COLORS.Neutral3,
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 22,
+        // marginLeft: 8,
+    },
+    txtBtn: {
+        marginLeft: 20,
+        fontSize: SIZES.medium,
+        fontWeight: '500',
+    },
+    btnCan: {
+        borderRadius: BORDER.base,
+        borderColor: COLORS.Semantic4,
+        backgroundColor: COLORS.White,
+        borderWidth: 1,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    txtBtnCan: {
+        fontSize: SIZES.medium,
+        color: COLORS.Semantic4,
+        fontWeight: '600',
+        marginRight: 10,
     },
 })

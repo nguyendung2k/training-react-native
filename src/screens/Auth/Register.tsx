@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { createNewUser, RootState } from '@redux'
@@ -18,7 +18,7 @@ import { Header } from '@components/Header'
 import { Input, InputDrop } from '@components/Input'
 import { MessageError } from '@components/MessageError'
 import { CheckBox } from '@components/Checkbox'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent, ButtonForm } from '@components/Button'
 import { RegisterScreenProp } from '@navigation/type'
 
 interface dataUserRegister {
@@ -258,14 +258,29 @@ const Register = () => {
                             </View>
 
                             <View style={styles.btn}>
-                                <ButtonForm
-                                    disabled={!checkBox}
-                                    disable={!checkBox}
+                                <ButtonComponent
                                     label="Submit"
+                                    disabled={!checkBox}
+                                    styleBtn={
+                                        !checkBox
+                                            ? styles.btnUnCheckbox
+                                            : styles.btnCheck
+                                    }
+                                    styleText={
+                                        !checkBox
+                                            ? styles.btnText
+                                            : styles.textUnCheck
+                                    }
                                     onPress={handleSubmit}
-                                    Icon={() => (
-                                        <ArrowRight stroke={COLORS.Neutral3} />
-                                    )}
+                                    Icon={
+                                        <ArrowRight
+                                            stroke={
+                                                !checkBox
+                                                    ? COLORS.Neutral3
+                                                    : COLORS.Neutral0
+                                            }
+                                        />
+                                    }
                                 />
                             </View>
                         </View>
@@ -329,6 +344,42 @@ const styles = StyleSheet.create({
         // marginBottom: 50,
         marginTop: 41,
         // marginTop: 'auto',
+    },
+    btnUnCheckbox: {
+        backgroundColor: COLORS.White,
+        borderColor: COLORS.Neutral4,
+        borderWidth: 1,
+        paddingVertical: 16,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    btnCheck: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 16,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+
+    btnText: {
+        color: COLORS.Neutral3,
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        marginRight: 10,
+    },
+    textUnCheck: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        marginRight: 10,
+        color: COLORS.White,
     },
     footer: {
         flexDirection: 'row',

@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.BackgroundInput,
         borderRadius: BORDER.base,
         paddingVertical: 21,
-        // paddingLeft: 20,
         marginBottom: 12,
     },
     secondaryContainer: {},

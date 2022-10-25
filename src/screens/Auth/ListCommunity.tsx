@@ -3,10 +3,10 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { changeGroupByToJoin, RootState } from '@redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { HeaderAuth } from '@components/Header'
 import { ListCommunityView } from '@components/ListView'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent, ButtonForm } from '@components/Button'
 import { RegisterScreenProp } from '@navigation/type'
 
 interface community {
@@ -52,11 +52,20 @@ const ListCommunity = ({ id }: community) => {
                     showsVerticalScrollIndicator={false}
                 />
                 <View style={styles.btn}>
-                    <ButtonForm
+                    <ButtonComponent
                         label="Next"
                         disabled={checkJoinGroup.length < 3}
-                        disable={checkJoinGroup.length < 3}
                         onPress={() => navigation.navigate('RegisterEnd')}
+                        styleBtn={
+                            checkJoinGroup.length < 3
+                                ? styles.disable
+                                : styles.enable
+                        }
+                        styleText={
+                            checkJoinGroup.length < 3
+                                ? styles.disableTxt
+                                : styles.enableTxt
+                        }
                     />
                 </View>
             </View>
@@ -76,5 +85,40 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         marginBottom: 30,
         paddingTop: 32,
+    },
+    disable: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        borderRadius: BORDER.base,
+        backgroundColor: COLORS.White,
+        borderColor: COLORS.Neutral4,
+        borderWidth: 1,
+        paddingVertical: 17,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    enable: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    disableTxt: {
+        fontSize: SIZES.large,
+        color: COLORS.Neutral3,
+        fontWeight: '600',
+        marginRight: 10,
+    },
+    enableTxt: {
+        color: COLORS.Neutral0,
+        fontWeight: '600',
+        fontSize: SIZES.large,
+        marginRight: 10,
     },
 })

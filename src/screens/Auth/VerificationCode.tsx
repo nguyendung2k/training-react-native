@@ -8,10 +8,10 @@ import {
     View,
 } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
 import { VerifyCode } from '@components/VerifyCode'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent, ButtonForm } from '@components/Button'
 import { IconCheck } from '@components/Svg'
 import { RegisterScreenProp } from '@navigation/type'
 
@@ -41,24 +41,25 @@ const VerificationCode = () => {
                     <VerifyCode />
 
                     <View style={styles.footer}>
-                        <ButtonForm
+                        <ButtonComponent
                             label="Verify"
                             onPress={() =>
                                 navigation.navigate('PersonalIntroduction')
                             }
-                            Icon={() => <IconCheck stroke={COLORS.White} />}
+                            Icon={<IconCheck stroke={COLORS.White} />}
+                            styleText={styles.btnText}
+                            styleBtn={styles.btn}
                         />
                         <View style={styles.footer_des}>
                             <Text style={styles.textFooter}>
                                 Didn’t receive OTP code?
                             </Text>
-                            <TouchableOpacity
+                            <ButtonComponent
+                                label="Resend"
+                                styleBtn={styles.btnResend}
+                                styleText={styles.textBtnResend}
                                 onPress={() => console.log('Resend')}
-                            >
-                                <Text style={styles.textFooter_primary}>
-                                    Resend
-                                </Text>
-                            </TouchableOpacity>
+                            />
                         </View>
                     </View>
                 </View>
@@ -100,7 +101,22 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         lineHeight: 22.4,
     },
-
+    btn: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    btnText: {
+        color: COLORS.White,
+        fontWeight: '600',
+        fontSize: SIZES.large,
+    },
     footer: {
         flex: 1,
         width: '100%',
@@ -122,5 +138,15 @@ const styles = StyleSheet.create({
     textFooter_primary: {
         color: COLORS.Primary,
         alignItems: 'center',
+    },
+    btnResend: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textBtnResend: {
+        color: COLORS.Primary,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
     },
 })

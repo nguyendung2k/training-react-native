@@ -16,14 +16,14 @@ import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { RootState, useAppDispatch } from '@redux/store'
 import { detailUser, loadingAction, loginAuth, showNoticeSuccess } from '@redux'
 import { Input } from '@components/Input'
 import { NotificationModal } from '@components/Modal'
 import { ArrowRight, IconCheckCircle, IconMinusCircle } from '@components/Svg'
 import { MessageError } from '@components/MessageError'
-import { ButtonForm, ButtonNoBg } from '@components/Button'
+import { ButtonComponent, ButtonForm, ButtonNoBg } from '@components/Button'
 import { RegisterScreenProp } from '@navigation/type'
 
 const userSelector = (state: RootState) => state.user.user
@@ -34,6 +34,8 @@ const Login = () => {
         useNavigation<RegisterScreenProp<'Login'>['navigation']>()
     const dispatch = useAppDispatch()
     const userData = useSelector(userSelector)
+    // console.log(userData)
+
     const notice = useSelector(noticeSelector)
 
     const [showNotice, setShowNotice] = useState<boolean>(false)
@@ -123,7 +125,7 @@ const Login = () => {
                         <Formik
                             initialValues={{
                                 email: 'user2@gmail.com',
-                                password: '1234567',
+                                password: '123456',
                             }}
                             validationSchema={checkInput}
                             onSubmit={(values) => handleLogin(values)}
@@ -180,25 +182,25 @@ const Login = () => {
                                             marginLeft: 'auto',
                                         }}
                                     >
-                                        <TouchableOpacity
-                                            style={styles.btnForgot}
+                                        <ButtonComponent
+                                            label="Forgot password?"
+                                            styleBtn={styles.btnForgot}
+                                            styleText={styles.textForgot}
                                             onPress={() =>
                                                 navigation.navigate(
                                                     'ForgotPassword'
                                                 )
                                             }
-                                        >
-                                            <Text style={styles.textForgot}>
-                                                Forgot password?
-                                            </Text>
-                                        </TouchableOpacity>
+                                        />
                                     </View>
-                                    <ButtonForm
+                                    <ButtonComponent
                                         label="Login"
-                                        onPress={() => handleSubmit()}
-                                        Icon={() => (
+                                        styleBtn={styles.btnLogin}
+                                        styleText={styles.textBtn}
+                                        Icon={
                                             <ArrowRight stroke={COLORS.White} />
-                                        )}
+                                        }
+                                        onPress={() => handleSubmit()}
                                     />
                                 </View>
                             )}
@@ -207,8 +209,10 @@ const Login = () => {
                             <Text style={styles.textFooter}>
                                 Don’t have an account?
                             </Text>
-                            <ButtonNoBg
-                                title="Register"
+                            <ButtonComponent
+                                label="Register"
+                                styleBtn={styles.btnForgotPassword}
+                                styleText={styles.textForgotPassword}
                                 onPress={() => navigation.navigate('Register')}
                             />
                         </View>
@@ -251,6 +255,13 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: 'center',
     },
+
+    textBtn: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        marginRight: 10,
+        color: COLORS.White,
+    },
     footer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -268,6 +279,27 @@ const styles = StyleSheet.create({
         color: COLORS.Primary,
         alignItems: 'center',
         marginRight: 5,
+    },
+    btnLogin: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    btnForgotPassword: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textForgotPassword: {
+        color: COLORS.Primary,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
     },
     loading: {
         backgroundColor: 'red',

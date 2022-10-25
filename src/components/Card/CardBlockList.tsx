@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { COLORS, BORDER, SIZES } from '@theme'
-import { ButtonForm } from '@components/Button'
+import { ButtonComponent, ButtonForm } from '@components/Button'
 
 interface cardBlockProps {
     name: string
@@ -19,7 +19,11 @@ const CardBlockList = ({ name }: cardBlockProps) => {
                     <Text style={styles.nameBlock}>{name}</Text>
                 </View>
                 <View style={styles.btn}>
-                    <ButtonForm secondary label="Remove block" />
+                    <ButtonComponent
+                        label="Remove block"
+                        styleBtn={styles.btnBlock}
+                        styleText={styles.txtBtnBlock}
+                    />
                 </View>
             </View>
         </View>
@@ -57,5 +61,22 @@ const styles = StyleSheet.create({
     },
     btn: {
         marginTop: 16,
+    },
+    btnBlock: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.White,
+        color: COLORS.Neutral8,
+        borderColor: COLORS.Neutral8,
+        borderWidth: 1,
+    },
+    txtBtnBlock: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
     },
 })
