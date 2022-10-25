@@ -18,9 +18,9 @@ const CardInfo = ({ secondary, primary, onPress }: cardInfoProps) => {
     const userDetail = useSelector(userDetailSelector)
     const userOtherDetail = useSelector(userOtherDetailSelector)
 
-    console.log('userOtherDetail: ', userOtherDetail)
+    // console.log('userOtherDetail: ', userOtherDetail)
 
-    console.log('userDetail', userDetail)
+    // console.log('userDetail', userDetail)
 
     return (
         <TouchableOpacity

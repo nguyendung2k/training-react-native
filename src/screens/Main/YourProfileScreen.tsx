@@ -25,13 +25,8 @@ import {
     IconUsersDual,
 } from '@components/Svg'
 import { CardInfo } from '@components/Card'
-import {
-    ButtonActiveLogs,
-    ButtonComponent,
-    ButtonNoBg,
-    ButtonNotification,
-    ButtonSocialNetwork,
-} from '@components/Button'
+import { ButtonComponent } from '@components/Button'
+import { Notification } from '@components/Notification'
 
 const userDetailSelector = (state: RootState) => state.user.userDetail
 
@@ -115,7 +110,7 @@ const YourProfileScreen = () => {
                     </View>
 
                     <View style={styles.btnGroup}>
-                        <TouchableOpacity style={styles.btnContent}>
+                        <TouchableOpacity>
                             <Image
                                 source={require('../../assets/images/LogoInstagram.png')}
                                 style={styles.imageSocial}
@@ -126,7 +121,7 @@ const YourProfileScreen = () => {
                                 styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btnContent}>
+                        <TouchableOpacity>
                             <Image
                                 source={require('../../assets/images/logos_youtube-icon.png')}
                                 style={styles.imageSocial}
@@ -137,7 +132,7 @@ const YourProfileScreen = () => {
                                 styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btnContent}>
+                        <TouchableOpacity>
                             <Image
                                 source={require('../../assets/images/LogoFacebook.png')}
                                 style={styles.imageSocial}
@@ -148,7 +143,7 @@ const YourProfileScreen = () => {
                                 styleText={styles.txtBtnSocial}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btnContent}>
+                        <TouchableOpacity>
                             <Image
                                 source={require('../../assets/images/logos_twitter.png')}
                                 style={styles.imageSocial}
@@ -180,23 +175,27 @@ const YourProfileScreen = () => {
                                 styleBtn={styles.btnCommunity}
                                 styleText={styles.txtBtnCommunity}
                             />
-                            <ButtonSocialNetwork title="Anime" secondary />
                         </TouchableOpacity>
                         <TouchableOpacity style={{ marginLeft: 15 }}>
                             <Image
                                 source={require('../../assets/images/CommunitiesJoined2.png')}
                                 style={styles.imageCommunitiesJoined}
                             />
-                            <ButtonSocialNetwork title="Fashion" secondary />
+                            <ButtonComponent
+                                label="Fashion"
+                                styleBtn={styles.btnCommunity}
+                                styleText={styles.txtBtnCommunity}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Image
                                 source={require('../../assets/images/CommunitiesJoined3.png')}
                                 style={styles.imageCommunitiesJoined}
                             />
-                            <ButtonSocialNetwork
-                                title="Western Movies"
-                                secondary
+                            <ButtonComponent
+                                label="Western Movies"
+                                styleBtn={styles.btnCommunity}
+                                styleText={styles.txtBtnCommunity}
                             />
                         </TouchableOpacity>
                     </View>
@@ -209,7 +208,7 @@ const YourProfileScreen = () => {
                             source={require('../../assets/images/ImagePeople.png')}
                             style={styles.imagePeople}
                         />
-                        <ButtonActiveLogs
+                        <Notification
                             name="Chotan Dai"
                             content=" uploaded a new video “5 tips for studying” on Youtube"
                             time="9 Jul 2021, 12:00AM "
@@ -228,7 +227,7 @@ const YourProfileScreen = () => {
                             source={require('../../assets/images/ImagePeople2.png')}
                             style={styles.imagePeople}
                         />
-                        <ButtonActiveLogs
+                        <Notification
                             name="Chotan Dai"
                             content=" uploaded a new video “5 tips for studying” on Youtube"
                             time="9 Jul 2021, 12:00AM "
@@ -243,7 +242,7 @@ const YourProfileScreen = () => {
                             source={require('../../assets/images/ImagePeople3.png')}
                             style={styles.imagePeople}
                         />
-                        <ButtonActiveLogs
+                        <Notification
                             name="Chotan Dai"
                             content=" uploaded a new video “5 tips for studying” on Youtube"
                             time="9 Jul 2021, 12:00AM "
@@ -255,9 +254,11 @@ const YourProfileScreen = () => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <ButtonNoBg
-                        title="Older activities"
-                        Icon={() => <IconCaretRight stroke={COLORS.Primary} />}
+                    <ButtonComponent
+                        label="Older activities"
+                        styleBtn={styles.btnOlder}
+                        styleText={styles.txtBtn}
+                        Icon={<IconCaretRight stroke={COLORS.Primary} />}
                     />
                 </View>
 
@@ -265,19 +266,23 @@ const YourProfileScreen = () => {
                     <BannerNotification />
 
                     <View style={styles.btnRequest}>
-                        <ButtonNotification
+                        <ButtonComponent
                             title="Waiting for approval"
                             numberNotification="5"
                             onPress={() =>
                                 navigation.navigate('WaitingForApprovalScreen')
                             }
+                            styleBtn={styles.btnWaiting}
+                            notice
                         />
-                        <ButtonNotification
+                        <ButtonComponent
                             title="Friend request sent"
                             numberNotification="22"
                             onPress={() =>
                                 navigation.navigate('FriendRequestScreen')
                             }
+                            styleBtn={styles.btnFriendRequest}
+                            notice
                         />
                     </View>
                 </View>
@@ -329,7 +334,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
-    btnContent: {},
+
     imageSocial: {
         position: 'absolute',
         top: 15,
@@ -391,7 +396,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.BackgroundInput,
         borderRadius: BORDER.base,
         paddingVertical: 21,
-        // paddingLeft: 20,
         marginBottom: 12,
         flex: 1,
         flexDirection: 'row',
@@ -403,6 +407,40 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: COLORS.Neutral10,
     },
-    btnCommunity: {},
-    txtBtnCommunity: {},
+    btnCommunity: {
+        backgroundColor: COLORS.BackgroundInput,
+        borderRadius: BORDER.base,
+        paddingVertical: 21,
+        marginBottom: 12,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    txtBtnCommunity: {
+        fontSize: SIZES.font,
+        fontWeight: '600',
+        color: COLORS.Neutral6,
+        marginRight: 16,
+        marginLeft: 74,
+    },
+    btnOlder: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    txtBtn: {
+        color: COLORS.Primary,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
+    },
+    btnWaiting: {
+        backgroundColor: COLORS.Neutral1,
+        borderRadius: BORDER.base,
+        marginBottom: 12,
+    },
+    btnFriendRequest: {
+        backgroundColor: COLORS.Neutral1,
+        borderRadius: BORDER.base,
+        marginBottom: 12,
+    },
 })

@@ -23,7 +23,7 @@ import { Input } from '@components/Input'
 import { NotificationModal } from '@components/Modal'
 import { ArrowRight, IconCheckCircle, IconMinusCircle } from '@components/Svg'
 import { MessageError } from '@components/MessageError'
-import { ButtonComponent, ButtonForm, ButtonNoBg } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import { RegisterScreenProp } from '@navigation/type'
 
 const userSelector = (state: RootState) => state.user.user

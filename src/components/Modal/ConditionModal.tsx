@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { BORDER, COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { GENDER } from '@constant/filter'
 import {
     getDataMember,
@@ -17,7 +17,7 @@ import { HeaderSlide } from '@components/Header'
 import { InputSelectAge } from '@components/Input'
 import { CheckBox } from '@components/Checkbox'
 import { IconCheck } from '@components/Svg'
-import { ButtonHaft } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 
 interface conditionModalProps {
     onPress: (minAge: string, maxAge: string, status: boolean) => void
@@ -101,16 +101,17 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                     })}
                 </View>
                 <View style={styles.btn}>
-                    <ButtonHaft
-                        primary
+                    <ButtonComponent
                         label="Apply"
                         onPress={() => onPress(ageMin, ageMax, statusGender)}
+                        styleBtn={styles.btnApply}
+                        styleText={styles.txtBtnApply}
                     />
-                    <View></View>
-                    <ButtonHaft
-                        secondary
+                    <ButtonComponent
                         label="Clear"
                         onPress={handleClearCondition}
+                        styleBtn={styles.btnClear}
+                        styleText={styles.txtBtnClear}
                     />
                 </View>
             </View>
@@ -144,5 +145,32 @@ const styles = StyleSheet.create({
     btn: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginTop: 26,
+    },
+    btnApply: {
+        paddingVertical: 16,
+        paddingHorizontal: 48.5,
+        backgroundColor: COLORS.Primary,
+        borderRadius: BORDER.base,
+    },
+    txtBtnApply: {
+        color: COLORS.Neutral0,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        textAlign: 'center',
+    },
+    btnClear: {
+        paddingVertical: 16,
+        paddingHorizontal: 48.5,
+        borderRadius: BORDER.base,
+        backgroundColor: COLORS.Neutral8,
+        borderWidth: 1,
+        borderColor: COLORS.Neutral4,
+    },
+    txtBtnClear: {
+        color: COLORS.Neutral4,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        textAlign: 'center',
     },
 })

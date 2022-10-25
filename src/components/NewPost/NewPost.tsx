@@ -1,9 +1,10 @@
 import { Image, StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import { SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import Input from '../Input/Input'
 import { ImagePost } from '@components/ImagePost'
-import { ButtonPickImage } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
+import { IconPickImage } from '@components/Svg'
 interface newPostProps {
     avatar?: string
     full_name?: string
@@ -63,7 +64,11 @@ const NewPost = ({
                             onClose={onCloseImage}
                             imagePost={imagePost}
                         />
-                        <ButtonPickImage onPress={onPickImage} />
+                        <ButtonComponent
+                            Icon={<IconPickImage />}
+                            onPress={onPickImage}
+                            styleBtn={styles.btnPickImage}
+                        />
                     </View>
                 </View>
             </ScrollView>
@@ -94,5 +99,12 @@ const styles = StyleSheet.create({
     inputTitle: {
         marginTop: 21,
         marginBottom: 16,
+    },
+    btnPickImage: {
+        backgroundColor: COLORS.Neutral1,
+        borderRadius: BORDER.base,
+        width: 60,
+        height: 60,
+        alignItems: 'center',
     },
 })

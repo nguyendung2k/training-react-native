@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { IconUsersDual } from '@components/Svg'
-import { ButtonHaft } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 
 interface waitingFormProps {
     name?: string
@@ -81,15 +81,17 @@ const WaitingFormRequest = ({
 
                     {primary && (
                         <View style={styles.btn}>
-                            <ButtonHaft
-                                onPress={onAccept}
-                                primary
+                            <ButtonComponent
                                 label="Accept"
+                                onPress={onAccept}
+                                styleBtn={styles.btnAccept}
+                                styleText={styles.txtBtnAccept}
                             />
-                            <ButtonHaft
-                                onPress={onReject}
-                                quaternary
+                            <ButtonComponent
                                 label="Reject"
+                                onPress={onReject}
+                                styleBtn={styles.btnReject}
+                                styleText={styles.txtBtnReject}
                             />
                         </View>
                     )}
@@ -178,11 +180,34 @@ const styles = StyleSheet.create({
         color: COLORS.Neutral4,
         fontSize: SIZES.medium,
     },
-
+    txtBtnAccept: {
+        color: COLORS.Neutral0,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        textAlign: 'center',
+    },
+    txtBtnReject: {
+        color: COLORS.Neutral4,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        textAlign: 'center',
+    },
     btn: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: 250,
         paddingBottom: 10,
+    },
+    btnAccept: {
+        paddingVertical: 16,
+        borderRadius: BORDER.base,
+        backgroundColor: COLORS.Primary,
+    },
+    btnReject: {
+        backgroundColor: COLORS.Neutral1,
+        borderWidth: 1,
+        borderColor: COLORS.Neutral4,
+        paddingVertical: 16,
+        borderRadius: BORDER.base,
     },
 })

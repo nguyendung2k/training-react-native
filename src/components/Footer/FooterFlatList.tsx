@@ -1,9 +1,9 @@
-import { COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { CommunitiesScreenProp } from '@navigation/type'
-import { ButtonHome, ButtonNoBg } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import {
     IconCaretRight,
     IconCoin,
@@ -21,28 +21,37 @@ const FooterFlatList = () => {
     }
     return (
         <View>
-            <TouchableOpacity activeOpacity={1} style={styles.btn}>
-                <ButtonNoBg
-                    title="See all"
-                    onPress={handleSeeAllGroup}
-                    Icon={() => <IconCaretRight stroke={COLORS.Primary} />}
-                />
-            </TouchableOpacity>
+            <ButtonComponent
+                label="See all"
+                onPress={handleSeeAllGroup}
+                Icon={<IconCaretRight stroke={COLORS.Primary} />}
+                styleBtn={styles.btnSeeAll}
+                styleText={styles.txtSeeAll}
+            />
 
             <View style={styles.btnGroup}>
-                <ButtonHome
-                    Icon={() => (
+                <ButtonComponent
+                    opacity={0.7}
+                    label="Purchase TomoCoins"
+                    IconRight={
                         <IconCoin width={32} height={32} stroke={'#FEA827'} />
-                    )}
-                    title="Purchase TomoCoins"
+                    }
+                    styleBtn={styles.btnHome}
+                    styleText={styles.txtBtnHome}
                 />
-                <ButtonHome
-                    Icon={() => <IconTwitter stroke={'#406FF1'} />}
-                    title="Introduce via Twitter"
+                <ButtonComponent
+                    opacity={0.7}
+                    styleBtn={styles.btnHome}
+                    styleText={styles.txtBtnHome}
+                    label="Introduce via Twitter"
+                    IconRight={<IconTwitter stroke={'#406FF1'} />}
                 />
-                <ButtonHome
-                    Icon={() => <IconFacebook stroke={'#642AE3'} />}
-                    title="Introduce via Facebook"
+                <ButtonComponent
+                    opacity={0.7}
+                    styleText={styles.txtBtnHome}
+                    styleBtn={styles.btnHome}
+                    label="Introduce via Facebook"
+                    IconRight={<IconFacebook stroke={'#642AE3'} />}
                 />
             </View>
         </View>
@@ -61,5 +70,32 @@ const styles = StyleSheet.create({
     },
     btnGroup: {
         marginBottom: 40,
+    },
+    btnHome: {
+        backgroundColor: COLORS.Neutral1,
+        borderRadius: BORDER.base,
+        paddingVertical: 21,
+        paddingLeft: 20,
+        marginBottom: 12,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    btnSeeAll: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 42,
+    },
+    txtBtnHome: {
+        marginLeft: 20,
+        fontSize: SIZES.small,
+        fontWeight: '500',
+        color: COLORS.Neutral10,
+    },
+    txtSeeAll: {
+        color: COLORS.Primary,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
     },
 })

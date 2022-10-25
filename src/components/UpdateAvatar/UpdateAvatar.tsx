@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
-import { ButtonNoBg } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
+import { COLORS, SIZES } from '@theme'
 
 interface updateAvatarProps {
     avatar?: string
@@ -11,7 +12,12 @@ const UpdateAvatar = ({ avatar, onPress }: updateAvatarProps) => {
     return (
         <View style={styles.container}>
             <Image source={{ uri: avatar }} style={styles.image} />
-            <ButtonNoBg onPress={onPress} title="Choose picture" />
+            <ButtonComponent
+                label="Choose picture"
+                onPress={onPress}
+                styleBtn={styles.btn}
+                styleText={styles.txtBtn}
+            />
         </View>
     )
 }
@@ -29,5 +35,15 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         borderRadius: 100,
+    },
+    btn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    txtBtn: {
+        color: COLORS.Primary,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
     },
 })

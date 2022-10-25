@@ -10,7 +10,7 @@ interface buttonActiveLogsProps {
     Icon?: () => JSX.Element
 }
 
-const ButtonActiveLogs = ({
+const Notification = ({
     name,
     content,
     active,
@@ -35,7 +35,7 @@ const ButtonActiveLogs = ({
     )
 }
 
-export default ButtonActiveLogs
+export default Notification
 
 const styles = StyleSheet.create({
     container: {},

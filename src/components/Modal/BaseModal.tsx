@@ -1,17 +1,17 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { BORDER, COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { logoutSuccess, modalHandle, RootState } from '@redux'
 
-import { ButtonHaft } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import TitleModal from './TitleModal'
 
 interface baseModalProps {
     onPress?: () => void
     primary?: boolean
     title?: string
-    label?: string
+    label: string
 }
 
 const BaseModal = ({ primary, title, label }: baseModalProps) => {
@@ -33,16 +33,17 @@ const BaseModal = ({ primary, title, label }: baseModalProps) => {
             </View>
             <View style={styles.content}>
                 <View style={styles.btn}>
-                    <ButtonHaft
+                    <ButtonComponent
                         label={label}
-                        primary
                         onPress={handelConfirmLogout}
+                        styleBtn={styles.btnConfirm}
+                        styleText={styles.txtBtnConfirm}
                     />
-                    <View style={{ width: '10%' }}></View>
-                    <ButtonHaft
-                        tertiary
+                    <ButtonComponent
                         label="Cancel"
                         onPress={handelCancelLogout}
+                        styleBtn={styles.btnCancel}
+                        styleText={styles.txtBtnCancel}
                     />
                 </View>
             </View>
@@ -68,27 +69,39 @@ const styles = StyleSheet.create({
     },
     btn: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         marginHorizontal: 24,
-    },
-    btnLogout: {
-        alignItems: 'center',
-        backgroundColor: COLORS.Primary,
-        width: '45%',
-        borderRadius: BORDER.base,
-    },
-    btnLogoutTxt: {
-        paddingVertical: 16,
-        color: COLORS.Neutral0,
-        fontWeight: '600',
+        marginTop: 26,
     },
     btnCancel: {
-        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: COLORS.Neutral6,
         backgroundColor: COLORS.Neutral0,
-        width: '45%',
+        alignItems: 'center',
+        borderRadius: BORDER.base,
+        paddingVertical: 16,
+        paddingHorizontal: 26,
+    },
+    txtBtnCancel: {
+        color: COLORS.Neutral6,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
+        textAlign: 'center',
     },
     btnCancelTxt: {
         paddingVertical: 16,
         fontWeight: '600',
+    },
+    btnConfirm: {
+        paddingVertical: 16,
+        borderRadius: BORDER.base,
+        backgroundColor: COLORS.Primary,
+        paddingHorizontal: 26,
+    },
+    txtBtnConfirm: {
+        color: COLORS.Neutral0,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
+        textAlign: 'center',
     },
 })

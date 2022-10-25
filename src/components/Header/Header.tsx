@@ -85,15 +85,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // color: 'red',
-        // backgroundColor: 'red',
     },
     txtHeader: {
         textAlign: 'center',
         fontWeight: '600',
         fontSize: SIZES.large,
         color: COLORS.Neutral10,
-        // color: 'red',
     },
     txtSecondary: {
         color: COLORS.Neutral0,

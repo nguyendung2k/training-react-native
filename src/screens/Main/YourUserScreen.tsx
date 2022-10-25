@@ -16,8 +16,8 @@ import { BORDER, COLORS, SIZES } from '@theme'
 import { RootStackScreenProps } from '@navigation/type'
 import { Header, HeaderSlide } from '@components/Header'
 import { IConBack, IconBlock, IconUsersDual } from '@components/Svg'
-import { CardInfo, CardInfoOtherUser } from '@components/Card'
-import { ButtonComponent, ButtonSocialNetwork } from '@components/Button'
+import { CardInfoOtherUser } from '@components/Card'
+import { ButtonComponent } from '@components/Button'
 import { BaseModal } from '@components/Modal'
 
 const showModalSelector = (state: RootState) => state.auth.showModal
@@ -87,23 +87,35 @@ const YourUserScreen = () => {
                                 source={require('../../assets/images/CommunitiesJoined1.png')}
                                 style={styles.imageCommunitiesJoined}
                             />
-                            <ButtonSocialNetwork title="Anime" secondary />
+                            <ButtonComponent
+                                label="Anime"
+                                styleBtn={styles.btnCommunity}
+                                opacity={0.8}
+                                styleText={styles.txtBtnCommunity}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity style={{ marginLeft: 15 }}>
                             <Image
                                 source={require('../../assets/images/CommunitiesJoined2.png')}
                                 style={styles.imageCommunitiesJoined}
                             />
-                            <ButtonSocialNetwork title="Fashion" secondary />
+                            <ButtonComponent
+                                label="Fashion"
+                                styleBtn={styles.btnCommunity}
+                                opacity={0.8}
+                                styleText={styles.txtBtnCommunity}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Image
                                 source={require('../../assets/images/CommunitiesJoined3.png')}
                                 style={styles.imageCommunitiesJoined}
                             />
-                            <ButtonSocialNetwork
-                                title="Western Movies"
-                                secondary
+                            <ButtonComponent
+                                label="Western Movies"
+                                styleBtn={styles.btnCommunity}
+                                opacity={0.8}
+                                styleText={styles.txtBtnCommunity}
                             />
                         </TouchableOpacity>
                     </View>
@@ -263,5 +275,21 @@ const styles = StyleSheet.create({
         fontSize: SIZES.large,
         fontWeight: '600',
         color: COLORS.White,
+    },
+    btnCommunity: {
+        backgroundColor: COLORS.BackgroundInput,
+        borderRadius: BORDER.base,
+        paddingVertical: 21,
+        marginBottom: 12,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    txtBtnCommunity: {
+        fontSize: SIZES.font,
+        fontWeight: '600',
+        color: COLORS.Neutral6,
+        marginRight: 16,
+        marginLeft: 74,
     },
 })

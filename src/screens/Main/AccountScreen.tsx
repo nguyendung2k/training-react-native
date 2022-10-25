@@ -17,11 +17,7 @@ import {
     IconWarning,
 } from '@components/Svg'
 import { CardInfo } from '@components/Card'
-import {
-    ButtonAccountMenu,
-    ButtonComponent,
-    ButtonForm,
-} from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import { Header } from '@components/Header'
 
 Notifications.setNotificationHandler({

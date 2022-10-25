@@ -1,9 +1,9 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { COLORS } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import Input from './Input'
-import { ButtonReply } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 
 interface inputReplyProps {
     avatar?: string
@@ -41,7 +41,12 @@ const InputReplyPost = ({
                     />
                 </View>
                 <View style={styles.btn}>
-                    <ButtonReply onPress={onPress} />
+                    <ButtonComponent
+                        onPress={onPress}
+                        label="Reply"
+                        styleBtn={styles.btnReply}
+                        styleText={styles.txtBtnReply}
+                    />
                 </View>
             </View>
         </View>
@@ -77,5 +82,17 @@ const styles = StyleSheet.create({
     btn: {
         flex: 1,
         marginTop: 'auto',
+    },
+    btnReply: {
+        backgroundColor: COLORS.Primary,
+        width: 75,
+        borderRadius: BORDER.base,
+    },
+    txtBtnReply: {
+        textAlign: 'center',
+        paddingVertical: 16,
+        color: COLORS.White,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
     },
 })

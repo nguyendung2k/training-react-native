@@ -17,7 +17,7 @@ import * as Yup from 'yup'
 import { RegisterScreenProp } from '@navigation/type'
 import { Input, InputDrop } from '@components/Input'
 import { HeaderAuth } from '@components/Header'
-import { ButtonComponent, ButtonForm, ButtonNoBg } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import { MessageError } from '@components/MessageError'
 
 interface inputValue {
@@ -137,9 +137,12 @@ const RegisterEnd = () => {
                             marginBottom: 20,
                         }}
                     />
-                    <ButtonNoBg
-                        title="Choose picture"
+
+                    <ButtonComponent
+                        label="Choose picture"
                         onPress={handlePickImage}
+                        styleBtn={styles.btnChoosePicture}
+                        styleText={styles.txtBtn}
                     />
                 </View>
 
@@ -278,5 +281,15 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginRight: 10,
         color: COLORS.Neutral0,
+    },
+    btnChoosePicture: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    txtBtn: {
+        color: COLORS.Primary,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
     },
 })
