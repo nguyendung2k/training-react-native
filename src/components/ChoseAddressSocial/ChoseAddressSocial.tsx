@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-import { Input, InputDropLogo } from '@components/Input'
+import { InputComponent, InputDropLogo } from '@components/Input'
 
 interface props {
     valueAddress?: string
@@ -59,7 +59,10 @@ const ChoseAddressSocial = ({ valueAddress, nameAddress }: props) => {
                         </View>
                         <View style={{ marginHorizontal: 10 }} />
                         <View style={styles.inputValue}>
-                            <Input primary value={valueAddress} />
+                            <InputComponent
+                                style={styles.inputAddress}
+                                value={valueAddress}
+                            />
                         </View>
                     </View>
                 </View>
@@ -92,10 +95,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex: 1000,
     },
     inputLogo: {
         flex: 1,
         marginTop: 36,
+        zIndex: 1000,
     },
     inputValue: {
         flex: 3,
@@ -105,5 +110,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    inputAddress: {
+        width: '100%',
     },
 })

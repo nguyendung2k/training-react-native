@@ -10,24 +10,24 @@ interface inputProps extends TextProps {
     setValue: Dispatch<(s: any) => any>
     setItems: Dispatch<(s: any) => any>
     onChangeValue?: ((value: any) => void | undefined) | undefined
-    modalTitle?: string
     error?: React.ReactNode
+    primary?: boolean
 }
 
 const InputDrop = ({
     title,
     value,
     items,
+    primary,
     setValue,
     setItems,
     onChangeValue,
-    modalTitle,
 }: inputProps) => {
     const [open, setOpen] = useState<boolean>(false)
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.title]}>{title}</Text>
+            {primary && <Text style={[styles.title]}>{title}</Text>}
             <DropDownPicker
                 open={open}
                 value={value}

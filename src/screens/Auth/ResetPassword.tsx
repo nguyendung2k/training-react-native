@@ -10,8 +10,8 @@ import * as Yup from 'yup'
 import React, { useState } from 'react'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { Input } from '@components/Input'
-import { ButtonComponent, ButtonForm } from '@components/Button'
+import { InputComponent } from '@components/Input'
+import { ButtonComponent } from '@components/Button'
 
 const ResetPassword = () => {
     const navigation = useNavigation<any>()
@@ -44,7 +44,7 @@ const ResetPassword = () => {
                 {({ handleSubmit, handleChange, errors, values }) => (
                     <View style={styles.form}>
                         <View>
-                            <Input
+                            <InputComponent
                                 title="New Password"
                                 placeholder="Your password"
                                 onChangeText={handleChange('old_password')}
@@ -64,7 +64,7 @@ const ResetPassword = () => {
                             )}
                         </View>
                         <View>
-                            <Input
+                            <InputComponent
                                 title="Confirm New password"
                                 placeholder="Enter your password again"
                                 onChangeText={handleChange('new_password')}

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '@theme'
 import { RootState, searchGroupByValue } from '@redux'
 import { CommunitiesScreenProp } from '@navigation/type'
-import { InputSearch } from '@components/Input'
+import { InputComponent, InputSearch } from '@components/Input'
 import { Header } from '@components/Header'
 import { IconSearch } from '@components/Svg'
 import { ListCommunityView } from '@components/ListView'
@@ -34,13 +34,15 @@ const CommunitiesScreen = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.containerBody}>
                 <Header title="Communities" showTextHeader={true} primary />
-                <InputSearch
+                <InputComponent
                     placeholder="Find a community"
+                    IconSearch={<IconSearch />}
+                    inputSearch
+                    style={styles.search}
+                    styleSearchInput={styles.iconSearch}
                     value={textInput}
                     onChangeText={handleSearchByTitle}
-                    Icon={() => <IconSearch />}
                 />
-
                 {dataGroup.length > 0 ? (
                     <FlatList
                         showsVerticalScrollIndicator={false}
@@ -78,5 +80,18 @@ const styles = StyleSheet.create({
     containerBody: {
         paddingHorizontal: 20,
         flex: 1,
+    },
+    search: {
+        width: '100%',
+        paddingLeft: 61,
+        paddingBottom: 16,
+        paddingTop: 20,
+        height: 58,
+    },
+    iconSearch: {
+        position: 'absolute',
+        zIndex: 100,
+        paddingTop: 35,
+        paddingLeft: 17,
     },
 })

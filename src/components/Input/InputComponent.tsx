@@ -5,23 +5,23 @@ import {
     TouchableOpacity,
     Text,
     TextProps,
+    Image,
 } from 'react-native'
 import React, { useState } from 'react'
-import { COLORS, SIZES } from '@theme'
+import { BORDER, COLORS, SIZES } from '@theme'
 import { Eye, EyeSlash } from '@components/Svg'
+import { ButtonComponent } from '@components/Button'
 
 interface inputProps extends TextProps {
     value?: string | undefined
     placeholder?: string
     Icon?: React.ReactNode
+    IconSearch?: React.ReactNode
     onChangeText?: (value: string) => void | undefined
     onPress?: () => void | undefined
     title?: string
-    secondary?: boolean
-    primary?: boolean
-    tertiary?: boolean
-    quinary?: boolean
-    senary?: boolean
+    style?: any
+    styleSearchInput?: any
     isPassword?: boolean
     secureTextEntry?: boolean
     error?: React.ReactNode
@@ -29,25 +29,30 @@ interface inputProps extends TextProps {
     onBlur?: any
     number?: boolean
     disable?: boolean
+    inputReply?: boolean
+    inputSearch?: boolean
+    avatar?: string
 }
 
-const Input = ({
-    placeholder = '',
-    value = '',
-    title = '',
-    secondary,
-    primary,
-    tertiary,
-    quinary,
-    senary,
+const InputComponent = ({
+    placeholder,
+    value,
+    title,
     introduction,
     Icon,
-    onChangeText = () => {},
     isPassword,
-    error = '',
-    onBlur = () => {},
+    error,
+    onBlur,
     number,
     disable,
+    style,
+    inputReply,
+    avatar,
+    inputSearch,
+    IconSearch,
+    styleSearchInput,
+    onChangeText,
+    onPress,
 }: inputProps) => {
     const [showPass, setShowPass] = useState<boolean>(true)
 
@@ -55,19 +60,38 @@ const Input = ({
         setShowPass(!showPass)
     }
     return (
-        <View style={styles.container}>
+        <View
+            style={[
+                styles.container,
+                inputReply ? { flexWrap: 'nowrap' } : { flexWrap: 'wrap' },
+            ]}
+        >
+            {inputReply && (
+                <View style={[styles.image, { marginTop: 27 }]}>
+                    <Image
+                        source={{
+                            uri: avatar,
+                        }}
+                        style={styles.imageAvatar}
+                    />
+                </View>
+            )}
             <Text style={styles.title}>{title}</Text>
-
+            {inputSearch && (
+                <TouchableOpacity style={styleSearchInput} onPress={onPress}>
+                    {IconSearch}
+                </TouchableOpacity>
+            )}
             <TextInput
                 placeholder={placeholder}
                 style={[
                     styles.input,
-                    primary && styles.inputPrimary,
-                    secondary && styles.inputSecondary,
-                    tertiary && styles.tertiaryInput,
-                    quinary && styles.quinaryInput,
-                    senary && styles.inputAddNewPost,
-                    introduction && styles.introduction,
+                    style,
+                    {
+                        paddingLeft: 16,
+                        paddingBottom: 16,
+                        paddingTop: 20,
+                    },
                 ]}
                 secureTextEntry={isPassword && showPass}
                 value={value}
@@ -77,6 +101,7 @@ const Input = ({
                 keyboardType={number ? 'numeric' : 'default'}
                 editable={disable}
             />
+
             {error}
             <TouchableOpacity
                 activeOpacity={0.6}
@@ -91,48 +116,35 @@ const Input = ({
                         <Eye stroke={COLORS.Primary} />
                     ))}
             </TouchableOpacity>
+            {inputReply && (
+                <View style={styles.btn}>
+                    <ButtonComponent
+                        onPress={onPress}
+                        label="Reply"
+                        styleBtn={styles.btnReply}
+                        styleText={styles.txtBtnReply}
+                    />
+                </View>
+            )}
         </View>
     )
 }
 
-export default Input
+export default InputComponent
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
+        // justifyContent: 'space-between',
         alignItems: 'center',
-        flexWrap: 'wrap',
     },
     input: {
-        // fontWeight: '400',
         paddingTop: 20,
         paddingBottom: 16,
         backgroundColor: COLORS.BackgroundInput,
         borderRadius: 8,
-        width: '100%',
-        // position: 'relative',
-    },
-    inputPrimary: {
-        paddingLeft: 16,
-        paddingBottom: 16,
-        paddingTop: 20,
-    },
-    inputSecondary: {
-        // height: 120,
-        paddingTop: 16,
-        paddingBottom: 55,
-        // width: '100%',
-    },
-    tertiaryInput: {
-        backgroundColor: COLORS.White,
-        paddingBottom: 16,
-        paddingTop: 20,
-    },
-    quinaryInput: {
-        backgroundColor: COLORS.White,
-        paddingBottom: 35,
-        width: 302,
+        // width: '60%',
     },
     icon: {
         position: 'absolute',
@@ -147,15 +159,32 @@ const styles = StyleSheet.create({
         marginTop: 16,
         textAlign: 'left',
     },
-
-    introduction: {
-        paddingHorizontal: 26,
-        paddingBottom: 50,
-        lineHeight: 20,
+    btnReply: {
+        backgroundColor: COLORS.Primary,
+        width: 75,
+        borderRadius: BORDER.base,
     },
-    inputAddNewPost: {
-        paddingBottom: 150,
-        width: 302,
-        backgroundColor: COLORS.White,
+    txtBtnReply: {
+        textAlign: 'center',
+        paddingVertical: 16,
+        color: COLORS.White,
+        fontSize: SIZES.medium,
+        fontWeight: '600',
+    },
+    btn: {
+        marginTop: 'auto',
+        // width: 100,
+        // height: 100,
+        // backgroundColor: 'red',
+    },
+    image: {
+        flex: 1,
+        marginTop: 'auto',
+    },
+
+    imageAvatar: {
+        width: 48,
+        height: 48,
+        borderRadius: 100,
     },
 })

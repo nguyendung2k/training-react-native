@@ -22,12 +22,7 @@ interface listViewProps {
     onPress?: (id: string) => void | undefined
 }
 
-const ListCommunityView = ({
-    showBox,
-    onPress,
-    item,
-}: // check,
-listViewProps) => {
+const ListCommunityView = ({ showBox, onPress, item }: listViewProps) => {
     // const [showBox, setShowBox] = useState<boolean>()
     const [check, setCheck] = useState<boolean>()
     const handlePress = () => {
@@ -45,7 +40,7 @@ listViewProps) => {
                     <CheckBox
                         onPress={handlePress}
                         check={check}
-                        Icon={() => <Check />}
+                        Icon={<Check />}
                     />
                 )}
             </View>

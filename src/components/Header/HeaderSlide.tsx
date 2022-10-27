@@ -9,18 +9,11 @@ interface headerSlideProps {
 
 const HeaderSlide = ({ title, secondary }: headerSlideProps) => {
     return (
-        <View>
-            <View>
-                <Text
-                    style={[
-                        styles.container_Title,
-                        secondary && styles.titleSecondary,
-                    ]}
-                >
-                    {title}
-                </Text>
-            </View>
-        </View>
+        <Text
+            style={[styles.container_Title, secondary && styles.titleSecondary]}
+        >
+            {title}
+        </Text>
     )
 }
 

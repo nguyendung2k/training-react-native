@@ -12,9 +12,9 @@ import * as Yup from 'yup'
 import React from 'react'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { useNavigation } from '@react-navigation/native'
-import { Input } from '@components/Input'
+import { InputComponent } from '@components/Input'
 import { MessageError } from '@components/MessageError'
-import { ButtonComponent, ButtonForm } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 
 const ForgotPassword = () => {
     const navigation = useNavigation()
@@ -53,7 +53,7 @@ const ForgotPassword = () => {
                             touched,
                         }) => (
                             <View style={styles.form}>
-                                <Input
+                                <InputComponent
                                     title="Email"
                                     placeholder="Your email"
                                     onChangeText={handleChange('email')}
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
                                             />
                                         )
                                     }
-                                    primary
+                                    style={styles.inputForm}
                                 />
 
                                 <View style={styles.btn}>
@@ -152,5 +152,10 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginRight: 10,
         color: COLORS.Neutral8,
+    },
+    inputForm: {
+        paddingLeft: 16,
+        paddingBottom: 16,
+        paddingTop: 20,
     },
 })

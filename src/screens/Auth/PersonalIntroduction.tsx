@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native'
 import { RegisterScreenProp } from '@navigation/type'
 import { ChoseAddressSocial } from '@components/ChoseAddressSocial'
 import { HeaderAuth } from '@components/Header'
-import { ButtonComponent, ButtonForm } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 const inputChooseSocial = [
     {
         id: 1,
@@ -62,7 +62,7 @@ const PersonalIntroduction = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.contentBody}>
-                        <View>
+                        <View style={{ zIndex: 100 }}>
                             {arrayChooseSocial.map((item) => {
                                 return <View key={item.id}>{item.input}</View>
                             })}
@@ -104,17 +104,18 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: COLORS.White,
         marginHorizontal: 24,
+        zIndex: 1,
     },
     contentBody: {
         marginHorizontal: 24,
         marginVertical: 40,
+        flex: 1,
     },
     btn: {
         marginTop: 34,
     },
     footer: {
         marginTop: 34,
-        // backgroundColor: 'red',
     },
     btnAddNewAddress: {
         borderStyle: 'dotted',

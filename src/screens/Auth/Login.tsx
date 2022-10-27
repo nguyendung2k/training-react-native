@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity,
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
@@ -19,7 +18,7 @@ import { useNavigation } from '@react-navigation/native'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { RootState, useAppDispatch } from '@redux/store'
 import { detailUser, loadingAction, loginAuth, showNoticeSuccess } from '@redux'
-import { Input } from '@components/Input'
+import { InputComponent } from '@components/Input'
 import { NotificationModal } from '@components/Modal'
 import { ArrowRight, IconCheckCircle, IconMinusCircle } from '@components/Svg'
 import { MessageError } from '@components/MessageError'
@@ -34,10 +33,7 @@ const Login = () => {
         useNavigation<RegisterScreenProp<'Login'>['navigation']>()
     const dispatch = useAppDispatch()
     const userData = useSelector(userSelector)
-    // console.log(userData)
-
     const notice = useSelector(noticeSelector)
-
     const [showNotice, setShowNotice] = useState<boolean>(false)
 
     useEffect(() => {
@@ -139,8 +135,7 @@ const Login = () => {
                             }) => (
                                 <View style={styles.form}>
                                     <Text style={styles.textLogin}>Login</Text>
-
-                                    <Input
+                                    <InputComponent
                                         onChangeText={handleChange('email')}
                                         placeholder="Your email"
                                         value={values.email}
@@ -152,47 +147,37 @@ const Login = () => {
                                                 />
                                             ) : null
                                         }
-                                        primary
+                                        style={styles.input}
                                     />
 
-                                    <View>
-                                        <Input
-                                            title="Password"
-                                            placeholder="Your password"
-                                            value={values.password}
-                                            onChangeText={handleChange(
-                                                'password'
-                                            )}
-                                            isPassword
-                                            error={
-                                                touched.password &&
-                                                errors.password ? (
-                                                    <MessageError
-                                                        error={errors.password}
-                                                    />
-                                                ) : null
-                                            }
-                                            primary
-                                        />
-                                    </View>
+                                    <InputComponent
+                                        title="Password"
+                                        placeholder="Your password"
+                                        value={values.password}
+                                        onChangeText={handleChange('password')}
+                                        isPassword
+                                        error={
+                                            touched.password &&
+                                            errors.password ? (
+                                                <MessageError
+                                                    error={errors.password}
+                                                />
+                                            ) : null
+                                        }
+                                        style={styles.input}
+                                    />
 
-                                    <View
-                                        style={{
-                                            width: 136,
-                                            marginLeft: 'auto',
-                                        }}
-                                    >
-                                        <ButtonComponent
-                                            label="Forgot password?"
-                                            styleBtn={styles.btnForgot}
-                                            styleText={styles.textForgot}
-                                            onPress={() =>
-                                                navigation.navigate(
-                                                    'ForgotPassword'
-                                                )
-                                            }
-                                        />
-                                    </View>
+                                    <ButtonComponent
+                                        label="Forgot password?"
+                                        styleBtn={styles.btnForgot}
+                                        styleText={styles.textForgot}
+                                        onPress={() =>
+                                            navigation.navigate(
+                                                'ForgotPassword'
+                                            )
+                                        }
+                                    />
+
                                     <ButtonComponent
                                         label="Login"
                                         styleBtn={styles.btnLogin}
@@ -243,6 +228,8 @@ const styles = StyleSheet.create({
     btnForgot: {
         marginTop: 16,
         marginBottom: 33,
+        width: 136,
+        marginLeft: 'auto',
     },
     textForgot: {
         fontSize: SIZES.small,
@@ -311,5 +298,11 @@ const styles = StyleSheet.create({
         top: -100,
         left: 18,
         zIndex: 100,
+    },
+    input: {
+        paddingLeft: 16,
+        paddingBottom: 16,
+        paddingTop: 20,
+        width: '100%',
     },
 })

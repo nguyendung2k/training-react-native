@@ -12,14 +12,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
 import { RootState } from '@redux/store'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { COLORS } from '@theme'
-import { Input, InputDrop } from '@components/Input'
+import { BORDER, COLORS, SIZES } from '@theme'
+import { InputComponent, InputDrop } from '@components/Input'
 import { ChoseAddressSocial } from '@components/ChoseAddressSocial'
 import { IConBack, IconCheck } from '@components/Svg'
 import { Header, HeaderSlide } from '@components/Header'
 import { UpdateAvatar } from '@components/UpdateAvatar'
-import { ButtonForm } from '@components/Button'
 import { updateDetailUser, updateUser } from '@redux'
+import { ButtonComponent } from '@components/Button'
 
 const userDetailSelector = (state: RootState) => state.user.userDetail
 const userDataSelector = (state: RootState) => state.user.user
@@ -40,7 +40,7 @@ const UpdateProfileScreen = () => {
     const userData = useSelector(userDataSelector)
 
     const [email, setEmail] = useState<string>(userDetail.email)
-    const [full_name, setFull_name] = useState<string>(userDetail.full_name)
+    const [full_name, setFullName] = useState<string>(userDetail.full_name)
 
     const [introduction, setIntroduction] = useState<string>(
         userDetail.introduction
@@ -155,22 +155,22 @@ const UpdateProfileScreen = () => {
                         </View>
                         <View>
                             <HeaderSlide title="Profile info" />
-                            <Input
+                            <InputComponent
                                 title="Email"
                                 value={email}
                                 onChangeText={(value: string) =>
                                     setEmail(value)
                                 }
-                                tertiary
+                                style={styles.input}
                                 disable={false}
                             />
-                            <Input
+                            <InputComponent
                                 title="Username"
                                 value={full_name}
-                                primary
                                 onChangeText={(value: string) =>
-                                    setFull_name(value)
+                                    setFullName(value)
                                 }
+                                style={styles.input}
                             />
                             <View style={styles.inputDrop}>
                                 <View style={styles.inputItemGender}>
@@ -180,6 +180,7 @@ const UpdateProfileScreen = () => {
                                         items={itemsGender}
                                         setValue={setValueGender}
                                         setItems={setItemsGender}
+                                        primary
                                     />
                                 </View>
                                 <View style={{ marginHorizontal: 5 }} />
@@ -190,17 +191,18 @@ const UpdateProfileScreen = () => {
                                         items={itemsBirth}
                                         setValue={setValueBirth}
                                         setItems={setItemsBirth}
+                                        primary
                                     />
                                 </View>
                             </View>
-                            <Input
+                            <InputComponent
                                 title="Introduction"
                                 value={introduction}
-                                secondary
                                 onChangeText={(value: string) =>
                                     setIntroduction(value)
                                 }
                                 introduction
+                                style={styles.input}
                             />
                         </View>
                         <View>
@@ -213,18 +215,22 @@ const UpdateProfileScreen = () => {
                                 })}
                             </View>
                             <View style={styles.btnAddNewAddress}>
-                                <ButtonForm
+                                <ButtonComponent
                                     onPress={handleAddNewAddress}
                                     label="Add New Address"
-                                    tertiary
+                                    styleBtn={styles.btnAddNewAdd}
+                                    styleText={styles.txtBtnNewAdd}
+                                    // Icon = {}
                                 />
                             </View>
                         </View>
                         <View style={styles.btnUpdate}>
-                            <ButtonForm
+                            <ButtonComponent
                                 label="Update"
-                                Icon={() => <IconCheck stroke={COLORS.White} />}
+                                Icon={<IconCheck stroke={COLORS.White} />}
                                 onPress={handleUpdateProfile}
+                                styleBtn={styles.btnUpdateProfile}
+                                styleText={styles.txtBtnUpdateProfile}
                             />
                         </View>
                     </ScrollView>
@@ -261,11 +267,9 @@ const styles = StyleSheet.create({
     },
     inputPickSocial: {
         marginTop: -10,
-
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'red',
     },
     inputLogo: {
         flex: 1,
@@ -287,5 +291,41 @@ const styles = StyleSheet.create({
     btnUpdate: {
         marginTop: 20,
         marginBottom: 30,
+    },
+    input: {
+        width: '100%',
+    },
+    btnAddNewAdd: {
+        borderStyle: 'dotted',
+        borderWidth: 1,
+        borderColor: COLORS.Neutral4,
+        backgroundColor: COLORS.White,
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    txtBtnNewAdd: {
+        color: COLORS.Neutral4,
+        fontSize: SIZES.medium,
+    },
+    btnUpdateProfile: {
+        fontWeight: '600',
+        fontSize: SIZES.medium,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.Primary,
+        color: COLORS.White,
+    },
+    txtBtnUpdateProfile: {
+        fontSize: SIZES.large,
+        fontWeight: '600',
+        color: COLORS.White,
     },
 })

@@ -13,10 +13,15 @@ import {
     searchMemberByTitle,
     showModal,
 } from '@redux'
-import { InputSearch } from '@components/Input'
+import { InputComponent } from '@components/Input'
 import { ConditionModal } from '@components/Modal'
 import { Header, HeaderSlide } from '@components/Header'
-import { IConBack, IconInfo, IconSearch } from '@components/Svg'
+import {
+    IConBack,
+    IconInfo,
+    IconSearch,
+    IconSearchDetail,
+} from '@components/Svg'
 import { Banner, BannerForum } from '@components/Banner'
 import { ListMember } from '@components/ListView'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
@@ -109,14 +114,18 @@ export const HeaderFlatList = () => {
             <HeaderSlide title="Members" />
 
             <View style={styles.input}>
-                <InputSearch
-                    Icon={() => <IconSearch />}
+                <InputComponent
                     placeholder="Search by Name"
-                    secondary
+                    IconSearch={<IconSearchDetail stroke={COLORS.Neutral10} />}
+                    inputSearch
+                    style={styles.search}
+                    styleSearchInput={styles.iconSearch}
                     value={textValue}
                     onPress={handleShowOrHideModalCondition}
                     onChangeText={handleChangeValueInputSearch}
+                    Icon={<IconSearch />}
                 />
+
                 <View style={styles.modal}>
                     {modal.showModal && (
                         <ConditionModal onPress={handleFilter} />
@@ -187,5 +196,18 @@ const styles = StyleSheet.create({
     },
     listMember: {
         // flex: 1,
+    },
+    search: {
+        width: '100%',
+        paddingLeft: 61,
+        paddingBottom: 16,
+        paddingTop: 20,
+        height: 58,
+    },
+    iconSearch: {
+        position: 'absolute',
+        zIndex: 100,
+        paddingTop: 35,
+        paddingLeft: 17,
     },
 })

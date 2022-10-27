@@ -14,7 +14,7 @@ import {
     updateStatusGender,
 } from '@redux'
 import { HeaderSlide } from '@components/Header'
-import { InputSelectAge } from '@components/Input'
+import { InputComponent } from '@components/Input'
 import { CheckBox } from '@components/Checkbox'
 import { IconCheck } from '@components/Svg'
 import { ButtonComponent } from '@components/Button'
@@ -71,15 +71,24 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
             <View style={styles.body}>
                 <HeaderSlide title="Age" secondary />
                 <View style={styles.inputSelect}>
-                    <InputSelectAge
-                        value={ageMin}
-                        onChangeText={handleChangeValueAgeMin}
-                    />
+                    <View style={{ flex: 1 }}>
+                        <InputComponent
+                            value={ageMin}
+                            onChangeText={handleChangeValueAgeMin}
+                            style={styles.input}
+                            number
+                        />
+                    </View>
+
                     <View style={styles.line}></View>
-                    <InputSelectAge
-                        value={ageMax}
-                        onChangeText={handleChangeValueAgeMax}
-                    />
+                    <View style={{ flex: 1 }}>
+                        <InputComponent
+                            value={ageMax}
+                            onChangeText={handleChangeValueAgeMax}
+                            style={styles.input}
+                            number
+                        />
+                    </View>
                 </View>
                 <HeaderSlide title="Gender" secondary />
                 <View>
@@ -87,7 +96,7 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                         return (
                             <CheckBox
                                 key={item.id}
-                                Icon={() => <IconCheck stroke={COLORS.White} />}
+                                Icon={<IconCheck stroke={COLORS.White} />}
                                 secondary
                                 value={item.gender}
                                 onPress={() => {
@@ -101,18 +110,25 @@ const ConditionModal = ({ onPress }: conditionModalProps) => {
                     })}
                 </View>
                 <View style={styles.btn}>
-                    <ButtonComponent
-                        label="Apply"
-                        onPress={() => onPress(ageMin, ageMax, statusGender)}
-                        styleBtn={styles.btnApply}
-                        styleText={styles.txtBtnApply}
-                    />
-                    <ButtonComponent
-                        label="Clear"
-                        onPress={handleClearCondition}
-                        styleBtn={styles.btnClear}
-                        styleText={styles.txtBtnClear}
-                    />
+                    <View>
+                        <ButtonComponent
+                            label="Apply"
+                            onPress={() =>
+                                onPress(ageMin, ageMax, statusGender)
+                            }
+                            styleBtn={styles.btnApply}
+                            styleText={styles.txtBtnApply}
+                        />
+                    </View>
+
+                    <View>
+                        <ButtonComponent
+                            label="Clear"
+                            onPress={handleClearCondition}
+                            styleBtn={styles.btnClear}
+                            styleText={styles.txtBtnClear}
+                        />
+                    </View>
                 </View>
             </View>
         </View>
@@ -140,7 +156,8 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.Neutral6,
         width: 16.25,
         height: 2,
-        marginTop: 30,
+        marginHorizontal: 5,
+        marginRight: 12,
     },
     btn: {
         flexDirection: 'row',
@@ -152,6 +169,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 48.5,
         backgroundColor: COLORS.Primary,
         borderRadius: BORDER.base,
+        width: '100%',
     },
     txtBtnApply: {
         color: COLORS.Neutral0,
@@ -171,6 +189,17 @@ const styles = StyleSheet.create({
         color: COLORS.Neutral4,
         fontWeight: '600',
         fontSize: SIZES.medium,
+        textAlign: 'center',
+    },
+    input: {
+        marginTop: 20,
+        backgroundColor: COLORS.Neutral6,
+        paddingVertical: 17,
+        borderRadius: BORDER.base,
+        color: COLORS.Neutral0,
+        fontSize: SIZES.font,
+        fontWeight: '600',
+        width: '95%',
         textAlign: 'center',
     },
 })

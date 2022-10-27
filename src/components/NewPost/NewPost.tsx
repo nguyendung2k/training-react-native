@@ -5,6 +5,7 @@ import Input from '../Input/Input'
 import { ImagePost } from '@components/ImagePost'
 import { ButtonComponent } from '@components/Button'
 import { IconPickImage } from '@components/Svg'
+import { InputComponent } from '@components/Input'
 interface newPostProps {
     avatar?: string
     full_name?: string
@@ -44,16 +45,16 @@ const NewPost = ({
                 <View>
                     <Text style={styles.name}>{full_name}</Text>
                     <View style={styles.inputTitle}>
-                        <Input
+                        <InputComponent
                             placeholder="Title"
-                            quinary
+                            // quinary
                             value={valueTitle}
                             onChangeText={OnChangeTextTitle}
                         />
                     </View>
                     <View>
-                        <Input
-                            senary
+                        <InputComponent
+                            // senary
                             placeholder="What do you want to share?"
                             value={valueDescription}
                             onChangeText={OnChangeTextDescription}

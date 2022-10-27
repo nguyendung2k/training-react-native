@@ -15,10 +15,10 @@ import {
     IconMinusCircle,
 } from '@components/Svg'
 import { Header } from '@components/Header'
-import { Input, InputDrop } from '@components/Input'
+import { InputComponent, InputDrop } from '@components/Input'
 import { MessageError } from '@components/MessageError'
 import { CheckBox } from '@components/Checkbox'
-import { ButtonComponent, ButtonForm } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import { RegisterScreenProp } from '@navigation/type'
 
 interface dataUserRegister {
@@ -53,7 +53,7 @@ const Register = () => {
         { label: '2002', value: '2002' },
     ])
 
-    const [checkBox, setCheckBox] = useState(false)
+    const [checkBox, setCheckBox] = useState<boolean>(false)
     const [showNotice, setShowNotice] = useState<boolean>(false)
 
     useEffect(() => {
@@ -146,7 +146,7 @@ const Register = () => {
                         touched,
                     }) => (
                         <View style={{ marginHorizontal: 24 }}>
-                            <Input
+                            <InputComponent
                                 title="Email"
                                 placeholder="Your email"
                                 onChangeText={handleChange('email')}
@@ -157,10 +157,9 @@ const Register = () => {
                                         <MessageError error={errors.email} />
                                     )
                                 }
-                                primary
+                                style={styles.input}
                             />
-
-                            <Input
+                            <InputComponent
                                 title="Password"
                                 placeholder="Your password"
                                 onChangeText={handleChange('password')}
@@ -171,10 +170,9 @@ const Register = () => {
                                         <MessageError error={errors.password} />
                                     )
                                 }
-                                primary
+                                style={styles.input}
                             />
-
-                            <Input
+                            <InputComponent
                                 title="User name"
                                 onChangeText={handleChange('username')}
                                 value={values.username}
@@ -183,7 +181,7 @@ const Register = () => {
                                         <MessageError error={errors.username} />
                                     )
                                 }
-                                primary
+                                style={styles.input}
                             />
 
                             <View style={styles.inputDrop}>
@@ -202,6 +200,7 @@ const Register = () => {
                                                 />
                                             )
                                         }
+                                        primary
                                     />
                                 </View>
                                 <View style={{ marginHorizontal: 5 }} />
@@ -222,11 +221,12 @@ const Register = () => {
                                                 />
                                             )
                                         }
+                                        primary
                                     />
                                 </View>
                             </View>
 
-                            <Input
+                            <InputComponent
                                 title="Introduction Code"
                                 onChangeText={handleChange('introductionCode')}
                                 value={values.introductionCode}
@@ -237,15 +237,15 @@ const Register = () => {
                                         />
                                     )
                                 }
-                                primary
+                                style={styles.input}
                                 number
                             />
 
                             <View style={styles.footer}>
                                 <CheckBox
-                                    Icon={() => (
+                                    Icon={
                                         <IconCheck stroke={COLORS.Neutral0} />
-                                    )}
+                                    }
                                     check={checkBox}
                                     onPress={() => setCheckBox(!checkBox)}
                                 />
@@ -341,9 +341,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     btn: {
-        // marginBottom: 50,
         marginTop: 41,
-        // marginTop: 'auto',
     },
     btnUnCheckbox: {
         backgroundColor: COLORS.White,
@@ -385,7 +383,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 33,
-        // marginBottom: 30,
     },
 
     footerTxtPrimary: {
@@ -396,5 +393,11 @@ const styles = StyleSheet.create({
         zIndex: 1000,
         left: 16,
         top: 24,
+    },
+    input: {
+        paddingLeft: 16,
+        paddingBottom: 16,
+        paddingTop: 20,
+        width: '100%',
     },
 })

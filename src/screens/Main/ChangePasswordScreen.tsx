@@ -6,7 +6,7 @@ import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import { RootState } from '@redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { showNotice, updatePassword } from '@redux'
-import { Input } from '@components/Input'
+import { InputComponent } from '@components/Input'
 import { Header } from '@components/Header'
 import { IConBack } from '@components/Svg'
 import { MessageError } from '@components/MessageError'
@@ -91,9 +91,9 @@ const ChangePasswordScreen = () => {
                             field: { onChange, onBlur, value },
                             fieldState: { error },
                         }) => (
-                            <Input
+                            <InputComponent
                                 title="Current password"
-                                primary
+                                // primary
                                 secureTextEntry
                                 isPassword
                                 onBlur={onBlur}
@@ -126,9 +126,9 @@ const ChangePasswordScreen = () => {
                             field: { onChange, onBlur, value },
                             fieldState: { error },
                         }) => (
-                            <Input
+                            <InputComponent
                                 title="New password"
-                                primary
+                                // primary
                                 secureTextEntry
                                 isPassword
                                 onBlur={onBlur}
@@ -155,9 +155,9 @@ const ChangePasswordScreen = () => {
                             field: { onChange, onBlur, value },
                             fieldState: { error },
                         }) => (
-                            <Input
+                            <InputComponent
                                 title="Confirm new password"
-                                primary
+                                // primary
                                 secureTextEntry
                                 isPassword
                                 onBlur={onBlur}

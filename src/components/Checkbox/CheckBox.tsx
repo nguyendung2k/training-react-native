@@ -4,7 +4,7 @@ import { COLORS, SIZES } from '@theme'
 
 interface checkBoxProps {
     onPress?: () => void | boolean
-    Icon?: () => JSX.Element | null
+    Icon?: React.ReactNode
     secondary?: boolean
     value?: string
     check?: boolean
@@ -23,7 +23,7 @@ const CheckBox = ({
                 onPress={onPress}
                 style={[styles.checkBox, check && styles.checkBox_Secondary]}
             >
-                {!!Icon && check && <Icon />}
+                {Icon}
             </TouchableOpacity>
             {secondary && <Text style={styles.txt}>{value}</Text>}
         </View>

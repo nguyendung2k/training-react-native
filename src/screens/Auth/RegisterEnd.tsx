@@ -15,7 +15,7 @@ import { BORDER, COLORS, SIZES } from '@theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Yup from 'yup'
 import { RegisterScreenProp } from '@navigation/type'
-import { Input, InputDrop } from '@components/Input'
+import { InputComponent, InputDrop } from '@components/Input'
 import { HeaderAuth } from '@components/Header'
 import { ButtonComponent } from '@components/Button'
 import { MessageError } from '@components/MessageError'
@@ -165,67 +165,52 @@ const RegisterEnd = () => {
                         errors,
                         touched,
                     }) => (
-                        <View>
-                            <View style={styles.contentInfo}>
-                                <View>
-                                    <InputDrop
-                                        title="Profession"
-                                        value={valueProfession}
-                                        items={itemsProfession}
-                                        setValue={setValueProfession}
-                                        setItems={setItemsProfession}
-                                        onChangeValue={handleChange(
-                                            'profession'
-                                        )}
-                                    />
-                                </View>
-                                <View style={styles.groupInput}>
-                                    <View>
-                                        <InputDrop
-                                            title="Birth year"
-                                            value={valueBirth}
-                                            items={itemsBirth}
-                                            setValue={setValueBirth}
-                                            setItems={setItemsBirth}
-                                            onChangeValue={handleChange(
-                                                'birth_year'
-                                            )}
-                                        />
-                                    </View>
-                                    <View>
-                                        <InputDrop
-                                            title="Gender"
-                                            value={valueGender}
-                                            items={itemsGender}
-                                            setValue={setValueGender}
-                                            setItems={setItemsGender}
-                                            onChangeValue={handleChange(
-                                                'gender'
-                                            )}
-                                        />
-                                    </View>
-                                </View>
+                        <>
+                            <InputDrop
+                                title="Profession"
+                                value={valueProfession}
+                                items={itemsProfession}
+                                setValue={setValueProfession}
+                                setItems={setItemsProfession}
+                                onChangeValue={handleChange('profession')}
+                                primary
+                            />
 
-                                <View>
-                                    <Input
-                                        title="Introduction"
-                                        secondary
-                                        onChangeText={handleChange(
-                                            'introduction'
-                                        )}
-                                        introduction
-                                        value={values.introduction}
-                                        error={
-                                            touched.introduction &&
-                                            errors.introduction ? (
-                                                <MessageError
-                                                    error={errors.introduction}
-                                                />
-                                            ) : null
-                                        }
-                                    />
-                                </View>
-                            </View>
+                            <InputDrop
+                                title="Birth year"
+                                value={valueBirth}
+                                items={itemsBirth}
+                                setValue={setValueBirth}
+                                setItems={setItemsBirth}
+                                onChangeValue={handleChange('birth_year')}
+                                primary
+                            />
+
+                            <InputDrop
+                                title="Gender"
+                                value={valueGender}
+                                items={itemsGender}
+                                setValue={setValueGender}
+                                setItems={setItemsGender}
+                                onChangeValue={handleChange('gender')}
+                                primary
+                            />
+
+                            <InputComponent
+                                title="Introduction"
+                                style={styles.inputIntroduction}
+                                onChangeText={handleChange('introduction')}
+                                introduction
+                                value={values.introduction}
+                                error={
+                                    touched.introduction &&
+                                    errors.introduction ? (
+                                        <MessageError
+                                            error={errors.introduction}
+                                        />
+                                    ) : null
+                                }
+                            />
 
                             <View style={styles.btn}>
                                 <ButtonComponent
@@ -235,7 +220,7 @@ const RegisterEnd = () => {
                                     styleText={styles.txtStart}
                                 />
                             </View>
-                        </View>
+                        </>
                     )}
                 </Formik>
             </KeyboardAwareScrollView>
@@ -255,12 +240,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 52,
     },
-    contentInfo: {
-        // backgroundColor: 'black',
-    },
-    groupInput: {
-        // flexDirection:'row'
-    },
+
     btn: {
         marginTop: 60,
         marginBottom: 10,
@@ -291,5 +271,8 @@ const styles = StyleSheet.create({
         color: COLORS.Primary,
         fontSize: SIZES.medium,
         fontWeight: '600',
+    },
+    inputIntroduction: {
+        width: '100%',
     },
 })

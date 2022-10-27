@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BORDER, COLORS, SIZES } from '@theme'
 import { HeaderAuth } from '@components/Header'
 import { ListCommunityView } from '@components/ListView'
-import { ButtonComponent, ButtonForm } from '@components/Button'
+import { ButtonComponent } from '@components/Button'
 import { RegisterScreenProp } from '@navigation/type'
 
 interface community {

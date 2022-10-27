@@ -5,7 +5,9 @@ import { useRoute } from '@react-navigation/native'
 import { RootState } from '@redux/store'
 import { addComment, likePostById } from '@redux'
 import { Posted } from '@components/Posted'
-import { InputReplyPost } from '@components/Input'
+import { InputComponent } from '@components/Input'
+import { COLORS } from '@theme'
+import { IconSearchDetail } from '@components/Svg'
 
 // const userUpdateSelector = (state: RootState) => state.user.userUpdate
 const userDetailSelector = (state: RootState) => state.user.userDetail
@@ -120,12 +122,23 @@ const HeaderCommentForumFlatList = () => {
                         dateDetail={dataPostById?.createdAt}
                         quantityLike={handleAmountLike(idFromParam)}
                     />
-                    <View>
-                        <InputReplyPost
+
+                    <View
+                        style={{
+                            marginBottom: 23,
+
+                            borderTopWidth: 1,
+                            borderTopColor: COLORS.Neutral2,
+                        }}
+                    >
+                        <InputComponent
+                            inputReply
+                            placeholder="Your reply"
                             onPress={() => handleComment(dataPostById.id)}
                             avatar={userDetail?.image}
                             value={valueText}
                             onChangeText={setValueText}
+                            style={styles.inputReply}
                         />
                     </View>
                 </View>
@@ -145,5 +158,13 @@ const styles = StyleSheet.create({
     },
     posted: {
         marginTop: 15,
+    },
+    inputReply: {
+        width: '60%',
+        paddingLeft: 16,
+        paddingBottom: 16,
+        paddingTop: 20,
+        backgroundColor: COLORS.Neutral0,
+        marginTop: 27,
     },
 })
