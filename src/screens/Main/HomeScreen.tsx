@@ -4,58 +4,59 @@ import {
     FlatList,
     SafeAreaView,
     StatusBar,
-} from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
-import { loadingAction, RootState } from '@redux'
-import { COLORS } from '@theme'
-import { HomeScreenProps } from '@navigation/type'
-import { Loading } from '@components/Loading'
-import { ListCommunityView } from '@components/ListView'
-import { HeaderFlatList } from '@components/Header'
-import { FooterFlatList } from '@components/Footer'
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { loadingAction, RootState } from "@redux";
+import { COLORS } from "@theme";
+import { HomeScreenProps } from "@navigation/type";
+import { Loading } from "@components/Loading";
+import { ListCommunityView } from "@components/ListView";
+import { HeaderFlatList } from "@components/Header";
+import { FooterFlatList } from "@components/Footer";
 
-const listGroupSelector = (state: RootState) => state.group.groups
-const loadingSelector = (state: RootState) => state.home.loading
-const userDetailSelector = (state: RootState) => state.user.userDetail
+const listGroupSelector = (state: RootState) => state.group.groups;
+const loadingSelector = (state: RootState) => state.home.loading;
 
 export default function HomeScreen() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    console.log("test");
+
     const navigation =
-        useNavigation<HomeScreenProps<'HomeScreen'>['navigation']>()
+        useNavigation<HomeScreenProps<"HomeScreen">["navigation"]>();
     const [groupNotJoin, setGroupNotJoin] = useState<
         {
-            title: string
-            image: string
-            id: string
-            total_members: number
-            joinGr: boolean
+            title: string;
+            image: string;
+            id: string;
+            total_members: number;
+            joinGr: boolean;
         }[]
-    >([])
-    const listGroup = useSelector(listGroupSelector)
-    const loading = useSelector(loadingSelector)
+    >([]);
+    const listGroup = useSelector(listGroupSelector);
+    const loading = useSelector(loadingSelector);
 
     useEffect(() => {
-        filterGroupNotJoin()
-    }, [listGroup])
+        filterGroupNotJoin();
+    }, [listGroup]);
 
     useEffect(() => {
         setTimeout(() => {
-            dispatch(loadingAction(false))
-        }, 1500)
-    }, [])
+            dispatch(loadingAction(false));
+        }, 1500);
+    }, []);
 
     const handleOnChangeGroup = (id: string) => {
-        navigation.navigate('DetailCommunities', id)
-    }
+        navigation.navigate("DetailCommunities", id);
+    };
 
     const filterGroupNotJoin = () => {
         const filterGroup = listGroup.filter((item) => {
-            return item.joinGr === false
-        })
-        setGroupNotJoin(filterGroup)
-    }
+            return item.joinGr === false;
+        });
+        setGroupNotJoin(filterGroup);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -86,7 +87,7 @@ export default function HomeScreen() {
                 </View>
             )}
         </SafeAreaView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -96,9 +97,9 @@ const styles = StyleSheet.create({
     },
     loading: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: "center",
     },
     contentBody: {
         marginHorizontal: 24,
     },
-})
+});
