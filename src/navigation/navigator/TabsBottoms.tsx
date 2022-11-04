@@ -28,7 +28,6 @@ const TabsBottoms = () => {
                 options={{
                     tabBarActiveTintColor: COLORS.Primary,
                     tabBarIcon: ({ focused }) => {
-                        // console.log(p.focused)
                         return (
                             <View
                                 style={

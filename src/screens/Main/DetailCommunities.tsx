@@ -67,7 +67,7 @@ export const HeaderFlatList = () => {
         ageMax: string,
         statusGender: boolean
     ) => {
-        if (!ageMin && !ageMax && !statusGender) return
+        if (!!ageMin && !!ageMax && !!statusGender) return
         dispatch(filterMemberByCondition({ ageMin, ageMax, statusGender }))
     }
 
@@ -193,9 +193,6 @@ const styles = StyleSheet.create({
     },
     modal: {
         marginTop: 10,
-    },
-    listMember: {
-        // flex: 1,
     },
     search: {
         width: '100%',
