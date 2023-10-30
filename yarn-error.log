@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add reat-native@0.69.6
 
 PATH: 
   C:\Users\Admin\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Admin\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\dotnet;C:\Program Files\Cloudflare\Cloudflare WARP;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;C:\Users\Admin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Admin\AppData\Roaming\npm;C:\Users\Admin\AppData\Local\Programs\oh-my-posh\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -14,8 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: connect ETIMEDOUT 104.16.18.35:443
-      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1157:16)
+  Error: https://registry.yarnpkg.com/reat-native: Not found
+      at Request.params.callback [as _callback] (C:\Users\Admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
+      at Request.self.callback (C:\Users\Admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:520:28)
+      at Request.<anonymous> (C:\Users\Admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:520:28)
+      at IncomingMessage.<anonymous> (C:\Users\Admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:639:28)
+      at IncomingMessage.emit (node:events:532:35)
+      at endReadableNT (node:internal/streams/readable:1346:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
   {
@@ -39,6 +48,7 @@ npm manifest:
           "@react-navigation/stack": "^6.3.1",
           "@reduxjs/toolkit": "^1.8.5",
           "@types/redux-logger": "^3.0.9",
+          "add": "^2.0.6",
           "antd-mobile": "^5.24.0",
           "expo": "~46.0.7",
           "expo-cli": "^6.0.5",
@@ -62,16 +72,15 @@ npm manifest:
           "react-native-dropdown-picker": "^5.4.2",
           "react-native-keyboard-aware-scroll-view": "^0.9.5",
           "react-native-picker-select": "^8.0.4",
-          "react-native-reanimated": "^2.10.0",
-          "react-native-safe-area-context": "^4.4.1",
+          "react-native-safe-area-context": "4.3.1",
           "react-native-screens": "~3.15.0",
-          "react-native-sticky-parallax-header": "^1.0.0-rc.9",
           "react-native-svg": "12.3.0",
           "react-native-web": "~0.18.7",
           "react-redux": "^8.0.2",
           "redux": "^4.2.0",
           "redux-logger": "^3.0.6",
           "redux-persist": "^6.0.0",
+          "yarn": "^1.22.19",
           "yup": "^0.32.11"
       },
       "devDependencies": {
@@ -989,13 +998,6 @@ Lockfile:
     dependencies:
       "@babel/helper-plugin-utils" "^7.18.6"
   
-  "@babel/plugin-transform-object-assign@^7.16.7":
-    version "7.18.6"
-    resolved "https://registry.yarnpkg.com/@babel/plugin-transform-object-assign/-/plugin-transform-object-assign-7.18.6.tgz#7830b4b6f83e1374a5afb9f6111bcfaea872cdd2"
-    integrity sha512-mQisZ3JfqWh2gVXvfqYCAAyRs6+7oev+myBsTwW5RnPhYXOTuCEw2oe3YgxlXMViXUS53lG8koulI7mJ+8JE+A==
-    dependencies:
-      "@babel/helper-plugin-utils" "^7.18.6"
-  
   "@babel/plugin-transform-object-super@^7.0.0", "@babel/plugin-transform-object-super@^7.18.6":
     version "7.18.6"
     resolved "https://registry.npmjs.org/@babel/plugin-transform-object-super/-/plugin-transform-object-super-7.18.6.tgz"
@@ -1238,7 +1240,7 @@ Lockfile:
       "@babel/types" "^7.4.4"
       esutils "^2.0.2"
   
-  "@babel/preset-typescript@^7.1.0", "@babel/preset-typescript@^7.13.0", "@babel/preset-typescript@^7.16.7":
+  "@babel/preset-typescript@^7.1.0", "@babel/preset-typescript@^7.13.0":
     version "7.18.6"
     resolved "https://registry.npmjs.org/@babel/preset-typescript/-/preset-typescript-7.18.6.tgz"
     integrity sha512-s9ik86kXBAnD760aybBucdpnLsAt0jK1xqJn2juOn9lkOvSHV60os5hxoVJsPzMQxvnUJFAlkont2DvvaYEBtQ==
@@ -3018,11 +3020,6 @@ Lockfile:
     resolved "https://registry.npmjs.org/@types/http-cache-semantics/-/http-cache-semantics-4.0.1.tgz"
     integrity sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==
   
-  "@types/invariant@^2.2.35":
-    version "2.2.35"
-    resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.35.tgz#cd3ebf581a6557452735688d8daba6cf0bd5a3be"
-    integrity sha512-DxX1V9P8zdJPYQat1gHyY0xj3efl8gnMVjiM9iCY6y27lj+PoQWkgjt8jDqmovPqULkKVpKRg8J36iQiA+EtEg==
-  
   "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
     version "2.0.4"
     resolved "https://registry.npmjs.org/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz"
@@ -3465,6 +3462,11 @@ Lockfile:
     integrity sha512-WCxx1ixHT0GQU9hb0KI/mhgRQhnU+U3GvwY6ZvVjYq8rsihIGoaIOUbY0yMPBxLH5MDtr0kz3fisWGNcbWW7Jw==
     dependencies:
       object-assign "4.x"
+  
+  add@^2.0.6:
+    version "2.0.6"
+    resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+    integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
   
   address@1.1.2:
     version "1.1.2"
@@ -11263,23 +11265,10 @@ Lockfile:
       "@react-native-picker/picker" "^1.8.3"
       lodash.isequal "^4.5.0"
   
-  react-native-reanimated@^2.10.0:
-    version "2.10.0"
-    resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.10.0.tgz#ed53be66bbb553b5b5e93e93ef4217c87b8c73db"
-    integrity sha512-jKm3xz5nX7ABtHzzuuLmawP0pFWP77lXNdIC6AWOceBs23OHUaJ29p4prxr/7Sb588GwTbkPsYkDqVFaE3ezNQ==
-    dependencies:
-      "@babel/plugin-transform-object-assign" "^7.16.7"
-      "@babel/preset-typescript" "^7.16.7"
-      "@types/invariant" "^2.2.35"
-      invariant "^2.2.4"
-      lodash.isequal "^4.5.0"
-      setimmediate "^1.0.5"
-      string-hash-64 "^1.0.3"
-  
-  react-native-safe-area-context@^4.4.1:
-    version "4.4.1"
-    resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.4.1.tgz#239c60b8a9a80eac70a38a822b04c0f1d15ffc01"
-    integrity sha512-N9XTjiuD73ZpVlejHrUWIFZc+6Z14co1K/p1IFMkImU7+avD69F3y+lhkqA2hN/+vljdZrBSiOwXPkuo43nFQA==
+  react-native-safe-area-context@4.3.1:
+    version "4.3.1"
+    resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.3.1.tgz#5cf97b25b395e0d09bc1f828920cd7da0d792ade"
+    integrity sha512-cEr7fknJCToTrSyDCVNg0GRdRMhyLeQa2NZwVCuzEQcWedOw/59ExomjmzCE4rxrKXs6OJbyfNtFRNyewDaHuA==
   
   react-native-screens@~3.15.0:
     version "3.15.0"
@@ -11288,11 +11277,6 @@ Lockfile:
     dependencies:
       react-freeze "^1.0.0"
       warn-once "^0.1.0"
-  
-  react-native-sticky-parallax-header@^1.0.0-rc.9:
-    version "1.0.0-rc.9"
-    resolved "https://registry.yarnpkg.com/react-native-sticky-parallax-header/-/react-native-sticky-parallax-header-1.0.0-rc.9.tgz#86005f2c3ec4e71b6549c2ef0812d9f9b42bd3f6"
-    integrity sha512-dT58HeJxnxUumplgOciegPRSFuFl8c2/pgNR+GEY179CcKnwsyJFmT2T9FcN4Klv11EHzKY21RGHJkLw27Tlyw==
   
   react-native-svg-transformer@^1.0.0:
     version "1.0.0"
@@ -11305,7 +11289,7 @@ Lockfile:
   
   react-native-svg@12.3.0:
     version "12.3.0"
-    resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.3.0.tgz"
+    resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.3.0.tgz#40f657c5d1ee366df23f3ec8dae76fd276b86248"
     integrity sha512-ESG1g1j7/WLD7X3XRFTQHVv0r6DpbHNNcdusngAODIxG88wpTWUZkhcM3A2HJTb+BbXTFDamHv7FwtRKWQ/ALg==
     dependencies:
       css-select "^4.2.1"
@@ -12464,11 +12448,6 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.npmjs.org/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz"
     integrity sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==
-  
-  string-hash-64@^1.0.3:
-    version "1.0.3"
-    resolved "https://registry.yarnpkg.com/string-hash-64/-/string-hash-64-1.0.3.tgz#0deb56df58678640db5c479ccbbb597aaa0de322"
-    integrity sha512-D5OKWKvDhyVWWn2x5Y9b+37NUllks34q1dCDhk/vYcso9fmhs+Tl3KR/gE4v5UNj2UA35cnX4KdVVGkG1deKqw==
   
   string-width@^3.0.0, string-width@^3.1.0:
     version "3.1.0"
@@ -13889,6 +13868,11 @@ Lockfile:
       string-width "^4.2.0"
       y18n "^5.0.5"
       yargs-parser "^20.2.2"
+  
+  yarn@^1.22.19:
+    version "1.22.19"
+    resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.19.tgz#4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+    integrity sha512-/0V5q0WbslqnwP91tirOvldvYISzaqhClxzyUKXYxs07yUILIs5jx/k6CFe8bvKSkds5w+eiOqta39Wk3WxdcQ==
   
   yocto-queue@^0.1.0:
     version "0.1.0"

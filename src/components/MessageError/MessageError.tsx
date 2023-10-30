@@ -1,15 +1,15 @@
-import { Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Text, View } from "react-native";
+import React from "react";
 interface messageErrorProps {
-    error?: string | React.ReactNode
+  error?: string | React.ReactNode;
 }
 
 const MessageError = ({ error }: messageErrorProps) => {
-    return (
-        <View>
-            <Text style={{ fontSize: 10, color: 'red' }}>{error}</Text>
-        </View>
-    )
-}
+  return (
+    <View>
+      <Text style={{ fontSize: 10, color: "red" }}>{error}</Text>
+    </View>
+  );
+};
 
-export default MessageError
+export default MessageError;
