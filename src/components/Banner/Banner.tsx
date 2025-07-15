@@ -24,6 +24,8 @@ const Banner = ({ onPressLeaving, onPressParticipate }: bannerProps) => {
     dispatch(changeGroupById(idFromParam));
   }, []);
 
+  console.log("123");
+
   return (
     <View style={styles.container}>
       <View>
